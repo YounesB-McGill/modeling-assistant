@@ -1,0 +1,920 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>test_ma_integration API documentation</title>
+<meta name="description" content="Module for Modeling Assistant integration tests …" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>test_ma_integration</code></h1>
+</header>
+<section id="section-intro">
+<p>Module for Modeling Assistant integration tests.</p>
+<p>Design-wise, this is considered to be logically separate from the Modeling Assistant backends
+since it involves not only them but mocks the frontend as well.</p>
+<p>These tests assume that WebCORE and the Mistake Detection System servers are running correctly.</p>
+<p>The Python backend must not import anything from this module.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">#!/usr/bin/env python3
+
+# None of these apply to pytests
+# pylint: disable=wrong-import-position, wrong-import-order, redefined-outer-name, unused-argument
+
+&#34;&#34;&#34;
+Module for Modeling Assistant integration tests.
+
+Design-wise, this is considered to be logically separate from the Modeling Assistant backends
+since it involves not only them but mocks the frontend as well.
+
+These tests assume that WebCORE and the Mistake Detection System servers are running correctly.
+
+The Python backend must not import anything from this module.
+&#34;&#34;&#34;
+
+from time import sleep
+from threading import Thread
+import os
+import sys
+
+from pyecore.ecore import EClass
+import pytest
+import requests
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from classdiagram import CDBoolean, CDInt, CDString, Class
+from constants import MANY, WEBCORE_ENDPOINT
+from envvars import TOUCHCORE_PATH
+from feedback import FeedbackTO, DEFAULT_HIGHLIGHT_COLOR
+from flaskapp import app, DEBUG_MODE, PORT
+from fileserdes import load_cdm, save_to_file
+from stringserdes import SRSET, str_to_modelingassistant
+from user import MockStudent, User, users
+from modelingassistant import ModelingAssistant
+from modelingassistantapp import get_ma_with_ps, EXAMPLE_CDM_NAME, EXAMPLE_INSTRUCTOR_CDM
+
+
+MA_REST_ENDPOINT = f&#34;http://localhost:{PORT}/modelingassistant&#34;
+
+SLEEP_TIME_S = 0.2  # 1/5 second
+
+# Skip all pytest tests in this module by setting the pytestmark global variable
+#pytestmark = pytest.mark.skip(&#34;Skipping all integrations tests since they depend on the WebCORE server&#34;)
+
+
+@pytest.fixture(scope=&#34;module&#34;)
+def ma_rest_app():
+    &#34;&#34;&#34;
+    Setup the Modeling Assistant Feedback flask app if it is not already running.
+    &#34;&#34;&#34;
+    if not requests.get(f&#34;http://localhost:{PORT}/helloworld/name&#34;).ok:
+        Thread(target=lambda: app.run(debug=DEBUG_MODE, port=PORT, use_reloader=False), daemon=True).start()
+
+
+@pytest.fixture(scope=&#34;module&#34;)
+def webcore():
+    &#34;&#34;&#34;
+    Start WebCORE if it is not already running.
+    &#34;&#34;&#34;
+    try:
+        requests.get(WEBCORE_ENDPOINT)
+    except (ConnectionError, requests.exceptions.RequestException):
+        Thread(target=lambda: os.system(f&#34;cd {TOUCHCORE_PATH}/.. &amp;&amp; ./start-webcore.sh&#34;), daemon=True).start()
+
+
+def test_ma_two_class_student_mistake(ma_rest_app, webcore):
+    &#34;&#34;&#34;
+    Simplest possible test for the entire system.
+
+    Scenario:
+
+    0. Instructor sets up Learning Corpus and Modeling Assistant with one problem statement
+    1. Student logs in and starts a new class diagram for that problem (this mocks the frontend)
+    2. Student creates a class with a wrong name and requests feedback
+    3. WebCORE calls the Modeling Assistant to get feedback (new cdm -&gt; created new student solution)
+    4. Modeling Assistant calls the Mistake Detection System to get mistakes
+    5. Feedback algorithm calculates the feedback item (&amp; SK) and returns it to WebCORE (highlight class name)
+    6. Student sees feedback: Bad class name
+    7. Student fixes mistake and requests feedback again
+    8. WebCORE calls the Modeling Assistant to get feedback (for existing student solution)
+    9. Modeling Assistant calls the Mistake Detection System to get mistakes
+    10. Feedback algorithm calculates the feedback item (none) and returns it to WebCORE
+    11. Student sees feedback: No mistakes!
+    &#34;&#34;&#34;
+    # Step 0
+    # use this until WebCORE is updated to allow initializing with a problem statement
+    ma = get_ma_with_ps(load_cdm(EXAMPLE_INSTRUCTOR_CDM))
+    assert valid(ma)
+    set_modeling_assistant(ma)
+
+    # Step 1
+    student = MockStudent.create_random()
+    cdm_name = EXAMPLE_CDM_NAME
+    assert student.create_cdm(cdm_name)
+
+    # Steps 2-5
+    bad_cls_id = student.create_class(cdm_name, &#34;badClsName&#34;)
+    assert bad_cls_id
+    feedback: FeedbackTO = student.request_feedback(cdm_name)
+
+    ma = get_modeling_assistant()
+    assert valid(ma)
+    assert ma.problemStatements[0].name
+    print(ma.solutions)
+    assert ma.solutions[1].classDiagram.name
+    assert len(ma.solutions) == 2, &#34;Must have exactly one instructor solution and one student solution&#34;
+
+    # Step 6
+    assert feedback.solutionElements
+    # more strict checks possible after WebCORE is completed
+    print(feedback)
+    assert bad_cls_id in feedback.solutionElementIds
+
+    # Steps 7-10
+    airplane_id = student.create_class(cdm_name, &#34;Airplane&#34;)
+    feedback = student.request_feedback(cdm_name)
+
+    assert feedback.solutionElements  # Airplane not contained in Root class
+    assert set(feedback.solutionElementIds) == {bad_cls_id, airplane_id}  # both should be highlighted
+
+    # Step 11
+    # TODO Enable these assertions after the necessary updates to WebCORE and the Modeling Assistant are made
+    # It should be possible to delete bad_cls_id without any errors,
+    # and it should be possible to make Airplane contained in the Root class once WebCORE supports this feature
+
+    # assert not feedback.solutionElements
+    # assert &#34;no mistakes&#34; in feedback.writtenFeedback.lower()
+
+
+def test_ma_multiple_feedback_levels(webcore):
+    &#34;&#34;&#34;
+    Test that the application can provide multiple consecutive feedback levels correctly.
+
+    This integration test exercises WebCORE, the Feedback Algorithm, and the Mistake Detection System.
+    &#34;&#34;&#34;
+    cdm_name = EXAMPLE_CDM_NAME
+    student = MockStudent.create_random()
+    assert student.login() and student.logged_in
+    assert student.create_cdm(cdm_name)
+    cdm = student.get_cdm(cdm_name)
+    assert cdm
+
+    # Missing class level 1: highlight problem
+    feedback = student.request_feedback(cdm_name)
+    assert feedback.problemStatementElements and not feedback.solutionElements and not feedback.writtenFeedback
+
+    class1 = student.create_class(cdm_name, &#34;Class1&#34;)
+
+    # Extra class level 1: highlight solution
+    feedback = student.request_feedback(cdm_name)
+    assert (class1 in feedback.solutionElementIds and not feedback.problemStatementElements and
+            not feedback.writtenFeedback)
+    assert DEFAULT_HIGHLIGHT_COLOR.to_hex() in feedback.solutionElements
+
+    # Extra class level 2: text response
+    feedback = student.request_feedback(cdm_name)
+    assert feedback.writtenFeedback and &#34;${&#34; not in feedback.writtenFeedback and not feedback.problemStatementElements
+
+    # Extra class level 3: more detailed text response
+    feedback = student.request_feedback(cdm_name)
+    assert feedback.writtenFeedback and &#34;${&#34; not in feedback.writtenFeedback and not feedback.problemStatementElements
+
+    # Extra class level 4: parametrized response
+    feedback = student.request_feedback(cdm_name)
+    assert feedback.writtenFeedback and &#34;${&#34; not in feedback.writtenFeedback and not feedback.problemStatementElements
+
+
+def test_communication_between_mock_frontend_and_webcore(webcore):
+    &#34;&#34;&#34;
+    Test the communication between this mock frontend and WebCORE.
+    &#34;&#34;&#34;
+    # pylint: disable=too-many-locals, too-many-statements, protected-access
+    student = MockStudent.create_random()
+    cdm_name = EXAMPLE_CDM_NAME
+    assert student.create_cdm(cdm_name)
+
+    cdm = student.get_cdm(cdm_name)
+    assert cdm
+
+    # Make a new class and ensure it is added to the cdm
+    airplane = student.create_class(cdm_name, &#34;Airplane&#34;)
+    assert airplane
+    assert not cdm[airplane]  # class should not be in the old cdm
+    cdm = student.get_cdm(cdm_name)
+    assert cdm[airplane]  # class should be in the new cdm
+    assert cdm[airplane].name == &#34;Airplane&#34;
+
+    # Repeat for multiple numbered classes (Class0, ..., Class5)
+    class_ids: list[str] = []
+    for i in range(5):
+        cls_name = f&#34;Class{i}&#34;
+        cls = student.create_class(cdm_name, cls_name)
+        class_ids.append(cls)
+        assert cls
+        assert not cdm[cls]  # class should not be added yet
+        cdm = student.get_cdm(cdm_name)
+        assert cdm[cls]  # class should be in the cdm now
+        assert cdm[cls].name == cls_name
+
+    # Delete the numbered classes made in the previous loop
+    for c in class_ids:
+        student.delete_class(cdm_name, c)
+        assert not student.get_cdm(cdm_name)[c]
+
+    # Add and then delete attributes of the Airplane class
+    attrs: dict[str, EClass] = {&#34;serialNumber&#34;: CDString, &#34;numberOfSeats&#34;: CDInt, &#34;isUltrasonic&#34;: CDBoolean}
+    attr_ids: list[str] = []
+
+    for attr_name, attr_type in attrs.items():
+        attr = student.create_attribute(cdm_name, airplane, attr_name, attr_type)
+        assert attr
+        assert not cdm[attr]
+        cdm = student.get_cdm(cdm_name)
+        assert cdm[attr]
+        assert cdm[attr].name == attr_name
+        assert cdm[attr].type == cdm.type_id_for(attr_type)
+        attr_ids.append(attr)
+
+    for attr_id in attr_ids:
+        student.delete_attribute(cdm_name, attr_id)
+        cdm = student.get_cdm(cdm_name)
+        assert not cdm[attr_id]
+
+    # Add Pilot and Person classes
+    pilot = student.create_class(cdm_name, &#34;Pilot&#34;)
+    person = student.create_class(cdm_name, &#34;Person&#34;)
+    assert pilot and person
+    cdm = student.get_cdm(cdm_name)
+
+    assert cdm[pilot] and cdm[person]
+
+    # Add the following relationships
+    # Pilot isA Person
+    pilot, person = student.create_generalization(cdm_name, pilot, person)
+    cdm = student.get_cdm(cdm_name)
+    assert cdm[pilot] and cdm[person]
+    assert person in cdm[pilot].superTypes
+    assert pilot not in cdm[person].superTypes
+
+    # 1..2 Pilot pilots -- * Airplane airplanes
+    airplane = cdm.get_ids_by_class_names()[&#34;Airplane&#34;]
+    pilot, pilots, pilot_airplane, airplanes, airplane = student.create_association(
+        cdm_name, (1, 2), pilot, &#34;pilots&#34;, MANY, airplane, &#34;airplanes&#34;)
+    cdm = student.get_cdm(cdm_name)
+    assert all((cdm[pilot], cdm[pilots], cdm[pilot_airplane], cdm[airplanes], cdm[airplane]))
+    assert cdm[pilot].name == &#34;Pilot&#34;
+    assert cdm[pilots].name == &#34;pilots&#34;
+    assert pilots in [ae._id for ae in cdm[airplane].associationEnds]  # Airplane.pilots
+    assert cdm[pilots].lowerBound == 1 and cdm[pilots].upperBound == 2
+    assert set(cdm[pilot_airplane].ends) == {pilots, airplanes}
+    assert cdm[airplanes].name == &#34;airplanes&#34;
+    assert airplanes in [ae._id for ae in cdm[pilot].associationEnds]  # Pilot.airplanes
+    assert cdm[airplanes].lowerBound == cdm[airplanes].upperBound == MANY
+    assert cdm[airplane].name == &#34;Airplane&#34;
+    assert person in cdm[pilot].superTypes  # make sure previous assertion still holds
+
+    # * Person passengers -- * Airplane airplanes
+    person = cdm.get_ids_by_class_names()[&#34;Person&#34;]
+    airplane = cdm.get_ids_by_class_names()[&#34;Airplane&#34;]
+    person, passengers, passenger_airplane, airplanes, airplane = student.create_association(
+        cdm_name, MANY, person, &#34;passengers&#34;, MANY, airplane, &#34;airplanes&#34;)
+    cdm = student.get_cdm(cdm_name)
+    assert all((cdm[person], cdm[passengers], cdm[passenger_airplane], cdm[airplanes], cdm[airplane]))
+    assert cdm[person].name == &#34;Person&#34;
+    assert cdm[passengers].name == &#34;passengers&#34;
+    assert passengers in [ae._id for ae in cdm[airplane].associationEnds]  # Airplane.passengers
+    assert cdm[passengers].lowerBound == cdm[passengers].upperBound == MANY
+    assert set(cdm[passenger_airplane].ends) == {passengers, airplanes}
+    assert cdm[airplanes].name == &#34;airplanes&#34;
+    assert airplanes in [ae._id for ae in cdm[person].associationEnds]  # Person.airplanes
+    assert cdm[airplanes].lowerBound == cdm[airplanes].upperBound == MANY
+    assert cdm[airplane].name == &#34;Airplane&#34;
+    assert person in cdm[pilot].superTypes
+
+    # 1 Airplane airplane &lt;@&gt;- 1..4 Engine engines
+    engine = student.create_class(cdm_name, &#34;Engine&#34;)
+    airplane = cdm.get_ids_by_class_names()[&#34;Airplane&#34;]
+    airplane, airplane_ae, airplane_engine, engines, engine = student.create_composition(
+        cdm_name, 1, airplane, &#34;airplane&#34;, (1, 4), engine, &#34;engines&#34;)
+    cdm = student.get_cdm(cdm_name)
+    assert all((cdm[airplane], cdm[airplane_ae], cdm[airplane_engine], cdm[engines], cdm[engine]))
+    assert cdm[airplane].name == &#34;Airplane&#34;
+    assert cdm[airplane_ae].name == &#34;airplane&#34;
+    assert cdm[airplane_ae].lowerBound == 1 and cdm[airplane_ae].upperBound == 1
+    assert cdm[airplane_ae].referenceType == &#34;Regular&#34;
+    assert set(cdm[airplane_engine].ends) == {airplane_ae, engines}
+    assert cdm[engines].name == &#34;engines&#34;
+    assert engines in [ae._id for ae in cdm[airplane].associationEnds]  # Airplane.engines
+    assert cdm[engines].lowerBound == 1 and cdm[engines].upperBound == 4
+    assert cdm[engines].referenceType == &#34;Composition&#34;
+    assert cdm[engine].name == &#34;Engine&#34;
+    assert person in cdm[pilot].superTypes
+
+
+def test_communication_between_mock_frontend_and_webcore_multiple_students(webcore):
+    &#34;&#34;&#34;
+    Test the communication between this mock frontend and WebCORE with multiple students.
+    &#34;&#34;&#34;
+    for _ in range(3):
+        print(f&#34;Creating student {_}&#34;)
+        student = MockStudent.create_random()
+        assert student.login() and student.logged_in
+        # Logout logic is currently faulty, so uncommenting the lines below will cause the create_cdm() call to fail
+        # assert student.logout() and not student.logged_in
+        # assert student.login() and student.logged_in
+        assert student.create_cdm(EXAMPLE_CDM_NAME)
+        assert student.get_cdm(EXAMPLE_CDM_NAME)
+        sleep(SLEEP_TIME_S)
+
+
+def test_webcore_user_register():
+    &#34;Test whether a new user can register with WebCORE.&#34;
+    user = User.create_random()
+    assert user
+    assert user.name
+    assert user.token
+    assert not user.logged_in
+    assert user.name in users
+
+
+def test_webcore_user_login():
+    &#34;Test whether a user can login to WebCORE.&#34;
+    user = User.create_random()
+    assert user.login()
+    assert user.logged_in
+    assert user.token
+    assert user.name in users
+
+
+def test_webcore_user_logout():
+    &#34;Test whether a user can logout of WebCORE.&#34;
+    user = User.create_random()
+    assert user.login()
+    assert user.logged_in
+    assert user.logout()
+    assert not user.logged_in
+    assert not hasattr(user, &#34;token&#34;)
+    assert user.name in users  # a logged out user should still be in the users list
+
+
+def get_modeling_assistant() -&gt; ModelingAssistant:
+    &#34;Get the ModelingAssistant instance from the Flask app.&#34;
+    return str_to_modelingassistant(requests.get(MA_REST_ENDPOINT).json()[&#34;modelingAssistantXmi&#34;])
+
+
+def set_modeling_assistant(ma: ModelingAssistant):
+    &#34;Set the Flask app ModelingAssistant instance.&#34;
+    ma_str = SRSET.create_ma_str(ma)
+    print(f&#34;&gt;&gt;&gt; Setting ma_str to:\n\n{ma_str}\n\n&#34;)
+    requests.post(MA_REST_ENDPOINT, json={&#34;modelingAssistantXmi&#34;: ma_str})
+
+
+def valid(ma: ModelingAssistant) -&gt; bool:
+    &#34;&#34;&#34;
+    Check whether the provided Modeling Assistant instance is valid.
+    &#34;&#34;&#34;
+    assert ma
+    for ps in ma.problemStatements:
+        assert ps.instructorSolution
+    for sol in ma.solutions:
+        assert sol.classDiagram
+        assert sol.problemStatement
+    assert ma.eResource
+    assert ma.eResource.contents
+    assert ma in ma.eResource.contents
+    assert ma.eResource.uuid_dict
+    return True
+
+
+def _setup_instructor_solution():
+    &#34;&#34;&#34;
+    Setup the instructor solution by modifying the instructor cdm file.
+    It is only meant to be called when the cdm needs to be modified.
+    &#34;&#34;&#34;
+    instructor_cdm = load_cdm(EXAMPLE_INSTRUCTOR_CDM, use_static_classes=False)
+    instructor_cdm.name = &#34;MULTIPLE_CLASSES_instructor&#34;
+    airplane_cls = Class(name=&#34;Airplane&#34;)
+    airplane_cls.__class__ = instructor_cdm.classes[0].__class__  # do this hack for now
+    instructor_cdm.classes.append(airplane_cls)
+    save_to_file(EXAMPLE_INSTRUCTOR_CDM, instructor_cdm)
+
+
+if __name__ == &#39;__main__&#39;:
+    &#34;Main entry point.&#34;
+    # test_webcore_user_register()
+    # test_webcore_user_login()
+    # test_webcore_user_logout()
+    # test_communication_between_mock_frontend_and_webcore(webcore)
+    # test_ma_two_class_student_mistake(ma_rest_app, webcore)
+    # # run again to ensure WebCORE still works after the previous test
+    test_communication_between_mock_frontend_and_webcore(webcore)
+    # test_communication_between_mock_frontend_and_webcore_multiple_students(webcore)
+    # test_ma_multiple_feedback_levels(webcore)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="test_ma_integration.get_modeling_assistant"><code class="name flex">
+<span>def <span class="ident">get_modeling_assistant</span></span>(<span>) ‑> <a title="modelingassistant.modelingassistant.ModelingAssistant" href="modelingassistant/modelingassistant.html#modelingassistant.modelingassistant.ModelingAssistant">ModelingAssistant</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get the ModelingAssistant instance from the Flask app.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_modeling_assistant() -&gt; ModelingAssistant:
+    &#34;Get the ModelingAssistant instance from the Flask app.&#34;
+    return str_to_modelingassistant(requests.get(MA_REST_ENDPOINT).json()[&#34;modelingAssistantXmi&#34;])</code></pre>
+</details>
+</dd>
+<dt id="test_ma_integration.ma_rest_app"><code class="name flex">
+<span>def <span class="ident">ma_rest_app</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Setup the Modeling Assistant Feedback flask app if it is not already running.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@pytest.fixture(scope=&#34;module&#34;)
+def ma_rest_app():
+    &#34;&#34;&#34;
+    Setup the Modeling Assistant Feedback flask app if it is not already running.
+    &#34;&#34;&#34;
+    if not requests.get(f&#34;http://localhost:{PORT}/helloworld/name&#34;).ok:
+        Thread(target=lambda: app.run(debug=DEBUG_MODE, port=PORT, use_reloader=False), daemon=True).start()</code></pre>
+</details>
+</dd>
+<dt id="test_ma_integration.set_modeling_assistant"><code class="name flex">
+<span>def <span class="ident">set_modeling_assistant</span></span>(<span>ma: <a title="modelingassistant.modelingassistant.ModelingAssistant" href="modelingassistant/modelingassistant.html#modelingassistant.modelingassistant.ModelingAssistant">ModelingAssistant</a>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Set the Flask app ModelingAssistant instance.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_modeling_assistant(ma: ModelingAssistant):
+    &#34;Set the Flask app ModelingAssistant instance.&#34;
+    ma_str = SRSET.create_ma_str(ma)
+    print(f&#34;&gt;&gt;&gt; Setting ma_str to:\n\n{ma_str}\n\n&#34;)
+    requests.post(MA_REST_ENDPOINT, json={&#34;modelingAssistantXmi&#34;: ma_str})</code></pre>
+</details>
+</dd>
+<dt id="test_ma_integration.test_communication_between_mock_frontend_and_webcore"><code class="name flex">
+<span>def <span class="ident">test_communication_between_mock_frontend_and_webcore</span></span>(<span>webcore)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test the communication between this mock frontend and WebCORE.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_communication_between_mock_frontend_and_webcore(webcore):
+    &#34;&#34;&#34;
+    Test the communication between this mock frontend and WebCORE.
+    &#34;&#34;&#34;
+    # pylint: disable=too-many-locals, too-many-statements, protected-access
+    student = MockStudent.create_random()
+    cdm_name = EXAMPLE_CDM_NAME
+    assert student.create_cdm(cdm_name)
+
+    cdm = student.get_cdm(cdm_name)
+    assert cdm
+
+    # Make a new class and ensure it is added to the cdm
+    airplane = student.create_class(cdm_name, &#34;Airplane&#34;)
+    assert airplane
+    assert not cdm[airplane]  # class should not be in the old cdm
+    cdm = student.get_cdm(cdm_name)
+    assert cdm[airplane]  # class should be in the new cdm
+    assert cdm[airplane].name == &#34;Airplane&#34;
+
+    # Repeat for multiple numbered classes (Class0, ..., Class5)
+    class_ids: list[str] = []
+    for i in range(5):
+        cls_name = f&#34;Class{i}&#34;
+        cls = student.create_class(cdm_name, cls_name)
+        class_ids.append(cls)
+        assert cls
+        assert not cdm[cls]  # class should not be added yet
+        cdm = student.get_cdm(cdm_name)
+        assert cdm[cls]  # class should be in the cdm now
+        assert cdm[cls].name == cls_name
+
+    # Delete the numbered classes made in the previous loop
+    for c in class_ids:
+        student.delete_class(cdm_name, c)
+        assert not student.get_cdm(cdm_name)[c]
+
+    # Add and then delete attributes of the Airplane class
+    attrs: dict[str, EClass] = {&#34;serialNumber&#34;: CDString, &#34;numberOfSeats&#34;: CDInt, &#34;isUltrasonic&#34;: CDBoolean}
+    attr_ids: list[str] = []
+
+    for attr_name, attr_type in attrs.items():
+        attr = student.create_attribute(cdm_name, airplane, attr_name, attr_type)
+        assert attr
+        assert not cdm[attr]
+        cdm = student.get_cdm(cdm_name)
+        assert cdm[attr]
+        assert cdm[attr].name == attr_name
+        assert cdm[attr].type == cdm.type_id_for(attr_type)
+        attr_ids.append(attr)
+
+    for attr_id in attr_ids:
+        student.delete_attribute(cdm_name, attr_id)
+        cdm = student.get_cdm(cdm_name)
+        assert not cdm[attr_id]
+
+    # Add Pilot and Person classes
+    pilot = student.create_class(cdm_name, &#34;Pilot&#34;)
+    person = student.create_class(cdm_name, &#34;Person&#34;)
+    assert pilot and person
+    cdm = student.get_cdm(cdm_name)
+
+    assert cdm[pilot] and cdm[person]
+
+    # Add the following relationships
+    # Pilot isA Person
+    pilot, person = student.create_generalization(cdm_name, pilot, person)
+    cdm = student.get_cdm(cdm_name)
+    assert cdm[pilot] and cdm[person]
+    assert person in cdm[pilot].superTypes
+    assert pilot not in cdm[person].superTypes
+
+    # 1..2 Pilot pilots -- * Airplane airplanes
+    airplane = cdm.get_ids_by_class_names()[&#34;Airplane&#34;]
+    pilot, pilots, pilot_airplane, airplanes, airplane = student.create_association(
+        cdm_name, (1, 2), pilot, &#34;pilots&#34;, MANY, airplane, &#34;airplanes&#34;)
+    cdm = student.get_cdm(cdm_name)
+    assert all((cdm[pilot], cdm[pilots], cdm[pilot_airplane], cdm[airplanes], cdm[airplane]))
+    assert cdm[pilot].name == &#34;Pilot&#34;
+    assert cdm[pilots].name == &#34;pilots&#34;
+    assert pilots in [ae._id for ae in cdm[airplane].associationEnds]  # Airplane.pilots
+    assert cdm[pilots].lowerBound == 1 and cdm[pilots].upperBound == 2
+    assert set(cdm[pilot_airplane].ends) == {pilots, airplanes}
+    assert cdm[airplanes].name == &#34;airplanes&#34;
+    assert airplanes in [ae._id for ae in cdm[pilot].associationEnds]  # Pilot.airplanes
+    assert cdm[airplanes].lowerBound == cdm[airplanes].upperBound == MANY
+    assert cdm[airplane].name == &#34;Airplane&#34;
+    assert person in cdm[pilot].superTypes  # make sure previous assertion still holds
+
+    # * Person passengers -- * Airplane airplanes
+    person = cdm.get_ids_by_class_names()[&#34;Person&#34;]
+    airplane = cdm.get_ids_by_class_names()[&#34;Airplane&#34;]
+    person, passengers, passenger_airplane, airplanes, airplane = student.create_association(
+        cdm_name, MANY, person, &#34;passengers&#34;, MANY, airplane, &#34;airplanes&#34;)
+    cdm = student.get_cdm(cdm_name)
+    assert all((cdm[person], cdm[passengers], cdm[passenger_airplane], cdm[airplanes], cdm[airplane]))
+    assert cdm[person].name == &#34;Person&#34;
+    assert cdm[passengers].name == &#34;passengers&#34;
+    assert passengers in [ae._id for ae in cdm[airplane].associationEnds]  # Airplane.passengers
+    assert cdm[passengers].lowerBound == cdm[passengers].upperBound == MANY
+    assert set(cdm[passenger_airplane].ends) == {passengers, airplanes}
+    assert cdm[airplanes].name == &#34;airplanes&#34;
+    assert airplanes in [ae._id for ae in cdm[person].associationEnds]  # Person.airplanes
+    assert cdm[airplanes].lowerBound == cdm[airplanes].upperBound == MANY
+    assert cdm[airplane].name == &#34;Airplane&#34;
+    assert person in cdm[pilot].superTypes
+
+    # 1 Airplane airplane &lt;@&gt;- 1..4 Engine engines
+    engine = student.create_class(cdm_name, &#34;Engine&#34;)
+    airplane = cdm.get_ids_by_class_names()[&#34;Airplane&#34;]
+    airplane, airplane_ae, airplane_engine, engines, engine = student.create_composition(
+        cdm_name, 1, airplane, &#34;airplane&#34;, (1, 4), engine, &#34;engines&#34;)
+    cdm = student.get_cdm(cdm_name)
+    assert all((cdm[airplane], cdm[airplane_ae], cdm[airplane_engine], cdm[engines], cdm[engine]))
+    assert cdm[airplane].name == &#34;Airplane&#34;
+    assert cdm[airplane_ae].name == &#34;airplane&#34;
+    assert cdm[airplane_ae].lowerBound == 1 and cdm[airplane_ae].upperBound == 1
+    assert cdm[airplane_ae].referenceType == &#34;Regular&#34;
+    assert set(cdm[airplane_engine].ends) == {airplane_ae, engines}
+    assert cdm[engines].name == &#34;engines&#34;
+    assert engines in [ae._id for ae in cdm[airplane].associationEnds]  # Airplane.engines
+    assert cdm[engines].lowerBound == 1 and cdm[engines].upperBound == 4
+    assert cdm[engines].referenceType == &#34;Composition&#34;
+    assert cdm[engine].name == &#34;Engine&#34;
+    assert person in cdm[pilot].superTypes</code></pre>
+</details>
+</dd>
+<dt id="test_ma_integration.test_communication_between_mock_frontend_and_webcore_multiple_students"><code class="name flex">
+<span>def <span class="ident">test_communication_between_mock_frontend_and_webcore_multiple_students</span></span>(<span>webcore)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test the communication between this mock frontend and WebCORE with multiple students.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_communication_between_mock_frontend_and_webcore_multiple_students(webcore):
+    &#34;&#34;&#34;
+    Test the communication between this mock frontend and WebCORE with multiple students.
+    &#34;&#34;&#34;
+    for _ in range(3):
+        print(f&#34;Creating student {_}&#34;)
+        student = MockStudent.create_random()
+        assert student.login() and student.logged_in
+        # Logout logic is currently faulty, so uncommenting the lines below will cause the create_cdm() call to fail
+        # assert student.logout() and not student.logged_in
+        # assert student.login() and student.logged_in
+        assert student.create_cdm(EXAMPLE_CDM_NAME)
+        assert student.get_cdm(EXAMPLE_CDM_NAME)
+        sleep(SLEEP_TIME_S)</code></pre>
+</details>
+</dd>
+<dt id="test_ma_integration.test_ma_multiple_feedback_levels"><code class="name flex">
+<span>def <span class="ident">test_ma_multiple_feedback_levels</span></span>(<span>webcore)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test that the application can provide multiple consecutive feedback levels correctly.</p>
+<p>This integration test exercises WebCORE, the Feedback Algorithm, and the Mistake Detection System.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_ma_multiple_feedback_levels(webcore):
+    &#34;&#34;&#34;
+    Test that the application can provide multiple consecutive feedback levels correctly.
+
+    This integration test exercises WebCORE, the Feedback Algorithm, and the Mistake Detection System.
+    &#34;&#34;&#34;
+    cdm_name = EXAMPLE_CDM_NAME
+    student = MockStudent.create_random()
+    assert student.login() and student.logged_in
+    assert student.create_cdm(cdm_name)
+    cdm = student.get_cdm(cdm_name)
+    assert cdm
+
+    # Missing class level 1: highlight problem
+    feedback = student.request_feedback(cdm_name)
+    assert feedback.problemStatementElements and not feedback.solutionElements and not feedback.writtenFeedback
+
+    class1 = student.create_class(cdm_name, &#34;Class1&#34;)
+
+    # Extra class level 1: highlight solution
+    feedback = student.request_feedback(cdm_name)
+    assert (class1 in feedback.solutionElementIds and not feedback.problemStatementElements and
+            not feedback.writtenFeedback)
+    assert DEFAULT_HIGHLIGHT_COLOR.to_hex() in feedback.solutionElements
+
+    # Extra class level 2: text response
+    feedback = student.request_feedback(cdm_name)
+    assert feedback.writtenFeedback and &#34;${&#34; not in feedback.writtenFeedback and not feedback.problemStatementElements
+
+    # Extra class level 3: more detailed text response
+    feedback = student.request_feedback(cdm_name)
+    assert feedback.writtenFeedback and &#34;${&#34; not in feedback.writtenFeedback and not feedback.problemStatementElements
+
+    # Extra class level 4: parametrized response
+    feedback = student.request_feedback(cdm_name)
+    assert feedback.writtenFeedback and &#34;${&#34; not in feedback.writtenFeedback and not feedback.problemStatementElements</code></pre>
+</details>
+</dd>
+<dt id="test_ma_integration.test_ma_two_class_student_mistake"><code class="name flex">
+<span>def <span class="ident">test_ma_two_class_student_mistake</span></span>(<span>ma_rest_app, webcore)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Simplest possible test for the entire system.</p>
+<p>Scenario:</p>
+<ol>
+<li>Instructor sets up Learning Corpus and Modeling Assistant with one problem statement</li>
+<li>Student logs in and starts a new class diagram for that problem (this mocks the frontend)</li>
+<li>Student creates a class with a wrong name and requests feedback</li>
+<li>WebCORE calls the Modeling Assistant to get feedback (new cdm -&gt; created new student solution)</li>
+<li>Modeling Assistant calls the Mistake Detection System to get mistakes</li>
+<li>Feedback algorithm calculates the feedback item (&amp; SK) and returns it to WebCORE (highlight class name)</li>
+<li>Student sees feedback: Bad class name</li>
+<li>Student fixes mistake and requests feedback again</li>
+<li>WebCORE calls the Modeling Assistant to get feedback (for existing student solution)</li>
+<li>Modeling Assistant calls the Mistake Detection System to get mistakes</li>
+<li>Feedback algorithm calculates the feedback item (none) and returns it to WebCORE</li>
+<li>Student sees feedback: No mistakes!</li>
+</ol></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_ma_two_class_student_mistake(ma_rest_app, webcore):
+    &#34;&#34;&#34;
+    Simplest possible test for the entire system.
+
+    Scenario:
+
+    0. Instructor sets up Learning Corpus and Modeling Assistant with one problem statement
+    1. Student logs in and starts a new class diagram for that problem (this mocks the frontend)
+    2. Student creates a class with a wrong name and requests feedback
+    3. WebCORE calls the Modeling Assistant to get feedback (new cdm -&gt; created new student solution)
+    4. Modeling Assistant calls the Mistake Detection System to get mistakes
+    5. Feedback algorithm calculates the feedback item (&amp; SK) and returns it to WebCORE (highlight class name)
+    6. Student sees feedback: Bad class name
+    7. Student fixes mistake and requests feedback again
+    8. WebCORE calls the Modeling Assistant to get feedback (for existing student solution)
+    9. Modeling Assistant calls the Mistake Detection System to get mistakes
+    10. Feedback algorithm calculates the feedback item (none) and returns it to WebCORE
+    11. Student sees feedback: No mistakes!
+    &#34;&#34;&#34;
+    # Step 0
+    # use this until WebCORE is updated to allow initializing with a problem statement
+    ma = get_ma_with_ps(load_cdm(EXAMPLE_INSTRUCTOR_CDM))
+    assert valid(ma)
+    set_modeling_assistant(ma)
+
+    # Step 1
+    student = MockStudent.create_random()
+    cdm_name = EXAMPLE_CDM_NAME
+    assert student.create_cdm(cdm_name)
+
+    # Steps 2-5
+    bad_cls_id = student.create_class(cdm_name, &#34;badClsName&#34;)
+    assert bad_cls_id
+    feedback: FeedbackTO = student.request_feedback(cdm_name)
+
+    ma = get_modeling_assistant()
+    assert valid(ma)
+    assert ma.problemStatements[0].name
+    print(ma.solutions)
+    assert ma.solutions[1].classDiagram.name
+    assert len(ma.solutions) == 2, &#34;Must have exactly one instructor solution and one student solution&#34;
+
+    # Step 6
+    assert feedback.solutionElements
+    # more strict checks possible after WebCORE is completed
+    print(feedback)
+    assert bad_cls_id in feedback.solutionElementIds
+
+    # Steps 7-10
+    airplane_id = student.create_class(cdm_name, &#34;Airplane&#34;)
+    feedback = student.request_feedback(cdm_name)
+
+    assert feedback.solutionElements  # Airplane not contained in Root class
+    assert set(feedback.solutionElementIds) == {bad_cls_id, airplane_id}  # both should be highlighted
+
+    # Step 11
+    # TODO Enable these assertions after the necessary updates to WebCORE and the Modeling Assistant are made
+    # It should be possible to delete bad_cls_id without any errors,
+    # and it should be possible to make Airplane contained in the Root class once WebCORE supports this feature
+
+    # assert not feedback.solutionElements
+    # assert &#34;no mistakes&#34; in feedback.writtenFeedback.lower()</code></pre>
+</details>
+</dd>
+<dt id="test_ma_integration.test_webcore_user_login"><code class="name flex">
+<span>def <span class="ident">test_webcore_user_login</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test whether a user can login to WebCORE.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_webcore_user_login():
+    &#34;Test whether a user can login to WebCORE.&#34;
+    user = User.create_random()
+    assert user.login()
+    assert user.logged_in
+    assert user.token
+    assert user.name in users</code></pre>
+</details>
+</dd>
+<dt id="test_ma_integration.test_webcore_user_logout"><code class="name flex">
+<span>def <span class="ident">test_webcore_user_logout</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test whether a user can logout of WebCORE.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_webcore_user_logout():
+    &#34;Test whether a user can logout of WebCORE.&#34;
+    user = User.create_random()
+    assert user.login()
+    assert user.logged_in
+    assert user.logout()
+    assert not user.logged_in
+    assert not hasattr(user, &#34;token&#34;)
+    assert user.name in users  # a logged out user should still be in the users list</code></pre>
+</details>
+</dd>
+<dt id="test_ma_integration.test_webcore_user_register"><code class="name flex">
+<span>def <span class="ident">test_webcore_user_register</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test whether a new user can register with WebCORE.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_webcore_user_register():
+    &#34;Test whether a new user can register with WebCORE.&#34;
+    user = User.create_random()
+    assert user
+    assert user.name
+    assert user.token
+    assert not user.logged_in
+    assert user.name in users</code></pre>
+</details>
+</dd>
+<dt id="test_ma_integration.valid"><code class="name flex">
+<span>def <span class="ident">valid</span></span>(<span>ma: <a title="modelingassistant.modelingassistant.ModelingAssistant" href="modelingassistant/modelingassistant.html#modelingassistant.modelingassistant.ModelingAssistant">ModelingAssistant</a>) ‑> bool</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Check whether the provided Modeling Assistant instance is valid.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def valid(ma: ModelingAssistant) -&gt; bool:
+    &#34;&#34;&#34;
+    Check whether the provided Modeling Assistant instance is valid.
+    &#34;&#34;&#34;
+    assert ma
+    for ps in ma.problemStatements:
+        assert ps.instructorSolution
+    for sol in ma.solutions:
+        assert sol.classDiagram
+        assert sol.problemStatement
+    assert ma.eResource
+    assert ma.eResource.contents
+    assert ma in ma.eResource.contents
+    assert ma.eResource.uuid_dict
+    return True</code></pre>
+</details>
+</dd>
+<dt id="test_ma_integration.webcore"><code class="name flex">
+<span>def <span class="ident">webcore</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Start WebCORE if it is not already running.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@pytest.fixture(scope=&#34;module&#34;)
+def webcore():
+    &#34;&#34;&#34;
+    Start WebCORE if it is not already running.
+    &#34;&#34;&#34;
+    try:
+        requests.get(WEBCORE_ENDPOINT)
+    except (ConnectionError, requests.exceptions.RequestException):
+        Thread(target=lambda: os.system(f&#34;cd {TOUCHCORE_PATH}/.. &amp;&amp; ./start-webcore.sh&#34;), daemon=True).start()</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="test_ma_integration.get_modeling_assistant" href="#test_ma_integration.get_modeling_assistant">get_modeling_assistant</a></code></li>
+<li><code><a title="test_ma_integration.ma_rest_app" href="#test_ma_integration.ma_rest_app">ma_rest_app</a></code></li>
+<li><code><a title="test_ma_integration.set_modeling_assistant" href="#test_ma_integration.set_modeling_assistant">set_modeling_assistant</a></code></li>
+<li><code><a title="test_ma_integration.test_communication_between_mock_frontend_and_webcore" href="#test_ma_integration.test_communication_between_mock_frontend_and_webcore">test_communication_between_mock_frontend_and_webcore</a></code></li>
+<li><code><a title="test_ma_integration.test_communication_between_mock_frontend_and_webcore_multiple_students" href="#test_ma_integration.test_communication_between_mock_frontend_and_webcore_multiple_students">test_communication_between_mock_frontend_and_webcore_multiple_students</a></code></li>
+<li><code><a title="test_ma_integration.test_ma_multiple_feedback_levels" href="#test_ma_integration.test_ma_multiple_feedback_levels">test_ma_multiple_feedback_levels</a></code></li>
+<li><code><a title="test_ma_integration.test_ma_two_class_student_mistake" href="#test_ma_integration.test_ma_two_class_student_mistake">test_ma_two_class_student_mistake</a></code></li>
+<li><code><a title="test_ma_integration.test_webcore_user_login" href="#test_ma_integration.test_webcore_user_login">test_webcore_user_login</a></code></li>
+<li><code><a title="test_ma_integration.test_webcore_user_logout" href="#test_ma_integration.test_webcore_user_logout">test_webcore_user_logout</a></code></li>
+<li><code><a title="test_ma_integration.test_webcore_user_register" href="#test_ma_integration.test_webcore_user_register">test_webcore_user_register</a></code></li>
+<li><code><a title="test_ma_integration.valid" href="#test_ma_integration.valid">valid</a></code></li>
+<li><code><a title="test_ma_integration.webcore" href="#test_ma_integration.webcore">webcore</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

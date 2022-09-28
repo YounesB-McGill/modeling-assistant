@@ -31,8 +31,8 @@ def get_python_files(root: str) -> list[str]:
 
 def save_module(module: Module, path: str) -> None:
     "Save the given module to the given path."
-    with open(path, "w") as file:
-        file.write(module.html())
+    with open(path, "w", encoding="UTF-8") as f:
+        f.write(module.html())
 
 
 def main():

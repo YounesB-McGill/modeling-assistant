@@ -1,0 +1,2371 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>modelingassistant API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Package <code>modelingassistant</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">from .modelingassistant import getEClassifier, eClassifiers
+from .modelingassistant import name, nsURI, nsPrefix, eClass
+from .modelingassistant import Time, ModelingAssistant, Student, ProblemStatement, ProblemStatementElement, Solution, SolutionElement, StudentKnowledge, Mistake, NamedElement, FeedbackItem, Tag, TagGroup, TagType, Synonym
+
+from classdiagram import ClassDiagram, NamedElement
+from learningcorpus import Feedback, MistakeType
+
+from . import modelingassistant
+
+__all__ = [&#39;Time&#39;, &#39;ModelingAssistant&#39;, &#39;Student&#39;, &#39;ProblemStatement&#39;, &#39;ProblemStatementElement&#39;, &#39;Solution&#39;,
+           &#39;SolutionElement&#39;, &#39;StudentKnowledge&#39;, &#39;Mistake&#39;, &#39;NamedElement&#39;, &#39;FeedbackItem&#39;, &#39;Tag&#39;, &#39;TagGroup&#39;, &#39;TagType&#39;, &#39;Synonym&#39;]
+
+eSubpackages = []
+eSuperPackage = None
+modelingassistant.eSubpackages = eSubpackages
+modelingassistant.eSuperPackage = eSuperPackage
+
+Student.currentSolution.eType = Solution
+ProblemStatement.studentSolutions.eType = Solution
+ProblemStatement.instructorSolution.eType = Solution
+Solution.classDiagram.eType = ClassDiagram
+Solution.problemStatement.eType = ProblemStatement
+SolutionElement.element.eType = NamedElement
+StudentKnowledge.mistakeType.eType = MistakeType
+Mistake.mistakeType.eType = MistakeType
+FeedbackItem.feedback.eType = Feedback
+ModelingAssistant.problemStatements.eType = ProblemStatement
+ModelingAssistant.solutions.eType = Solution
+ModelingAssistant.students.eType = Student
+ModelingAssistant.studentKnowledges.eType = StudentKnowledge
+Student.modelingAssistant.eType = ModelingAssistant
+Student.modelingAssistant.eOpposite = ModelingAssistant.students
+Student.solutions.eType = Solution
+Student.studentKnowledges.eType = StudentKnowledge
+ProblemStatement.problemStatementElements.eType = ProblemStatementElement
+ProblemStatement.modelingAssistant.eType = ModelingAssistant
+ProblemStatement.modelingAssistant.eOpposite = ModelingAssistant.problemStatements
+ProblemStatementElement.problemStatement.eType = ProblemStatement
+ProblemStatementElement.problemStatement.eOpposite = ProblemStatement.problemStatementElements
+ProblemStatementElement.solutionElements.eType = SolutionElement
+Solution.modelingAssistant.eType = ModelingAssistant
+Solution.modelingAssistant.eOpposite = ModelingAssistant.solutions
+Solution.student.eType = Student
+Solution.student.eOpposite = Student.solutions
+Solution.solutionElements.eType = SolutionElement
+Solution.mistakes.eType = Mistake
+Solution.tagGroups.eType = TagGroup
+Solution.feedbackItems.eType = FeedbackItem
+SolutionElement.problemStatementElements.eType = ProblemStatementElement
+SolutionElement.problemStatementElements.eOpposite = ProblemStatementElement.solutionElements
+SolutionElement.solution.eType = Solution
+SolutionElement.solution.eOpposite = Solution.solutionElements
+SolutionElement.studentElementMistakes.eType = Mistake
+SolutionElement.instructorElementMistakes.eType = Mistake
+SolutionElement.tags.eType = Tag
+SolutionElement.synonyms.eType = Synonym
+StudentKnowledge.student.eType = Student
+StudentKnowledge.student.eOpposite = Student.studentKnowledges
+StudentKnowledge.modelingAssistant.eType = ModelingAssistant
+StudentKnowledge.modelingAssistant.eOpposite = ModelingAssistant.studentKnowledges
+Mistake.studentElements.eType = SolutionElement
+Mistake.studentElements.eOpposite = SolutionElement.studentElementMistakes
+Mistake.lastFeedback.eType = FeedbackItem
+Mistake.instructorElements.eType = SolutionElement
+Mistake.instructorElements.eOpposite = SolutionElement.instructorElementMistakes
+Mistake.solution.eType = Solution
+Mistake.solution.eOpposite = Solution.mistakes
+FeedbackItem.mistake.eType = Mistake
+FeedbackItem.mistake.eOpposite = Mistake.lastFeedback
+FeedbackItem.solution.eType = Solution
+FeedbackItem.solution.eOpposite = Solution.feedbackItems
+Tag.solutionElement.eType = SolutionElement
+Tag.solutionElement.eOpposite = SolutionElement.tags
+Tag.tagGroup.eType = TagGroup
+TagGroup.tags.eType = Tag
+TagGroup.tags.eOpposite = Tag.tagGroup
+TagGroup.solution.eType = Solution
+TagGroup.solution.eOpposite = Solution.tagGroups
+Synonym.solutionElement.eType = SolutionElement
+Synonym.solutionElement.eOpposite = SolutionElement.synonyms
+
+otherClassifiers = [Time, TagType]
+
+for classif in otherClassifiers:
+    eClassifiers[classif.name] = classif
+    classif.ePackage = eClass
+
+for classif in eClassifiers.values():
+    eClass.eClassifiers.append(classif.eClass)
+
+for subpack in eSubpackages:
+    eClass.eSubpackages.append(subpack.eClass)</code></pre>
+</details>
+</section>
+<section>
+<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+<dl>
+<dt><code class="name"><a title="modelingassistant.modelingassistant" href="modelingassistant.html">modelingassistant.modelingassistant</a></code></dt>
+<dd>
+<div class="desc"><p>Definition of meta model 'modelingassistant'.</p></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="modelingassistant.FeedbackItem"><code class="flex name class">
+<span>class <span class="ident">FeedbackItem</span></span>
+<span>(</span><span>*, mistake=None, usefulness=None, feedback=None, solution=None, text=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class FeedbackItem(EObject, metaclass=MetaEClass):
+    usefulness = EAttribute(eType=EDouble, unique=True, derived=False, changeable=True)
+    text = EAttribute(eType=EString, unique=True, derived=False, changeable=True)
+    mistake = EReference(ordered=True, unique=True, containment=False, derived=False)
+    feedback = EReference(ordered=True, unique=True, containment=False, derived=False)
+    solution = EReference(ordered=True, unique=True, containment=False, derived=False)
+
+    def __init__(self, *, mistake=None, usefulness=None, feedback=None, solution=None, text=None):
+        super().__init__()
+        if usefulness is not None:
+            self.usefulness = usefulness
+        if text is not None:
+            self.text = text
+        if mistake is not None:
+            self.mistake = mistake
+        if feedback is not None:
+            self.feedback = feedback
+        if solution is not None:
+            self.solution = solution</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="modelingassistant.FeedbackItem.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="modelingassistant.FeedbackItem.feedback"><code class="name">var <span class="ident">feedback</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.FeedbackItem.mistake"><code class="name">var <span class="ident">mistake</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.FeedbackItem.solution"><code class="name">var <span class="ident">solution</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.FeedbackItem.text"><code class="name">var <span class="ident">text</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.FeedbackItem.usefulness"><code class="name">var <span class="ident">usefulness</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="modelingassistant.Mistake"><code class="flex name class">
+<span>class <span class="ident">Mistake</span></span>
+<span>(</span><span>*, resolvedByStudent=None, timeToAddress=None, numStepsBeforeNotification=None, studentElements=None, lastFeedback=None, instructorElements=None, solution=None, numDetections=None, numSinceResolved=None, mistakeType=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Mistake(EObject, metaclass=MetaEClass):
+    resolvedByStudent = EAttribute(eType=EBoolean, unique=True, derived=False, changeable=True)
+    timeToAddress = EAttribute(eType=Time, unique=True, derived=False, changeable=True)
+    numStepsBeforeNotification = EAttribute(eType=EInt, unique=True, derived=False, changeable=True)
+    numDetections = EAttribute(eType=EInt, unique=True, derived=False, changeable=True)
+    numSinceResolved = EAttribute(eType=EInt, unique=True, derived=False, changeable=True)
+    studentElements = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
+    lastFeedback = EReference(ordered=True, unique=True, containment=False, derived=False)
+    instructorElements = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
+    solution = EReference(ordered=True, unique=True, containment=False, derived=False)
+    mistakeType = EReference(ordered=True, unique=True, containment=False, derived=False)
+
+    def __init__(self, *, resolvedByStudent=None, timeToAddress=None, numStepsBeforeNotification=None, studentElements=None, lastFeedback=None, instructorElements=None, solution=None, numDetections=None, numSinceResolved=None, mistakeType=None):
+        super().__init__()
+        if resolvedByStudent is not None:
+            self.resolvedByStudent = resolvedByStudent
+        if timeToAddress is not None:
+            self.timeToAddress = timeToAddress
+        if numStepsBeforeNotification is not None:
+            self.numStepsBeforeNotification = numStepsBeforeNotification
+        if numDetections is not None:
+            self.numDetections = numDetections
+        if numSinceResolved is not None:
+            self.numSinceResolved = numSinceResolved
+        if studentElements:
+            self.studentElements.extend(studentElements)
+        if lastFeedback is not None:
+            self.lastFeedback = lastFeedback
+        if instructorElements:
+            self.instructorElements.extend(instructorElements)
+        if solution is not None:
+            self.solution = solution
+        if mistakeType is not None:
+            self.mistakeType = mistakeType</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="modelingassistant.Mistake.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="modelingassistant.Mistake.instructorElements"><code class="name">var <span class="ident">instructorElements</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.Mistake.lastFeedback"><code class="name">var <span class="ident">lastFeedback</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.Mistake.mistakeType"><code class="name">var <span class="ident">mistakeType</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.Mistake.numDetections"><code class="name">var <span class="ident">numDetections</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.Mistake.numSinceResolved"><code class="name">var <span class="ident">numSinceResolved</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.Mistake.numStepsBeforeNotification"><code class="name">var <span class="ident">numStepsBeforeNotification</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.Mistake.resolvedByStudent"><code class="name">var <span class="ident">resolvedByStudent</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.Mistake.solution"><code class="name">var <span class="ident">solution</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.Mistake.studentElements"><code class="name">var <span class="ident">studentElements</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.Mistake.timeToAddress"><code class="name">var <span class="ident">timeToAddress</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="modelingassistant.ModelingAssistant"><code class="flex name class">
+<span>class <span class="ident">ModelingAssistant</span></span>
+<span>(</span><span>*, problemStatements=None, solutions=None, students=None, studentKnowledges=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ModelingAssistant(EObject, metaclass=MetaEClass):
+    problemStatements = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+    solutions = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+    students = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+    studentKnowledges = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+
+    def __init__(self, *, problemStatements=None, solutions=None, students=None, studentKnowledges=None):
+        super().__init__()
+        if problemStatements:
+            self.problemStatements.extend(problemStatements)
+        if solutions:
+            self.solutions.extend(solutions)
+        if students:
+            self.students.extend(students)
+        if studentKnowledges:
+            self.studentKnowledges.extend(studentKnowledges)
+    classDiagramsToSolutions: dict = {}</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="modelingassistant.ModelingAssistant.classDiagramsToSolutions"><code class="name">var <span class="ident">classDiagramsToSolutions</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="modelingassistant.ModelingAssistant.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="modelingassistant.ModelingAssistant.problemStatements"><code class="name">var <span class="ident">problemStatements</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.ModelingAssistant.solutions"><code class="name">var <span class="ident">solutions</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.ModelingAssistant.studentKnowledges"><code class="name">var <span class="ident">studentKnowledges</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.ModelingAssistant.students"><code class="name">var <span class="ident">students</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="modelingassistant.NamedElement"><code class="flex name class">
+<span>class <span class="ident">NamedElement</span></span>
+<span>(</span><span>*, name=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstract
+class NamedElement(EObject, metaclass=MetaEClass):
+    name = EAttribute(eType=EString, unique=True, derived=False, changeable=True)
+
+    def __init__(self, *, name=None):
+        super().__init__()
+        if name is not None:
+            self.name = name
+
+    def getName(self) -&gt; str:
+        &#34;&#34;&#34;
+        Return the name of this named element.
+        &#34;&#34;&#34;
+        return self.name or self.__class__.__name__</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="classdiagram.classdiagram.Association" href="../classdiagram/classdiagram.html#classdiagram.classdiagram.Association">Association</a></li>
+<li><a title="classdiagram.classdiagram.CDEnumLiteral" href="../classdiagram/classdiagram.html#classdiagram.classdiagram.CDEnumLiteral">CDEnumLiteral</a></li>
+<li><a title="classdiagram.classdiagram.ClassDiagram" href="../classdiagram/classdiagram.html#classdiagram.classdiagram.ClassDiagram">ClassDiagram</a></li>
+<li><a title="classdiagram.classdiagram.Operation" href="../classdiagram/classdiagram.html#classdiagram.classdiagram.Operation">Operation</a></li>
+<li><a title="classdiagram.classdiagram.Type" href="../classdiagram/classdiagram.html#classdiagram.classdiagram.Type">Type</a></li>
+<li><a title="classdiagram.classdiagram.TypedElement" href="../classdiagram/classdiagram.html#classdiagram.classdiagram.TypedElement">TypedElement</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="modelingassistant.NamedElement.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="modelingassistant.NamedElement.name"><code class="name">var <span class="ident">name</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="modelingassistant.NamedElement.getName"><code class="name flex">
+<span>def <span class="ident">getName</span></span>(<span>self) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the name of this named element.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getName(self) -&gt; str:
+    &#34;&#34;&#34;
+    Return the name of this named element.
+    &#34;&#34;&#34;
+    return self.name or self.__class__.__name__</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="modelingassistant.ProblemStatement"><code class="flex name class">
+<span>class <span class="ident">ProblemStatement</span></span>
+<span>(</span><span>*, problemStatementElements=None, modelingAssistant=None, studentSolutions=None, instructorSolution=None, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ProblemStatement(NamedElement):
+    problemStatementElements = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+    modelingAssistant = EReference(ordered=True, unique=True, containment=False, derived=False)
+    studentSolutions = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
+    instructorSolution = EReference(ordered=True, unique=True, containment=False, derived=False)
+
+    def __init__(self, *, problemStatementElements=None, modelingAssistant=None, studentSolutions=None, instructorSolution=None, **kwargs):
+        super().__init__(**kwargs)
+        if problemStatementElements:
+            self.problemStatementElements.extend(problemStatementElements)
+        if modelingAssistant is not None:
+            self.modelingAssistant = modelingAssistant
+        if studentSolutions:
+            self.studentSolutions.extend(studentSolutions)
+        if instructorSolution is not None:
+            self.instructorSolution = instructorSolution</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="modelingassistant.modelingassistant.NamedElement" href="modelingassistant.html#modelingassistant.modelingassistant.NamedElement">NamedElement</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="modelingassistant.ProblemStatement.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="modelingassistant.ProblemStatement.instructorSolution"><code class="name">var <span class="ident">instructorSolution</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.ProblemStatement.modelingAssistant"><code class="name">var <span class="ident">modelingAssistant</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.ProblemStatement.problemStatementElements"><code class="name">var <span class="ident">problemStatementElements</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.ProblemStatement.studentSolutions"><code class="name">var <span class="ident">studentSolutions</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="modelingassistant.ProblemStatementElement"><code class="flex name class">
+<span>class <span class="ident">ProblemStatementElement</span></span>
+<span>(</span><span>*, problemStatement=None, solutionElements=None, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ProblemStatementElement(NamedElement):
+    problemStatement = EReference(ordered=True, unique=True, containment=False, derived=False)
+    solutionElements = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
+
+    def __init__(self, *, problemStatement=None, solutionElements=None, **kwargs):
+        super().__init__(**kwargs)
+        if problemStatement is not None:
+            self.problemStatement = problemStatement
+        if solutionElements:
+            self.solutionElements.extend(solutionElements)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="modelingassistant.modelingassistant.NamedElement" href="modelingassistant.html#modelingassistant.modelingassistant.NamedElement">NamedElement</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="modelingassistant.ProblemStatementElement.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="modelingassistant.ProblemStatementElement.problemStatement"><code class="name">var <span class="ident">problemStatement</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.ProblemStatementElement.solutionElements"><code class="name">var <span class="ident">solutionElements</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="modelingassistant.Solution"><code class="flex name class">
+<span>class <span class="ident">Solution</span></span>
+<span>(</span><span>*, modelingAssistant=None, student=None, solutionElements=None, classDiagram=None, mistakes=None, tagGroups=None, problemStatement=None, feedbackItems=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Solution(EObject, metaclass=MetaEClass):
+    modelingAssistant = EReference(ordered=True, unique=True, containment=False, derived=False)
+    student = EReference(ordered=True, unique=True, containment=False, derived=False)
+    solutionElements = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+    classDiagram = EReference(ordered=True, unique=True, containment=False, derived=False)
+    mistakes = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+    tagGroups = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+    problemStatement = EReference(ordered=True, unique=True, containment=False, derived=False)
+    feedbackItems = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+
+    def __init__(self, *, modelingAssistant=None, student=None, solutionElements=None, classDiagram=None, mistakes=None, tagGroups=None, problemStatement=None, feedbackItems=None):
+        super().__init__()
+        if modelingAssistant is not None:
+            self.modelingAssistant = modelingAssistant
+        if student is not None:
+            self.student = student
+        if solutionElements:
+            self.solutionElements.extend(solutionElements)
+        if classDiagram is not None:
+            self.classDiagram = classDiagram
+        if mistakes:
+            self.mistakes.extend(mistakes)
+        if tagGroups:
+            self.tagGroups.extend(tagGroups)
+        if problemStatement is not None:
+            self.problemStatement = problemStatement
+        if feedbackItems:
+            self.feedbackItems.extend(feedbackItems)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="modelingassistant.Solution.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="modelingassistant.Solution.classDiagram"><code class="name">var <span class="ident">classDiagram</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.Solution.feedbackItems"><code class="name">var <span class="ident">feedbackItems</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.Solution.mistakes"><code class="name">var <span class="ident">mistakes</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.Solution.modelingAssistant"><code class="name">var <span class="ident">modelingAssistant</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.Solution.problemStatement"><code class="name">var <span class="ident">problemStatement</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.Solution.solutionElements"><code class="name">var <span class="ident">solutionElements</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.Solution.student"><code class="name">var <span class="ident">student</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.Solution.tagGroups"><code class="name">var <span class="ident">tagGroups</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="modelingassistant.SolutionElement"><code class="flex name class">
+<span>class <span class="ident">SolutionElement</span></span>
+<span>(</span><span>*, problemStatementElements=None, solution=None, studentElementMistakes=None, element=None, instructorElementMistakes=None, tags=None, synonyms=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class SolutionElement(EObject, metaclass=MetaEClass):
+    problemStatementElements = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
+    solution = EReference(ordered=True, unique=True, containment=False, derived=False)
+    studentElementMistakes = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
+    element = EReference(ordered=True, unique=True, containment=False, derived=False)
+    instructorElementMistakes = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
+    tags = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+    synonyms = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+
+    def __init__(self, *, problemStatementElements=None, solution=None, studentElementMistakes=None, element=None, instructorElementMistakes=None, tags=None, synonyms=None):
+        super().__init__()
+        if problemStatementElements:
+            self.problemStatementElements.extend(problemStatementElements)
+        if solution is not None:
+            self.solution = solution
+        if studentElementMistakes:
+            self.studentElementMistakes.extend(studentElementMistakes)
+        if element is not None:
+            self.element = element
+        if instructorElementMistakes:
+            self.instructorElementMistakes.extend(instructorElementMistakes)
+        if tags:
+            self.tags.extend(tags)
+        if synonyms:
+            self.synonyms.extend(synonyms)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="modelingassistant.SolutionElement.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="modelingassistant.SolutionElement.element"><code class="name">var <span class="ident">element</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.SolutionElement.instructorElementMistakes"><code class="name">var <span class="ident">instructorElementMistakes</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.SolutionElement.problemStatementElements"><code class="name">var <span class="ident">problemStatementElements</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.SolutionElement.solution"><code class="name">var <span class="ident">solution</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.SolutionElement.studentElementMistakes"><code class="name">var <span class="ident">studentElementMistakes</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.SolutionElement.synonyms"><code class="name">var <span class="ident">synonyms</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.SolutionElement.tags"><code class="name">var <span class="ident">tags</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="modelingassistant.Student"><code class="flex name class">
+<span>class <span class="ident">Student</span></span>
+<span>(</span><span>*, id=None, modelingAssistant=None, solutions=None, studentKnowledges=None, currentSolution=None, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Student(NamedElement):
+    id = EAttribute(eType=EString, unique=True, derived=False, changeable=True)
+    modelingAssistant = EReference(ordered=True, unique=True, containment=False, derived=False)
+    solutions = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
+    studentKnowledges = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
+    currentSolution = EReference(ordered=True, unique=True, containment=False, derived=False)
+
+    def __init__(self, *, id=None, modelingAssistant=None, solutions=None, studentKnowledges=None, currentSolution=None, **kwargs):
+        super().__init__(**kwargs)
+        if id is not None:
+            self.id = id
+        if modelingAssistant is not None:
+            self.modelingAssistant = modelingAssistant
+        if solutions:
+            self.solutions.extend(solutions)
+        if studentKnowledges:
+            self.studentKnowledges.extend(studentKnowledges)
+        if currentSolution is not None:
+            self.currentSolution = currentSolution</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="modelingassistant.modelingassistant.NamedElement" href="modelingassistant.html#modelingassistant.modelingassistant.NamedElement">NamedElement</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="modelingassistant.Student.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="modelingassistant.Student.currentSolution"><code class="name">var <span class="ident">currentSolution</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.Student.id"><code class="name">var <span class="ident">id</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.Student.modelingAssistant"><code class="name">var <span class="ident">modelingAssistant</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.Student.solutions"><code class="name">var <span class="ident">solutions</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.Student.studentKnowledges"><code class="name">var <span class="ident">studentKnowledges</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="modelingassistant.StudentKnowledge"><code class="flex name class">
+<span>class <span class="ident">StudentKnowledge</span></span>
+<span>(</span><span>*, levelOfKnowledge=None, student=None, modelingAssistant=None, mistakeType=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class StudentKnowledge(EObject, metaclass=MetaEClass):
+    levelOfKnowledge = EAttribute(eType=EDouble, unique=True, derived=False, changeable=True, default_value=5.0)
+    student = EReference(ordered=True, unique=True, containment=False, derived=False)
+    modelingAssistant = EReference(ordered=True, unique=True, containment=False, derived=False)
+    mistakeType = EReference(ordered=True, unique=True, containment=False, derived=False)
+
+    def __init__(self, *, levelOfKnowledge=None, student=None, modelingAssistant=None, mistakeType=None):
+        super().__init__()
+        if levelOfKnowledge is not None:
+            self.levelOfKnowledge = levelOfKnowledge
+        if student is not None:
+            self.student = student
+        if modelingAssistant is not None:
+            self.modelingAssistant = modelingAssistant
+        if mistakeType is not None:
+            self.mistakeType = mistakeType</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="modelingassistant.StudentKnowledge.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="modelingassistant.StudentKnowledge.levelOfKnowledge"><code class="name">var <span class="ident">levelOfKnowledge</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.StudentKnowledge.mistakeType"><code class="name">var <span class="ident">mistakeType</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.StudentKnowledge.modelingAssistant"><code class="name">var <span class="ident">modelingAssistant</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.StudentKnowledge.student"><code class="name">var <span class="ident">student</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="modelingassistant.Synonym"><code class="flex name class">
+<span>class <span class="ident">Synonym</span></span>
+<span>(</span><span>*, solutionElement=None, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Synonym(NamedElement):
+    solutionElement = EReference(ordered=True, unique=True, containment=False, derived=False)
+
+    def __init__(self, *, solutionElement=None, **kwargs):
+        super().__init__(**kwargs)
+        if solutionElement is not None:
+            self.solutionElement = solutionElement</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="modelingassistant.modelingassistant.NamedElement" href="modelingassistant.html#modelingassistant.modelingassistant.NamedElement">NamedElement</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="modelingassistant.Synonym.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="modelingassistant.Synonym.solutionElement"><code class="name">var <span class="ident">solutionElement</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="modelingassistant.Tag"><code class="flex name class">
+<span>class <span class="ident">Tag</span></span>
+<span>(</span><span>*, solutionElement=None, tagGroup=None, tagType=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Tag(EObject, metaclass=MetaEClass):
+    tagType = EAttribute(eType=TagType, unique=True, derived=False, changeable=True)
+    solutionElement = EReference(ordered=True, unique=True, containment=False, derived=False)
+    tagGroup = EReference(ordered=True, unique=True, containment=False, derived=False)
+
+    def __init__(self, *, solutionElement=None, tagGroup=None, tagType=None):
+        super().__init__()
+        if tagType is not None:
+            self.tagType = tagType
+        if solutionElement is not None:
+            self.solutionElement = solutionElement
+        if tagGroup is not None:
+            self.tagGroup = tagGroup</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="modelingassistant.Tag.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="modelingassistant.Tag.solutionElement"><code class="name">var <span class="ident">solutionElement</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.Tag.tagGroup"><code class="name">var <span class="ident">tagGroup</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.Tag.tagType"><code class="name">var <span class="ident">tagType</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="modelingassistant.TagGroup"><code class="flex name class">
+<span>class <span class="ident">TagGroup</span></span>
+<span>(</span><span>*, tags=None, solution=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TagGroup(EObject, metaclass=MetaEClass):
+    tags = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
+    solution = EReference(ordered=True, unique=True, containment=False, derived=False)
+
+    def __init__(self, *, tags=None, solution=None):
+        super().__init__()
+        if tags:
+            self.tags.extend(tags)
+        if solution is not None:
+            self.solution = solution</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="modelingassistant.TagGroup.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="modelingassistant.TagGroup.solution"><code class="name">var <span class="ident">solution</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="modelingassistant.TagGroup.tags"><code class="name">var <span class="ident">tags</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<ul>
+<li><code><a title="modelingassistant.modelingassistant" href="modelingassistant.html">modelingassistant.modelingassistant</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="modelingassistant.FeedbackItem" href="#modelingassistant.FeedbackItem">FeedbackItem</a></code></h4>
+<ul class="two-column">
+<li><code><a title="modelingassistant.FeedbackItem.eClass" href="#modelingassistant.FeedbackItem.eClass">eClass</a></code></li>
+<li><code><a title="modelingassistant.FeedbackItem.feedback" href="#modelingassistant.FeedbackItem.feedback">feedback</a></code></li>
+<li><code><a title="modelingassistant.FeedbackItem.mistake" href="#modelingassistant.FeedbackItem.mistake">mistake</a></code></li>
+<li><code><a title="modelingassistant.FeedbackItem.solution" href="#modelingassistant.FeedbackItem.solution">solution</a></code></li>
+<li><code><a title="modelingassistant.FeedbackItem.text" href="#modelingassistant.FeedbackItem.text">text</a></code></li>
+<li><code><a title="modelingassistant.FeedbackItem.usefulness" href="#modelingassistant.FeedbackItem.usefulness">usefulness</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="modelingassistant.Mistake" href="#modelingassistant.Mistake">Mistake</a></code></h4>
+<ul class="">
+<li><code><a title="modelingassistant.Mistake.eClass" href="#modelingassistant.Mistake.eClass">eClass</a></code></li>
+<li><code><a title="modelingassistant.Mistake.instructorElements" href="#modelingassistant.Mistake.instructorElements">instructorElements</a></code></li>
+<li><code><a title="modelingassistant.Mistake.lastFeedback" href="#modelingassistant.Mistake.lastFeedback">lastFeedback</a></code></li>
+<li><code><a title="modelingassistant.Mistake.mistakeType" href="#modelingassistant.Mistake.mistakeType">mistakeType</a></code></li>
+<li><code><a title="modelingassistant.Mistake.numDetections" href="#modelingassistant.Mistake.numDetections">numDetections</a></code></li>
+<li><code><a title="modelingassistant.Mistake.numSinceResolved" href="#modelingassistant.Mistake.numSinceResolved">numSinceResolved</a></code></li>
+<li><code><a title="modelingassistant.Mistake.numStepsBeforeNotification" href="#modelingassistant.Mistake.numStepsBeforeNotification">numStepsBeforeNotification</a></code></li>
+<li><code><a title="modelingassistant.Mistake.resolvedByStudent" href="#modelingassistant.Mistake.resolvedByStudent">resolvedByStudent</a></code></li>
+<li><code><a title="modelingassistant.Mistake.solution" href="#modelingassistant.Mistake.solution">solution</a></code></li>
+<li><code><a title="modelingassistant.Mistake.studentElements" href="#modelingassistant.Mistake.studentElements">studentElements</a></code></li>
+<li><code><a title="modelingassistant.Mistake.timeToAddress" href="#modelingassistant.Mistake.timeToAddress">timeToAddress</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="modelingassistant.ModelingAssistant" href="#modelingassistant.ModelingAssistant">ModelingAssistant</a></code></h4>
+<ul class="">
+<li><code><a title="modelingassistant.ModelingAssistant.classDiagramsToSolutions" href="#modelingassistant.ModelingAssistant.classDiagramsToSolutions">classDiagramsToSolutions</a></code></li>
+<li><code><a title="modelingassistant.ModelingAssistant.eClass" href="#modelingassistant.ModelingAssistant.eClass">eClass</a></code></li>
+<li><code><a title="modelingassistant.ModelingAssistant.problemStatements" href="#modelingassistant.ModelingAssistant.problemStatements">problemStatements</a></code></li>
+<li><code><a title="modelingassistant.ModelingAssistant.solutions" href="#modelingassistant.ModelingAssistant.solutions">solutions</a></code></li>
+<li><code><a title="modelingassistant.ModelingAssistant.studentKnowledges" href="#modelingassistant.ModelingAssistant.studentKnowledges">studentKnowledges</a></code></li>
+<li><code><a title="modelingassistant.ModelingAssistant.students" href="#modelingassistant.ModelingAssistant.students">students</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="modelingassistant.NamedElement" href="#modelingassistant.NamedElement">NamedElement</a></code></h4>
+<ul class="">
+<li><code><a title="modelingassistant.NamedElement.eClass" href="#modelingassistant.NamedElement.eClass">eClass</a></code></li>
+<li><code><a title="modelingassistant.NamedElement.getName" href="#modelingassistant.NamedElement.getName">getName</a></code></li>
+<li><code><a title="modelingassistant.NamedElement.name" href="#modelingassistant.NamedElement.name">name</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="modelingassistant.ProblemStatement" href="#modelingassistant.ProblemStatement">ProblemStatement</a></code></h4>
+<ul class="">
+<li><code><a title="modelingassistant.ProblemStatement.eClass" href="#modelingassistant.ProblemStatement.eClass">eClass</a></code></li>
+<li><code><a title="modelingassistant.ProblemStatement.instructorSolution" href="#modelingassistant.ProblemStatement.instructorSolution">instructorSolution</a></code></li>
+<li><code><a title="modelingassistant.ProblemStatement.modelingAssistant" href="#modelingassistant.ProblemStatement.modelingAssistant">modelingAssistant</a></code></li>
+<li><code><a title="modelingassistant.ProblemStatement.problemStatementElements" href="#modelingassistant.ProblemStatement.problemStatementElements">problemStatementElements</a></code></li>
+<li><code><a title="modelingassistant.ProblemStatement.studentSolutions" href="#modelingassistant.ProblemStatement.studentSolutions">studentSolutions</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="modelingassistant.ProblemStatementElement" href="#modelingassistant.ProblemStatementElement">ProblemStatementElement</a></code></h4>
+<ul class="">
+<li><code><a title="modelingassistant.ProblemStatementElement.eClass" href="#modelingassistant.ProblemStatementElement.eClass">eClass</a></code></li>
+<li><code><a title="modelingassistant.ProblemStatementElement.problemStatement" href="#modelingassistant.ProblemStatementElement.problemStatement">problemStatement</a></code></li>
+<li><code><a title="modelingassistant.ProblemStatementElement.solutionElements" href="#modelingassistant.ProblemStatementElement.solutionElements">solutionElements</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="modelingassistant.Solution" href="#modelingassistant.Solution">Solution</a></code></h4>
+<ul class="two-column">
+<li><code><a title="modelingassistant.Solution.classDiagram" href="#modelingassistant.Solution.classDiagram">classDiagram</a></code></li>
+<li><code><a title="modelingassistant.Solution.eClass" href="#modelingassistant.Solution.eClass">eClass</a></code></li>
+<li><code><a title="modelingassistant.Solution.feedbackItems" href="#modelingassistant.Solution.feedbackItems">feedbackItems</a></code></li>
+<li><code><a title="modelingassistant.Solution.mistakes" href="#modelingassistant.Solution.mistakes">mistakes</a></code></li>
+<li><code><a title="modelingassistant.Solution.modelingAssistant" href="#modelingassistant.Solution.modelingAssistant">modelingAssistant</a></code></li>
+<li><code><a title="modelingassistant.Solution.problemStatement" href="#modelingassistant.Solution.problemStatement">problemStatement</a></code></li>
+<li><code><a title="modelingassistant.Solution.solutionElements" href="#modelingassistant.Solution.solutionElements">solutionElements</a></code></li>
+<li><code><a title="modelingassistant.Solution.student" href="#modelingassistant.Solution.student">student</a></code></li>
+<li><code><a title="modelingassistant.Solution.tagGroups" href="#modelingassistant.Solution.tagGroups">tagGroups</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="modelingassistant.SolutionElement" href="#modelingassistant.SolutionElement">SolutionElement</a></code></h4>
+<ul class="">
+<li><code><a title="modelingassistant.SolutionElement.eClass" href="#modelingassistant.SolutionElement.eClass">eClass</a></code></li>
+<li><code><a title="modelingassistant.SolutionElement.element" href="#modelingassistant.SolutionElement.element">element</a></code></li>
+<li><code><a title="modelingassistant.SolutionElement.instructorElementMistakes" href="#modelingassistant.SolutionElement.instructorElementMistakes">instructorElementMistakes</a></code></li>
+<li><code><a title="modelingassistant.SolutionElement.problemStatementElements" href="#modelingassistant.SolutionElement.problemStatementElements">problemStatementElements</a></code></li>
+<li><code><a title="modelingassistant.SolutionElement.solution" href="#modelingassistant.SolutionElement.solution">solution</a></code></li>
+<li><code><a title="modelingassistant.SolutionElement.studentElementMistakes" href="#modelingassistant.SolutionElement.studentElementMistakes">studentElementMistakes</a></code></li>
+<li><code><a title="modelingassistant.SolutionElement.synonyms" href="#modelingassistant.SolutionElement.synonyms">synonyms</a></code></li>
+<li><code><a title="modelingassistant.SolutionElement.tags" href="#modelingassistant.SolutionElement.tags">tags</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="modelingassistant.Student" href="#modelingassistant.Student">Student</a></code></h4>
+<ul class="two-column">
+<li><code><a title="modelingassistant.Student.currentSolution" href="#modelingassistant.Student.currentSolution">currentSolution</a></code></li>
+<li><code><a title="modelingassistant.Student.eClass" href="#modelingassistant.Student.eClass">eClass</a></code></li>
+<li><code><a title="modelingassistant.Student.id" href="#modelingassistant.Student.id">id</a></code></li>
+<li><code><a title="modelingassistant.Student.modelingAssistant" href="#modelingassistant.Student.modelingAssistant">modelingAssistant</a></code></li>
+<li><code><a title="modelingassistant.Student.solutions" href="#modelingassistant.Student.solutions">solutions</a></code></li>
+<li><code><a title="modelingassistant.Student.studentKnowledges" href="#modelingassistant.Student.studentKnowledges">studentKnowledges</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="modelingassistant.StudentKnowledge" href="#modelingassistant.StudentKnowledge">StudentKnowledge</a></code></h4>
+<ul class="">
+<li><code><a title="modelingassistant.StudentKnowledge.eClass" href="#modelingassistant.StudentKnowledge.eClass">eClass</a></code></li>
+<li><code><a title="modelingassistant.StudentKnowledge.levelOfKnowledge" href="#modelingassistant.StudentKnowledge.levelOfKnowledge">levelOfKnowledge</a></code></li>
+<li><code><a title="modelingassistant.StudentKnowledge.mistakeType" href="#modelingassistant.StudentKnowledge.mistakeType">mistakeType</a></code></li>
+<li><code><a title="modelingassistant.StudentKnowledge.modelingAssistant" href="#modelingassistant.StudentKnowledge.modelingAssistant">modelingAssistant</a></code></li>
+<li><code><a title="modelingassistant.StudentKnowledge.student" href="#modelingassistant.StudentKnowledge.student">student</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="modelingassistant.Synonym" href="#modelingassistant.Synonym">Synonym</a></code></h4>
+<ul class="">
+<li><code><a title="modelingassistant.Synonym.eClass" href="#modelingassistant.Synonym.eClass">eClass</a></code></li>
+<li><code><a title="modelingassistant.Synonym.solutionElement" href="#modelingassistant.Synonym.solutionElement">solutionElement</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="modelingassistant.Tag" href="#modelingassistant.Tag">Tag</a></code></h4>
+<ul class="">
+<li><code><a title="modelingassistant.Tag.eClass" href="#modelingassistant.Tag.eClass">eClass</a></code></li>
+<li><code><a title="modelingassistant.Tag.solutionElement" href="#modelingassistant.Tag.solutionElement">solutionElement</a></code></li>
+<li><code><a title="modelingassistant.Tag.tagGroup" href="#modelingassistant.Tag.tagGroup">tagGroup</a></code></li>
+<li><code><a title="modelingassistant.Tag.tagType" href="#modelingassistant.Tag.tagType">tagType</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="modelingassistant.TagGroup" href="#modelingassistant.TagGroup">TagGroup</a></code></h4>
+<ul class="">
+<li><code><a title="modelingassistant.TagGroup.eClass" href="#modelingassistant.TagGroup.eClass">eClass</a></code></li>
+<li><code><a title="modelingassistant.TagGroup.solution" href="#modelingassistant.TagGroup.solution">solution</a></code></li>
+<li><code><a title="modelingassistant.TagGroup.tags" href="#modelingassistant.TagGroup.tags">tags</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

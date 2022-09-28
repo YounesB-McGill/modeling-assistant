@@ -1,0 +1,3444 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>classdiagram API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Package <code>classdiagram</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">from .classdiagram import getEClassifier, eClassifiers
+from .classdiagram import name, nsURI, nsPrefix, eClass
+from .classdiagram import NamedElement, TypedElement, Parameter, Attribute, StructuralFeature, Type, ObjectType, PrimitiveType, Classifier, VisibilityType, Operation, OperationType, Class, TypeParameter, ReferenceType, Association, AssociationEnd, ClassDiagram, ImplementationClass, Note, ElementMap, Layout, LayoutElement, ContainerMap, CDBoolean, CDDouble, CDInt, CDLong, CDString, CDByte, CDFloat, CDArray, CDChar, CDEnum, CDEnumLiteral, CDAny, CDVoid, CDCollection, CDSet, CDSequence
+
+from pyecore.ecore import EObject
+
+from . import classdiagram
+
+__all__ = [&#39;NamedElement&#39;, &#39;TypedElement&#39;, &#39;Parameter&#39;, &#39;Attribute&#39;, &#39;StructuralFeature&#39;, &#39;Type&#39;, &#39;ObjectType&#39;, &#39;PrimitiveType&#39;, &#39;Classifier&#39;, &#39;VisibilityType&#39;, &#39;Operation&#39;, &#39;OperationType&#39;, &#39;Class&#39;, &#39;TypeParameter&#39;, &#39;ReferenceType&#39;, &#39;Association&#39;, &#39;AssociationEnd&#39;, &#39;ClassDiagram&#39;,
+           &#39;ImplementationClass&#39;, &#39;Note&#39;, &#39;ElementMap&#39;, &#39;Layout&#39;, &#39;LayoutElement&#39;, &#39;ContainerMap&#39;, &#39;CDBoolean&#39;, &#39;CDDouble&#39;, &#39;CDInt&#39;, &#39;CDLong&#39;, &#39;CDString&#39;, &#39;CDByte&#39;, &#39;CDFloat&#39;, &#39;CDArray&#39;, &#39;CDChar&#39;, &#39;CDEnum&#39;, &#39;CDEnumLiteral&#39;, &#39;CDAny&#39;, &#39;CDVoid&#39;, &#39;CDCollection&#39;, &#39;CDSet&#39;, &#39;CDSequence&#39;]
+
+eSubpackages = []
+eSuperPackage = None
+classdiagram.eSubpackages = eSubpackages
+classdiagram.eSuperPackage = eSuperPackage
+
+TypedElement.type.eType = Type
+Classifier.superTypes.eType = Classifier
+Classifier.operations.eType = Operation
+Classifier.typeParameters.eType = TypeParameter
+Classifier.attributes.eType = Attribute
+Operation.returnType.eType = Type
+Operation.parameters.eType = Parameter
+TypeParameter.genericType.eType = ObjectType
+Association.associationClass.eType = Class
+AssociationEnd.qualifier.eType = Type
+ClassDiagram.classes.eType = Classifier
+ClassDiagram.types.eType = Type
+ClassDiagram.associations.eType = Association
+ClassDiagram.notes.eType = Note
+ClassDiagram.layout.eType = Layout
+Note.notedElement.eType = NamedElement
+ElementMap.key.eType = EObject
+ElementMap.value.eType = LayoutElement
+Layout.containers.eType = ContainerMap
+ContainerMap.key.eType = EObject
+ContainerMap.value.eType = ElementMap
+CDArray.type.eType = Type
+CDCollection.type.eType = Type
+Classifier.associationEnds.eType = AssociationEnd
+Association.ends.eType = AssociationEnd
+AssociationEnd.assoc.eType = Association
+AssociationEnd.assoc.eOpposite = Association.ends
+AssociationEnd.classifier.eType = Classifier
+AssociationEnd.classifier.eOpposite = Classifier.associationEnds
+CDEnum.literals.eType = CDEnumLiteral
+CDEnumLiteral.enum.eType = CDEnum
+CDEnumLiteral.enum.eOpposite = CDEnum.literals
+
+otherClassifiers = [VisibilityType, OperationType, ReferenceType]
+
+for classif in otherClassifiers:
+    eClassifiers[classif.name] = classif
+    classif.ePackage = eClass
+
+for classif in eClassifiers.values():
+    eClass.eClassifiers.append(classif.eClass)
+
+for subpack in eSubpackages:
+    eClass.eSubpackages.append(subpack.eClass)</code></pre>
+</details>
+</section>
+<section>
+<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+<dl>
+<dt><code class="name"><a title="classdiagram.classdiagram" href="classdiagram.html">classdiagram.classdiagram</a></code></dt>
+<dd>
+<div class="desc"><p>Definition of meta model 'classdiagram'.</p></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="classdiagram.Association"><code class="flex name class">
+<span>class <span class="ident">Association</span></span>
+<span>(</span><span>*, ends=None, associationClass=None, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Association(NamedElement):
+    ends = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
+    associationClass = EReference(ordered=True, unique=True, containment=False, derived=False)
+
+    def __init__(self, *, ends=None, associationClass=None, **kwargs):
+        super().__init__(**kwargs)
+        if ends:
+            self.ends.extend(ends)
+        if associationClass is not None:
+            self.associationClass = associationClass</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="classdiagram.classdiagram.NamedElement" href="classdiagram.html#classdiagram.classdiagram.NamedElement">NamedElement</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="classdiagram.Association.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="classdiagram.Association.associationClass"><code class="name">var <span class="ident">associationClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="classdiagram.Association.ends"><code class="name">var <span class="ident">ends</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="classdiagram.AssociationEnd"><code class="flex name class">
+<span>class <span class="ident">AssociationEnd</span></span>
+<span>(</span><span>*, navigable=None, assoc=None, classifier=None, qualifier=None, lowerBound=None, upperBound=None, referenceType=None, ordered=None, unique=None, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class AssociationEnd(StructuralFeature):
+    navigable = EAttribute(eType=EBoolean, unique=True, derived=False, changeable=True, default_value=True)
+    lowerBound = EAttribute(eType=EInt, unique=True, derived=False, changeable=True, default_value=0)
+    upperBound = EAttribute(eType=EInt, unique=True, derived=False, changeable=True, default_value=1)
+    referenceType = EAttribute(eType=ReferenceType, unique=True, derived=False, changeable=True, default_value=ReferenceType.Regular)
+    ordered = EAttribute(eType=EBoolean, unique=True, derived=False, changeable=True, default_value=False)
+    unique = EAttribute(eType=EBoolean, unique=True, derived=False, changeable=True, default_value=True)
+    assoc = EReference(ordered=True, unique=True, containment=False, derived=False)
+    classifier = EReference(ordered=True, unique=True, containment=False, derived=False)
+    qualifier = EReference(ordered=True, unique=True, containment=False, derived=False)
+
+    def __init__(self, *, navigable=None, assoc=None, classifier=None, qualifier=None, lowerBound=None, upperBound=None, referenceType=None, ordered=None, unique=None, **kwargs):
+        super().__init__(**kwargs)
+        if navigable is not None:
+            self.navigable = navigable
+        if lowerBound is not None:
+            self.lowerBound = lowerBound
+        if upperBound is not None:
+            self.upperBound = upperBound
+        if referenceType is not None:
+            self.referenceType = referenceType
+        if ordered is not None:
+            self.ordered = ordered
+        if unique is not None:
+            self.unique = unique
+        if assoc is not None:
+            self.assoc = assoc
+        if classifier is not None:
+            self.classifier = classifier
+        if qualifier is not None:
+            self.qualifier = qualifier
+
+    def getOppositeEnd(self) -&gt; AssociationEnd:
+        &#34;&#34;&#34;
+        Return the opposite end of this association end.
+        This method implements the following OCL code from the metamodel:
+
+        ```ocl
+        if (assoc.ends-&gt;size() &lt;= 2) then
+          self.assoc.ends-&gt;select(end : AssociationEnd | end &lt;&gt; self)-&gt;at(1)
+        else
+          null
+        endif
+        ```
+        &#34;&#34;&#34;
+        if len(self.assoc.ends) &lt;= 2:
+            return self.assoc.ends[1 if self.assoc.ends[0] is self else 0]
+        return None
+
+    @property
+    def oppositeEnd(self) -&gt; AssociationEnd:
+        &#34;&#34;&#34;Return the opposite end of this association end.&#34;&#34;&#34;
+        return self.getOppositeEnd()</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="classdiagram.classdiagram.StructuralFeature" href="classdiagram.html#classdiagram.classdiagram.StructuralFeature">StructuralFeature</a></li>
+<li><a title="classdiagram.classdiagram.TypedElement" href="classdiagram.html#classdiagram.classdiagram.TypedElement">TypedElement</a></li>
+<li><a title="classdiagram.classdiagram.NamedElement" href="classdiagram.html#classdiagram.classdiagram.NamedElement">NamedElement</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="classdiagram.AssociationEnd.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="classdiagram.AssociationEnd.assoc"><code class="name">var <span class="ident">assoc</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="classdiagram.AssociationEnd.classifier"><code class="name">var <span class="ident">classifier</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="classdiagram.AssociationEnd.lowerBound"><code class="name">var <span class="ident">lowerBound</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="classdiagram.AssociationEnd.navigable"><code class="name">var <span class="ident">navigable</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="classdiagram.AssociationEnd.oppositeEnd"><code class="name">var <span class="ident">oppositeEnd</span> : <a title="classdiagram.classdiagram.AssociationEnd" href="classdiagram.html#classdiagram.classdiagram.AssociationEnd">AssociationEnd</a></code></dt>
+<dd>
+<div class="desc"><p>Return the opposite end of this association end.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def oppositeEnd(self) -&gt; AssociationEnd:
+    &#34;&#34;&#34;Return the opposite end of this association end.&#34;&#34;&#34;
+    return self.getOppositeEnd()</code></pre>
+</details>
+</dd>
+<dt id="classdiagram.AssociationEnd.ordered"><code class="name">var <span class="ident">ordered</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="classdiagram.AssociationEnd.qualifier"><code class="name">var <span class="ident">qualifier</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="classdiagram.AssociationEnd.referenceType"><code class="name">var <span class="ident">referenceType</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="classdiagram.AssociationEnd.unique"><code class="name">var <span class="ident">unique</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="classdiagram.AssociationEnd.upperBound"><code class="name">var <span class="ident">upperBound</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="classdiagram.AssociationEnd.getOppositeEnd"><code class="name flex">
+<span>def <span class="ident">getOppositeEnd</span></span>(<span>self) ‑> <a title="classdiagram.classdiagram.AssociationEnd" href="classdiagram.html#classdiagram.classdiagram.AssociationEnd">AssociationEnd</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the opposite end of this association end.
+This method implements the following OCL code from the metamodel:</p>
+<pre><code class="language-ocl">if (assoc.ends-&gt;size() &lt;= 2) then
+  self.assoc.ends-&gt;select(end : AssociationEnd | end &lt;&gt; self)-&gt;at(1)
+else
+  null
+endif
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getOppositeEnd(self) -&gt; AssociationEnd:
+    &#34;&#34;&#34;
+    Return the opposite end of this association end.
+    This method implements the following OCL code from the metamodel:
+
+    ```ocl
+    if (assoc.ends-&gt;size() &lt;= 2) then
+      self.assoc.ends-&gt;select(end : AssociationEnd | end &lt;&gt; self)-&gt;at(1)
+    else
+      null
+    endif
+    ```
+    &#34;&#34;&#34;
+    if len(self.assoc.ends) &lt;= 2:
+        return self.assoc.ends[1 if self.assoc.ends[0] is self else 0]
+    return None</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="classdiagram.Attribute"><code class="flex name class">
+<span>class <span class="ident">Attribute</span></span>
+<span>(</span><span>**kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Attribute(StructuralFeature):
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="classdiagram.classdiagram.StructuralFeature" href="classdiagram.html#classdiagram.classdiagram.StructuralFeature">StructuralFeature</a></li>
+<li><a title="classdiagram.classdiagram.TypedElement" href="classdiagram.html#classdiagram.classdiagram.TypedElement">TypedElement</a></li>
+<li><a title="classdiagram.classdiagram.NamedElement" href="classdiagram.html#classdiagram.classdiagram.NamedElement">NamedElement</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="classdiagram.Attribute.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="classdiagram.CDAny"><code class="flex name class">
+<span>class <span class="ident">CDAny</span></span>
+<span>(</span><span>**kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CDAny(ObjectType):
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="classdiagram.classdiagram.ObjectType" href="classdiagram.html#classdiagram.classdiagram.ObjectType">ObjectType</a></li>
+<li><a title="classdiagram.classdiagram.Type" href="classdiagram.html#classdiagram.classdiagram.Type">Type</a></li>
+<li><a title="classdiagram.classdiagram.NamedElement" href="classdiagram.html#classdiagram.classdiagram.NamedElement">NamedElement</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="classdiagram.CDAny.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="classdiagram.CDArray"><code class="flex name class">
+<span>class <span class="ident">CDArray</span></span>
+<span>(</span><span>*, size=None, type=None, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CDArray(PrimitiveType):
+    size = EAttribute(eType=EInt, unique=True, derived=False, changeable=True, default_value=-1)
+    type = EReference(ordered=True, unique=True, containment=False, derived=False)
+
+    def __init__(self, *, size=None, type=None, **kwargs):
+        super().__init__(**kwargs)
+        if size is not None:
+            self.size = size
+        if type is not None:
+            self.type = type
+
+    def getInstanceClassName(self):
+        raise NotImplementedError(&#39;operation getInstanceClassName(...) not yet implemented&#39;)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="classdiagram.classdiagram.PrimitiveType" href="classdiagram.html#classdiagram.classdiagram.PrimitiveType">PrimitiveType</a></li>
+<li><a title="classdiagram.classdiagram.ImplementationClass" href="classdiagram.html#classdiagram.classdiagram.ImplementationClass">ImplementationClass</a></li>
+<li><a title="classdiagram.classdiagram.Classifier" href="classdiagram.html#classdiagram.classdiagram.Classifier">Classifier</a></li>
+<li><a title="classdiagram.classdiagram.ObjectType" href="classdiagram.html#classdiagram.classdiagram.ObjectType">ObjectType</a></li>
+<li><a title="classdiagram.classdiagram.Type" href="classdiagram.html#classdiagram.classdiagram.Type">Type</a></li>
+<li><a title="classdiagram.classdiagram.NamedElement" href="classdiagram.html#classdiagram.classdiagram.NamedElement">NamedElement</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="classdiagram.CDArray.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="classdiagram.CDArray.size"><code class="name">var <span class="ident">size</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="classdiagram.CDArray.type"><code class="name">var <span class="ident">type</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="classdiagram.CDArray.getInstanceClassName"><code class="name flex">
+<span>def <span class="ident">getInstanceClassName</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getInstanceClassName(self):
+    raise NotImplementedError(&#39;operation getInstanceClassName(...) not yet implemented&#39;)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="classdiagram.CDBoolean"><code class="flex name class">
+<span>class <span class="ident">CDBoolean</span></span>
+<span>(</span><span>**kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CDBoolean(PrimitiveType):
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def getInstanceClassName(self):
+        raise NotImplementedError(&#39;operation getInstanceClassName(...) not yet implemented&#39;)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="classdiagram.classdiagram.PrimitiveType" href="classdiagram.html#classdiagram.classdiagram.PrimitiveType">PrimitiveType</a></li>
+<li><a title="classdiagram.classdiagram.ImplementationClass" href="classdiagram.html#classdiagram.classdiagram.ImplementationClass">ImplementationClass</a></li>
+<li><a title="classdiagram.classdiagram.Classifier" href="classdiagram.html#classdiagram.classdiagram.Classifier">Classifier</a></li>
+<li><a title="classdiagram.classdiagram.ObjectType" href="classdiagram.html#classdiagram.classdiagram.ObjectType">ObjectType</a></li>
+<li><a title="classdiagram.classdiagram.Type" href="classdiagram.html#classdiagram.classdiagram.Type">Type</a></li>
+<li><a title="classdiagram.classdiagram.NamedElement" href="classdiagram.html#classdiagram.classdiagram.NamedElement">NamedElement</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="classdiagram.CDBoolean.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="classdiagram.CDBoolean.getInstanceClassName"><code class="name flex">
+<span>def <span class="ident">getInstanceClassName</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getInstanceClassName(self):
+    raise NotImplementedError(&#39;operation getInstanceClassName(...) not yet implemented&#39;)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="classdiagram.CDByte"><code class="flex name class">
+<span>class <span class="ident">CDByte</span></span>
+<span>(</span><span>**kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CDByte(PrimitiveType):
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def getInstanceClassName(self):
+        raise NotImplementedError(&#39;operation getInstanceClassName(...) not yet implemented&#39;)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="classdiagram.classdiagram.PrimitiveType" href="classdiagram.html#classdiagram.classdiagram.PrimitiveType">PrimitiveType</a></li>
+<li><a title="classdiagram.classdiagram.ImplementationClass" href="classdiagram.html#classdiagram.classdiagram.ImplementationClass">ImplementationClass</a></li>
+<li><a title="classdiagram.classdiagram.Classifier" href="classdiagram.html#classdiagram.classdiagram.Classifier">Classifier</a></li>
+<li><a title="classdiagram.classdiagram.ObjectType" href="classdiagram.html#classdiagram.classdiagram.ObjectType">ObjectType</a></li>
+<li><a title="classdiagram.classdiagram.Type" href="classdiagram.html#classdiagram.classdiagram.Type">Type</a></li>
+<li><a title="classdiagram.classdiagram.NamedElement" href="classdiagram.html#classdiagram.classdiagram.NamedElement">NamedElement</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="classdiagram.CDByte.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="classdiagram.CDByte.getInstanceClassName"><code class="name flex">
+<span>def <span class="ident">getInstanceClassName</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getInstanceClassName(self):
+    raise NotImplementedError(&#39;operation getInstanceClassName(...) not yet implemented&#39;)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="classdiagram.CDChar"><code class="flex name class">
+<span>class <span class="ident">CDChar</span></span>
+<span>(</span><span>**kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CDChar(PrimitiveType):
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def getInstanceClassName(self):
+        raise NotImplementedError(&#39;operation getInstanceClassName(...) not yet implemented&#39;)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="classdiagram.classdiagram.PrimitiveType" href="classdiagram.html#classdiagram.classdiagram.PrimitiveType">PrimitiveType</a></li>
+<li><a title="classdiagram.classdiagram.ImplementationClass" href="classdiagram.html#classdiagram.classdiagram.ImplementationClass">ImplementationClass</a></li>
+<li><a title="classdiagram.classdiagram.Classifier" href="classdiagram.html#classdiagram.classdiagram.Classifier">Classifier</a></li>
+<li><a title="classdiagram.classdiagram.ObjectType" href="classdiagram.html#classdiagram.classdiagram.ObjectType">ObjectType</a></li>
+<li><a title="classdiagram.classdiagram.Type" href="classdiagram.html#classdiagram.classdiagram.Type">Type</a></li>
+<li><a title="classdiagram.classdiagram.NamedElement" href="classdiagram.html#classdiagram.classdiagram.NamedElement">NamedElement</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="classdiagram.CDChar.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="classdiagram.CDChar.getInstanceClassName"><code class="name flex">
+<span>def <span class="ident">getInstanceClassName</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getInstanceClassName(self):
+    raise NotImplementedError(&#39;operation getInstanceClassName(...) not yet implemented&#39;)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="classdiagram.CDCollection"><code class="flex name class">
+<span>class <span class="ident">CDCollection</span></span>
+<span>(</span><span>*, type=None, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstract
+class CDCollection(ImplementationClass):
+    type = EReference(ordered=True, unique=True, containment=False, derived=False)
+
+    def __init__(self, *, type=None, **kwargs):
+        super().__init__(**kwargs)
+        if type is not None:
+            self.type = type</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="classdiagram.classdiagram.ImplementationClass" href="classdiagram.html#classdiagram.classdiagram.ImplementationClass">ImplementationClass</a></li>
+<li><a title="classdiagram.classdiagram.Classifier" href="classdiagram.html#classdiagram.classdiagram.Classifier">Classifier</a></li>
+<li><a title="classdiagram.classdiagram.ObjectType" href="classdiagram.html#classdiagram.classdiagram.ObjectType">ObjectType</a></li>
+<li><a title="classdiagram.classdiagram.Type" href="classdiagram.html#classdiagram.classdiagram.Type">Type</a></li>
+<li><a title="classdiagram.classdiagram.NamedElement" href="classdiagram.html#classdiagram.classdiagram.NamedElement">NamedElement</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="classdiagram.classdiagram.CDSequence" href="classdiagram.html#classdiagram.classdiagram.CDSequence">CDSequence</a></li>
+<li><a title="classdiagram.classdiagram.CDSet" href="classdiagram.html#classdiagram.classdiagram.CDSet">CDSet</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="classdiagram.CDCollection.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="classdiagram.CDCollection.type"><code class="name">var <span class="ident">type</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="classdiagram.CDDouble"><code class="flex name class">
+<span>class <span class="ident">CDDouble</span></span>
+<span>(</span><span>**kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CDDouble(PrimitiveType):
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def getInstanceClassName(self):
+        raise NotImplementedError(&#39;operation getInstanceClassName(...) not yet implemented&#39;)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="classdiagram.classdiagram.PrimitiveType" href="classdiagram.html#classdiagram.classdiagram.PrimitiveType">PrimitiveType</a></li>
+<li><a title="classdiagram.classdiagram.ImplementationClass" href="classdiagram.html#classdiagram.classdiagram.ImplementationClass">ImplementationClass</a></li>
+<li><a title="classdiagram.classdiagram.Classifier" href="classdiagram.html#classdiagram.classdiagram.Classifier">Classifier</a></li>
+<li><a title="classdiagram.classdiagram.ObjectType" href="classdiagram.html#classdiagram.classdiagram.ObjectType">ObjectType</a></li>
+<li><a title="classdiagram.classdiagram.Type" href="classdiagram.html#classdiagram.classdiagram.Type">Type</a></li>
+<li><a title="classdiagram.classdiagram.NamedElement" href="classdiagram.html#classdiagram.classdiagram.NamedElement">NamedElement</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="classdiagram.CDDouble.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="classdiagram.CDDouble.getInstanceClassName"><code class="name flex">
+<span>def <span class="ident">getInstanceClassName</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getInstanceClassName(self):
+    raise NotImplementedError(&#39;operation getInstanceClassName(...) not yet implemented&#39;)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="classdiagram.CDEnum"><code class="flex name class">
+<span>class <span class="ident">CDEnum</span></span>
+<span>(</span><span>*, literals=None, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CDEnum(PrimitiveType):
+    literals = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+
+    def __init__(self, *, literals=None, **kwargs):
+        super().__init__(**kwargs)
+        if literals:
+            self.literals.extend(literals)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="classdiagram.classdiagram.PrimitiveType" href="classdiagram.html#classdiagram.classdiagram.PrimitiveType">PrimitiveType</a></li>
+<li><a title="classdiagram.classdiagram.ImplementationClass" href="classdiagram.html#classdiagram.classdiagram.ImplementationClass">ImplementationClass</a></li>
+<li><a title="classdiagram.classdiagram.Classifier" href="classdiagram.html#classdiagram.classdiagram.Classifier">Classifier</a></li>
+<li><a title="classdiagram.classdiagram.ObjectType" href="classdiagram.html#classdiagram.classdiagram.ObjectType">ObjectType</a></li>
+<li><a title="classdiagram.classdiagram.Type" href="classdiagram.html#classdiagram.classdiagram.Type">Type</a></li>
+<li><a title="classdiagram.classdiagram.NamedElement" href="classdiagram.html#classdiagram.classdiagram.NamedElement">NamedElement</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="classdiagram.CDEnum.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="classdiagram.CDEnum.literals"><code class="name">var <span class="ident">literals</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="classdiagram.CDEnumLiteral"><code class="flex name class">
+<span>class <span class="ident">CDEnumLiteral</span></span>
+<span>(</span><span>*, enum=None, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CDEnumLiteral(NamedElement):
+    enum = EReference(ordered=True, unique=True, containment=False, derived=False)
+
+    def __init__(self, *, enum=None, **kwargs):
+        super().__init__(**kwargs)
+        if enum is not None:
+            self.enum = enum</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="classdiagram.classdiagram.NamedElement" href="classdiagram.html#classdiagram.classdiagram.NamedElement">NamedElement</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="classdiagram.CDEnumLiteral.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="classdiagram.CDEnumLiteral.enum"><code class="name">var <span class="ident">enum</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="classdiagram.CDFloat"><code class="flex name class">
+<span>class <span class="ident">CDFloat</span></span>
+<span>(</span><span>**kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CDFloat(PrimitiveType):
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def getInstanceClassName(self):
+        raise NotImplementedError(&#39;operation getInstanceClassName(...) not yet implemented&#39;)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="classdiagram.classdiagram.PrimitiveType" href="classdiagram.html#classdiagram.classdiagram.PrimitiveType">PrimitiveType</a></li>
+<li><a title="classdiagram.classdiagram.ImplementationClass" href="classdiagram.html#classdiagram.classdiagram.ImplementationClass">ImplementationClass</a></li>
+<li><a title="classdiagram.classdiagram.Classifier" href="classdiagram.html#classdiagram.classdiagram.Classifier">Classifier</a></li>
+<li><a title="classdiagram.classdiagram.ObjectType" href="classdiagram.html#classdiagram.classdiagram.ObjectType">ObjectType</a></li>
+<li><a title="classdiagram.classdiagram.Type" href="classdiagram.html#classdiagram.classdiagram.Type">Type</a></li>
+<li><a title="classdiagram.classdiagram.NamedElement" href="classdiagram.html#classdiagram.classdiagram.NamedElement">NamedElement</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="classdiagram.CDFloat.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="classdiagram.CDFloat.getInstanceClassName"><code class="name flex">
+<span>def <span class="ident">getInstanceClassName</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getInstanceClassName(self):
+    raise NotImplementedError(&#39;operation getInstanceClassName(...) not yet implemented&#39;)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="classdiagram.CDInt"><code class="flex name class">
+<span>class <span class="ident">CDInt</span></span>
+<span>(</span><span>**kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CDInt(PrimitiveType):
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def getInstanceClassName(self):
+        raise NotImplementedError(&#39;operation getInstanceClassName(...) not yet implemented&#39;)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="classdiagram.classdiagram.PrimitiveType" href="classdiagram.html#classdiagram.classdiagram.PrimitiveType">PrimitiveType</a></li>
+<li><a title="classdiagram.classdiagram.ImplementationClass" href="classdiagram.html#classdiagram.classdiagram.ImplementationClass">ImplementationClass</a></li>
+<li><a title="classdiagram.classdiagram.Classifier" href="classdiagram.html#classdiagram.classdiagram.Classifier">Classifier</a></li>
+<li><a title="classdiagram.classdiagram.ObjectType" href="classdiagram.html#classdiagram.classdiagram.ObjectType">ObjectType</a></li>
+<li><a title="classdiagram.classdiagram.Type" href="classdiagram.html#classdiagram.classdiagram.Type">Type</a></li>
+<li><a title="classdiagram.classdiagram.NamedElement" href="classdiagram.html#classdiagram.classdiagram.NamedElement">NamedElement</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="classdiagram.CDInt.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="classdiagram.CDInt.getInstanceClassName"><code class="name flex">
+<span>def <span class="ident">getInstanceClassName</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getInstanceClassName(self):
+    raise NotImplementedError(&#39;operation getInstanceClassName(...) not yet implemented&#39;)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="classdiagram.CDLong"><code class="flex name class">
+<span>class <span class="ident">CDLong</span></span>
+<span>(</span><span>**kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CDLong(PrimitiveType):
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def getInstanceClassName(self):
+        raise NotImplementedError(&#39;operation getInstanceClassName(...) not yet implemented&#39;)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="classdiagram.classdiagram.PrimitiveType" href="classdiagram.html#classdiagram.classdiagram.PrimitiveType">PrimitiveType</a></li>
+<li><a title="classdiagram.classdiagram.ImplementationClass" href="classdiagram.html#classdiagram.classdiagram.ImplementationClass">ImplementationClass</a></li>
+<li><a title="classdiagram.classdiagram.Classifier" href="classdiagram.html#classdiagram.classdiagram.Classifier">Classifier</a></li>
+<li><a title="classdiagram.classdiagram.ObjectType" href="classdiagram.html#classdiagram.classdiagram.ObjectType">ObjectType</a></li>
+<li><a title="classdiagram.classdiagram.Type" href="classdiagram.html#classdiagram.classdiagram.Type">Type</a></li>
+<li><a title="classdiagram.classdiagram.NamedElement" href="classdiagram.html#classdiagram.classdiagram.NamedElement">NamedElement</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="classdiagram.CDLong.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="classdiagram.CDLong.getInstanceClassName"><code class="name flex">
+<span>def <span class="ident">getInstanceClassName</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getInstanceClassName(self):
+    raise NotImplementedError(&#39;operation getInstanceClassName(...) not yet implemented&#39;)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="classdiagram.CDSequence"><code class="flex name class">
+<span>class <span class="ident">CDSequence</span></span>
+<span>(</span><span>**kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CDSequence(CDCollection):
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="classdiagram.classdiagram.CDCollection" href="classdiagram.html#classdiagram.classdiagram.CDCollection">CDCollection</a></li>
+<li><a title="classdiagram.classdiagram.ImplementationClass" href="classdiagram.html#classdiagram.classdiagram.ImplementationClass">ImplementationClass</a></li>
+<li><a title="classdiagram.classdiagram.Classifier" href="classdiagram.html#classdiagram.classdiagram.Classifier">Classifier</a></li>
+<li><a title="classdiagram.classdiagram.ObjectType" href="classdiagram.html#classdiagram.classdiagram.ObjectType">ObjectType</a></li>
+<li><a title="classdiagram.classdiagram.Type" href="classdiagram.html#classdiagram.classdiagram.Type">Type</a></li>
+<li><a title="classdiagram.classdiagram.NamedElement" href="classdiagram.html#classdiagram.classdiagram.NamedElement">NamedElement</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="classdiagram.CDSequence.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="classdiagram.CDSet"><code class="flex name class">
+<span>class <span class="ident">CDSet</span></span>
+<span>(</span><span>**kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CDSet(CDCollection):
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="classdiagram.classdiagram.CDCollection" href="classdiagram.html#classdiagram.classdiagram.CDCollection">CDCollection</a></li>
+<li><a title="classdiagram.classdiagram.ImplementationClass" href="classdiagram.html#classdiagram.classdiagram.ImplementationClass">ImplementationClass</a></li>
+<li><a title="classdiagram.classdiagram.Classifier" href="classdiagram.html#classdiagram.classdiagram.Classifier">Classifier</a></li>
+<li><a title="classdiagram.classdiagram.ObjectType" href="classdiagram.html#classdiagram.classdiagram.ObjectType">ObjectType</a></li>
+<li><a title="classdiagram.classdiagram.Type" href="classdiagram.html#classdiagram.classdiagram.Type">Type</a></li>
+<li><a title="classdiagram.classdiagram.NamedElement" href="classdiagram.html#classdiagram.classdiagram.NamedElement">NamedElement</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="classdiagram.CDSet.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="classdiagram.CDString"><code class="flex name class">
+<span>class <span class="ident">CDString</span></span>
+<span>(</span><span>**kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CDString(PrimitiveType):
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def getInstanceClassName(self):
+        raise NotImplementedError(&#39;operation getInstanceClassName(...) not yet implemented&#39;)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="classdiagram.classdiagram.PrimitiveType" href="classdiagram.html#classdiagram.classdiagram.PrimitiveType">PrimitiveType</a></li>
+<li><a title="classdiagram.classdiagram.ImplementationClass" href="classdiagram.html#classdiagram.classdiagram.ImplementationClass">ImplementationClass</a></li>
+<li><a title="classdiagram.classdiagram.Classifier" href="classdiagram.html#classdiagram.classdiagram.Classifier">Classifier</a></li>
+<li><a title="classdiagram.classdiagram.ObjectType" href="classdiagram.html#classdiagram.classdiagram.ObjectType">ObjectType</a></li>
+<li><a title="classdiagram.classdiagram.Type" href="classdiagram.html#classdiagram.classdiagram.Type">Type</a></li>
+<li><a title="classdiagram.classdiagram.NamedElement" href="classdiagram.html#classdiagram.classdiagram.NamedElement">NamedElement</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="classdiagram.CDString.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="classdiagram.CDString.getInstanceClassName"><code class="name flex">
+<span>def <span class="ident">getInstanceClassName</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getInstanceClassName(self):
+    raise NotImplementedError(&#39;operation getInstanceClassName(...) not yet implemented&#39;)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="classdiagram.CDVoid"><code class="flex name class">
+<span>class <span class="ident">CDVoid</span></span>
+<span>(</span><span>**kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CDVoid(ObjectType):
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="classdiagram.classdiagram.ObjectType" href="classdiagram.html#classdiagram.classdiagram.ObjectType">ObjectType</a></li>
+<li><a title="classdiagram.classdiagram.Type" href="classdiagram.html#classdiagram.classdiagram.Type">Type</a></li>
+<li><a title="classdiagram.classdiagram.NamedElement" href="classdiagram.html#classdiagram.classdiagram.NamedElement">NamedElement</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="classdiagram.CDVoid.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="classdiagram.Class"><code class="flex name class">
+<span>class <span class="ident">Class</span></span>
+<span>(</span><span>**kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Class(Classifier):
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="classdiagram.classdiagram.Classifier" href="classdiagram.html#classdiagram.classdiagram.Classifier">Classifier</a></li>
+<li><a title="classdiagram.classdiagram.ObjectType" href="classdiagram.html#classdiagram.classdiagram.ObjectType">ObjectType</a></li>
+<li><a title="classdiagram.classdiagram.Type" href="classdiagram.html#classdiagram.classdiagram.Type">Type</a></li>
+<li><a title="classdiagram.classdiagram.NamedElement" href="classdiagram.html#classdiagram.classdiagram.NamedElement">NamedElement</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="classdiagram.Class.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="classdiagram.ClassDiagram"><code class="flex name class">
+<span>class <span class="ident">ClassDiagram</span></span>
+<span>(</span><span>*, classes=None, types=None, associations=None, notes=None, layout=None, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ClassDiagram(NamedElement):
+    classes = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+    types = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+    associations = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+    notes = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+    layout = EReference(ordered=True, unique=True, containment=True, derived=False)
+
+    def __init__(self, *, classes=None, types=None, associations=None, notes=None, layout=None, **kwargs):
+        super().__init__(**kwargs)
+        if classes:
+            self.classes.extend(classes)
+        if types:
+            self.types.extend(types)
+        if associations:
+            self.associations.extend(associations)
+        if notes:
+            self.notes.extend(notes)
+        if layout is not None:
+            self.layout = layout</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="classdiagram.classdiagram.NamedElement" href="classdiagram.html#classdiagram.classdiagram.NamedElement">NamedElement</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="classdiagram.ClassDiagram.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="classdiagram.ClassDiagram.associations"><code class="name">var <span class="ident">associations</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="classdiagram.ClassDiagram.classes"><code class="name">var <span class="ident">classes</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="classdiagram.ClassDiagram.layout"><code class="name">var <span class="ident">layout</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="classdiagram.ClassDiagram.notes"><code class="name">var <span class="ident">notes</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="classdiagram.ClassDiagram.types"><code class="name">var <span class="ident">types</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="classdiagram.Classifier"><code class="flex name class">
+<span>class <span class="ident">Classifier</span></span>
+<span>(</span><span>*, superTypes=None, dataType=None, abstract=None, visibility=None, operations=None, typeParameters=None, associationEnds=None, attributes=None, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstract
+class Classifier(ObjectType):
+    dataType = EAttribute(eType=EBoolean, unique=True, derived=False, changeable=True)
+    abstract = EAttribute(eType=EBoolean, unique=True, derived=False, changeable=True)
+    visibility = EAttribute(eType=VisibilityType, unique=True, derived=False, changeable=True, default_value=VisibilityType.package)
+    superTypes = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
+    operations = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+    typeParameters = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+    associationEnds = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+    attributes = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+
+    def __init__(self, *, superTypes=None, dataType=None, abstract=None, visibility=None, operations=None, typeParameters=None, associationEnds=None, attributes=None, **kwargs):
+        super().__init__(**kwargs)
+        if dataType is not None:
+            self.dataType = dataType
+        if abstract is not None:
+            self.abstract = abstract
+        if visibility is not None:
+            self.visibility = visibility
+        if superTypes:
+            self.superTypes.extend(superTypes)
+        if operations:
+            self.operations.extend(operations)
+        if typeParameters:
+            self.typeParameters.extend(typeParameters)
+        if associationEnds:
+            self.associationEnds.extend(associationEnds)
+        if attributes:
+            self.attributes.extend(attributes)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="classdiagram.classdiagram.ObjectType" href="classdiagram.html#classdiagram.classdiagram.ObjectType">ObjectType</a></li>
+<li><a title="classdiagram.classdiagram.Type" href="classdiagram.html#classdiagram.classdiagram.Type">Type</a></li>
+<li><a title="classdiagram.classdiagram.NamedElement" href="classdiagram.html#classdiagram.classdiagram.NamedElement">NamedElement</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="classdiagram.classdiagram.Class" href="classdiagram.html#classdiagram.classdiagram.Class">Class</a></li>
+<li><a title="classdiagram.classdiagram.ImplementationClass" href="classdiagram.html#classdiagram.classdiagram.ImplementationClass">ImplementationClass</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="classdiagram.Classifier.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="classdiagram.Classifier.abstract"><code class="name">var <span class="ident">abstract</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="classdiagram.Classifier.associationEnds"><code class="name">var <span class="ident">associationEnds</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="classdiagram.Classifier.attributes"><code class="name">var <span class="ident">attributes</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="classdiagram.Classifier.dataType"><code class="name">var <span class="ident">dataType</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="classdiagram.Classifier.operations"><code class="name">var <span class="ident">operations</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="classdiagram.Classifier.superTypes"><code class="name">var <span class="ident">superTypes</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="classdiagram.Classifier.typeParameters"><code class="name">var <span class="ident">typeParameters</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="classdiagram.Classifier.visibility"><code class="name">var <span class="ident">visibility</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="classdiagram.ContainerMap"><code class="flex name class">
+<span>class <span class="ident">ContainerMap</span></span>
+<span>(</span><span>*, key=None, value=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ContainerMap(EObject, metaclass=MetaEClass):
+    key = EReference(ordered=True, unique=True, containment=False, derived=False)
+    value = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+
+    def __init__(self, *, key=None, value=None):
+        super().__init__()
+        if key is not None:
+            self.key = key
+        if value:
+            self.value.extend(value)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="classdiagram.ContainerMap.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="classdiagram.ContainerMap.key"><code class="name">var <span class="ident">key</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="classdiagram.ContainerMap.value"><code class="name">var <span class="ident">value</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="classdiagram.ElementMap"><code class="flex name class">
+<span>class <span class="ident">ElementMap</span></span>
+<span>(</span><span>*, key=None, value=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ElementMap(EObject, metaclass=MetaEClass):
+    key = EReference(ordered=True, unique=True, containment=False, derived=False)
+    value = EReference(ordered=True, unique=True, containment=True, derived=False)
+
+    def __init__(self, *, key=None, value=None):
+        super().__init__()
+        if key is not None:
+            self.key = key
+        if value is not None:
+            self.value = value</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="classdiagram.ElementMap.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="classdiagram.ElementMap.key"><code class="name">var <span class="ident">key</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="classdiagram.ElementMap.value"><code class="name">var <span class="ident">value</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="classdiagram.ImplementationClass"><code class="flex name class">
+<span>class <span class="ident">ImplementationClass</span></span>
+<span>(</span><span>*, instanceClassName=None, interface=None, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ImplementationClass(Classifier):
+    instanceClassName = EAttribute(eType=EString, unique=True, derived=False, changeable=True)
+    interface = EAttribute(eType=EBoolean, unique=True, derived=False, changeable=True, default_value=False)
+
+    def __init__(self, *, instanceClassName=None, interface=None, **kwargs):
+        super().__init__(**kwargs)
+        if instanceClassName is not None:
+            self.instanceClassName = instanceClassName
+        if interface is not None:
+            self.interface = interface</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="classdiagram.classdiagram.Classifier" href="classdiagram.html#classdiagram.classdiagram.Classifier">Classifier</a></li>
+<li><a title="classdiagram.classdiagram.ObjectType" href="classdiagram.html#classdiagram.classdiagram.ObjectType">ObjectType</a></li>
+<li><a title="classdiagram.classdiagram.Type" href="classdiagram.html#classdiagram.classdiagram.Type">Type</a></li>
+<li><a title="classdiagram.classdiagram.NamedElement" href="classdiagram.html#classdiagram.classdiagram.NamedElement">NamedElement</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="classdiagram.classdiagram.CDCollection" href="classdiagram.html#classdiagram.classdiagram.CDCollection">CDCollection</a></li>
+<li><a title="classdiagram.classdiagram.PrimitiveType" href="classdiagram.html#classdiagram.classdiagram.PrimitiveType">PrimitiveType</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="classdiagram.ImplementationClass.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="classdiagram.ImplementationClass.instanceClassName"><code class="name">var <span class="ident">instanceClassName</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="classdiagram.ImplementationClass.interface"><code class="name">var <span class="ident">interface</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="classdiagram.Layout"><code class="flex name class">
+<span>class <span class="ident">Layout</span></span>
+<span>(</span><span>*, containers=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Layout(EObject, metaclass=MetaEClass):
+    containers = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+
+    def __init__(self, *, containers=None):
+        super().__init__()
+        if containers:
+            self.containers.extend(containers)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="classdiagram.Layout.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="classdiagram.Layout.containers"><code class="name">var <span class="ident">containers</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="classdiagram.LayoutElement"><code class="flex name class">
+<span>class <span class="ident">LayoutElement</span></span>
+<span>(</span><span>*, x=None, y=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class LayoutElement(EObject, metaclass=MetaEClass):
+    x = EAttribute(eType=EFloat, unique=True, derived=False, changeable=True)
+    y = EAttribute(eType=EFloat, unique=True, derived=False, changeable=True)
+
+    def __init__(self, *, x=None, y=None):
+        super().__init__()
+        if x is not None:
+            self.x = x
+        if y is not None:
+            self.y = y</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="classdiagram.LayoutElement.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="classdiagram.LayoutElement.x"><code class="name">var <span class="ident">x</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="classdiagram.LayoutElement.y"><code class="name">var <span class="ident">y</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="classdiagram.NamedElement"><code class="flex name class">
+<span>class <span class="ident">NamedElement</span></span>
+<span>(</span><span>*, name=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstract
+class NamedElement(EObject, metaclass=MetaEClass):
+    name = EAttribute(eType=EString, unique=True, derived=False, changeable=True)
+
+    def __init__(self, *, name=None):
+        super().__init__()
+        if name is not None:
+            self.name = name
+
+    def getName(self) -&gt; str:
+        &#34;&#34;&#34;
+        Return the name of this named element.
+        &#34;&#34;&#34;
+        return self.name or self.__class__.__name__</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="classdiagram.classdiagram.Association" href="classdiagram.html#classdiagram.classdiagram.Association">Association</a></li>
+<li><a title="classdiagram.classdiagram.CDEnumLiteral" href="classdiagram.html#classdiagram.classdiagram.CDEnumLiteral">CDEnumLiteral</a></li>
+<li><a title="classdiagram.classdiagram.ClassDiagram" href="classdiagram.html#classdiagram.classdiagram.ClassDiagram">ClassDiagram</a></li>
+<li><a title="classdiagram.classdiagram.Operation" href="classdiagram.html#classdiagram.classdiagram.Operation">Operation</a></li>
+<li><a title="classdiagram.classdiagram.Type" href="classdiagram.html#classdiagram.classdiagram.Type">Type</a></li>
+<li><a title="classdiagram.classdiagram.TypedElement" href="classdiagram.html#classdiagram.classdiagram.TypedElement">TypedElement</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="classdiagram.NamedElement.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="classdiagram.NamedElement.name"><code class="name">var <span class="ident">name</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="classdiagram.NamedElement.getName"><code class="name flex">
+<span>def <span class="ident">getName</span></span>(<span>self) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the name of this named element.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getName(self) -&gt; str:
+    &#34;&#34;&#34;
+    Return the name of this named element.
+    &#34;&#34;&#34;
+    return self.name or self.__class__.__name__</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="classdiagram.Note"><code class="flex name class">
+<span>class <span class="ident">Note</span></span>
+<span>(</span><span>*, notedElement=None, content=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Note(EObject, metaclass=MetaEClass):
+    content = EAttribute(eType=EString, unique=True, derived=False, changeable=True)
+    notedElement = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
+
+    def __init__(self, *, notedElement=None, content=None):
+        super().__init__()
+        if content is not None:
+            self.content = content
+        if notedElement:
+            self.notedElement.extend(notedElement)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="classdiagram.Note.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="classdiagram.Note.content"><code class="name">var <span class="ident">content</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="classdiagram.Note.notedElement"><code class="name">var <span class="ident">notedElement</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="classdiagram.ObjectType"><code class="flex name class">
+<span>class <span class="ident">ObjectType</span></span>
+<span>(</span><span>**kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstract
+class ObjectType(Type):
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        if not self.name:
+            self.name = self.__class__.__name__</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="classdiagram.classdiagram.Type" href="classdiagram.html#classdiagram.classdiagram.Type">Type</a></li>
+<li><a title="classdiagram.classdiagram.NamedElement" href="classdiagram.html#classdiagram.classdiagram.NamedElement">NamedElement</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="classdiagram.classdiagram.CDAny" href="classdiagram.html#classdiagram.classdiagram.CDAny">CDAny</a></li>
+<li><a title="classdiagram.classdiagram.CDVoid" href="classdiagram.html#classdiagram.classdiagram.CDVoid">CDVoid</a></li>
+<li><a title="classdiagram.classdiagram.Classifier" href="classdiagram.html#classdiagram.classdiagram.Classifier">Classifier</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="classdiagram.ObjectType.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="classdiagram.Operation"><code class="flex name class">
+<span>class <span class="ident">Operation</span></span>
+<span>(</span><span>*, abstract=None, visibility=None, static=None, operationType=None, returnType=None, parameters=None, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Operation(NamedElement):
+    abstract = EAttribute(eType=EBoolean, unique=True, derived=False, changeable=True, default_value=False)
+    visibility = EAttribute(eType=VisibilityType, unique=True, derived=False, changeable=True, default_value=VisibilityType.public)
+    static = EAttribute(eType=EBoolean, unique=True, derived=False, changeable=True, default_value=False)
+    operationType = EAttribute(eType=OperationType, unique=True, derived=False, changeable=True, default_value=OperationType.Normal)
+    returnType = EReference(ordered=True, unique=True, containment=False, derived=False)
+    parameters = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+
+    def __init__(self, *, abstract=None, visibility=None, static=None, operationType=None, returnType=None, parameters=None, **kwargs):
+        super().__init__(**kwargs)
+        if abstract is not None:
+            self.abstract = abstract
+        if visibility is not None:
+            self.visibility = visibility
+        if static is not None:
+            self.static = static
+        if operationType is not None:
+            self.operationType = operationType
+        if returnType is not None:
+            self.returnType = returnType
+        if parameters:
+            self.parameters.extend(parameters)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="classdiagram.classdiagram.NamedElement" href="classdiagram.html#classdiagram.classdiagram.NamedElement">NamedElement</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="classdiagram.Operation.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="classdiagram.Operation.abstract"><code class="name">var <span class="ident">abstract</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="classdiagram.Operation.operationType"><code class="name">var <span class="ident">operationType</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="classdiagram.Operation.parameters"><code class="name">var <span class="ident">parameters</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="classdiagram.Operation.returnType"><code class="name">var <span class="ident">returnType</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="classdiagram.Operation.static"><code class="name">var <span class="ident">static</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="classdiagram.Operation.visibility"><code class="name">var <span class="ident">visibility</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="classdiagram.Parameter"><code class="flex name class">
+<span>class <span class="ident">Parameter</span></span>
+<span>(</span><span>**kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Parameter(TypedElement):
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="classdiagram.classdiagram.TypedElement" href="classdiagram.html#classdiagram.classdiagram.TypedElement">TypedElement</a></li>
+<li><a title="classdiagram.classdiagram.NamedElement" href="classdiagram.html#classdiagram.classdiagram.NamedElement">NamedElement</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="classdiagram.Parameter.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="classdiagram.PrimitiveType"><code class="flex name class">
+<span>class <span class="ident">PrimitiveType</span></span>
+<span>(</span><span>**kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstract
+class PrimitiveType(ImplementationClass):
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="classdiagram.classdiagram.ImplementationClass" href="classdiagram.html#classdiagram.classdiagram.ImplementationClass">ImplementationClass</a></li>
+<li><a title="classdiagram.classdiagram.Classifier" href="classdiagram.html#classdiagram.classdiagram.Classifier">Classifier</a></li>
+<li><a title="classdiagram.classdiagram.ObjectType" href="classdiagram.html#classdiagram.classdiagram.ObjectType">ObjectType</a></li>
+<li><a title="classdiagram.classdiagram.Type" href="classdiagram.html#classdiagram.classdiagram.Type">Type</a></li>
+<li><a title="classdiagram.classdiagram.NamedElement" href="classdiagram.html#classdiagram.classdiagram.NamedElement">NamedElement</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="classdiagram.classdiagram.CDArray" href="classdiagram.html#classdiagram.classdiagram.CDArray">CDArray</a></li>
+<li><a title="classdiagram.classdiagram.CDBoolean" href="classdiagram.html#classdiagram.classdiagram.CDBoolean">CDBoolean</a></li>
+<li><a title="classdiagram.classdiagram.CDByte" href="classdiagram.html#classdiagram.classdiagram.CDByte">CDByte</a></li>
+<li><a title="classdiagram.classdiagram.CDChar" href="classdiagram.html#classdiagram.classdiagram.CDChar">CDChar</a></li>
+<li><a title="classdiagram.classdiagram.CDDouble" href="classdiagram.html#classdiagram.classdiagram.CDDouble">CDDouble</a></li>
+<li><a title="classdiagram.classdiagram.CDEnum" href="classdiagram.html#classdiagram.classdiagram.CDEnum">CDEnum</a></li>
+<li><a title="classdiagram.classdiagram.CDFloat" href="classdiagram.html#classdiagram.classdiagram.CDFloat">CDFloat</a></li>
+<li><a title="classdiagram.classdiagram.CDInt" href="classdiagram.html#classdiagram.classdiagram.CDInt">CDInt</a></li>
+<li><a title="classdiagram.classdiagram.CDLong" href="classdiagram.html#classdiagram.classdiagram.CDLong">CDLong</a></li>
+<li><a title="classdiagram.classdiagram.CDString" href="classdiagram.html#classdiagram.classdiagram.CDString">CDString</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="classdiagram.PrimitiveType.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="classdiagram.StructuralFeature"><code class="flex name class">
+<span>class <span class="ident">StructuralFeature</span></span>
+<span>(</span><span>*, static=None, visibility=None, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstract
+class StructuralFeature(TypedElement):
+    static = EAttribute(eType=EBoolean, unique=True, derived=False, changeable=True, default_value=False)
+    visibility = EAttribute(eType=VisibilityType, unique=True, derived=False, changeable=True, default_value=VisibilityType.package)
+
+    def __init__(self, *, static=None, visibility=None, **kwargs):
+        super().__init__(**kwargs)
+        if static is not None:
+            self.static = static
+        if visibility is not None:
+            self.visibility = visibility</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="classdiagram.classdiagram.TypedElement" href="classdiagram.html#classdiagram.classdiagram.TypedElement">TypedElement</a></li>
+<li><a title="classdiagram.classdiagram.NamedElement" href="classdiagram.html#classdiagram.classdiagram.NamedElement">NamedElement</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="classdiagram.classdiagram.AssociationEnd" href="classdiagram.html#classdiagram.classdiagram.AssociationEnd">AssociationEnd</a></li>
+<li><a title="classdiagram.classdiagram.Attribute" href="classdiagram.html#classdiagram.classdiagram.Attribute">Attribute</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="classdiagram.StructuralFeature.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="classdiagram.StructuralFeature.static"><code class="name">var <span class="ident">static</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="classdiagram.StructuralFeature.visibility"><code class="name">var <span class="ident">visibility</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="classdiagram.Type"><code class="flex name class">
+<span>class <span class="ident">Type</span></span>
+<span>(</span><span>**kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstract
+class Type(NamedElement):
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="classdiagram.classdiagram.NamedElement" href="classdiagram.html#classdiagram.classdiagram.NamedElement">NamedElement</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="classdiagram.classdiagram.ObjectType" href="classdiagram.html#classdiagram.classdiagram.ObjectType">ObjectType</a></li>
+<li><a title="classdiagram.classdiagram.TypeParameter" href="classdiagram.html#classdiagram.classdiagram.TypeParameter">TypeParameter</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="classdiagram.Type.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="classdiagram.TypeParameter"><code class="flex name class">
+<span>class <span class="ident">TypeParameter</span></span>
+<span>(</span><span>*, genericType=None, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TypeParameter(Type):
+    genericType = EReference(ordered=True, unique=True, containment=False, derived=False)
+
+    def __init__(self, *, genericType=None, **kwargs):
+        super().__init__(**kwargs)
+        if genericType is not None:
+            self.genericType = genericType</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="classdiagram.classdiagram.Type" href="classdiagram.html#classdiagram.classdiagram.Type">Type</a></li>
+<li><a title="classdiagram.classdiagram.NamedElement" href="classdiagram.html#classdiagram.classdiagram.NamedElement">NamedElement</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="classdiagram.TypeParameter.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="classdiagram.TypeParameter.genericType"><code class="name">var <span class="ident">genericType</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="classdiagram.TypedElement"><code class="flex name class">
+<span>class <span class="ident">TypedElement</span></span>
+<span>(</span><span>*, type=None, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstract
+class TypedElement(NamedElement):
+    type = EReference(ordered=True, unique=True, containment=False, derived=False)
+
+    def __init__(self, *, type=None, **kwargs):
+        super().__init__(**kwargs)
+        if type is not None:
+            self.type = type</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="classdiagram.classdiagram.NamedElement" href="classdiagram.html#classdiagram.classdiagram.NamedElement">NamedElement</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="classdiagram.classdiagram.Parameter" href="classdiagram.html#classdiagram.classdiagram.Parameter">Parameter</a></li>
+<li><a title="classdiagram.classdiagram.StructuralFeature" href="classdiagram.html#classdiagram.classdiagram.StructuralFeature">StructuralFeature</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="classdiagram.TypedElement.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="classdiagram.TypedElement.type"><code class="name">var <span class="ident">type</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<ul>
+<li><code><a title="classdiagram.classdiagram" href="classdiagram.html">classdiagram.classdiagram</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="classdiagram.Association" href="#classdiagram.Association">Association</a></code></h4>
+<ul class="">
+<li><code><a title="classdiagram.Association.associationClass" href="#classdiagram.Association.associationClass">associationClass</a></code></li>
+<li><code><a title="classdiagram.Association.eClass" href="#classdiagram.Association.eClass">eClass</a></code></li>
+<li><code><a title="classdiagram.Association.ends" href="#classdiagram.Association.ends">ends</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classdiagram.AssociationEnd" href="#classdiagram.AssociationEnd">AssociationEnd</a></code></h4>
+<ul class="two-column">
+<li><code><a title="classdiagram.AssociationEnd.assoc" href="#classdiagram.AssociationEnd.assoc">assoc</a></code></li>
+<li><code><a title="classdiagram.AssociationEnd.classifier" href="#classdiagram.AssociationEnd.classifier">classifier</a></code></li>
+<li><code><a title="classdiagram.AssociationEnd.eClass" href="#classdiagram.AssociationEnd.eClass">eClass</a></code></li>
+<li><code><a title="classdiagram.AssociationEnd.getOppositeEnd" href="#classdiagram.AssociationEnd.getOppositeEnd">getOppositeEnd</a></code></li>
+<li><code><a title="classdiagram.AssociationEnd.lowerBound" href="#classdiagram.AssociationEnd.lowerBound">lowerBound</a></code></li>
+<li><code><a title="classdiagram.AssociationEnd.navigable" href="#classdiagram.AssociationEnd.navigable">navigable</a></code></li>
+<li><code><a title="classdiagram.AssociationEnd.oppositeEnd" href="#classdiagram.AssociationEnd.oppositeEnd">oppositeEnd</a></code></li>
+<li><code><a title="classdiagram.AssociationEnd.ordered" href="#classdiagram.AssociationEnd.ordered">ordered</a></code></li>
+<li><code><a title="classdiagram.AssociationEnd.qualifier" href="#classdiagram.AssociationEnd.qualifier">qualifier</a></code></li>
+<li><code><a title="classdiagram.AssociationEnd.referenceType" href="#classdiagram.AssociationEnd.referenceType">referenceType</a></code></li>
+<li><code><a title="classdiagram.AssociationEnd.unique" href="#classdiagram.AssociationEnd.unique">unique</a></code></li>
+<li><code><a title="classdiagram.AssociationEnd.upperBound" href="#classdiagram.AssociationEnd.upperBound">upperBound</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classdiagram.Attribute" href="#classdiagram.Attribute">Attribute</a></code></h4>
+<ul class="">
+<li><code><a title="classdiagram.Attribute.eClass" href="#classdiagram.Attribute.eClass">eClass</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classdiagram.CDAny" href="#classdiagram.CDAny">CDAny</a></code></h4>
+<ul class="">
+<li><code><a title="classdiagram.CDAny.eClass" href="#classdiagram.CDAny.eClass">eClass</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classdiagram.CDArray" href="#classdiagram.CDArray">CDArray</a></code></h4>
+<ul class="">
+<li><code><a title="classdiagram.CDArray.eClass" href="#classdiagram.CDArray.eClass">eClass</a></code></li>
+<li><code><a title="classdiagram.CDArray.getInstanceClassName" href="#classdiagram.CDArray.getInstanceClassName">getInstanceClassName</a></code></li>
+<li><code><a title="classdiagram.CDArray.size" href="#classdiagram.CDArray.size">size</a></code></li>
+<li><code><a title="classdiagram.CDArray.type" href="#classdiagram.CDArray.type">type</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classdiagram.CDBoolean" href="#classdiagram.CDBoolean">CDBoolean</a></code></h4>
+<ul class="">
+<li><code><a title="classdiagram.CDBoolean.eClass" href="#classdiagram.CDBoolean.eClass">eClass</a></code></li>
+<li><code><a title="classdiagram.CDBoolean.getInstanceClassName" href="#classdiagram.CDBoolean.getInstanceClassName">getInstanceClassName</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classdiagram.CDByte" href="#classdiagram.CDByte">CDByte</a></code></h4>
+<ul class="">
+<li><code><a title="classdiagram.CDByte.eClass" href="#classdiagram.CDByte.eClass">eClass</a></code></li>
+<li><code><a title="classdiagram.CDByte.getInstanceClassName" href="#classdiagram.CDByte.getInstanceClassName">getInstanceClassName</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classdiagram.CDChar" href="#classdiagram.CDChar">CDChar</a></code></h4>
+<ul class="">
+<li><code><a title="classdiagram.CDChar.eClass" href="#classdiagram.CDChar.eClass">eClass</a></code></li>
+<li><code><a title="classdiagram.CDChar.getInstanceClassName" href="#classdiagram.CDChar.getInstanceClassName">getInstanceClassName</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classdiagram.CDCollection" href="#classdiagram.CDCollection">CDCollection</a></code></h4>
+<ul class="">
+<li><code><a title="classdiagram.CDCollection.eClass" href="#classdiagram.CDCollection.eClass">eClass</a></code></li>
+<li><code><a title="classdiagram.CDCollection.type" href="#classdiagram.CDCollection.type">type</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classdiagram.CDDouble" href="#classdiagram.CDDouble">CDDouble</a></code></h4>
+<ul class="">
+<li><code><a title="classdiagram.CDDouble.eClass" href="#classdiagram.CDDouble.eClass">eClass</a></code></li>
+<li><code><a title="classdiagram.CDDouble.getInstanceClassName" href="#classdiagram.CDDouble.getInstanceClassName">getInstanceClassName</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classdiagram.CDEnum" href="#classdiagram.CDEnum">CDEnum</a></code></h4>
+<ul class="">
+<li><code><a title="classdiagram.CDEnum.eClass" href="#classdiagram.CDEnum.eClass">eClass</a></code></li>
+<li><code><a title="classdiagram.CDEnum.literals" href="#classdiagram.CDEnum.literals">literals</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classdiagram.CDEnumLiteral" href="#classdiagram.CDEnumLiteral">CDEnumLiteral</a></code></h4>
+<ul class="">
+<li><code><a title="classdiagram.CDEnumLiteral.eClass" href="#classdiagram.CDEnumLiteral.eClass">eClass</a></code></li>
+<li><code><a title="classdiagram.CDEnumLiteral.enum" href="#classdiagram.CDEnumLiteral.enum">enum</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classdiagram.CDFloat" href="#classdiagram.CDFloat">CDFloat</a></code></h4>
+<ul class="">
+<li><code><a title="classdiagram.CDFloat.eClass" href="#classdiagram.CDFloat.eClass">eClass</a></code></li>
+<li><code><a title="classdiagram.CDFloat.getInstanceClassName" href="#classdiagram.CDFloat.getInstanceClassName">getInstanceClassName</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classdiagram.CDInt" href="#classdiagram.CDInt">CDInt</a></code></h4>
+<ul class="">
+<li><code><a title="classdiagram.CDInt.eClass" href="#classdiagram.CDInt.eClass">eClass</a></code></li>
+<li><code><a title="classdiagram.CDInt.getInstanceClassName" href="#classdiagram.CDInt.getInstanceClassName">getInstanceClassName</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classdiagram.CDLong" href="#classdiagram.CDLong">CDLong</a></code></h4>
+<ul class="">
+<li><code><a title="classdiagram.CDLong.eClass" href="#classdiagram.CDLong.eClass">eClass</a></code></li>
+<li><code><a title="classdiagram.CDLong.getInstanceClassName" href="#classdiagram.CDLong.getInstanceClassName">getInstanceClassName</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classdiagram.CDSequence" href="#classdiagram.CDSequence">CDSequence</a></code></h4>
+<ul class="">
+<li><code><a title="classdiagram.CDSequence.eClass" href="#classdiagram.CDSequence.eClass">eClass</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classdiagram.CDSet" href="#classdiagram.CDSet">CDSet</a></code></h4>
+<ul class="">
+<li><code><a title="classdiagram.CDSet.eClass" href="#classdiagram.CDSet.eClass">eClass</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classdiagram.CDString" href="#classdiagram.CDString">CDString</a></code></h4>
+<ul class="">
+<li><code><a title="classdiagram.CDString.eClass" href="#classdiagram.CDString.eClass">eClass</a></code></li>
+<li><code><a title="classdiagram.CDString.getInstanceClassName" href="#classdiagram.CDString.getInstanceClassName">getInstanceClassName</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classdiagram.CDVoid" href="#classdiagram.CDVoid">CDVoid</a></code></h4>
+<ul class="">
+<li><code><a title="classdiagram.CDVoid.eClass" href="#classdiagram.CDVoid.eClass">eClass</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classdiagram.Class" href="#classdiagram.Class">Class</a></code></h4>
+<ul class="">
+<li><code><a title="classdiagram.Class.eClass" href="#classdiagram.Class.eClass">eClass</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classdiagram.ClassDiagram" href="#classdiagram.ClassDiagram">ClassDiagram</a></code></h4>
+<ul class="two-column">
+<li><code><a title="classdiagram.ClassDiagram.associations" href="#classdiagram.ClassDiagram.associations">associations</a></code></li>
+<li><code><a title="classdiagram.ClassDiagram.classes" href="#classdiagram.ClassDiagram.classes">classes</a></code></li>
+<li><code><a title="classdiagram.ClassDiagram.eClass" href="#classdiagram.ClassDiagram.eClass">eClass</a></code></li>
+<li><code><a title="classdiagram.ClassDiagram.layout" href="#classdiagram.ClassDiagram.layout">layout</a></code></li>
+<li><code><a title="classdiagram.ClassDiagram.notes" href="#classdiagram.ClassDiagram.notes">notes</a></code></li>
+<li><code><a title="classdiagram.ClassDiagram.types" href="#classdiagram.ClassDiagram.types">types</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classdiagram.Classifier" href="#classdiagram.Classifier">Classifier</a></code></h4>
+<ul class="two-column">
+<li><code><a title="classdiagram.Classifier.abstract" href="#classdiagram.Classifier.abstract">abstract</a></code></li>
+<li><code><a title="classdiagram.Classifier.associationEnds" href="#classdiagram.Classifier.associationEnds">associationEnds</a></code></li>
+<li><code><a title="classdiagram.Classifier.attributes" href="#classdiagram.Classifier.attributes">attributes</a></code></li>
+<li><code><a title="classdiagram.Classifier.dataType" href="#classdiagram.Classifier.dataType">dataType</a></code></li>
+<li><code><a title="classdiagram.Classifier.eClass" href="#classdiagram.Classifier.eClass">eClass</a></code></li>
+<li><code><a title="classdiagram.Classifier.operations" href="#classdiagram.Classifier.operations">operations</a></code></li>
+<li><code><a title="classdiagram.Classifier.superTypes" href="#classdiagram.Classifier.superTypes">superTypes</a></code></li>
+<li><code><a title="classdiagram.Classifier.typeParameters" href="#classdiagram.Classifier.typeParameters">typeParameters</a></code></li>
+<li><code><a title="classdiagram.Classifier.visibility" href="#classdiagram.Classifier.visibility">visibility</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classdiagram.ContainerMap" href="#classdiagram.ContainerMap">ContainerMap</a></code></h4>
+<ul class="">
+<li><code><a title="classdiagram.ContainerMap.eClass" href="#classdiagram.ContainerMap.eClass">eClass</a></code></li>
+<li><code><a title="classdiagram.ContainerMap.key" href="#classdiagram.ContainerMap.key">key</a></code></li>
+<li><code><a title="classdiagram.ContainerMap.value" href="#classdiagram.ContainerMap.value">value</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classdiagram.ElementMap" href="#classdiagram.ElementMap">ElementMap</a></code></h4>
+<ul class="">
+<li><code><a title="classdiagram.ElementMap.eClass" href="#classdiagram.ElementMap.eClass">eClass</a></code></li>
+<li><code><a title="classdiagram.ElementMap.key" href="#classdiagram.ElementMap.key">key</a></code></li>
+<li><code><a title="classdiagram.ElementMap.value" href="#classdiagram.ElementMap.value">value</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classdiagram.ImplementationClass" href="#classdiagram.ImplementationClass">ImplementationClass</a></code></h4>
+<ul class="">
+<li><code><a title="classdiagram.ImplementationClass.eClass" href="#classdiagram.ImplementationClass.eClass">eClass</a></code></li>
+<li><code><a title="classdiagram.ImplementationClass.instanceClassName" href="#classdiagram.ImplementationClass.instanceClassName">instanceClassName</a></code></li>
+<li><code><a title="classdiagram.ImplementationClass.interface" href="#classdiagram.ImplementationClass.interface">interface</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classdiagram.Layout" href="#classdiagram.Layout">Layout</a></code></h4>
+<ul class="">
+<li><code><a title="classdiagram.Layout.containers" href="#classdiagram.Layout.containers">containers</a></code></li>
+<li><code><a title="classdiagram.Layout.eClass" href="#classdiagram.Layout.eClass">eClass</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classdiagram.LayoutElement" href="#classdiagram.LayoutElement">LayoutElement</a></code></h4>
+<ul class="">
+<li><code><a title="classdiagram.LayoutElement.eClass" href="#classdiagram.LayoutElement.eClass">eClass</a></code></li>
+<li><code><a title="classdiagram.LayoutElement.x" href="#classdiagram.LayoutElement.x">x</a></code></li>
+<li><code><a title="classdiagram.LayoutElement.y" href="#classdiagram.LayoutElement.y">y</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classdiagram.NamedElement" href="#classdiagram.NamedElement">NamedElement</a></code></h4>
+<ul class="">
+<li><code><a title="classdiagram.NamedElement.eClass" href="#classdiagram.NamedElement.eClass">eClass</a></code></li>
+<li><code><a title="classdiagram.NamedElement.getName" href="#classdiagram.NamedElement.getName">getName</a></code></li>
+<li><code><a title="classdiagram.NamedElement.name" href="#classdiagram.NamedElement.name">name</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classdiagram.Note" href="#classdiagram.Note">Note</a></code></h4>
+<ul class="">
+<li><code><a title="classdiagram.Note.content" href="#classdiagram.Note.content">content</a></code></li>
+<li><code><a title="classdiagram.Note.eClass" href="#classdiagram.Note.eClass">eClass</a></code></li>
+<li><code><a title="classdiagram.Note.notedElement" href="#classdiagram.Note.notedElement">notedElement</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classdiagram.ObjectType" href="#classdiagram.ObjectType">ObjectType</a></code></h4>
+<ul class="">
+<li><code><a title="classdiagram.ObjectType.eClass" href="#classdiagram.ObjectType.eClass">eClass</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classdiagram.Operation" href="#classdiagram.Operation">Operation</a></code></h4>
+<ul class="two-column">
+<li><code><a title="classdiagram.Operation.abstract" href="#classdiagram.Operation.abstract">abstract</a></code></li>
+<li><code><a title="classdiagram.Operation.eClass" href="#classdiagram.Operation.eClass">eClass</a></code></li>
+<li><code><a title="classdiagram.Operation.operationType" href="#classdiagram.Operation.operationType">operationType</a></code></li>
+<li><code><a title="classdiagram.Operation.parameters" href="#classdiagram.Operation.parameters">parameters</a></code></li>
+<li><code><a title="classdiagram.Operation.returnType" href="#classdiagram.Operation.returnType">returnType</a></code></li>
+<li><code><a title="classdiagram.Operation.static" href="#classdiagram.Operation.static">static</a></code></li>
+<li><code><a title="classdiagram.Operation.visibility" href="#classdiagram.Operation.visibility">visibility</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classdiagram.Parameter" href="#classdiagram.Parameter">Parameter</a></code></h4>
+<ul class="">
+<li><code><a title="classdiagram.Parameter.eClass" href="#classdiagram.Parameter.eClass">eClass</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classdiagram.PrimitiveType" href="#classdiagram.PrimitiveType">PrimitiveType</a></code></h4>
+<ul class="">
+<li><code><a title="classdiagram.PrimitiveType.eClass" href="#classdiagram.PrimitiveType.eClass">eClass</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classdiagram.StructuralFeature" href="#classdiagram.StructuralFeature">StructuralFeature</a></code></h4>
+<ul class="">
+<li><code><a title="classdiagram.StructuralFeature.eClass" href="#classdiagram.StructuralFeature.eClass">eClass</a></code></li>
+<li><code><a title="classdiagram.StructuralFeature.static" href="#classdiagram.StructuralFeature.static">static</a></code></li>
+<li><code><a title="classdiagram.StructuralFeature.visibility" href="#classdiagram.StructuralFeature.visibility">visibility</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classdiagram.Type" href="#classdiagram.Type">Type</a></code></h4>
+<ul class="">
+<li><code><a title="classdiagram.Type.eClass" href="#classdiagram.Type.eClass">eClass</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classdiagram.TypeParameter" href="#classdiagram.TypeParameter">TypeParameter</a></code></h4>
+<ul class="">
+<li><code><a title="classdiagram.TypeParameter.eClass" href="#classdiagram.TypeParameter.eClass">eClass</a></code></li>
+<li><code><a title="classdiagram.TypeParameter.genericType" href="#classdiagram.TypeParameter.genericType">genericType</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="classdiagram.TypedElement" href="#classdiagram.TypedElement">TypedElement</a></code></h4>
+<ul class="">
+<li><code><a title="classdiagram.TypedElement.eClass" href="#classdiagram.TypedElement.eClass">eClass</a></code></li>
+<li><code><a title="classdiagram.TypedElement.type" href="#classdiagram.TypedElement.type">type</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

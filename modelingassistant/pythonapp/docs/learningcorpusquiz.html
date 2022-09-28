@@ -1,0 +1,1267 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>learningcorpusquiz API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Package <code>learningcorpusquiz</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">from .learningcorpusquiz import getEClassifier, eClassifiers
+from .learningcorpusquiz import name, nsURI, nsPrefix, eClass
+from .learningcorpusquiz import FillInTheBlanksQuiz, ListMultipleChoiceQuiz, TableMultipleChoiceQuiz, FillInTheBlanksQuizStatement, FillInTheBlanksQuizStatementComponent, NonBlank, Blank, Choice, TableMcqCorrectEntry, TableMcqRowItem, TableMcqColumnItem
+
+
+from . import learningcorpusquiz
+
+__all__ = [&#39;FillInTheBlanksQuiz&#39;, &#39;ListMultipleChoiceQuiz&#39;, &#39;TableMultipleChoiceQuiz&#39;, &#39;FillInTheBlanksQuizStatement&#39;,
+           &#39;FillInTheBlanksQuizStatementComponent&#39;, &#39;NonBlank&#39;, &#39;Blank&#39;, &#39;Choice&#39;, &#39;TableMcqCorrectEntry&#39;, &#39;TableMcqRowItem&#39;, &#39;TableMcqColumnItem&#39;]
+
+eSubpackages = []
+eSuperPackage = None
+learningcorpusquiz.eSubpackages = eSubpackages
+learningcorpusquiz.eSuperPackage = eSuperPackage
+
+ListMultipleChoiceQuiz.correctChoices.eType = Choice
+FillInTheBlanksQuiz.statements.eType = FillInTheBlanksQuizStatement
+ListMultipleChoiceQuiz.choices.eType = Choice
+TableMultipleChoiceQuiz.rowItems.eType = TableMcqRowItem
+TableMultipleChoiceQuiz.columnItems.eType = TableMcqColumnItem
+TableMultipleChoiceQuiz.correctEntries.eType = TableMcqCorrectEntry
+FillInTheBlanksQuizStatement.quiz.eType = FillInTheBlanksQuiz
+FillInTheBlanksQuizStatement.quiz.eOpposite = FillInTheBlanksQuiz.statements
+FillInTheBlanksQuizStatement.components.eType = FillInTheBlanksQuizStatementComponent
+FillInTheBlanksQuizStatementComponent.statement.eType = FillInTheBlanksQuizStatement
+FillInTheBlanksQuizStatementComponent.statement.eOpposite = FillInTheBlanksQuizStatement.components
+Choice.quiz.eType = ListMultipleChoiceQuiz
+Choice.quiz.eOpposite = ListMultipleChoiceQuiz.choices
+TableMcqCorrectEntry.quiz.eType = TableMultipleChoiceQuiz
+TableMcqCorrectEntry.quiz.eOpposite = TableMultipleChoiceQuiz.correctEntries
+TableMcqCorrectEntry.columnItem.eType = TableMcqColumnItem
+TableMcqCorrectEntry.rowitem.eType = TableMcqRowItem
+TableMcqRowItem.quiz.eType = TableMultipleChoiceQuiz
+TableMcqRowItem.quiz.eOpposite = TableMultipleChoiceQuiz.rowItems
+TableMcqRowItem.correctEntries.eType = TableMcqCorrectEntry
+TableMcqRowItem.correctEntries.eOpposite = TableMcqCorrectEntry.rowitem
+TableMcqColumnItem.quiz.eType = TableMultipleChoiceQuiz
+TableMcqColumnItem.quiz.eOpposite = TableMultipleChoiceQuiz.columnItems
+TableMcqColumnItem.correctEntries.eType = TableMcqCorrectEntry
+TableMcqColumnItem.correctEntries.eOpposite = TableMcqCorrectEntry.columnItem
+
+otherClassifiers = []
+
+for classif in otherClassifiers:
+    eClassifiers[classif.name] = classif
+    classif.ePackage = eClass
+
+for classif in eClassifiers.values():
+    eClass.eClassifiers.append(classif.eClass)
+
+for subpack in eSubpackages:
+    eClass.eSubpackages.append(subpack.eClass)</code></pre>
+</details>
+</section>
+<section>
+<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+<dl>
+<dt><code class="name"><a title="learningcorpusquiz.learningcorpusquiz" href="learningcorpusquiz.html">learningcorpusquiz.learningcorpusquiz</a></code></dt>
+<dd>
+<div class="desc"><p>Definition of meta model 'learningcorpusquiz'.</p></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="learningcorpusquiz.Blank"><code class="flex name class">
+<span>class <span class="ident">Blank</span></span>
+<span>(</span><span>*, correctAnswer=None, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Blank(FillInTheBlanksQuizStatementComponent):
+
+    correctAnswer = EAttribute(eType=EString, unique=True, derived=False, changeable=True)
+
+    def __init__(self, *, correctAnswer=None, **kwargs):
+
+        super().__init__(**kwargs)
+
+        if correctAnswer is not None:
+            self.correctAnswer = correctAnswer</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="learningcorpusquiz.learningcorpusquiz.FillInTheBlanksQuizStatementComponent" href="learningcorpusquiz.html#learningcorpusquiz.learningcorpusquiz.FillInTheBlanksQuizStatementComponent">FillInTheBlanksQuizStatementComponent</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="learningcorpusquiz.Blank.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="learningcorpusquiz.Blank.correctAnswer"><code class="name">var <span class="ident">correctAnswer</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="learningcorpusquiz.Choice"><code class="flex name class">
+<span>class <span class="ident">Choice</span></span>
+<span>(</span><span>*, quiz=None, text=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Choice(EObject, metaclass=MetaEClass):
+
+    text = EAttribute(eType=EString, unique=True, derived=False, changeable=True)
+    quiz = EReference(ordered=True, unique=True, containment=False, derived=False)
+
+    def __init__(self, *, quiz=None, text=None):
+        # if kwargs:
+        #    raise AttributeError(&#39;unexpected arguments: {}&#39;.format(kwargs))
+
+        super().__init__()
+
+        if text is not None:
+            self.text = text
+
+        if quiz is not None:
+            self.quiz = quiz</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="learningcorpusquiz.Choice.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="learningcorpusquiz.Choice.quiz"><code class="name">var <span class="ident">quiz</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="learningcorpusquiz.Choice.text"><code class="name">var <span class="ident">text</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="learningcorpusquiz.FillInTheBlanksQuiz"><code class="flex name class">
+<span>class <span class="ident">FillInTheBlanksQuiz</span></span>
+<span>(</span><span>*, statements=None, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class FillInTheBlanksQuiz(Quiz):
+
+    statements = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+
+    def __init__(self, *, statements=None, **kwargs):
+
+        super().__init__(**kwargs)
+
+        if statements:
+            self.statements.extend(statements)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="learningcorpus.learningcorpus.Quiz" href="../learningcorpus/learningcorpus.html#learningcorpus.learningcorpus.Quiz">Quiz</a></li>
+<li><a title="learningcorpus.learningcorpus.LearningResource" href="../learningcorpus/learningcorpus.html#learningcorpus.learningcorpus.LearningResource">LearningResource</a></li>
+<li><a title="learningcorpus.learningcorpus.NamedElement" href="../learningcorpus/learningcorpus.html#learningcorpus.learningcorpus.NamedElement">NamedElement</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="learningcorpusquiz.FillInTheBlanksQuiz.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="learningcorpusquiz.FillInTheBlanksQuiz.statements"><code class="name">var <span class="ident">statements</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="learningcorpusquiz.FillInTheBlanksQuizStatement"><code class="flex name class">
+<span>class <span class="ident">FillInTheBlanksQuizStatement</span></span>
+<span>(</span><span>*, quiz=None, components=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class FillInTheBlanksQuizStatement(EObject, metaclass=MetaEClass):
+
+    quiz = EReference(ordered=True, unique=True, containment=False, derived=False)
+    components = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+
+    def __init__(self, *, quiz=None, components=None):
+        # if kwargs:
+        #    raise AttributeError(&#39;unexpected arguments: {}&#39;.format(kwargs))
+
+        super().__init__()
+
+        if quiz is not None:
+            self.quiz = quiz
+
+        if components:
+            self.components.extend(components)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="learningcorpusquiz.FillInTheBlanksQuizStatement.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="learningcorpusquiz.FillInTheBlanksQuizStatement.components"><code class="name">var <span class="ident">components</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="learningcorpusquiz.FillInTheBlanksQuizStatement.quiz"><code class="name">var <span class="ident">quiz</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="learningcorpusquiz.FillInTheBlanksQuizStatementComponent"><code class="flex name class">
+<span>class <span class="ident">FillInTheBlanksQuizStatementComponent</span></span>
+<span>(</span><span>*, statement=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class FillInTheBlanksQuizStatementComponent(EObject, metaclass=MetaEClass):
+
+    statement = EReference(ordered=True, unique=True, containment=False, derived=False)
+
+    def __init__(self, *, statement=None):
+        # if kwargs:
+        #    raise AttributeError(&#39;unexpected arguments: {}&#39;.format(kwargs))
+
+        super().__init__()
+
+        if statement is not None:
+            self.statement = statement</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="learningcorpusquiz.learningcorpusquiz.Blank" href="learningcorpusquiz.html#learningcorpusquiz.learningcorpusquiz.Blank">Blank</a></li>
+<li><a title="learningcorpusquiz.learningcorpusquiz.NonBlank" href="learningcorpusquiz.html#learningcorpusquiz.learningcorpusquiz.NonBlank">NonBlank</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="learningcorpusquiz.FillInTheBlanksQuizStatementComponent.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="learningcorpusquiz.FillInTheBlanksQuizStatementComponent.statement"><code class="name">var <span class="ident">statement</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="learningcorpusquiz.ListMultipleChoiceQuiz"><code class="flex name class">
+<span>class <span class="ident">ListMultipleChoiceQuiz</span></span>
+<span>(</span><span>*, choices=None, correctChoices=None, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ListMultipleChoiceQuiz(Quiz):
+
+    choices = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+    correctChoices = EReference(ordered=True, unique=True,
+                                containment=False, derived=False, upper=-1)
+
+    def __init__(self, *, choices=None, correctChoices=None, **kwargs):
+
+        super().__init__(**kwargs)
+
+        if choices:
+            self.choices.extend(choices)
+
+        if correctChoices:
+            self.correctChoices.extend(correctChoices)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="learningcorpus.learningcorpus.Quiz" href="../learningcorpus/learningcorpus.html#learningcorpus.learningcorpus.Quiz">Quiz</a></li>
+<li><a title="learningcorpus.learningcorpus.LearningResource" href="../learningcorpus/learningcorpus.html#learningcorpus.learningcorpus.LearningResource">LearningResource</a></li>
+<li><a title="learningcorpus.learningcorpus.NamedElement" href="../learningcorpus/learningcorpus.html#learningcorpus.learningcorpus.NamedElement">NamedElement</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="learningcorpusquiz.ListMultipleChoiceQuiz.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="learningcorpusquiz.ListMultipleChoiceQuiz.choices"><code class="name">var <span class="ident">choices</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="learningcorpusquiz.ListMultipleChoiceQuiz.correctChoices"><code class="name">var <span class="ident">correctChoices</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="learningcorpusquiz.NonBlank"><code class="flex name class">
+<span>class <span class="ident">NonBlank</span></span>
+<span>(</span><span>*, text=None, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class NonBlank(FillInTheBlanksQuizStatementComponent):
+
+    text = EAttribute(eType=EString, unique=True, derived=False, changeable=True)
+
+    def __init__(self, *, text=None, **kwargs):
+
+        super().__init__(**kwargs)
+
+        if text is not None:
+            self.text = text</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="learningcorpusquiz.learningcorpusquiz.FillInTheBlanksQuizStatementComponent" href="learningcorpusquiz.html#learningcorpusquiz.learningcorpusquiz.FillInTheBlanksQuizStatementComponent">FillInTheBlanksQuizStatementComponent</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="learningcorpusquiz.NonBlank.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="learningcorpusquiz.NonBlank.text"><code class="name">var <span class="ident">text</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="learningcorpusquiz.TableMcqColumnItem"><code class="flex name class">
+<span>class <span class="ident">TableMcqColumnItem</span></span>
+<span>(</span><span>*, text=None, quiz=None, correctEntries=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TableMcqColumnItem(EObject, metaclass=MetaEClass):
+
+    text = EAttribute(eType=EString, unique=True, derived=False, changeable=True)
+    quiz = EReference(ordered=True, unique=True, containment=False, derived=False)
+    correctEntries = EReference(ordered=True, unique=True,
+                                containment=False, derived=False, upper=-1)
+
+    def __init__(self, *, text=None, quiz=None, correctEntries=None):
+        # if kwargs:
+        #    raise AttributeError(&#39;unexpected arguments: {}&#39;.format(kwargs))
+
+        super().__init__()
+
+        if text is not None:
+            self.text = text
+
+        if quiz is not None:
+            self.quiz = quiz
+
+        if correctEntries:
+            self.correctEntries.extend(correctEntries)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="learningcorpusquiz.TableMcqColumnItem.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="learningcorpusquiz.TableMcqColumnItem.correctEntries"><code class="name">var <span class="ident">correctEntries</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="learningcorpusquiz.TableMcqColumnItem.quiz"><code class="name">var <span class="ident">quiz</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="learningcorpusquiz.TableMcqColumnItem.text"><code class="name">var <span class="ident">text</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="learningcorpusquiz.TableMcqCorrectEntry"><code class="flex name class">
+<span>class <span class="ident">TableMcqCorrectEntry</span></span>
+<span>(</span><span>*, quiz=None, columnItem=None, rowitem=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TableMcqCorrectEntry(EObject, metaclass=MetaEClass):
+
+    quiz = EReference(ordered=True, unique=True, containment=False, derived=False)
+    columnItem = EReference(ordered=True, unique=True, containment=False, derived=False)
+    rowitem = EReference(ordered=True, unique=True, containment=False, derived=False)
+
+    def __init__(self, *, quiz=None, columnItem=None, rowitem=None):
+        # if kwargs:
+        #    raise AttributeError(&#39;unexpected arguments: {}&#39;.format(kwargs))
+
+        super().__init__()
+
+        if quiz is not None:
+            self.quiz = quiz
+
+        if columnItem is not None:
+            self.columnItem = columnItem
+
+        if rowitem is not None:
+            self.rowitem = rowitem</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="learningcorpusquiz.TableMcqCorrectEntry.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="learningcorpusquiz.TableMcqCorrectEntry.columnItem"><code class="name">var <span class="ident">columnItem</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="learningcorpusquiz.TableMcqCorrectEntry.quiz"><code class="name">var <span class="ident">quiz</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="learningcorpusquiz.TableMcqCorrectEntry.rowitem"><code class="name">var <span class="ident">rowitem</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="learningcorpusquiz.TableMcqRowItem"><code class="flex name class">
+<span>class <span class="ident">TableMcqRowItem</span></span>
+<span>(</span><span>*, text=None, quiz=None, correctEntries=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TableMcqRowItem(EObject, metaclass=MetaEClass):
+
+    text = EAttribute(eType=EString, unique=True, derived=False, changeable=True)
+    quiz = EReference(ordered=True, unique=True, containment=False, derived=False)
+    correctEntries = EReference(ordered=True, unique=True,
+                                containment=False, derived=False, upper=-1)
+
+    def __init__(self, *, text=None, quiz=None, correctEntries=None):
+        # if kwargs:
+        #    raise AttributeError(&#39;unexpected arguments: {}&#39;.format(kwargs))
+
+        super().__init__()
+
+        if text is not None:
+            self.text = text
+
+        if quiz is not None:
+            self.quiz = quiz
+
+        if correctEntries:
+            self.correctEntries.extend(correctEntries)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="learningcorpusquiz.TableMcqRowItem.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="learningcorpusquiz.TableMcqRowItem.correctEntries"><code class="name">var <span class="ident">correctEntries</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="learningcorpusquiz.TableMcqRowItem.quiz"><code class="name">var <span class="ident">quiz</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="learningcorpusquiz.TableMcqRowItem.text"><code class="name">var <span class="ident">text</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="learningcorpusquiz.TableMultipleChoiceQuiz"><code class="flex name class">
+<span>class <span class="ident">TableMultipleChoiceQuiz</span></span>
+<span>(</span><span>*, rowItems=None, columnItems=None, correctEntries=None, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TableMultipleChoiceQuiz(Quiz):
+
+    rowItems = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+    columnItems = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+    correctEntries = EReference(ordered=True, unique=True,
+                                containment=True, derived=False, upper=-1)
+
+    def __init__(self, *, rowItems=None, columnItems=None, correctEntries=None, **kwargs):
+
+        super().__init__(**kwargs)
+
+        if rowItems:
+            self.rowItems.extend(rowItems)
+
+        if columnItems:
+            self.columnItems.extend(columnItems)
+
+        if correctEntries:
+            self.correctEntries.extend(correctEntries)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="learningcorpus.learningcorpus.Quiz" href="../learningcorpus/learningcorpus.html#learningcorpus.learningcorpus.Quiz">Quiz</a></li>
+<li><a title="learningcorpus.learningcorpus.LearningResource" href="../learningcorpus/learningcorpus.html#learningcorpus.learningcorpus.LearningResource">LearningResource</a></li>
+<li><a title="learningcorpus.learningcorpus.NamedElement" href="../learningcorpus/learningcorpus.html#learningcorpus.learningcorpus.NamedElement">NamedElement</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="learningcorpusquiz.TableMultipleChoiceQuiz.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="learningcorpusquiz.TableMultipleChoiceQuiz.columnItems"><code class="name">var <span class="ident">columnItems</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="learningcorpusquiz.TableMultipleChoiceQuiz.correctEntries"><code class="name">var <span class="ident">correctEntries</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+<dt id="learningcorpusquiz.TableMultipleChoiceQuiz.rowItems"><code class="name">var <span class="ident">rowItems</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def __get__(self, instance, owner=None):
+    if instance is None:
+        return self
+    name = self._name
+    instance_dict = instance.__dict__
+    if name in instance_dict:
+        value = instance_dict[name]
+        try:
+            return value._get()
+        except AttributeError:
+            return value
+    if self.many:
+        new_value = self.derived_class.create(instance, self)
+    else:
+        new_value = EValue(instance, self)
+    instance_dict[name] = new_value
+    return new_value._get()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<ul>
+<li><code><a title="learningcorpusquiz.learningcorpusquiz" href="learningcorpusquiz.html">learningcorpusquiz.learningcorpusquiz</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="learningcorpusquiz.Blank" href="#learningcorpusquiz.Blank">Blank</a></code></h4>
+<ul class="">
+<li><code><a title="learningcorpusquiz.Blank.correctAnswer" href="#learningcorpusquiz.Blank.correctAnswer">correctAnswer</a></code></li>
+<li><code><a title="learningcorpusquiz.Blank.eClass" href="#learningcorpusquiz.Blank.eClass">eClass</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="learningcorpusquiz.Choice" href="#learningcorpusquiz.Choice">Choice</a></code></h4>
+<ul class="">
+<li><code><a title="learningcorpusquiz.Choice.eClass" href="#learningcorpusquiz.Choice.eClass">eClass</a></code></li>
+<li><code><a title="learningcorpusquiz.Choice.quiz" href="#learningcorpusquiz.Choice.quiz">quiz</a></code></li>
+<li><code><a title="learningcorpusquiz.Choice.text" href="#learningcorpusquiz.Choice.text">text</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="learningcorpusquiz.FillInTheBlanksQuiz" href="#learningcorpusquiz.FillInTheBlanksQuiz">FillInTheBlanksQuiz</a></code></h4>
+<ul class="">
+<li><code><a title="learningcorpusquiz.FillInTheBlanksQuiz.eClass" href="#learningcorpusquiz.FillInTheBlanksQuiz.eClass">eClass</a></code></li>
+<li><code><a title="learningcorpusquiz.FillInTheBlanksQuiz.statements" href="#learningcorpusquiz.FillInTheBlanksQuiz.statements">statements</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="learningcorpusquiz.FillInTheBlanksQuizStatement" href="#learningcorpusquiz.FillInTheBlanksQuizStatement">FillInTheBlanksQuizStatement</a></code></h4>
+<ul class="">
+<li><code><a title="learningcorpusquiz.FillInTheBlanksQuizStatement.components" href="#learningcorpusquiz.FillInTheBlanksQuizStatement.components">components</a></code></li>
+<li><code><a title="learningcorpusquiz.FillInTheBlanksQuizStatement.eClass" href="#learningcorpusquiz.FillInTheBlanksQuizStatement.eClass">eClass</a></code></li>
+<li><code><a title="learningcorpusquiz.FillInTheBlanksQuizStatement.quiz" href="#learningcorpusquiz.FillInTheBlanksQuizStatement.quiz">quiz</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="learningcorpusquiz.FillInTheBlanksQuizStatementComponent" href="#learningcorpusquiz.FillInTheBlanksQuizStatementComponent">FillInTheBlanksQuizStatementComponent</a></code></h4>
+<ul class="">
+<li><code><a title="learningcorpusquiz.FillInTheBlanksQuizStatementComponent.eClass" href="#learningcorpusquiz.FillInTheBlanksQuizStatementComponent.eClass">eClass</a></code></li>
+<li><code><a title="learningcorpusquiz.FillInTheBlanksQuizStatementComponent.statement" href="#learningcorpusquiz.FillInTheBlanksQuizStatementComponent.statement">statement</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="learningcorpusquiz.ListMultipleChoiceQuiz" href="#learningcorpusquiz.ListMultipleChoiceQuiz">ListMultipleChoiceQuiz</a></code></h4>
+<ul class="">
+<li><code><a title="learningcorpusquiz.ListMultipleChoiceQuiz.choices" href="#learningcorpusquiz.ListMultipleChoiceQuiz.choices">choices</a></code></li>
+<li><code><a title="learningcorpusquiz.ListMultipleChoiceQuiz.correctChoices" href="#learningcorpusquiz.ListMultipleChoiceQuiz.correctChoices">correctChoices</a></code></li>
+<li><code><a title="learningcorpusquiz.ListMultipleChoiceQuiz.eClass" href="#learningcorpusquiz.ListMultipleChoiceQuiz.eClass">eClass</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="learningcorpusquiz.NonBlank" href="#learningcorpusquiz.NonBlank">NonBlank</a></code></h4>
+<ul class="">
+<li><code><a title="learningcorpusquiz.NonBlank.eClass" href="#learningcorpusquiz.NonBlank.eClass">eClass</a></code></li>
+<li><code><a title="learningcorpusquiz.NonBlank.text" href="#learningcorpusquiz.NonBlank.text">text</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="learningcorpusquiz.TableMcqColumnItem" href="#learningcorpusquiz.TableMcqColumnItem">TableMcqColumnItem</a></code></h4>
+<ul class="">
+<li><code><a title="learningcorpusquiz.TableMcqColumnItem.correctEntries" href="#learningcorpusquiz.TableMcqColumnItem.correctEntries">correctEntries</a></code></li>
+<li><code><a title="learningcorpusquiz.TableMcqColumnItem.eClass" href="#learningcorpusquiz.TableMcqColumnItem.eClass">eClass</a></code></li>
+<li><code><a title="learningcorpusquiz.TableMcqColumnItem.quiz" href="#learningcorpusquiz.TableMcqColumnItem.quiz">quiz</a></code></li>
+<li><code><a title="learningcorpusquiz.TableMcqColumnItem.text" href="#learningcorpusquiz.TableMcqColumnItem.text">text</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="learningcorpusquiz.TableMcqCorrectEntry" href="#learningcorpusquiz.TableMcqCorrectEntry">TableMcqCorrectEntry</a></code></h4>
+<ul class="">
+<li><code><a title="learningcorpusquiz.TableMcqCorrectEntry.columnItem" href="#learningcorpusquiz.TableMcqCorrectEntry.columnItem">columnItem</a></code></li>
+<li><code><a title="learningcorpusquiz.TableMcqCorrectEntry.eClass" href="#learningcorpusquiz.TableMcqCorrectEntry.eClass">eClass</a></code></li>
+<li><code><a title="learningcorpusquiz.TableMcqCorrectEntry.quiz" href="#learningcorpusquiz.TableMcqCorrectEntry.quiz">quiz</a></code></li>
+<li><code><a title="learningcorpusquiz.TableMcqCorrectEntry.rowitem" href="#learningcorpusquiz.TableMcqCorrectEntry.rowitem">rowitem</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="learningcorpusquiz.TableMcqRowItem" href="#learningcorpusquiz.TableMcqRowItem">TableMcqRowItem</a></code></h4>
+<ul class="">
+<li><code><a title="learningcorpusquiz.TableMcqRowItem.correctEntries" href="#learningcorpusquiz.TableMcqRowItem.correctEntries">correctEntries</a></code></li>
+<li><code><a title="learningcorpusquiz.TableMcqRowItem.eClass" href="#learningcorpusquiz.TableMcqRowItem.eClass">eClass</a></code></li>
+<li><code><a title="learningcorpusquiz.TableMcqRowItem.quiz" href="#learningcorpusquiz.TableMcqRowItem.quiz">quiz</a></code></li>
+<li><code><a title="learningcorpusquiz.TableMcqRowItem.text" href="#learningcorpusquiz.TableMcqRowItem.text">text</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="learningcorpusquiz.TableMultipleChoiceQuiz" href="#learningcorpusquiz.TableMultipleChoiceQuiz">TableMultipleChoiceQuiz</a></code></h4>
+<ul class="">
+<li><code><a title="learningcorpusquiz.TableMultipleChoiceQuiz.columnItems" href="#learningcorpusquiz.TableMultipleChoiceQuiz.columnItems">columnItems</a></code></li>
+<li><code><a title="learningcorpusquiz.TableMultipleChoiceQuiz.correctEntries" href="#learningcorpusquiz.TableMultipleChoiceQuiz.correctEntries">correctEntries</a></code></li>
+<li><code><a title="learningcorpusquiz.TableMultipleChoiceQuiz.eClass" href="#learningcorpusquiz.TableMultipleChoiceQuiz.eClass">eClass</a></code></li>
+<li><code><a title="learningcorpusquiz.TableMultipleChoiceQuiz.rowItems" href="#learningcorpusquiz.TableMultipleChoiceQuiz.rowItems">rowItems</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

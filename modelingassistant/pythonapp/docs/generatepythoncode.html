@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>generatepythoncode API documentation</title>
+<meta name="description" content="Module to generate and customize the pyecore Python code from the modeling assistant ecore metamodel." />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>generatepythoncode</code></h1>
+</header>
+<section id="section-intro">
+<p>Module to generate and customize the pyecore Python code from the modeling assistant ecore metamodel.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">#!/usr/bin/env python3
+
+&#34;&#34;&#34;
+Module to generate and customize the pyecore Python code from the modeling assistant ecore metamodel.
+&#34;&#34;&#34;
+
+# pylint: disable=invalid-name, import-outside-toplevel, unnecessary-lambda-assignment
+
+from ast import AST
+from inspect import getsource
+from textwrap import dedent
+import ast
+import os
+
+from pyecore.ecore import EPackage, EClassifier, EString, EProxy
+from pyecore.valuecontainer import BadValueError
+
+# import previous (bootstrap) versions of the generated code
+from classdiagram import AssociationEnd, Type
+from learningcorpus import MistakeTypeCategory, MistakeType, ParametrizedResponse
+
+
+def generate_pyecore():
+    &#34;Generate the pyecore Python code from the modeling assistant and learning corpus metamodels.&#34;
+    # TODO Add automatic code generation for the now external &#34;classdiagram.ecore&#34; metamodel
+    pyecoregen_cmd = lambda mdl: f&#34;&#34;&#34;pyecoregen -e {mdl
+                                  } -o modelingassistant/pythonapp --with-dependencies&#34;&#34;&#34;
+    metamodel_names = [&#34;learningcorpus&#34;, &#34;learningcorpusquiz&#34;, &#34;modelingassistant&#34;]
+    for mm in metamodel_names:
+        os.system(pyecoregen_cmd(f&#34;modelingassistant/model/{mm}.ecore&#34;))
+
+
+def customize_generated_code():
+    &#34;Add custom functionality to the generated code, similar to `@generated NOT` in the Java Ecore implementation.&#34;
+    ast_for = lambda item: ast.parse(dedent(getsource(item)))
+
+    # Add the following items to the generated ClassDiagram class
+    # Override CDM AssociationEnd.getOppositeEnd() and add oppositeEnd attribute
+    # docstring indentation is intentional, to appear correctly in the generated code
+    def getOppositeEnd(self) -&gt; AssociationEnd:
+        &#34;&#34;&#34;
+            Return the opposite end of this association end.
+            This method implements the following OCL code from the metamodel:
+
+            ```ocl
+            if (assoc.ends-&gt;size() &lt;= 2) then
+              self.assoc.ends-&gt;select(end : AssociationEnd | end &lt;&gt; self)-&gt;at(1)
+            else
+              null
+            endif
+            ```
+            &#34;&#34;&#34;
+        if len(self.assoc.ends) &lt;= 2:
+            return self.assoc.ends[1 if self.assoc.ends[0] is self else 0]
+        return None
+
+    oppositeEnd = dedent(&#34;&#34;&#34;\
+        @property
+        def oppositeEnd(self) -&gt; AssociationEnd:
+            &#34;Return the opposite end of this association end.&#34;
+            return self.getOppositeEnd()
+        &#34;&#34;&#34;)
+
+    def getName(self) -&gt; str:
+        &#34;&#34;&#34;
+            Return the name of this named element.
+            &#34;&#34;&#34;
+        return self.name or self.__class__.__name__  # fallback to class name to handle Types
+
+    class ObjectType(Type):
+        &#39;Replacement ObjectType that returns the class name as name, eg, CDString().name == &#34;CDString&#34;.&#39;
+        def __init__(self, **kwargs):
+            super().__init__(**kwargs)
+            if not self.name:
+                self.name = self.__class__.__name__
+
+    # Add the following functions to the generated LearningCorpus class
+    def mistakeTypes(self) -&gt; list[MistakeType]:
+        &#34;Custom function to return all the mistake types from their categories.&#34;
+        import itertools
+        return list(itertools.chain(*[mtc.mistakeTypes for mtc in self.mistakeTypeCategories]))
+
+    def topLevelMistakeTypeCategories(self) -&gt; list[MistakeTypeCategory]:
+        &#34;&#34;&#34;
+            Custom function to return all the top-level mistake type categories,
+            ie, those that do not have a supercategory.
+            &#34;&#34;&#34;
+        return [mtc for mtc in self.mistakeTypeCategories if not mtc.supercategory]
+
+    def parametrized_responses(self) -&gt; list[ParametrizedResponse]:
+        &#34;Custom function to return all the parametrized responses for this mistake type.&#34;
+        return [fb for fb in self.feedbacks if fb.__class__.__name__ == &#34;ParametrizedResponse&#34;]
+
+    class MistakeElement:
+        &#34;Container for the methods below.&#34;
+        name, many, type = range(3)  # dummy definitions to make the linter happy
+
+        def __init__(self, *, many=None, type=None, **kwargs):  # pylint: disable=redefined-builtin
+            super().__init__(**kwargs)
+            self.name = self.name or &#34;&#34;
+            if many is not None:
+                self.many = many
+            if type is not None:
+                self.type = type
+
+        def __repr__(self) -&gt; str:
+            &#34;Return the DSL string representation of the MistakeElement.&#34;
+            return f&#34;{f&#39;{self.name}_&#39; if self.name else &#39;&#39;}{self.type}{&#39;*&#39; if self.many else &#39;&#39;}&#34;
+
+    # Add the following items to the generated ModelingAssistant class
+    cdm2sols_def = &#34;classDiagramsToSolutions: dict = {}&#34;
+
+    def override_pyecorevalue_check(self, value, _isinstance=isinstance):
+        &#34;&#34;&#34;
+        Overriden version of PyEcoreValue.check() to accept both static and dynamic classes.
+        &#34;&#34;&#34;
+        import inspect
+        import classdiagram
+        import learningcorpus
+        feature = self.feature
+        etype = self.generic_type or feature._eType  # pylint: disable=protected-access
+        if not etype:
+            try:
+                etype = feature.eGenericType.eRawType
+                self.generic_type = etype
+            except Exception as root_cause:
+                raise AttributeError(f&#39;Feature {feature} has no type nor generic&#39;) from root_cause
+        if not _isinstance(value, etype):
+            if (etype in (EPackage, EClassifier, EString)  # everything can be represented as one of them, so accept all
+                or isinstance(value, EProxy)  # proxy should be resolved to actual value, so don&#39;t crash here
+                or value.eClass.name == etype.__name__    # allow static/dynamic classes to be used interchangeably,
+                or etype.__name__ in [c.name for c in value.eClass.eSuperTypes]):  # including subclasses
+                return True
+            # if value instance of etype, return True
+            for _module in [classdiagram, learningcorpus, __import__(__name__)]:  # import modelingassistant
+                for name, cls in inspect.getmembers(_module, inspect.isclass):
+                    if name == value.eClass.name and etype.name in (c.__name__ for c in cls.__bases__):
+                        return True
+            raise BadValueError(got=value, expected=etype, feature=feature)
+        return True
+
+    cdm_py = &#34;modelingassistant/pythonapp/classdiagram/classdiagram.py&#34;
+    lc_py = &#34;modelingassistant/pythonapp/learningcorpus/learningcorpus.py&#34;
+    ma_py = &#34;modelingassistant/pythonapp/modelingassistant/modelingassistant.py&#34;
+
+    # remove the NotImplementedError stubs for CDM getName() and replace with actual implementation
+    remove_from_module(cdm_py, &#34;getName&#34;)
+    customize_class(cdm_py, &#34;NamedElement&#34;, [ast_for(getName)])
+    customize_class(cdm_py, &#34;ObjectType&#34;, [ast_for(ObjectType.__init__)])
+    customize_class(cdm_py, &#34;AssociationEnd&#34;, [ast_for(getOppositeEnd), ast.parse(oppositeEnd)])
+    customize_class(lc_py, &#34;LearningCorpus&#34;, [ast_for(mistakeTypes), ast_for(topLevelMistakeTypeCategories)])
+    customize_class(lc_py, &#34;MistakeElement&#34;, [ast_for(MistakeElement.__init__), ast_for(MistakeElement.__repr__)])
+    customize_class(lc_py, &#34;MistakeType&#34;, [ast_for(parametrized_responses)])
+    customize_class(ma_py, &#34;ModelingAssistant&#34;, [ast.parse(cdm2sols_def)])
+
+    ma_footer = dedent(&#34;&#34;&#34;
+
+        from pyecore.valuecontainer import PyEcoreValue
+        PyEcoreValue.check = override_pyecorevalue_check
+        &#34;&#34;&#34;)
+    customize_module(ma_py, [ast_for(override_pyecorevalue_check)], ma_footer)
+    add_future_import(cdm_py)
+    add_future_import(lc_py)
+
+
+def customize_class(filename: str, classname: str, members: list[AST]):
+    &#34;Add custom functionality to a class, similar to `@generated NOT` in the Java ecore implementation.&#34;
+    file_ast = read_ast(filename)
+    for e in file_ast.body:
+        # Find the class
+        if hasattr(e, &#34;name&#34;) and e.name == classname:
+            # Add the custom members to it, removing the old versions of them if they exist
+            for member_to_add in members:
+                for e_body_member in e.body:
+                    if (hasattr(e_body_member, &#34;name&#34;) and hasattr(mb := member_to_add.body[0], &#34;name&#34;)
+                        and e_body_member.name == mb.name):
+                        e.body.remove(e_body_member)
+                e.body.append(member_to_add)
+    save_ast_to_file(file_ast, filename)
+
+
+def customize_module(filename: str, members: list[AST], footer: str = &#34;&#34;):
+    &#34;Add custom functionality to a module.&#34;
+    file_ast = read_ast(filename)
+    file_ast.body.extend(members)
+    save_ast_to_file(file_ast, filename, footer)
+
+
+def remove_from_module(filename: str, name: str):
+    &#34;Remove all items with the given name from the given module.&#34;
+    class ItemRemover(ast.NodeTransformer):
+        &#34;Remove the matching items from the module.&#34;
+        def visit_FunctionDef(self, node):
+            &#34;Remove the matching function definitions from the module.&#34;
+            if hasattr(node, &#34;name&#34;) and node.name == name:
+                return None
+            return node
+
+    file_ast = ItemRemover().visit(read_ast(filename))
+    save_ast_to_file(file_ast, filename)
+
+
+def add_future_import(filename: str):
+    &#34;Add a `from __future__ import annotations` statement to the beginning of a file.&#34;
+    file_ast = read_ast(filename)
+    # Insert the future import statement at position 1, after the docstring
+    file_ast.body.insert(1, ast.ImportFrom(module=&#34;__future__&#34;, names=[ast.alias(name=&#34;annotations&#34;)], level=0))
+    save_ast_to_file(file_ast, filename)
+
+
+def read_ast(filename: str) -&gt; AST:
+    &#34;Read the AST (Abstract Syntax Tree) from a file.&#34;
+    with open(filename, encoding=&#34;utf-8&#34;) as f:
+        return ast.parse(f.read())
+
+
+def save_ast_to_file(ast_: AST, filename: str, footer: str = &#34;&#34;):
+    &#34;Save the given AST to a file by unparsing it to a string.&#34;
+    with open(filename, &#34;w&#34;, encoding=&#34;utf-8&#34;) as f:
+        f.write(f&#34;{ast.unparse(ast_)}{footer}&#34;)
+
+
+if __name__ == &#34;__main__&#34;:
+    &#34;Main entry point.&#34;
+    generate_pyecore()
+    customize_generated_code()</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="generatepythoncode.add_future_import"><code class="name flex">
+<span>def <span class="ident">add_future_import</span></span>(<span>filename: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Add a <code>from __future__ import annotations</code> statement to the beginning of a file.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_future_import(filename: str):
+    &#34;Add a `from __future__ import annotations` statement to the beginning of a file.&#34;
+    file_ast = read_ast(filename)
+    # Insert the future import statement at position 1, after the docstring
+    file_ast.body.insert(1, ast.ImportFrom(module=&#34;__future__&#34;, names=[ast.alias(name=&#34;annotations&#34;)], level=0))
+    save_ast_to_file(file_ast, filename)</code></pre>
+</details>
+</dd>
+<dt id="generatepythoncode.customize_class"><code class="name flex">
+<span>def <span class="ident">customize_class</span></span>(<span>filename: str, classname: str, members: list[ast.AST])</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Add custom functionality to a class, similar to <code>@generated NOT</code> in the Java ecore implementation.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def customize_class(filename: str, classname: str, members: list[AST]):
+    &#34;Add custom functionality to a class, similar to `@generated NOT` in the Java ecore implementation.&#34;
+    file_ast = read_ast(filename)
+    for e in file_ast.body:
+        # Find the class
+        if hasattr(e, &#34;name&#34;) and e.name == classname:
+            # Add the custom members to it, removing the old versions of them if they exist
+            for member_to_add in members:
+                for e_body_member in e.body:
+                    if (hasattr(e_body_member, &#34;name&#34;) and hasattr(mb := member_to_add.body[0], &#34;name&#34;)
+                        and e_body_member.name == mb.name):
+                        e.body.remove(e_body_member)
+                e.body.append(member_to_add)
+    save_ast_to_file(file_ast, filename)</code></pre>
+</details>
+</dd>
+<dt id="generatepythoncode.customize_generated_code"><code class="name flex">
+<span>def <span class="ident">customize_generated_code</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Add custom functionality to the generated code, similar to <code>@generated NOT</code> in the Java Ecore implementation.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def customize_generated_code():
+    &#34;Add custom functionality to the generated code, similar to `@generated NOT` in the Java Ecore implementation.&#34;
+    ast_for = lambda item: ast.parse(dedent(getsource(item)))
+
+    # Add the following items to the generated ClassDiagram class
+    # Override CDM AssociationEnd.getOppositeEnd() and add oppositeEnd attribute
+    # docstring indentation is intentional, to appear correctly in the generated code
+    def getOppositeEnd(self) -&gt; AssociationEnd:
+        &#34;&#34;&#34;
+            Return the opposite end of this association end.
+            This method implements the following OCL code from the metamodel:
+
+            ```ocl
+            if (assoc.ends-&gt;size() &lt;= 2) then
+              self.assoc.ends-&gt;select(end : AssociationEnd | end &lt;&gt; self)-&gt;at(1)
+            else
+              null
+            endif
+            ```
+            &#34;&#34;&#34;
+        if len(self.assoc.ends) &lt;= 2:
+            return self.assoc.ends[1 if self.assoc.ends[0] is self else 0]
+        return None
+
+    oppositeEnd = dedent(&#34;&#34;&#34;\
+        @property
+        def oppositeEnd(self) -&gt; AssociationEnd:
+            &#34;Return the opposite end of this association end.&#34;
+            return self.getOppositeEnd()
+        &#34;&#34;&#34;)
+
+    def getName(self) -&gt; str:
+        &#34;&#34;&#34;
+            Return the name of this named element.
+            &#34;&#34;&#34;
+        return self.name or self.__class__.__name__  # fallback to class name to handle Types
+
+    class ObjectType(Type):
+        &#39;Replacement ObjectType that returns the class name as name, eg, CDString().name == &#34;CDString&#34;.&#39;
+        def __init__(self, **kwargs):
+            super().__init__(**kwargs)
+            if not self.name:
+                self.name = self.__class__.__name__
+
+    # Add the following functions to the generated LearningCorpus class
+    def mistakeTypes(self) -&gt; list[MistakeType]:
+        &#34;Custom function to return all the mistake types from their categories.&#34;
+        import itertools
+        return list(itertools.chain(*[mtc.mistakeTypes for mtc in self.mistakeTypeCategories]))
+
+    def topLevelMistakeTypeCategories(self) -&gt; list[MistakeTypeCategory]:
+        &#34;&#34;&#34;
+            Custom function to return all the top-level mistake type categories,
+            ie, those that do not have a supercategory.
+            &#34;&#34;&#34;
+        return [mtc for mtc in self.mistakeTypeCategories if not mtc.supercategory]
+
+    def parametrized_responses(self) -&gt; list[ParametrizedResponse]:
+        &#34;Custom function to return all the parametrized responses for this mistake type.&#34;
+        return [fb for fb in self.feedbacks if fb.__class__.__name__ == &#34;ParametrizedResponse&#34;]
+
+    class MistakeElement:
+        &#34;Container for the methods below.&#34;
+        name, many, type = range(3)  # dummy definitions to make the linter happy
+
+        def __init__(self, *, many=None, type=None, **kwargs):  # pylint: disable=redefined-builtin
+            super().__init__(**kwargs)
+            self.name = self.name or &#34;&#34;
+            if many is not None:
+                self.many = many
+            if type is not None:
+                self.type = type
+
+        def __repr__(self) -&gt; str:
+            &#34;Return the DSL string representation of the MistakeElement.&#34;
+            return f&#34;{f&#39;{self.name}_&#39; if self.name else &#39;&#39;}{self.type}{&#39;*&#39; if self.many else &#39;&#39;}&#34;
+
+    # Add the following items to the generated ModelingAssistant class
+    cdm2sols_def = &#34;classDiagramsToSolutions: dict = {}&#34;
+
+    def override_pyecorevalue_check(self, value, _isinstance=isinstance):
+        &#34;&#34;&#34;
+        Overriden version of PyEcoreValue.check() to accept both static and dynamic classes.
+        &#34;&#34;&#34;
+        import inspect
+        import classdiagram
+        import learningcorpus
+        feature = self.feature
+        etype = self.generic_type or feature._eType  # pylint: disable=protected-access
+        if not etype:
+            try:
+                etype = feature.eGenericType.eRawType
+                self.generic_type = etype
+            except Exception as root_cause:
+                raise AttributeError(f&#39;Feature {feature} has no type nor generic&#39;) from root_cause
+        if not _isinstance(value, etype):
+            if (etype in (EPackage, EClassifier, EString)  # everything can be represented as one of them, so accept all
+                or isinstance(value, EProxy)  # proxy should be resolved to actual value, so don&#39;t crash here
+                or value.eClass.name == etype.__name__    # allow static/dynamic classes to be used interchangeably,
+                or etype.__name__ in [c.name for c in value.eClass.eSuperTypes]):  # including subclasses
+                return True
+            # if value instance of etype, return True
+            for _module in [classdiagram, learningcorpus, __import__(__name__)]:  # import modelingassistant
+                for name, cls in inspect.getmembers(_module, inspect.isclass):
+                    if name == value.eClass.name and etype.name in (c.__name__ for c in cls.__bases__):
+                        return True
+            raise BadValueError(got=value, expected=etype, feature=feature)
+        return True
+
+    cdm_py = &#34;modelingassistant/pythonapp/classdiagram/classdiagram.py&#34;
+    lc_py = &#34;modelingassistant/pythonapp/learningcorpus/learningcorpus.py&#34;
+    ma_py = &#34;modelingassistant/pythonapp/modelingassistant/modelingassistant.py&#34;
+
+    # remove the NotImplementedError stubs for CDM getName() and replace with actual implementation
+    remove_from_module(cdm_py, &#34;getName&#34;)
+    customize_class(cdm_py, &#34;NamedElement&#34;, [ast_for(getName)])
+    customize_class(cdm_py, &#34;ObjectType&#34;, [ast_for(ObjectType.__init__)])
+    customize_class(cdm_py, &#34;AssociationEnd&#34;, [ast_for(getOppositeEnd), ast.parse(oppositeEnd)])
+    customize_class(lc_py, &#34;LearningCorpus&#34;, [ast_for(mistakeTypes), ast_for(topLevelMistakeTypeCategories)])
+    customize_class(lc_py, &#34;MistakeElement&#34;, [ast_for(MistakeElement.__init__), ast_for(MistakeElement.__repr__)])
+    customize_class(lc_py, &#34;MistakeType&#34;, [ast_for(parametrized_responses)])
+    customize_class(ma_py, &#34;ModelingAssistant&#34;, [ast.parse(cdm2sols_def)])
+
+    ma_footer = dedent(&#34;&#34;&#34;
+
+        from pyecore.valuecontainer import PyEcoreValue
+        PyEcoreValue.check = override_pyecorevalue_check
+        &#34;&#34;&#34;)
+    customize_module(ma_py, [ast_for(override_pyecorevalue_check)], ma_footer)
+    add_future_import(cdm_py)
+    add_future_import(lc_py)</code></pre>
+</details>
+</dd>
+<dt id="generatepythoncode.customize_module"><code class="name flex">
+<span>def <span class="ident">customize_module</span></span>(<span>filename: str, members: list[ast.AST], footer: str = '')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Add custom functionality to a module.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def customize_module(filename: str, members: list[AST], footer: str = &#34;&#34;):
+    &#34;Add custom functionality to a module.&#34;
+    file_ast = read_ast(filename)
+    file_ast.body.extend(members)
+    save_ast_to_file(file_ast, filename, footer)</code></pre>
+</details>
+</dd>
+<dt id="generatepythoncode.generate_pyecore"><code class="name flex">
+<span>def <span class="ident">generate_pyecore</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generate the pyecore Python code from the modeling assistant and learning corpus metamodels.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_pyecore():
+    &#34;Generate the pyecore Python code from the modeling assistant and learning corpus metamodels.&#34;
+    # TODO Add automatic code generation for the now external &#34;classdiagram.ecore&#34; metamodel
+    pyecoregen_cmd = lambda mdl: f&#34;&#34;&#34;pyecoregen -e {mdl
+                                  } -o modelingassistant/pythonapp --with-dependencies&#34;&#34;&#34;
+    metamodel_names = [&#34;learningcorpus&#34;, &#34;learningcorpusquiz&#34;, &#34;modelingassistant&#34;]
+    for mm in metamodel_names:
+        os.system(pyecoregen_cmd(f&#34;modelingassistant/model/{mm}.ecore&#34;))</code></pre>
+</details>
+</dd>
+<dt id="generatepythoncode.read_ast"><code class="name flex">
+<span>def <span class="ident">read_ast</span></span>(<span>filename: str) ‑> ast.AST</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Read the AST (Abstract Syntax Tree) from a file.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def read_ast(filename: str) -&gt; AST:
+    &#34;Read the AST (Abstract Syntax Tree) from a file.&#34;
+    with open(filename, encoding=&#34;utf-8&#34;) as f:
+        return ast.parse(f.read())</code></pre>
+</details>
+</dd>
+<dt id="generatepythoncode.remove_from_module"><code class="name flex">
+<span>def <span class="ident">remove_from_module</span></span>(<span>filename: str, name: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Remove all items with the given name from the given module.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def remove_from_module(filename: str, name: str):
+    &#34;Remove all items with the given name from the given module.&#34;
+    class ItemRemover(ast.NodeTransformer):
+        &#34;Remove the matching items from the module.&#34;
+        def visit_FunctionDef(self, node):
+            &#34;Remove the matching function definitions from the module.&#34;
+            if hasattr(node, &#34;name&#34;) and node.name == name:
+                return None
+            return node
+
+    file_ast = ItemRemover().visit(read_ast(filename))
+    save_ast_to_file(file_ast, filename)</code></pre>
+</details>
+</dd>
+<dt id="generatepythoncode.save_ast_to_file"><code class="name flex">
+<span>def <span class="ident">save_ast_to_file</span></span>(<span>ast_: ast.AST, filename: str, footer: str = '')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Save the given AST to a file by unparsing it to a string.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def save_ast_to_file(ast_: AST, filename: str, footer: str = &#34;&#34;):
+    &#34;Save the given AST to a file by unparsing it to a string.&#34;
+    with open(filename, &#34;w&#34;, encoding=&#34;utf-8&#34;) as f:
+        f.write(f&#34;{ast.unparse(ast_)}{footer}&#34;)</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="generatepythoncode.add_future_import" href="#generatepythoncode.add_future_import">add_future_import</a></code></li>
+<li><code><a title="generatepythoncode.customize_class" href="#generatepythoncode.customize_class">customize_class</a></code></li>
+<li><code><a title="generatepythoncode.customize_generated_code" href="#generatepythoncode.customize_generated_code">customize_generated_code</a></code></li>
+<li><code><a title="generatepythoncode.customize_module" href="#generatepythoncode.customize_module">customize_module</a></code></li>
+<li><code><a title="generatepythoncode.generate_pyecore" href="#generatepythoncode.generate_pyecore">generate_pyecore</a></code></li>
+<li><code><a title="generatepythoncode.read_ast" href="#generatepythoncode.read_ast">read_ast</a></code></li>
+<li><code><a title="generatepythoncode.remove_from_module" href="#generatepythoncode.remove_from_module">remove_from_module</a></code></li>
+<li><code><a title="generatepythoncode.save_ast_to_file" href="#generatepythoncode.save_ast_to_file">save_ast_to_file</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

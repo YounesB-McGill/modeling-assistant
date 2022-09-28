@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>mistaketypes API documentation</title>
+<meta name="description" content="This file contains all mistake types and categories.
+It is generated automatically by the createcorpus.py script." />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>mistaketypes</code></h1>
+</header>
+<section id="section-intro">
+<p>This file contains all mistake types and categories.
+It is generated automatically by the createcorpus.py script.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;
+This file contains all mistake types and categories.
+It is generated automatically by the createcorpus.py script.
+&#34;&#34;&#34;
+
+from constants import LEARNING_CORPUS_PATH
+from corpus import corpus as runtime_corpus
+from fileserdes import load_lc
+from learningcorpus import MistakeTypeCategory, MistakeType
+
+corpus = load_lc(LEARNING_CORPUS_PATH)
+
+# Populate dictionaries
+MISTAKE_TYPE_CATEGORIES_BY_NAME: dict[str, MistakeTypeCategory] = {c.name: c for c in corpus.mistakeTypeCategories}
+MISTAKE_TYPES_BY_NAME: dict[str, MistakeType] = {mt.name: mt for mt in corpus.mistakeTypes()}
+
+# Short-name references to the above dicts for greater code legibility
+_MTCS = MISTAKE_TYPE_CATEGORIES_BY_NAME
+_MTS = MISTAKE_TYPES_BY_NAME
+
+
+# Mistake type categories
+CLASS_MISTAKES: MistakeTypeCategory = _MTCS[&#34;Class mistakes&#34;]
+ATTRIBUTE_MISTAKES: MistakeTypeCategory = _MTCS[&#34;Attribute mistakes&#34;]
+RELATIONSHIP_MISTAKES: MistakeTypeCategory = _MTCS[&#34;Relationship mistakes&#34;]
+DESIGN_PATTERN_MISTAKES: MistakeTypeCategory = _MTCS[&#34;Design pattern mistakes&#34;]
+CLASS_NAME_MISTAKES: MistakeTypeCategory = _MTCS[&#34;Class name mistakes&#34;]
+ENUMERATION_MISTAKES: MistakeTypeCategory = _MTCS[&#34;Enumeration mistakes&#34;]
+ATTRIBUTE_NAME_MISTAKES: MistakeTypeCategory = _MTCS[&#34;Attribute name mistakes&#34;]
+ATTRIBUTE_IN_WRONG_CLASS_MISTAKES: MistakeTypeCategory = _MTCS[&#34;Attribute in wrong class mistakes&#34;]
+EXTRA_ATTRIBUTE_MISTAKES: MistakeTypeCategory = _MTCS[&#34;Extra attribute mistakes&#34;]
+ATTRIBUTE_PROPERTY_MISTAKES: MistakeTypeCategory = _MTCS[&#34;Attribute property mistakes&#34;]
+MISSING_ASSOCIATION_AGGREGATION_MISTAKES: MistakeTypeCategory = _MTCS[&#34;Missing association/aggregation mistakes&#34;]
+EXTRA_ASSOCIATION_MISTAKES: MistakeTypeCategory = _MTCS[&#34;Extra association mistakes&#34;]
+MULTIPLICITY_MISTAKES: MistakeTypeCategory = _MTCS[&#34;Multiplicity mistakes&#34;]
+ROLE_NAME_MISTAKES: MistakeTypeCategory = _MTCS[&#34;Role name mistakes&#34;]
+ASSOCIATION_TYPE_MISTAKES: MistakeTypeCategory = _MTCS[&#34;Association type mistakes&#34;]
+ASSOCIATION_NAME_MISTAKES: MistakeTypeCategory = _MTCS[&#34;Association name mistakes&#34;]
+ASSOCIATION_CLASS_MISTAKES: MistakeTypeCategory = _MTCS[&#34;Association class mistakes&#34;]
+COMPOSITION_MISTAKES: MistakeTypeCategory = _MTCS[&#34;Composition mistakes&#34;]
+GENERALIZATION_MISTAKES: MistakeTypeCategory = _MTCS[&#34;Generalization mistakes&#34;]
+PLAYER_ROLE_PATTERN_MISTAKES: MistakeTypeCategory = _MTCS[&#34;Player-Role pattern mistakes&#34;]
+ABSTRACTION_OCCURRENCE_PATTERN_MISTAKES: MistakeTypeCategory = _MTCS[&#34;Abstraction-Occurrence pattern mistakes&#34;]
+
+# Mistake types
+MISSING_CLASS: MistakeType = _MTS[&#34;Missing class&#34;]
+EXTRA_CLASS: MistakeType = _MTS[&#34;Extra class&#34;]
+MISSING_ATTRIBUTE: MistakeType = _MTS[&#34;Missing attribute&#34;]
+PLURAL_CLASS_NAME: MistakeType = _MTS[&#34;Plural class name&#34;]
+LOWERCASE_CLASS_NAME: MistakeType = _MTS[&#34;Lowercase class name&#34;]
+SOFTWARE_ENGINEERING_TERM: MistakeType = _MTS[&#34;Software engineering term&#34;]
+BAD_CLASS_NAME_SPELLING: MistakeType = _MTS[&#34;Bad class name spelling&#34;]
+WRONG_CLASS_NAME: MistakeType = _MTS[&#34;Wrong class name&#34;]
+CLASS_SHOULD_BE_ABSTRACT: MistakeType = _MTS[&#34;Class should be abstract&#34;]
+CLASS_SHOULD_NOT_BE_ABSTRACT: MistakeType = _MTS[&#34;Class should not be abstract&#34;]
+CLASS_SHOULD_BE_ENUM: MistakeType = _MTS[&#34;Class should be enum&#34;]
+ENUM_SHOULD_BE_CLASS: MistakeType = _MTS[&#34;Enum should be class&#34;]
+MISSING_ENUM: MistakeType = _MTS[&#34;Missing enum&#34;]
+EXTRA_ENUM: MistakeType = _MTS[&#34;Extra enum&#34;]
+BAD_ENUM_NAME_SPELLING: MistakeType = _MTS[&#34;Bad enum name spelling&#34;]
+MISSING_ENUM_ITEM: MistakeType = _MTS[&#34;Missing enum item&#34;]
+EXTRA_ENUM_ITEM: MistakeType = _MTS[&#34;Extra enum item&#34;]
+BAD_ENUM_ITEM_SPELLING: MistakeType = _MTS[&#34;Bad enum item spelling&#34;]
+BAD_ATTRIBUTE_NAME_SPELLING: MistakeType = _MTS[&#34;Bad attribute name spelling&#34;]
+UPPERCASE_ATTRIBUTE_NAME: MistakeType = _MTS[&#34;Uppercase attribute name&#34;]
+ATTRIBUTE_MISPLACED: MistakeType = _MTS[&#34;Attribute misplaced&#34;]
+ATTRIBUTE_DUPLICATED: MistakeType = _MTS[&#34;Attribute duplicated&#34;]
+ATTRIBUTE_MISPLACED_IN_GENERALIZATION_HIERARCHY: MistakeType = _MTS[&#34;Attribute misplaced in generalization hierarchy&#34;]
+PLURAL_ATTRIBUTE: MistakeType = _MTS[&#34;Plural attribute&#34;]
+LIST_ATTRIBUTE: MistakeType = _MTS[&#34;List attribute&#34;]
+EXTRA_ATTRIBUTE: MistakeType = _MTS[&#34;Extra attribute&#34;]
+WRONG_ATTRIBUTE_TYPE: MistakeType = _MTS[&#34;Wrong attribute type&#34;]
+MISSING_ATTRIBUTE_TYPE: MistakeType = _MTS[&#34;Missing attribute type&#34;]
+ATTRIBUTE_SHOULD_BE_STATIC: MistakeType = _MTS[&#34;Attribute should be static&#34;]
+ATTRIBUTE_SHOULD_NOT_BE_STATIC: MistakeType = _MTS[&#34;Attribute should not be static&#34;]
+MISSING_ASSOCIATION: MistakeType = _MTS[&#34;Missing association&#34;]
+MISSING_AGGREGATION: MistakeType = _MTS[&#34;Missing aggregation&#34;]
+MISSING_N_ARY_ASSOCIATION: MistakeType = _MTS[&#34;Missing n-ary association&#34;]
+USING_ATTRIBUTE_INSTEAD_OF_ASSOC: MistakeType = _MTS[&#34;Using attribute instead of assoc&#34;]
+EXTRA_ASSOCIATION: MistakeType = _MTS[&#34;Extra association&#34;]
+EXTRA_AGGREGATION: MistakeType = _MTS[&#34;Extra aggregation&#34;]
+EXTRA_N_ARY_ASSOCIATION: MistakeType = _MTS[&#34;Extra n-ary association&#34;]
+INFINITE_RECURSIVE_DEPENDENCY: MistakeType = _MTS[&#34;Infinite recursive dependency&#34;]
+WRONG_MULTIPLICITY: MistakeType = _MTS[&#34;Wrong multiplicity&#34;]
+MISSING_MULTIPLICITY: MistakeType = _MTS[&#34;Missing multiplicity&#34;]
+MISSING_ROLE_NAME: MistakeType = _MTS[&#34;Missing role name&#34;]
+ROLE_SHOULD_BE_STATIC: MistakeType = _MTS[&#34;Role should be static&#34;]
+ROLE_SHOULD_NOT_BE_STATIC: MistakeType = _MTS[&#34;Role should not be static&#34;]
+BAD_ROLE_NAME_SPELLING: MistakeType = _MTS[&#34;Bad role name spelling&#34;]
+REPRESENTING_ACTION_WITH_ASSOC: MistakeType = _MTS[&#34;Representing action with assoc&#34;]
+WRONG_ROLE_NAME: MistakeType = _MTS[&#34;Wrong role name&#34;]
+USING_AGGREGATION_INSTEAD_OF_ASSOC: MistakeType = _MTS[&#34;Using aggregation instead of assoc&#34;]
+USING_COMPOSITION_INSTEAD_OF_ASSOC: MistakeType = _MTS[&#34;Using composition instead of assoc&#34;]
+USING_DIRECTED_RELATIONSHIP_INSTEAD_OF_UNDIRECTED: MistakeType = \
+    _MTS[&#34;Using directed relationship instead of undirected&#34;]
+USING_UNDIRECTED_RELATIONSHIP_INSTEAD_OF_DIRECTED: MistakeType = \
+    _MTS[&#34;Using undirected relationship instead of directed&#34;]
+REVERSED_RELATIONSHIP_DIRECTION: MistakeType = _MTS[&#34;Reversed relationship direction&#34;]
+USING_COMPOSITION_INSTEAD_OF_AGGREGATION: MistakeType = _MTS[&#34;Using composition instead of aggregation&#34;]
+USING_BINARY_ASSOC_INSTEAD_OF_N_ARY_ASSOC: MistakeType = _MTS[&#34;Using binary assoc instead of n-ary assoc&#34;]
+USING_N_ARY_ASSOC_INSTEAD_OF_BINARY_ASSOC: MistakeType = _MTS[&#34;Using n-ary assoc instead of binary assoc&#34;]
+USING_INTERMEDIATE_CLASS_INSTEAD_OF_N_ARY_ASSOC: MistakeType = _MTS[&#34;Using intermediate class instead of n-ary assoc&#34;]
+USING_N_ARY_ASSOC_INSTEAD_OF_INTERMEDIATE_CLASS: MistakeType = _MTS[&#34;Using n-ary assoc instead of intermediate class&#34;]
+MISSING_ASSOCIATION_NAME: MistakeType = _MTS[&#34;Missing association name&#34;]
+BAD_ASSOCIATION_NAME_SPELLING: MistakeType = _MTS[&#34;Bad association name spelling&#34;]
+MISSING_ASSOC_CLASS: MistakeType = _MTS[&#34;Missing assoc class&#34;]
+EXTRA_ASSOC_CLASS: MistakeType = _MTS[&#34;Extra assoc class&#34;]
+BAD_ASSOC_CLASS_NAME_SPELLING: MistakeType = _MTS[&#34;Bad assoc class name spelling&#34;]
+ASSOC_CLASS_SHOULD_BE_CLASS: MistakeType = _MTS[&#34;Assoc class should be class&#34;]
+CLASS_SHOULD_BE_ASSOC_CLASS: MistakeType = _MTS[&#34;Class should be assoc class&#34;]
+MISSING_COMPOSITION: MistakeType = _MTS[&#34;Missing composition&#34;]
+EXTRA_COMPOSITION: MistakeType = _MTS[&#34;Extra composition&#34;]
+USING_ASSOC_INSTEAD_OF_AGGREGATION: MistakeType = _MTS[&#34;Using assoc instead of aggregation&#34;]
+USING_ASSOC_INSTEAD_OF_COMPOSITION: MistakeType = _MTS[&#34;Using assoc instead of composition&#34;]
+USING_AGGREGATION_INSTEAD_OF_COMPOSITION: MistakeType = _MTS[&#34;Using aggregation instead of composition&#34;]
+COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT: MistakeType = _MTS[&#34;Composed part contained in more than one parent&#34;]
+INCOMPLETE_CONTAINMENT_TREE: MistakeType = _MTS[&#34;Incomplete containment tree&#34;]
+MISSING_GENERALIZATION: MistakeType = _MTS[&#34;Missing generalization&#34;]
+EXTRA_GENERALIZATION: MistakeType = _MTS[&#34;Extra generalization&#34;]
+GENERALIZATION_INAPPLICABLE: MistakeType = _MTS[&#34;Generalization inapplicable&#34;]
+SUBCLASS_NOT_DISTINCT_ACROSS_LIFETIME: MistakeType = _MTS[&#34;Subclass not distinct across lifetime&#34;]
+INHERITED_FEATURE_DOES_NOT_MAKE_SENSE_FOR_SUBCLASS: MistakeType = \
+    _MTS[&#34;Inherited feature does not make sense for subclass&#34;]
+SUBCLASS_IS_AN_INSTANCE_OF_SUPERCLASS: MistakeType = _MTS[&#34;Subclass is an instance of superclass&#34;]
+NON_DIFFERENTIATED_SUBCLASS: MistakeType = _MTS[&#34;Non-differentiated subclass&#34;]
+REVERSED_GENERALIZATION_DIRECTION: MistakeType = _MTS[&#34;Reversed generalization direction&#34;]
+WRONG_SUPERCLASS: MistakeType = _MTS[&#34;Wrong superclass&#34;]
+MISSING_PR_PATTERN: MistakeType = _MTS[&#34;Missing PR pattern&#34;]
+INCOMPLETE_PR_PATTERN: MistakeType = _MTS[&#34;Incomplete PR pattern&#34;]
+SUBCLASS_SHOULD_BE_FULL_PR_PATTERN: MistakeType = _MTS[&#34;Subclass should be full PR pattern&#34;]
+SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN: MistakeType = _MTS[&#34;Subclass should be assoc PR pattern&#34;]
+SUBCLASS_SHOULD_BE_ENUM_PR_PATTERN: MistakeType = _MTS[&#34;Subclass should be enum PR pattern&#34;]
+ASSOC_SHOULD_BE_FULL_PR_PATTERN: MistakeType = _MTS[&#34;Assoc should be full PR pattern&#34;]
+ASSOC_SHOULD_BE_SUBCLASS_PR_PATTERN: MistakeType = _MTS[&#34;Assoc should be subclass PR pattern&#34;]
+ASSOC_SHOULD_BE_ENUM_PR_PATTERN: MistakeType = _MTS[&#34;Assoc should be enum PR pattern&#34;]
+ENUM_SHOULD_BE_FULL_PR_PATTERN: MistakeType = _MTS[&#34;Enum should be full PR pattern&#34;]
+ENUM_SHOULD_BE_SUBCLASS_PR_PATTERN: MistakeType = _MTS[&#34;Enum should be subclass PR pattern&#34;]
+ENUM_SHOULD_BE_ASSOC_PR_PATTERN: MistakeType = _MTS[&#34;Enum should be assoc PR pattern&#34;]
+FULL_PR_PATTERN_SHOULD_BE_SUBCLASS: MistakeType = _MTS[&#34;Full PR pattern should be subclass&#34;]
+FULL_PR_PATTERN_SHOULD_BE_ASSOC: MistakeType = _MTS[&#34;Full PR pattern should be assoc&#34;]
+FULL_PR_PATTERN_SHOULD_BE_ENUM: MistakeType = _MTS[&#34;Full PR pattern should be enum&#34;]
+MISSING_AO_PATTERN: MistakeType = _MTS[&#34;Missing AO pattern&#34;]
+INCOMPLETE_AO_PATTERN: MistakeType = _MTS[&#34;Incomplete AO pattern&#34;]
+MISSING_ASSOCIATION_IN_AO_PATTERN: MistakeType = _MTS[&#34;Missing association in AO pattern&#34;]
+GENERALIZATION_SHOULD_BE_ASSOC_AO_PATTERN: MistakeType = _MTS[&#34;Generalization should be assoc AO pattern&#34;]</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

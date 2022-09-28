@@ -1,0 +1,1711 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>test_feedback API documentation</title>
+<meta name="description" content="Tests for feedback algorithm." />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>test_feedback</code></h1>
+</header>
+<section id="section-intro">
+<p>Tests for feedback algorithm.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">#!/usr/bin/env python3
+# pylint: disable=wrong-import-position
+
+&#34;&#34;&#34;
+Tests for feedback algorithm.
+&#34;&#34;&#34;
+
+from dataclasses import asdict, is_dataclass
+from threading import Thread
+from time import sleep
+from typing import Any
+import os
+import json
+import sys
+
+from requests.models import Response
+import requests
+import pytest  # (to allow tests to be skipped) pylint: disable=unused-import
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from classdiagram import Association, Attribute, CDEnum, CDEnumLiteral, Class, ClassDiagram
+from color import Color
+from constants import MANY
+from corpusdefinition import attribute_duplicated, enum_should_be_full_pr_pattern, missing_enum
+from feedback import DEFAULT_HIGHLIGHT_COLOR, FeedbackTO, give_feedback, give_feedback_for_student_cdm
+from fileserdes import load_cdm
+from learningcorpus import Feedback, ParametrizedResponse, Reference, ResourceResponse, TextResponse, Quiz
+from mistaketypes import (BAD_CLASS_NAME_SPELLING, INCOMPLETE_CONTAINMENT_TREE, MISSING_CLASS,
+    SOFTWARE_ENGINEERING_TERM, WRONG_MULTIPLICITY)
+from stringserdes import SRSET, str_to_modelingassistant
+from utils import ae
+from modelingassistant import (FeedbackItem, Mistake, ModelingAssistant, ProblemStatement, Solution, SolutionElement,
+    Student, StudentKnowledge)
+
+
+HOST = &#34;localhost&#34;
+PORT = 8539
+
+DELAY = 20  # seconds
+
+_HIGHLIGHT_COLOR = DEFAULT_HIGHLIGHT_COLOR.to_hex()
+
+
+def make_ma_without_mistakes() -&gt; ModelingAssistant:
+    &#34;Make a simple Modeling Assistant instance with no mistakes.&#34;
+    ma = ModelingAssistant()
+    bus_ps = ProblemStatement(name=&#34;Bus Management System&#34;, modelingAssistant=ma)
+    alice = Student(name=&#34;Alice&#34;, modelingAssistant=ma)
+    StudentKnowledge(mistakeType=SOFTWARE_ENGINEERING_TERM, student=alice, modelingAssistant=ma)
+    # Need to set both ends of ProblemStatement-Solution relationship manually since is actually 3 one-way relationships
+    inst_sol = Solution(problemStatement=bus_ps, modelingAssistant=ma)
+    bus_ps.instructorSolution = inst_sol
+    alice_bus_sol = Solution(student=alice, problemStatement=bus_ps, modelingAssistant=ma)
+    bus_ps.studentSolutions.append(alice_bus_sol)
+    alice.currentSolution = alice_bus_sol
+    return ma
+
+
+def make_ma_with_1_sw_eng_term_mistake(num_detection: int=1) -&gt; ModelingAssistant:
+    &#34;&#34;&#34;
+    Make a simple Modeling Assistant instance with one Software engineering term mistake, detected `num_detection`
+    times.
+    &#34;&#34;&#34;
+    ma = make_ma_without_mistakes()
+    inst_sol = ma.problemStatements[0].instructorSolution
+    alice_bus_sol = ma.problemStatements[0].studentSolutions[0]
+    bus_cls = SolutionElement(solution=inst_sol, element=Class(name=&#34;Bus&#34;))
+    bus_data_cls = SolutionElement(solution=alice_bus_sol, element=Class(name=&#34;BusData&#34;))
+    set_mistake = Mistake(solution=alice_bus_sol, mistakeType=SOFTWARE_ENGINEERING_TERM, numDetections=num_detection,
+                          studentElements=[bus_data_cls], instructorElements=[bus_cls])
+    if num_detection &gt; 1:
+        set_mistake.lastFeedback = FeedbackItem(feedback=Feedback(level=num_detection - 1))
+    return ma
+
+
+def make_ma_with_1_wrong_mult_mistake(num_detection: int=1) -&gt; ModelingAssistant:
+    &#34;&#34;&#34;
+    Make a simple Modeling Assistant instance with one Wrong multiplicity mistake, detected `num_detection` times.
+    &#34;&#34;&#34;
+    ma = make_ma_without_mistakes()
+    inst_sol = ma.problemStatements[0].instructorSolution
+    stud_sol = ma.problemStatements[0].studentSolutions[0]
+    # a bus has only one garage, but a garage has multiple buses
+    inst_bus_cls = SolutionElement(solution=inst_sol, element=Class(name=&#34;Bus&#34;))
+    inst_garage_cls = SolutionElement(solution=inst_sol, element=Class(name=&#34;Garage&#34;))
+    SolutionElement(solution=inst_sol, element=Association(ends=[
+        inst_bus_garage := ae(inst_bus_cls.element, n=&#34;garage&#34;),
+        ae(inst_garage_cls.element, 0, MANY, n=&#34;bus&#34;)]))
+    stud_bus_cls = SolutionElement(solution=stud_sol, element=Class(name=&#34;Bus&#34;))
+    stud_garage_cls = SolutionElement(solution=stud_sol, element=Class(name=&#34;Garage&#34;))
+    SolutionElement(solution=stud_sol, element=Association(ends=[
+        stud_bus_garage := ae(stud_bus_cls.element, ub=MANY, n=&#34;garage&#34;),  # mistake is here: bus only has one garage
+        ae(stud_garage_cls.element, 0, MANY, n=&#34;bus&#34;)]))
+    wm_mistake = Mistake(solution=stud_sol, mistakeType=WRONG_MULTIPLICITY, numDetections=num_detection,
+                         studentElements=[SolutionElement(solution=stud_sol, element=stud_bus_garage)],
+                         instructorElements=[SolutionElement(solution=inst_sol, element=inst_bus_garage)])
+    if num_detection &gt; 1:
+        wm_mistake.lastFeedback = FeedbackItem(feedback=Feedback(level=num_detection - 1))
+    return ma
+
+
+def make_ma_with_airline_system() -&gt; ModelingAssistant:
+    &#34;Create a Modeling Assistant instance with instructor and student solutions for an airline system.&#34;
+    inst_cdm = load_cdm(&#34;modelingassistant/testmodels/AirlineSystem_instructor.cdm&#34;)
+    stud_cdm = load_cdm(&#34;modelingassistant/testmodels/AirlineSystem_student.cdm&#34;)
+    ma = ModelingAssistant()
+    airline_system_ps = ProblemStatement(name=&#34;Airline System&#34;, modelingAssistant=ma)
+    alice = Student(name=&#34;Alice&#34;, modelingAssistant=ma)
+    inst_sol = Solution(modelingAssistant=ma, classDiagram=inst_cdm, problemStatement=airline_system_ps)
+    stud_sol = Solution(modelingAssistant=ma, classDiagram=stud_cdm, problemStatement=airline_system_ps, student=alice)
+    airline_system_ps.instructorSolution = inst_sol
+    airline_system_ps.studentSolutions.append(stud_sol)
+    return ma
+
+
+def _json_str(item: Any) -&gt; str:
+    if is_dataclass(item):
+        item = asdict(item)
+    return json.dumps(item, indent=4, sort_keys=True)
+
+
+def test_feedback_without_mistakes():
+    &#34;Test feedback for a solution without any mistakes.&#34;
+    solution = make_ma_without_mistakes().problemStatements[0].studentSolutions[0]
+    feedback_item = give_feedback(solution)
+    assert &#34;no mistakes found&#34; in feedback_item.feedback.text.lower()
+
+
+def test_feedback_with_1_sw_eng_term_mistake_level_1():
+    &#34;&#34;&#34;
+    Test feedback for a solution with one mistake made a first time.
+
+    BusData detected for first time -&gt; highlight BusData
+    &#34;&#34;&#34;
+    ma = make_ma_with_1_sw_eng_term_mistake(1)
+    solution = ma.problemStatements[0].studentSolutions[0]
+    feedback_item = give_feedback(solution)
+    curr_mistake = feedback_item.mistake
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, Feedback)
+    assert 1 == feedback.level
+    assert feedback.highlightSolution
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 9 == ma.studentKnowledges[0].levelOfKnowledge
+
+
+def test_feedback_with_1_sw_eng_term_mistake_level_2():
+    &#34;&#34;&#34;
+    Test feedback for a solution with one mistake made a second time.
+
+    BusData (or similar) detected for second time -&gt; text response
+    &#34;&#34;&#34;
+    ma = make_ma_with_1_sw_eng_term_mistake(2)
+    solution = ma.problemStatements[0].studentSolutions[0]
+    feedback_item = give_feedback(solution)
+    curr_mistake = feedback_item.mistake
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, TextResponse)
+    assert 2 == feedback.level
+    assert not feedback.highlightSolution
+    assert &#34;software engineering term&#34; in feedback.text
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 8 == ma.studentKnowledges[0].levelOfKnowledge
+
+
+def test_feedback_with_1_sw_eng_term_mistake_level_3():
+    &#34;&#34;&#34;
+    Test feedback for a solution with one mistake made a third time.
+
+    BusData (or similar) detected for third time -&gt; parameterized response
+    &#34;&#34;&#34;
+    ma = make_ma_with_1_sw_eng_term_mistake(3)
+    solution = ma.problemStatements[0].studentSolutions[0]
+    feedback_item = give_feedback(solution)
+    curr_mistake = feedback_item.mistake
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, ParametrizedResponse)
+    assert 3 == feedback.level
+    assert not feedback.highlightSolution
+    assert &#34;software engineering term&#34; in feedback.text
+    assert &#34;BusData&#34; in feedback_item.text
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 7 == ma.studentKnowledges[0].levelOfKnowledge
+
+
+def test_feedback_with_1_sw_eng_term_mistake_level_4():
+    &#34;&#34;&#34;
+    Test feedback for a solution with one mistake made a fourth time.
+
+    BusData (or similar) detected for fourth time -&gt; resource response with example
+    &#34;&#34;&#34;
+    ma = make_ma_with_1_sw_eng_term_mistake(4)
+    solution = ma.problemStatements[0].studentSolutions[0]
+    feedback_item = give_feedback(solution)
+    curr_mistake = feedback_item.mistake
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, ResourceResponse)
+    assert 4 == feedback.level
+    assert not feedback.highlightSolution
+    resource_content = feedback.learningResources[0].content
+    assert &#34;incorrect class naming&#34; in resource_content
+    assert &#34;:x: Examples to avoid | :heavy_check_mark: Good class names&#34; in resource_content
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 6 == ma.studentKnowledges[0].levelOfKnowledge
+
+
+def test_feedback_with_1_sw_eng_term_mistake_levels_1_4():
+    &#34;&#34;&#34;
+    Test feedback for a solution with one mistake made four times in a row.
+
+    BusData detected 4 times -&gt; 4 levels of feedback, given one at a time.
+    &#34;&#34;&#34;
+    ma = make_ma_with_1_sw_eng_term_mistake(1)
+    solution = ma.problemStatements[0].studentSolutions[0]
+    feedback_item = give_feedback(solution)
+    curr_mistake = feedback_item.mistake
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, Feedback)
+    assert 1 == feedback.level
+    assert feedback.highlightSolution
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 9 == ma.studentKnowledges[0].levelOfKnowledge
+
+    ma.problemStatements[0].studentSolutions[0].mistakes[0].numDetections += 1
+    feedback_item = give_feedback(solution)
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, TextResponse)
+    assert 2 == feedback.level
+    assert not feedback.highlightSolution
+    assert &#34;software engineering term&#34; in feedback.text
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 8 == ma.studentKnowledges[0].levelOfKnowledge
+
+    ma.problemStatements[0].studentSolutions[0].mistakes[0].numDetections += 1
+    feedback_item = give_feedback(solution)
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, ParametrizedResponse)
+    assert 3 == feedback.level
+    assert not feedback.highlightSolution
+    assert &#34;software engineering term&#34; in feedback.text
+    assert &#34;BusData&#34; in feedback_item.text
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 7 == ma.studentKnowledges[0].levelOfKnowledge
+
+    ma.problemStatements[0].studentSolutions[0].mistakes[0].numDetections += 1
+    feedback_item = give_feedback(solution)
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, ResourceResponse)
+    assert 4 == feedback.level
+    assert not feedback.highlightSolution
+    resource_content = feedback.learningResources[0].content
+    assert &#34;incorrect class naming&#34; in resource_content
+    assert &#34;:x: Examples to avoid | :heavy_check_mark: Good class names&#34; in resource_content
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 6 == ma.studentKnowledges[0].levelOfKnowledge
+
+
+def test_feedback_with_1_wrong_mult_mistake_level_1():
+    &#34;&#34;&#34;
+    Test feedback for a solution with one mistake made a first time.
+
+    Wrong multiplicity detected 1 time -&gt; highlight solution
+    &#34;&#34;&#34;
+    ma = make_ma_with_1_wrong_mult_mistake(1)
+    solution = ma.problemStatements[0].studentSolutions[0]
+    feedback_item = give_feedback(solution)
+    curr_mistake = feedback_item.mistake
+    wrong_mult_sk = next(sk for sk in ma.studentKnowledges if sk.mistakeType is curr_mistake.mistakeType)
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, Feedback)
+    assert 1 == feedback.level
+    assert feedback.highlightSolution
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    wrong_mult_sk = next(sk for sk in ma.studentKnowledges if sk.mistakeType is curr_mistake.mistakeType)
+    assert 9 == wrong_mult_sk.levelOfKnowledge
+
+
+def test_feedback_with_1_wrong_mult_mistake_level_2():
+    &#34;&#34;&#34;
+    Test feedback for a solution with one mistake made a second time.
+
+    Wrong multiplicity detected 2 times -&gt; text response
+    &#34;&#34;&#34;
+    ma = make_ma_with_1_wrong_mult_mistake(2)
+    solution = ma.problemStatements[0].studentSolutions[0]
+    feedback_item = give_feedback(solution)
+    curr_mistake = feedback_item.mistake
+    wrong_mult_sk = next(sk for sk in ma.studentKnowledges if sk.mistakeType is curr_mistake.mistakeType)
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, TextResponse)
+    assert 2 == feedback.level
+    assert not feedback.highlightSolution
+    assert &#34;Double check this association&#34; in feedback.text
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 8 == wrong_mult_sk.levelOfKnowledge
+
+
+def test_feedback_with_1_wrong_mult_mistake_level_3():
+    &#34;&#34;&#34;
+    Test feedback for a solution with one mistake made a third time.
+
+    Wrong multiplicity detected 3 times -&gt; more detailed text response
+    &#34;&#34;&#34;
+    ma = make_ma_with_1_wrong_mult_mistake(3)
+    solution = ma.problemStatements[0].studentSolutions[0]
+    feedback_item = give_feedback(solution)
+    curr_mistake = feedback_item.mistake
+    wrong_mult_sk = next(sk for sk in ma.studentKnowledges if sk.mistakeType is curr_mistake.mistakeType)
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, TextResponse)
+    assert 3 == feedback.level
+    assert not feedback.highlightSolution
+    assert &#34;multiplicity&#34; in feedback.text
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 7 == wrong_mult_sk.levelOfKnowledge
+
+
+def test_feedback_with_1_wrong_mult_mistake_level_4():
+    &#34;&#34;&#34;
+    Test feedback for a solution with one mistake made a fourth time.
+
+    Wrong multiplicity detected 4 times -&gt; parametrized response
+    &#34;&#34;&#34;
+    ma = make_ma_with_1_wrong_mult_mistake(4)
+    solution = ma.problemStatements[0].studentSolutions[0]
+    feedback_item = give_feedback(solution)
+    curr_mistake = feedback_item.mistake
+    wrong_mult_sk = next(sk for sk in ma.studentKnowledges if sk.mistakeType is curr_mistake.mistakeType)
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, ParametrizedResponse)
+    assert 4 == feedback.level
+    assert not feedback.highlightSolution
+    assert &#34;instances&#34; in feedback.text
+    assert &#34;Garage&#34; in feedback_item.text
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 6 == wrong_mult_sk.levelOfKnowledge
+
+
+def test_feedback_with_1_wrong_mult_mistake_level_5():
+    &#34;&#34;&#34;
+    Test feedback for a solution with one mistake made a fifth time.
+
+    Wrong multiplicity detected 5 times -&gt; resource response with quiz
+    &#34;&#34;&#34;
+    ma = make_ma_with_1_wrong_mult_mistake(5)
+    solution = ma.problemStatements[0].studentSolutions[0]
+    feedback_item = give_feedback(solution)
+    curr_mistake = feedback_item.mistake
+    wrong_mult_sk = next(sk for sk in ma.studentKnowledges if sk.mistakeType is curr_mistake.mistakeType)
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, ResourceResponse)
+    assert isinstance(feedback.learningResources[0], Quiz)
+    assert 5 == feedback.level
+    assert not feedback.highlightSolution
+    resource_content = feedback.learningResources[0].content
+    assert &#34;Pick the association&#34; in resource_content
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 5 == wrong_mult_sk.levelOfKnowledge
+
+
+def test_feedback_with_1_wrong_mult_mistake_level_6():
+    &#34;&#34;&#34;
+    Test feedback for a solution with one mistake made a sixth time.
+
+    Wrong multiplicity detected 6 times -&gt; resource response with reference
+    &#34;&#34;&#34;
+    ma = make_ma_with_1_wrong_mult_mistake(6)
+    solution = ma.problemStatements[0].studentSolutions[0]
+    feedback_item = give_feedback(solution)
+    curr_mistake = feedback_item.mistake
+    wrong_mult_sk = next(sk for sk in ma.studentKnowledges if sk.mistakeType is curr_mistake.mistakeType)
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, ResourceResponse)
+    assert isinstance(feedback.learningResources[0], Reference)
+    assert 6 == feedback.level
+    assert not feedback.highlightSolution
+    resource_content = feedback.learningResources[0].content
+    assert &#34;multiplicities&#34; in resource_content
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 4 == wrong_mult_sk.levelOfKnowledge
+
+
+def test_feedback_with_1_mistake_levels_1_6():
+    &#34;&#34;&#34;
+    Test feedback for a solution with one mistake made six times in a row.
+
+    Wrong multiplicity detected 6 times -&gt; 6 levels of feedback, given one at a time.
+    &#34;&#34;&#34;
+    ma = make_ma_with_1_wrong_mult_mistake(1)
+    solution = ma.problemStatements[0].studentSolutions[0]
+    feedback_item = give_feedback(solution)
+    curr_mistake = feedback_item.mistake
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, Feedback)
+    assert 1 == feedback.level
+    assert feedback.highlightSolution
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    wrong_mult_sk = next(sk for sk in ma.studentKnowledges if sk.mistakeType is curr_mistake.mistakeType)
+    assert 9 == wrong_mult_sk.levelOfKnowledge
+
+    ma.problemStatements[0].studentSolutions[0].mistakes[0].numDetections += 1
+    feedback_item = give_feedback(solution)
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, TextResponse)
+    assert 2 == feedback.level
+    assert not feedback.highlightSolution
+    assert &#34;Double check this association&#34; in feedback.text
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 8 == wrong_mult_sk.levelOfKnowledge
+
+    ma.problemStatements[0].studentSolutions[0].mistakes[0].numDetections += 1
+    feedback_item = give_feedback(solution)
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, TextResponse)
+    assert 3 == feedback.level
+    assert not feedback.highlightSolution
+    assert &#34;multiplicity&#34; in feedback.text
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 7 == wrong_mult_sk.levelOfKnowledge
+
+    ma.problemStatements[0].studentSolutions[0].mistakes[0].numDetections += 1
+    feedback_item = give_feedback(solution)
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, ParametrizedResponse)
+    assert 4 == feedback.level
+    assert not feedback.highlightSolution
+    assert &#34;instances&#34; in feedback.text
+    assert &#34;Garage&#34; in feedback_item.text
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 6 == wrong_mult_sk.levelOfKnowledge
+
+    ma.problemStatements[0].studentSolutions[0].mistakes[0].numDetections += 1
+    feedback_item = give_feedback(solution)
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, ResourceResponse)
+    assert isinstance(feedback.learningResources[0], Quiz)
+    assert 5 == feedback.level
+    assert not feedback.highlightSolution
+    resource_content = feedback.learningResources[0].content
+    assert &#34;Pick the association&#34; in resource_content
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 5 == wrong_mult_sk.levelOfKnowledge
+
+    ma.problemStatements[0].studentSolutions[0].mistakes[0].numDetections += 1
+    feedback_item = give_feedback(solution)
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, ResourceResponse)
+    assert isinstance(feedback.learningResources[0], Reference)
+    assert 6 == feedback.level
+    assert not feedback.highlightSolution
+    resource_content = feedback.learningResources[0].content
+    assert &#34;multiplicities&#34; in resource_content
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 4 == wrong_mult_sk.levelOfKnowledge
+
+
+def get_mistakes(ma: ModelingAssistant, instructor_cdm: ClassDiagram, student_cdm: ClassDiagram) -&gt; ModelingAssistant:
+    &#34;&#34;&#34;
+    Return the mistakes of the given student solution given the instructor solution and a modeling assistant context
+    by calling the Mistake Detection System. If the latter is not running, it will be started.
+
+    This function is similar to the one in the modeling assistant, but it includes additional assertions.
+    &#34;&#34;&#34;
+    def call_mistake_detection_system(ma_str: str) -&gt; Response:
+        return requests.get(f&#34;http://{HOST}:{PORT}/detectmistakes&#34;, {&#34;modelingassistant&#34;: ma_str})
+
+    ma_str = SRSET.create_ma_str(ma)
+    assert ma_str
+
+    try:
+        req = call_mistake_detection_system(ma_str)
+    except Exception:  # pylint: disable=broad-except
+        # Turn on Modeling Assistant REST API server if not already running
+        Thread(target=lambda: os.system(&#34;cd modelingassistant.restapi &amp;&amp; mvn spring-boot:run&#34;), daemon=True).start()
+        sleep(DELAY)
+        req = call_mistake_detection_system(ma_str)
+
+    req_content = json.loads(req.content)
+    assert 200 == req.status_code
+    assert &#34;modelingAssistantXmi&#34; in req_content
+
+    ma_str = bytes(req_content[&#34;modelingAssistantXmi&#34;], &#34;utf-8&#34;)
+    ma = str_to_modelingassistant(ma_str)
+    assert ma
+    return ma
+
+
+# @pytest.mark.skip(reason=&#34;Longer test time because running the MDS REST API server is required&#34;)
+def test_feedback_for_modeling_assistant_instance_with_mistakes_from_mistake_detection_system():
+    &#34;&#34;&#34;
+    Test feedback for a modeling assistant instance with mistakes detected from the actual mistake detection system.
+    &#34;&#34;&#34;
+    # TODO Extract common functionality into helper functions
+    instructor_cdm = load_cdm(&#34;mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_classBus/&#34;
+                              &#34;Class Diagram/Instructor_classBus.domain_model.cdm&#34;)
+    student_cdm = load_cdm(&#34;mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_wrongClassName/&#34;
+                           &#34;Class Diagram/Student_wrongClassName.domain_model.cdm&#34;)
+    ma = ModelingAssistant()
+    bob = Student(name=&#34;Bob&#34;, modelingAssistant=ma)
+    StudentKnowledge(mistakeType=BAD_CLASS_NAME_SPELLING, student=bob, modelingAssistant=ma)
+    instructor_sol = Solution(modelingAssistant=ma, classDiagram=instructor_cdm)
+    bob_sol = Solution(modelingAssistant=ma, classDiagram=student_cdm, student=bob)
+    bus_ps = ProblemStatement(name=&#34;Bus Management System&#34;, modelingAssistant=ma,
+                              instructorSolution=instructor_sol,
+                              studentSolutions=[bob_sol])
+    instructor_sol.problemStatement = bus_ps
+    bob_sol.problemStatement = bus_ps
+    bob.currentSolution = bob_sol
+
+    ma = get_mistakes(ma, instructor_cdm, student_cdm)
+
+    assert bus_ps.name == ma.problemStatements[0].name
+
+    bus_ps = ma.problemStatements[0]
+    bob_sol = bus_ps.studentSolutions[0]
+    assert bob.name == bob_sol.student.name
+    assert bob_sol.mistakes
+
+    bob = bob_sol.student
+    buse_mistake = bob_sol.mistakes[0]
+    assert BAD_CLASS_NAME_SPELLING == buse_mistake.mistakeType
+
+    feedback_item = give_feedback(bob_sol)
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, Feedback)
+    assert 1 == feedback.level
+    assert feedback.highlightSolution
+    assert 9 == ma.studentKnowledges[0].levelOfKnowledge
+
+
+#@pytest.mark.skip(reason=&#34;Longer test time because running the MDS REST API server is required&#34;)
+def test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_mistake_detection_system():
+    &#34;&#34;&#34;
+    Test feedback for a serialized modeling assistant instance with mistakes detected from the mistake detection system.
+    &#34;&#34;&#34;
+    # pylint: disable=protected-access
+    ma = make_ma_with_airline_system()
+    student: Student = ma.students[0]
+    student_name: str = student.name
+    fb, ma = give_feedback_for_student_cdm(student_name, student.solutions[0].classDiagram, ma=ma)
+
+    solution: Solution = ma.students[0].solutions[0]
+    mistakes: list[Mistake] = solution.mistakes
+    missing_class_mistake = mistakes[0]
+
+    assert missing_class_mistake.mistakeType == MISSING_CLASS
+    assert fb.problemStatementElements
+
+    cdm: ClassDiagram = solution.classDiagram
+    cdm.__class__ = ClassDiagram
+    airplane_class = Class(name=&#34;Airplane&#34;)
+    cdm.classes.append(airplane_class)
+
+    with open(&#34;modelingassistant/testinstances/ma_test2.modelingassistant&#34;, &#34;w&#34;, encoding=&#34;utf-8&#34;) as f:
+        f.write(SRSET.create_ma_str(ma))
+
+    fb, ma = give_feedback_for_student_cdm(student_name, cdm, ma=ma)
+    solution = next(sol for sol in ma.solutions if sol.student)  # false positive: pylint: disable=no-member
+    mistakes: list[Mistake] = solution.mistakes
+
+    assert fb.solutionElements
+    assert INCOMPLETE_CONTAINMENT_TREE in [m.mistakeType for m in mistakes]
+
+
+def test_feedbackto_student_element():
+    &#34;&#34;&#34;
+    Test the FeedbackTO class, including its serialization to JSON, with a student element.
+    &#34;&#34;&#34;
+    active_id = &#34;3&#34;
+    active = Attribute(name=&#34;active&#34;)
+    active._internal_id = active_id  # pylint: disable=protected-access
+    feedback = FeedbackTO(feedback=FeedbackItem(
+        text=&#34;Does this need to be included more than once?&#34;,
+        feedback=next(fb for fb in attribute_duplicated.feedbacks if isinstance(fb, TextResponse)),
+        mistake=Mistake(numDetections=4, mistakeType=attribute_duplicated, studentElements=[
+            SolutionElement(element=active)], instructorElements=[])))
+    fb_json = _json_str(feedback)
+    assert fb_json == _json_str({
+        &#34;grade&#34;: 0.0,
+        &#34;problemStatementElements&#34;: {},
+        &#34;solutionElements&#34;: {
+            _HIGHLIGHT_COLOR: [active_id],
+            # if there were elements highlighted with other colors, they would be listed here
+        },
+        &#34;writtenFeedback&#34;: &#34;Does this need to be included more than once?&#34;
+    })
+
+
+def test_feedbackto_instructor_element():
+    &#34;&#34;&#34;
+    Test the FeedbackTO class, including its serialization to JSON, with an instructor element.
+    &#34;&#34;&#34;
+    status_id = &#34;7&#34;
+    status = CDEnum(name=&#34;Status&#34;)
+    status._internal_id = status_id  # pylint: disable=protected-access
+    feedback = FeedbackTO(feedback=FeedbackItem(
+        text=&#34;Add a Status enumeration.&#34;,  # assume already parameterized
+        feedback=next(fb for fb in missing_enum.feedbacks if isinstance(fb, ParametrizedResponse)),
+        mistake=Mistake(numDetections=4, mistakeType=missing_enum, studentElements=[], instructorElements=[
+            SolutionElement(element=status)])))
+    fb_json = _json_str(feedback)
+    assert fb_json == _json_str({
+        &#34;grade&#34;: 0.0,
+        &#34;problemStatementElements&#34;: {_HIGHLIGHT_COLOR: [status_id]},
+        &#34;solutionElements&#34;: {},
+        &#34;writtenFeedback&#34;: &#34;Add a Status enumeration.&#34;
+    })
+
+
+def test_feedbackto_multiple_student_and_instructor_elements():
+    &#34;&#34;&#34;
+    Test the FeedbackTO class, including its serialization to JSON, with multiple student and instructor elements.
+    &#34;&#34;&#34;
+    # Use the Enum should be full PR pattern mistake type as an example, which has the following solution elements:
+    # stud=[&#34;player_cls&#34;, &#34;role_attr&#34;, &#34;role_enum&#34;, &#34;role_enumitem*&#34;], inst=[&#34;player_cls&#34;, &#34;role_cls*&#34;],
+    stud_person = Class(name=&#34;Person&#34;, attributes=[stud_role_attr := Attribute(name=&#34;role&#34;, type=(stud_role := CDEnum(
+        name=&#34;Role&#34;, literals=[stud_passenger := CDEnumLiteral(name=&#34;Passenger&#34;),
+                               stud_employee := CDEnumLiteral(name=&#34;Employee&#34;),
+                               stud_visitor := CDEnumLiteral(name=&#34;Visitor&#34;)])))])
+    inst_person = Class(name=&#34;Person&#34;)
+    inst_passenger = Class(name=&#34;Passenger&#34;)
+    inst_employee = Class(name=&#34;Employee&#34;)
+    inst_visitor = Class(name=&#34;Visitor&#34;)
+    for i, e in enumerate([stud_person, stud_role_attr, stud_role, stud_passenger, stud_employee, stud_visitor,
+                           inst_person, inst_passenger, inst_employee, inst_visitor], 1):
+        e._internal_id = str(i)
+    feedback = FeedbackTO(feedback=FeedbackItem(
+        text=(&#34;An instance of Person can play more than one role out of Passenger, Employee, and Visitor at the same &#34;
+              &#34;time and different features need to be captured for the roles.&#34;),
+        feedback=next(fb for fb in enum_should_be_full_pr_pattern.feedbacks if isinstance(fb, ParametrizedResponse)),
+        mistake=Mistake(numDetections=3, mistakeType=enum_should_be_full_pr_pattern,
+        studentElements=[SolutionElement(element=e) for e in (stud_person, stud_role_attr, stud_role, stud_passenger)],
+        instructorElements=[SolutionElement(element=e) for e in (inst_person, inst_passenger, inst_employee)])))
+    fb_json = _json_str(feedback)
+    assert fb_json == _json_str({
+        &#34;grade&#34;: 0.0,
+        &#34;problemStatementElements&#34;: {_HIGHLIGHT_COLOR: [&#34;7&#34;, &#34;8&#34;, &#34;9&#34;]},
+        &#34;solutionElements&#34;: {_HIGHLIGHT_COLOR: [&#34;1&#34;, &#34;2&#34;, &#34;3&#34;, &#34;4&#34;]},
+        &#34;writtenFeedback&#34;: (&#34;An instance of Person can play more than one role out of Passenger, Employee, and Visitor &#34;
+                            &#34;at the same time and different features need to be captured for the roles.&#34;)
+    })
+
+
+def test_feedbackto_elements_with_multiple_colors():
+    &#34;&#34;&#34;
+    Test the FeedbackTO class, including its serialization to JSON, with elements highlighted with multiple colors.
+    &#34;&#34;&#34;
+    wf = &#34;What do all these numbers mean?&#34;
+    ses = {Color.LIGHT_YELLOW.to_hex(): [&#34;211&#34;, &#34;326&#34;], Color.LIGHT_ORANGE.to_hex(): [&#34;401&#34;, &#34;418&#34;]}
+    pses = {Color.LIGHT_BLUE.to_hex(): [&#34;512&#34;, &#34;539&#34;, &#34;598.3&#34;]}
+    feedback = FeedbackTO(solutionElements=ses, problemStatementElements=pses, writtenFeedback=wf)
+    fb_json = _json_str(feedback)
+    assert fb_json == _json_str({
+        &#34;grade&#34;: 0.0,
+        &#34;problemStatementElements&#34;: pses,
+        &#34;solutionElements&#34;: ses,
+        &#34;writtenFeedback&#34;: wf
+    })
+
+
+if __name__ == &#39;__main__&#39;:
+    &#34;Main entry point (used for debugging).&#34;
+    # test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_mistake_detection_system()
+    # test_feedbackto_multiple_student_and_instructor_elements()
+    test_feedbackto_student_element()</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="test_feedback.get_mistakes"><code class="name flex">
+<span>def <span class="ident">get_mistakes</span></span>(<span>ma: <a title="modelingassistant.modelingassistant.ModelingAssistant" href="modelingassistant/modelingassistant.html#modelingassistant.modelingassistant.ModelingAssistant">ModelingAssistant</a>, instructor_cdm: <a title="classdiagram.classdiagram.ClassDiagram" href="classdiagram/classdiagram.html#classdiagram.classdiagram.ClassDiagram">ClassDiagram</a>, student_cdm: <a title="classdiagram.classdiagram.ClassDiagram" href="classdiagram/classdiagram.html#classdiagram.classdiagram.ClassDiagram">ClassDiagram</a>) ‑> <a title="modelingassistant.modelingassistant.ModelingAssistant" href="modelingassistant/modelingassistant.html#modelingassistant.modelingassistant.ModelingAssistant">ModelingAssistant</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the mistakes of the given student solution given the instructor solution and a modeling assistant context
+by calling the Mistake Detection System. If the latter is not running, it will be started.</p>
+<p>This function is similar to the one in the modeling assistant, but it includes additional assertions.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_mistakes(ma: ModelingAssistant, instructor_cdm: ClassDiagram, student_cdm: ClassDiagram) -&gt; ModelingAssistant:
+    &#34;&#34;&#34;
+    Return the mistakes of the given student solution given the instructor solution and a modeling assistant context
+    by calling the Mistake Detection System. If the latter is not running, it will be started.
+
+    This function is similar to the one in the modeling assistant, but it includes additional assertions.
+    &#34;&#34;&#34;
+    def call_mistake_detection_system(ma_str: str) -&gt; Response:
+        return requests.get(f&#34;http://{HOST}:{PORT}/detectmistakes&#34;, {&#34;modelingassistant&#34;: ma_str})
+
+    ma_str = SRSET.create_ma_str(ma)
+    assert ma_str
+
+    try:
+        req = call_mistake_detection_system(ma_str)
+    except Exception:  # pylint: disable=broad-except
+        # Turn on Modeling Assistant REST API server if not already running
+        Thread(target=lambda: os.system(&#34;cd modelingassistant.restapi &amp;&amp; mvn spring-boot:run&#34;), daemon=True).start()
+        sleep(DELAY)
+        req = call_mistake_detection_system(ma_str)
+
+    req_content = json.loads(req.content)
+    assert 200 == req.status_code
+    assert &#34;modelingAssistantXmi&#34; in req_content
+
+    ma_str = bytes(req_content[&#34;modelingAssistantXmi&#34;], &#34;utf-8&#34;)
+    ma = str_to_modelingassistant(ma_str)
+    assert ma
+    return ma</code></pre>
+</details>
+</dd>
+<dt id="test_feedback.make_ma_with_1_sw_eng_term_mistake"><code class="name flex">
+<span>def <span class="ident">make_ma_with_1_sw_eng_term_mistake</span></span>(<span>num_detection: int = 1) ‑> <a title="modelingassistant.modelingassistant.ModelingAssistant" href="modelingassistant/modelingassistant.html#modelingassistant.modelingassistant.ModelingAssistant">ModelingAssistant</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Make a simple Modeling Assistant instance with one Software engineering term mistake, detected <code>num_detection</code>
+times.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def make_ma_with_1_sw_eng_term_mistake(num_detection: int=1) -&gt; ModelingAssistant:
+    &#34;&#34;&#34;
+    Make a simple Modeling Assistant instance with one Software engineering term mistake, detected `num_detection`
+    times.
+    &#34;&#34;&#34;
+    ma = make_ma_without_mistakes()
+    inst_sol = ma.problemStatements[0].instructorSolution
+    alice_bus_sol = ma.problemStatements[0].studentSolutions[0]
+    bus_cls = SolutionElement(solution=inst_sol, element=Class(name=&#34;Bus&#34;))
+    bus_data_cls = SolutionElement(solution=alice_bus_sol, element=Class(name=&#34;BusData&#34;))
+    set_mistake = Mistake(solution=alice_bus_sol, mistakeType=SOFTWARE_ENGINEERING_TERM, numDetections=num_detection,
+                          studentElements=[bus_data_cls], instructorElements=[bus_cls])
+    if num_detection &gt; 1:
+        set_mistake.lastFeedback = FeedbackItem(feedback=Feedback(level=num_detection - 1))
+    return ma</code></pre>
+</details>
+</dd>
+<dt id="test_feedback.make_ma_with_1_wrong_mult_mistake"><code class="name flex">
+<span>def <span class="ident">make_ma_with_1_wrong_mult_mistake</span></span>(<span>num_detection: int = 1) ‑> <a title="modelingassistant.modelingassistant.ModelingAssistant" href="modelingassistant/modelingassistant.html#modelingassistant.modelingassistant.ModelingAssistant">ModelingAssistant</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Make a simple Modeling Assistant instance with one Wrong multiplicity mistake, detected <code>num_detection</code> times.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def make_ma_with_1_wrong_mult_mistake(num_detection: int=1) -&gt; ModelingAssistant:
+    &#34;&#34;&#34;
+    Make a simple Modeling Assistant instance with one Wrong multiplicity mistake, detected `num_detection` times.
+    &#34;&#34;&#34;
+    ma = make_ma_without_mistakes()
+    inst_sol = ma.problemStatements[0].instructorSolution
+    stud_sol = ma.problemStatements[0].studentSolutions[0]
+    # a bus has only one garage, but a garage has multiple buses
+    inst_bus_cls = SolutionElement(solution=inst_sol, element=Class(name=&#34;Bus&#34;))
+    inst_garage_cls = SolutionElement(solution=inst_sol, element=Class(name=&#34;Garage&#34;))
+    SolutionElement(solution=inst_sol, element=Association(ends=[
+        inst_bus_garage := ae(inst_bus_cls.element, n=&#34;garage&#34;),
+        ae(inst_garage_cls.element, 0, MANY, n=&#34;bus&#34;)]))
+    stud_bus_cls = SolutionElement(solution=stud_sol, element=Class(name=&#34;Bus&#34;))
+    stud_garage_cls = SolutionElement(solution=stud_sol, element=Class(name=&#34;Garage&#34;))
+    SolutionElement(solution=stud_sol, element=Association(ends=[
+        stud_bus_garage := ae(stud_bus_cls.element, ub=MANY, n=&#34;garage&#34;),  # mistake is here: bus only has one garage
+        ae(stud_garage_cls.element, 0, MANY, n=&#34;bus&#34;)]))
+    wm_mistake = Mistake(solution=stud_sol, mistakeType=WRONG_MULTIPLICITY, numDetections=num_detection,
+                         studentElements=[SolutionElement(solution=stud_sol, element=stud_bus_garage)],
+                         instructorElements=[SolutionElement(solution=inst_sol, element=inst_bus_garage)])
+    if num_detection &gt; 1:
+        wm_mistake.lastFeedback = FeedbackItem(feedback=Feedback(level=num_detection - 1))
+    return ma</code></pre>
+</details>
+</dd>
+<dt id="test_feedback.make_ma_with_airline_system"><code class="name flex">
+<span>def <span class="ident">make_ma_with_airline_system</span></span>(<span>) ‑> <a title="modelingassistant.modelingassistant.ModelingAssistant" href="modelingassistant/modelingassistant.html#modelingassistant.modelingassistant.ModelingAssistant">ModelingAssistant</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create a Modeling Assistant instance with instructor and student solutions for an airline system.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def make_ma_with_airline_system() -&gt; ModelingAssistant:
+    &#34;Create a Modeling Assistant instance with instructor and student solutions for an airline system.&#34;
+    inst_cdm = load_cdm(&#34;modelingassistant/testmodels/AirlineSystem_instructor.cdm&#34;)
+    stud_cdm = load_cdm(&#34;modelingassistant/testmodels/AirlineSystem_student.cdm&#34;)
+    ma = ModelingAssistant()
+    airline_system_ps = ProblemStatement(name=&#34;Airline System&#34;, modelingAssistant=ma)
+    alice = Student(name=&#34;Alice&#34;, modelingAssistant=ma)
+    inst_sol = Solution(modelingAssistant=ma, classDiagram=inst_cdm, problemStatement=airline_system_ps)
+    stud_sol = Solution(modelingAssistant=ma, classDiagram=stud_cdm, problemStatement=airline_system_ps, student=alice)
+    airline_system_ps.instructorSolution = inst_sol
+    airline_system_ps.studentSolutions.append(stud_sol)
+    return ma</code></pre>
+</details>
+</dd>
+<dt id="test_feedback.make_ma_without_mistakes"><code class="name flex">
+<span>def <span class="ident">make_ma_without_mistakes</span></span>(<span>) ‑> <a title="modelingassistant.modelingassistant.ModelingAssistant" href="modelingassistant/modelingassistant.html#modelingassistant.modelingassistant.ModelingAssistant">ModelingAssistant</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Make a simple Modeling Assistant instance with no mistakes.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def make_ma_without_mistakes() -&gt; ModelingAssistant:
+    &#34;Make a simple Modeling Assistant instance with no mistakes.&#34;
+    ma = ModelingAssistant()
+    bus_ps = ProblemStatement(name=&#34;Bus Management System&#34;, modelingAssistant=ma)
+    alice = Student(name=&#34;Alice&#34;, modelingAssistant=ma)
+    StudentKnowledge(mistakeType=SOFTWARE_ENGINEERING_TERM, student=alice, modelingAssistant=ma)
+    # Need to set both ends of ProblemStatement-Solution relationship manually since is actually 3 one-way relationships
+    inst_sol = Solution(problemStatement=bus_ps, modelingAssistant=ma)
+    bus_ps.instructorSolution = inst_sol
+    alice_bus_sol = Solution(student=alice, problemStatement=bus_ps, modelingAssistant=ma)
+    bus_ps.studentSolutions.append(alice_bus_sol)
+    alice.currentSolution = alice_bus_sol
+    return ma</code></pre>
+</details>
+</dd>
+<dt id="test_feedback.test_feedback_for_modeling_assistant_instance_with_mistakes_from_mistake_detection_system"><code class="name flex">
+<span>def <span class="ident">test_feedback_for_modeling_assistant_instance_with_mistakes_from_mistake_detection_system</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test feedback for a modeling assistant instance with mistakes detected from the actual mistake detection system.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_feedback_for_modeling_assistant_instance_with_mistakes_from_mistake_detection_system():
+    &#34;&#34;&#34;
+    Test feedback for a modeling assistant instance with mistakes detected from the actual mistake detection system.
+    &#34;&#34;&#34;
+    # TODO Extract common functionality into helper functions
+    instructor_cdm = load_cdm(&#34;mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_classBus/&#34;
+                              &#34;Class Diagram/Instructor_classBus.domain_model.cdm&#34;)
+    student_cdm = load_cdm(&#34;mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_wrongClassName/&#34;
+                           &#34;Class Diagram/Student_wrongClassName.domain_model.cdm&#34;)
+    ma = ModelingAssistant()
+    bob = Student(name=&#34;Bob&#34;, modelingAssistant=ma)
+    StudentKnowledge(mistakeType=BAD_CLASS_NAME_SPELLING, student=bob, modelingAssistant=ma)
+    instructor_sol = Solution(modelingAssistant=ma, classDiagram=instructor_cdm)
+    bob_sol = Solution(modelingAssistant=ma, classDiagram=student_cdm, student=bob)
+    bus_ps = ProblemStatement(name=&#34;Bus Management System&#34;, modelingAssistant=ma,
+                              instructorSolution=instructor_sol,
+                              studentSolutions=[bob_sol])
+    instructor_sol.problemStatement = bus_ps
+    bob_sol.problemStatement = bus_ps
+    bob.currentSolution = bob_sol
+
+    ma = get_mistakes(ma, instructor_cdm, student_cdm)
+
+    assert bus_ps.name == ma.problemStatements[0].name
+
+    bus_ps = ma.problemStatements[0]
+    bob_sol = bus_ps.studentSolutions[0]
+    assert bob.name == bob_sol.student.name
+    assert bob_sol.mistakes
+
+    bob = bob_sol.student
+    buse_mistake = bob_sol.mistakes[0]
+    assert BAD_CLASS_NAME_SPELLING == buse_mistake.mistakeType
+
+    feedback_item = give_feedback(bob_sol)
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, Feedback)
+    assert 1 == feedback.level
+    assert feedback.highlightSolution
+    assert 9 == ma.studentKnowledges[0].levelOfKnowledge</code></pre>
+</details>
+</dd>
+<dt id="test_feedback.test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_mistake_detection_system"><code class="name flex">
+<span>def <span class="ident">test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_mistake_detection_system</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test feedback for a serialized modeling assistant instance with mistakes detected from the mistake detection system.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_mistake_detection_system():
+    &#34;&#34;&#34;
+    Test feedback for a serialized modeling assistant instance with mistakes detected from the mistake detection system.
+    &#34;&#34;&#34;
+    # pylint: disable=protected-access
+    ma = make_ma_with_airline_system()
+    student: Student = ma.students[0]
+    student_name: str = student.name
+    fb, ma = give_feedback_for_student_cdm(student_name, student.solutions[0].classDiagram, ma=ma)
+
+    solution: Solution = ma.students[0].solutions[0]
+    mistakes: list[Mistake] = solution.mistakes
+    missing_class_mistake = mistakes[0]
+
+    assert missing_class_mistake.mistakeType == MISSING_CLASS
+    assert fb.problemStatementElements
+
+    cdm: ClassDiagram = solution.classDiagram
+    cdm.__class__ = ClassDiagram
+    airplane_class = Class(name=&#34;Airplane&#34;)
+    cdm.classes.append(airplane_class)
+
+    with open(&#34;modelingassistant/testinstances/ma_test2.modelingassistant&#34;, &#34;w&#34;, encoding=&#34;utf-8&#34;) as f:
+        f.write(SRSET.create_ma_str(ma))
+
+    fb, ma = give_feedback_for_student_cdm(student_name, cdm, ma=ma)
+    solution = next(sol for sol in ma.solutions if sol.student)  # false positive: pylint: disable=no-member
+    mistakes: list[Mistake] = solution.mistakes
+
+    assert fb.solutionElements
+    assert INCOMPLETE_CONTAINMENT_TREE in [m.mistakeType for m in mistakes]</code></pre>
+</details>
+</dd>
+<dt id="test_feedback.test_feedback_with_1_mistake_levels_1_6"><code class="name flex">
+<span>def <span class="ident">test_feedback_with_1_mistake_levels_1_6</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test feedback for a solution with one mistake made six times in a row.</p>
+<p>Wrong multiplicity detected 6 times -&gt; 6 levels of feedback, given one at a time.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_feedback_with_1_mistake_levels_1_6():
+    &#34;&#34;&#34;
+    Test feedback for a solution with one mistake made six times in a row.
+
+    Wrong multiplicity detected 6 times -&gt; 6 levels of feedback, given one at a time.
+    &#34;&#34;&#34;
+    ma = make_ma_with_1_wrong_mult_mistake(1)
+    solution = ma.problemStatements[0].studentSolutions[0]
+    feedback_item = give_feedback(solution)
+    curr_mistake = feedback_item.mistake
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, Feedback)
+    assert 1 == feedback.level
+    assert feedback.highlightSolution
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    wrong_mult_sk = next(sk for sk in ma.studentKnowledges if sk.mistakeType is curr_mistake.mistakeType)
+    assert 9 == wrong_mult_sk.levelOfKnowledge
+
+    ma.problemStatements[0].studentSolutions[0].mistakes[0].numDetections += 1
+    feedback_item = give_feedback(solution)
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, TextResponse)
+    assert 2 == feedback.level
+    assert not feedback.highlightSolution
+    assert &#34;Double check this association&#34; in feedback.text
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 8 == wrong_mult_sk.levelOfKnowledge
+
+    ma.problemStatements[0].studentSolutions[0].mistakes[0].numDetections += 1
+    feedback_item = give_feedback(solution)
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, TextResponse)
+    assert 3 == feedback.level
+    assert not feedback.highlightSolution
+    assert &#34;multiplicity&#34; in feedback.text
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 7 == wrong_mult_sk.levelOfKnowledge
+
+    ma.problemStatements[0].studentSolutions[0].mistakes[0].numDetections += 1
+    feedback_item = give_feedback(solution)
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, ParametrizedResponse)
+    assert 4 == feedback.level
+    assert not feedback.highlightSolution
+    assert &#34;instances&#34; in feedback.text
+    assert &#34;Garage&#34; in feedback_item.text
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 6 == wrong_mult_sk.levelOfKnowledge
+
+    ma.problemStatements[0].studentSolutions[0].mistakes[0].numDetections += 1
+    feedback_item = give_feedback(solution)
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, ResourceResponse)
+    assert isinstance(feedback.learningResources[0], Quiz)
+    assert 5 == feedback.level
+    assert not feedback.highlightSolution
+    resource_content = feedback.learningResources[0].content
+    assert &#34;Pick the association&#34; in resource_content
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 5 == wrong_mult_sk.levelOfKnowledge
+
+    ma.problemStatements[0].studentSolutions[0].mistakes[0].numDetections += 1
+    feedback_item = give_feedback(solution)
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, ResourceResponse)
+    assert isinstance(feedback.learningResources[0], Reference)
+    assert 6 == feedback.level
+    assert not feedback.highlightSolution
+    resource_content = feedback.learningResources[0].content
+    assert &#34;multiplicities&#34; in resource_content
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 4 == wrong_mult_sk.levelOfKnowledge</code></pre>
+</details>
+</dd>
+<dt id="test_feedback.test_feedback_with_1_sw_eng_term_mistake_level_1"><code class="name flex">
+<span>def <span class="ident">test_feedback_with_1_sw_eng_term_mistake_level_1</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test feedback for a solution with one mistake made a first time.</p>
+<p>BusData detected for first time -&gt; highlight BusData</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_feedback_with_1_sw_eng_term_mistake_level_1():
+    &#34;&#34;&#34;
+    Test feedback for a solution with one mistake made a first time.
+
+    BusData detected for first time -&gt; highlight BusData
+    &#34;&#34;&#34;
+    ma = make_ma_with_1_sw_eng_term_mistake(1)
+    solution = ma.problemStatements[0].studentSolutions[0]
+    feedback_item = give_feedback(solution)
+    curr_mistake = feedback_item.mistake
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, Feedback)
+    assert 1 == feedback.level
+    assert feedback.highlightSolution
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 9 == ma.studentKnowledges[0].levelOfKnowledge</code></pre>
+</details>
+</dd>
+<dt id="test_feedback.test_feedback_with_1_sw_eng_term_mistake_level_2"><code class="name flex">
+<span>def <span class="ident">test_feedback_with_1_sw_eng_term_mistake_level_2</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test feedback for a solution with one mistake made a second time.</p>
+<p>BusData (or similar) detected for second time -&gt; text response</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_feedback_with_1_sw_eng_term_mistake_level_2():
+    &#34;&#34;&#34;
+    Test feedback for a solution with one mistake made a second time.
+
+    BusData (or similar) detected for second time -&gt; text response
+    &#34;&#34;&#34;
+    ma = make_ma_with_1_sw_eng_term_mistake(2)
+    solution = ma.problemStatements[0].studentSolutions[0]
+    feedback_item = give_feedback(solution)
+    curr_mistake = feedback_item.mistake
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, TextResponse)
+    assert 2 == feedback.level
+    assert not feedback.highlightSolution
+    assert &#34;software engineering term&#34; in feedback.text
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 8 == ma.studentKnowledges[0].levelOfKnowledge</code></pre>
+</details>
+</dd>
+<dt id="test_feedback.test_feedback_with_1_sw_eng_term_mistake_level_3"><code class="name flex">
+<span>def <span class="ident">test_feedback_with_1_sw_eng_term_mistake_level_3</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test feedback for a solution with one mistake made a third time.</p>
+<p>BusData (or similar) detected for third time -&gt; parameterized response</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_feedback_with_1_sw_eng_term_mistake_level_3():
+    &#34;&#34;&#34;
+    Test feedback for a solution with one mistake made a third time.
+
+    BusData (or similar) detected for third time -&gt; parameterized response
+    &#34;&#34;&#34;
+    ma = make_ma_with_1_sw_eng_term_mistake(3)
+    solution = ma.problemStatements[0].studentSolutions[0]
+    feedback_item = give_feedback(solution)
+    curr_mistake = feedback_item.mistake
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, ParametrizedResponse)
+    assert 3 == feedback.level
+    assert not feedback.highlightSolution
+    assert &#34;software engineering term&#34; in feedback.text
+    assert &#34;BusData&#34; in feedback_item.text
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 7 == ma.studentKnowledges[0].levelOfKnowledge</code></pre>
+</details>
+</dd>
+<dt id="test_feedback.test_feedback_with_1_sw_eng_term_mistake_level_4"><code class="name flex">
+<span>def <span class="ident">test_feedback_with_1_sw_eng_term_mistake_level_4</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test feedback for a solution with one mistake made a fourth time.</p>
+<p>BusData (or similar) detected for fourth time -&gt; resource response with example</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_feedback_with_1_sw_eng_term_mistake_level_4():
+    &#34;&#34;&#34;
+    Test feedback for a solution with one mistake made a fourth time.
+
+    BusData (or similar) detected for fourth time -&gt; resource response with example
+    &#34;&#34;&#34;
+    ma = make_ma_with_1_sw_eng_term_mistake(4)
+    solution = ma.problemStatements[0].studentSolutions[0]
+    feedback_item = give_feedback(solution)
+    curr_mistake = feedback_item.mistake
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, ResourceResponse)
+    assert 4 == feedback.level
+    assert not feedback.highlightSolution
+    resource_content = feedback.learningResources[0].content
+    assert &#34;incorrect class naming&#34; in resource_content
+    assert &#34;:x: Examples to avoid | :heavy_check_mark: Good class names&#34; in resource_content
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 6 == ma.studentKnowledges[0].levelOfKnowledge</code></pre>
+</details>
+</dd>
+<dt id="test_feedback.test_feedback_with_1_sw_eng_term_mistake_levels_1_4"><code class="name flex">
+<span>def <span class="ident">test_feedback_with_1_sw_eng_term_mistake_levels_1_4</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test feedback for a solution with one mistake made four times in a row.</p>
+<p>BusData detected 4 times -&gt; 4 levels of feedback, given one at a time.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_feedback_with_1_sw_eng_term_mistake_levels_1_4():
+    &#34;&#34;&#34;
+    Test feedback for a solution with one mistake made four times in a row.
+
+    BusData detected 4 times -&gt; 4 levels of feedback, given one at a time.
+    &#34;&#34;&#34;
+    ma = make_ma_with_1_sw_eng_term_mistake(1)
+    solution = ma.problemStatements[0].studentSolutions[0]
+    feedback_item = give_feedback(solution)
+    curr_mistake = feedback_item.mistake
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, Feedback)
+    assert 1 == feedback.level
+    assert feedback.highlightSolution
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 9 == ma.studentKnowledges[0].levelOfKnowledge
+
+    ma.problemStatements[0].studentSolutions[0].mistakes[0].numDetections += 1
+    feedback_item = give_feedback(solution)
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, TextResponse)
+    assert 2 == feedback.level
+    assert not feedback.highlightSolution
+    assert &#34;software engineering term&#34; in feedback.text
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 8 == ma.studentKnowledges[0].levelOfKnowledge
+
+    ma.problemStatements[0].studentSolutions[0].mistakes[0].numDetections += 1
+    feedback_item = give_feedback(solution)
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, ParametrizedResponse)
+    assert 3 == feedback.level
+    assert not feedback.highlightSolution
+    assert &#34;software engineering term&#34; in feedback.text
+    assert &#34;BusData&#34; in feedback_item.text
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 7 == ma.studentKnowledges[0].levelOfKnowledge
+
+    ma.problemStatements[0].studentSolutions[0].mistakes[0].numDetections += 1
+    feedback_item = give_feedback(solution)
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, ResourceResponse)
+    assert 4 == feedback.level
+    assert not feedback.highlightSolution
+    resource_content = feedback.learningResources[0].content
+    assert &#34;incorrect class naming&#34; in resource_content
+    assert &#34;:x: Examples to avoid | :heavy_check_mark: Good class names&#34; in resource_content
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 6 == ma.studentKnowledges[0].levelOfKnowledge</code></pre>
+</details>
+</dd>
+<dt id="test_feedback.test_feedback_with_1_wrong_mult_mistake_level_1"><code class="name flex">
+<span>def <span class="ident">test_feedback_with_1_wrong_mult_mistake_level_1</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test feedback for a solution with one mistake made a first time.</p>
+<p>Wrong multiplicity detected 1 time -&gt; highlight solution</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_feedback_with_1_wrong_mult_mistake_level_1():
+    &#34;&#34;&#34;
+    Test feedback for a solution with one mistake made a first time.
+
+    Wrong multiplicity detected 1 time -&gt; highlight solution
+    &#34;&#34;&#34;
+    ma = make_ma_with_1_wrong_mult_mistake(1)
+    solution = ma.problemStatements[0].studentSolutions[0]
+    feedback_item = give_feedback(solution)
+    curr_mistake = feedback_item.mistake
+    wrong_mult_sk = next(sk for sk in ma.studentKnowledges if sk.mistakeType is curr_mistake.mistakeType)
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, Feedback)
+    assert 1 == feedback.level
+    assert feedback.highlightSolution
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    wrong_mult_sk = next(sk for sk in ma.studentKnowledges if sk.mistakeType is curr_mistake.mistakeType)
+    assert 9 == wrong_mult_sk.levelOfKnowledge</code></pre>
+</details>
+</dd>
+<dt id="test_feedback.test_feedback_with_1_wrong_mult_mistake_level_2"><code class="name flex">
+<span>def <span class="ident">test_feedback_with_1_wrong_mult_mistake_level_2</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test feedback for a solution with one mistake made a second time.</p>
+<p>Wrong multiplicity detected 2 times -&gt; text response</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_feedback_with_1_wrong_mult_mistake_level_2():
+    &#34;&#34;&#34;
+    Test feedback for a solution with one mistake made a second time.
+
+    Wrong multiplicity detected 2 times -&gt; text response
+    &#34;&#34;&#34;
+    ma = make_ma_with_1_wrong_mult_mistake(2)
+    solution = ma.problemStatements[0].studentSolutions[0]
+    feedback_item = give_feedback(solution)
+    curr_mistake = feedback_item.mistake
+    wrong_mult_sk = next(sk for sk in ma.studentKnowledges if sk.mistakeType is curr_mistake.mistakeType)
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, TextResponse)
+    assert 2 == feedback.level
+    assert not feedback.highlightSolution
+    assert &#34;Double check this association&#34; in feedback.text
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 8 == wrong_mult_sk.levelOfKnowledge</code></pre>
+</details>
+</dd>
+<dt id="test_feedback.test_feedback_with_1_wrong_mult_mistake_level_3"><code class="name flex">
+<span>def <span class="ident">test_feedback_with_1_wrong_mult_mistake_level_3</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test feedback for a solution with one mistake made a third time.</p>
+<p>Wrong multiplicity detected 3 times -&gt; more detailed text response</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_feedback_with_1_wrong_mult_mistake_level_3():
+    &#34;&#34;&#34;
+    Test feedback for a solution with one mistake made a third time.
+
+    Wrong multiplicity detected 3 times -&gt; more detailed text response
+    &#34;&#34;&#34;
+    ma = make_ma_with_1_wrong_mult_mistake(3)
+    solution = ma.problemStatements[0].studentSolutions[0]
+    feedback_item = give_feedback(solution)
+    curr_mistake = feedback_item.mistake
+    wrong_mult_sk = next(sk for sk in ma.studentKnowledges if sk.mistakeType is curr_mistake.mistakeType)
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, TextResponse)
+    assert 3 == feedback.level
+    assert not feedback.highlightSolution
+    assert &#34;multiplicity&#34; in feedback.text
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 7 == wrong_mult_sk.levelOfKnowledge</code></pre>
+</details>
+</dd>
+<dt id="test_feedback.test_feedback_with_1_wrong_mult_mistake_level_4"><code class="name flex">
+<span>def <span class="ident">test_feedback_with_1_wrong_mult_mistake_level_4</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test feedback for a solution with one mistake made a fourth time.</p>
+<p>Wrong multiplicity detected 4 times -&gt; parametrized response</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_feedback_with_1_wrong_mult_mistake_level_4():
+    &#34;&#34;&#34;
+    Test feedback for a solution with one mistake made a fourth time.
+
+    Wrong multiplicity detected 4 times -&gt; parametrized response
+    &#34;&#34;&#34;
+    ma = make_ma_with_1_wrong_mult_mistake(4)
+    solution = ma.problemStatements[0].studentSolutions[0]
+    feedback_item = give_feedback(solution)
+    curr_mistake = feedback_item.mistake
+    wrong_mult_sk = next(sk for sk in ma.studentKnowledges if sk.mistakeType is curr_mistake.mistakeType)
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, ParametrizedResponse)
+    assert 4 == feedback.level
+    assert not feedback.highlightSolution
+    assert &#34;instances&#34; in feedback.text
+    assert &#34;Garage&#34; in feedback_item.text
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 6 == wrong_mult_sk.levelOfKnowledge</code></pre>
+</details>
+</dd>
+<dt id="test_feedback.test_feedback_with_1_wrong_mult_mistake_level_5"><code class="name flex">
+<span>def <span class="ident">test_feedback_with_1_wrong_mult_mistake_level_5</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test feedback for a solution with one mistake made a fifth time.</p>
+<p>Wrong multiplicity detected 5 times -&gt; resource response with quiz</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_feedback_with_1_wrong_mult_mistake_level_5():
+    &#34;&#34;&#34;
+    Test feedback for a solution with one mistake made a fifth time.
+
+    Wrong multiplicity detected 5 times -&gt; resource response with quiz
+    &#34;&#34;&#34;
+    ma = make_ma_with_1_wrong_mult_mistake(5)
+    solution = ma.problemStatements[0].studentSolutions[0]
+    feedback_item = give_feedback(solution)
+    curr_mistake = feedback_item.mistake
+    wrong_mult_sk = next(sk for sk in ma.studentKnowledges if sk.mistakeType is curr_mistake.mistakeType)
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, ResourceResponse)
+    assert isinstance(feedback.learningResources[0], Quiz)
+    assert 5 == feedback.level
+    assert not feedback.highlightSolution
+    resource_content = feedback.learningResources[0].content
+    assert &#34;Pick the association&#34; in resource_content
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 5 == wrong_mult_sk.levelOfKnowledge</code></pre>
+</details>
+</dd>
+<dt id="test_feedback.test_feedback_with_1_wrong_mult_mistake_level_6"><code class="name flex">
+<span>def <span class="ident">test_feedback_with_1_wrong_mult_mistake_level_6</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test feedback for a solution with one mistake made a sixth time.</p>
+<p>Wrong multiplicity detected 6 times -&gt; resource response with reference</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_feedback_with_1_wrong_mult_mistake_level_6():
+    &#34;&#34;&#34;
+    Test feedback for a solution with one mistake made a sixth time.
+
+    Wrong multiplicity detected 6 times -&gt; resource response with reference
+    &#34;&#34;&#34;
+    ma = make_ma_with_1_wrong_mult_mistake(6)
+    solution = ma.problemStatements[0].studentSolutions[0]
+    feedback_item = give_feedback(solution)
+    curr_mistake = feedback_item.mistake
+    wrong_mult_sk = next(sk for sk in ma.studentKnowledges if sk.mistakeType is curr_mistake.mistakeType)
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, ResourceResponse)
+    assert isinstance(feedback.learningResources[0], Reference)
+    assert 6 == feedback.level
+    assert not feedback.highlightSolution
+    resource_content = feedback.learningResources[0].content
+    assert &#34;multiplicities&#34; in resource_content
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 4 == wrong_mult_sk.levelOfKnowledge</code></pre>
+</details>
+</dd>
+<dt id="test_feedback.test_feedback_without_mistakes"><code class="name flex">
+<span>def <span class="ident">test_feedback_without_mistakes</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test feedback for a solution without any mistakes.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_feedback_without_mistakes():
+    &#34;Test feedback for a solution without any mistakes.&#34;
+    solution = make_ma_without_mistakes().problemStatements[0].studentSolutions[0]
+    feedback_item = give_feedback(solution)
+    assert &#34;no mistakes found&#34; in feedback_item.feedback.text.lower()</code></pre>
+</details>
+</dd>
+<dt id="test_feedback.test_feedbackto_elements_with_multiple_colors"><code class="name flex">
+<span>def <span class="ident">test_feedbackto_elements_with_multiple_colors</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test the FeedbackTO class, including its serialization to JSON, with elements highlighted with multiple colors.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_feedbackto_elements_with_multiple_colors():
+    &#34;&#34;&#34;
+    Test the FeedbackTO class, including its serialization to JSON, with elements highlighted with multiple colors.
+    &#34;&#34;&#34;
+    wf = &#34;What do all these numbers mean?&#34;
+    ses = {Color.LIGHT_YELLOW.to_hex(): [&#34;211&#34;, &#34;326&#34;], Color.LIGHT_ORANGE.to_hex(): [&#34;401&#34;, &#34;418&#34;]}
+    pses = {Color.LIGHT_BLUE.to_hex(): [&#34;512&#34;, &#34;539&#34;, &#34;598.3&#34;]}
+    feedback = FeedbackTO(solutionElements=ses, problemStatementElements=pses, writtenFeedback=wf)
+    fb_json = _json_str(feedback)
+    assert fb_json == _json_str({
+        &#34;grade&#34;: 0.0,
+        &#34;problemStatementElements&#34;: pses,
+        &#34;solutionElements&#34;: ses,
+        &#34;writtenFeedback&#34;: wf
+    })</code></pre>
+</details>
+</dd>
+<dt id="test_feedback.test_feedbackto_instructor_element"><code class="name flex">
+<span>def <span class="ident">test_feedbackto_instructor_element</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test the FeedbackTO class, including its serialization to JSON, with an instructor element.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_feedbackto_instructor_element():
+    &#34;&#34;&#34;
+    Test the FeedbackTO class, including its serialization to JSON, with an instructor element.
+    &#34;&#34;&#34;
+    status_id = &#34;7&#34;
+    status = CDEnum(name=&#34;Status&#34;)
+    status._internal_id = status_id  # pylint: disable=protected-access
+    feedback = FeedbackTO(feedback=FeedbackItem(
+        text=&#34;Add a Status enumeration.&#34;,  # assume already parameterized
+        feedback=next(fb for fb in missing_enum.feedbacks if isinstance(fb, ParametrizedResponse)),
+        mistake=Mistake(numDetections=4, mistakeType=missing_enum, studentElements=[], instructorElements=[
+            SolutionElement(element=status)])))
+    fb_json = _json_str(feedback)
+    assert fb_json == _json_str({
+        &#34;grade&#34;: 0.0,
+        &#34;problemStatementElements&#34;: {_HIGHLIGHT_COLOR: [status_id]},
+        &#34;solutionElements&#34;: {},
+        &#34;writtenFeedback&#34;: &#34;Add a Status enumeration.&#34;
+    })</code></pre>
+</details>
+</dd>
+<dt id="test_feedback.test_feedbackto_multiple_student_and_instructor_elements"><code class="name flex">
+<span>def <span class="ident">test_feedbackto_multiple_student_and_instructor_elements</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test the FeedbackTO class, including its serialization to JSON, with multiple student and instructor elements.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_feedbackto_multiple_student_and_instructor_elements():
+    &#34;&#34;&#34;
+    Test the FeedbackTO class, including its serialization to JSON, with multiple student and instructor elements.
+    &#34;&#34;&#34;
+    # Use the Enum should be full PR pattern mistake type as an example, which has the following solution elements:
+    # stud=[&#34;player_cls&#34;, &#34;role_attr&#34;, &#34;role_enum&#34;, &#34;role_enumitem*&#34;], inst=[&#34;player_cls&#34;, &#34;role_cls*&#34;],
+    stud_person = Class(name=&#34;Person&#34;, attributes=[stud_role_attr := Attribute(name=&#34;role&#34;, type=(stud_role := CDEnum(
+        name=&#34;Role&#34;, literals=[stud_passenger := CDEnumLiteral(name=&#34;Passenger&#34;),
+                               stud_employee := CDEnumLiteral(name=&#34;Employee&#34;),
+                               stud_visitor := CDEnumLiteral(name=&#34;Visitor&#34;)])))])
+    inst_person = Class(name=&#34;Person&#34;)
+    inst_passenger = Class(name=&#34;Passenger&#34;)
+    inst_employee = Class(name=&#34;Employee&#34;)
+    inst_visitor = Class(name=&#34;Visitor&#34;)
+    for i, e in enumerate([stud_person, stud_role_attr, stud_role, stud_passenger, stud_employee, stud_visitor,
+                           inst_person, inst_passenger, inst_employee, inst_visitor], 1):
+        e._internal_id = str(i)
+    feedback = FeedbackTO(feedback=FeedbackItem(
+        text=(&#34;An instance of Person can play more than one role out of Passenger, Employee, and Visitor at the same &#34;
+              &#34;time and different features need to be captured for the roles.&#34;),
+        feedback=next(fb for fb in enum_should_be_full_pr_pattern.feedbacks if isinstance(fb, ParametrizedResponse)),
+        mistake=Mistake(numDetections=3, mistakeType=enum_should_be_full_pr_pattern,
+        studentElements=[SolutionElement(element=e) for e in (stud_person, stud_role_attr, stud_role, stud_passenger)],
+        instructorElements=[SolutionElement(element=e) for e in (inst_person, inst_passenger, inst_employee)])))
+    fb_json = _json_str(feedback)
+    assert fb_json == _json_str({
+        &#34;grade&#34;: 0.0,
+        &#34;problemStatementElements&#34;: {_HIGHLIGHT_COLOR: [&#34;7&#34;, &#34;8&#34;, &#34;9&#34;]},
+        &#34;solutionElements&#34;: {_HIGHLIGHT_COLOR: [&#34;1&#34;, &#34;2&#34;, &#34;3&#34;, &#34;4&#34;]},
+        &#34;writtenFeedback&#34;: (&#34;An instance of Person can play more than one role out of Passenger, Employee, and Visitor &#34;
+                            &#34;at the same time and different features need to be captured for the roles.&#34;)
+    })</code></pre>
+</details>
+</dd>
+<dt id="test_feedback.test_feedbackto_student_element"><code class="name flex">
+<span>def <span class="ident">test_feedbackto_student_element</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test the FeedbackTO class, including its serialization to JSON, with a student element.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_feedbackto_student_element():
+    &#34;&#34;&#34;
+    Test the FeedbackTO class, including its serialization to JSON, with a student element.
+    &#34;&#34;&#34;
+    active_id = &#34;3&#34;
+    active = Attribute(name=&#34;active&#34;)
+    active._internal_id = active_id  # pylint: disable=protected-access
+    feedback = FeedbackTO(feedback=FeedbackItem(
+        text=&#34;Does this need to be included more than once?&#34;,
+        feedback=next(fb for fb in attribute_duplicated.feedbacks if isinstance(fb, TextResponse)),
+        mistake=Mistake(numDetections=4, mistakeType=attribute_duplicated, studentElements=[
+            SolutionElement(element=active)], instructorElements=[])))
+    fb_json = _json_str(feedback)
+    assert fb_json == _json_str({
+        &#34;grade&#34;: 0.0,
+        &#34;problemStatementElements&#34;: {},
+        &#34;solutionElements&#34;: {
+            _HIGHLIGHT_COLOR: [active_id],
+            # if there were elements highlighted with other colors, they would be listed here
+        },
+        &#34;writtenFeedback&#34;: &#34;Does this need to be included more than once?&#34;
+    })</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="test_feedback.get_mistakes" href="#test_feedback.get_mistakes">get_mistakes</a></code></li>
+<li><code><a title="test_feedback.make_ma_with_1_sw_eng_term_mistake" href="#test_feedback.make_ma_with_1_sw_eng_term_mistake">make_ma_with_1_sw_eng_term_mistake</a></code></li>
+<li><code><a title="test_feedback.make_ma_with_1_wrong_mult_mistake" href="#test_feedback.make_ma_with_1_wrong_mult_mistake">make_ma_with_1_wrong_mult_mistake</a></code></li>
+<li><code><a title="test_feedback.make_ma_with_airline_system" href="#test_feedback.make_ma_with_airline_system">make_ma_with_airline_system</a></code></li>
+<li><code><a title="test_feedback.make_ma_without_mistakes" href="#test_feedback.make_ma_without_mistakes">make_ma_without_mistakes</a></code></li>
+<li><code><a title="test_feedback.test_feedback_for_modeling_assistant_instance_with_mistakes_from_mistake_detection_system" href="#test_feedback.test_feedback_for_modeling_assistant_instance_with_mistakes_from_mistake_detection_system">test_feedback_for_modeling_assistant_instance_with_mistakes_from_mistake_detection_system</a></code></li>
+<li><code><a title="test_feedback.test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_mistake_detection_system" href="#test_feedback.test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_mistake_detection_system">test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_mistake_detection_system</a></code></li>
+<li><code><a title="test_feedback.test_feedback_with_1_mistake_levels_1_6" href="#test_feedback.test_feedback_with_1_mistake_levels_1_6">test_feedback_with_1_mistake_levels_1_6</a></code></li>
+<li><code><a title="test_feedback.test_feedback_with_1_sw_eng_term_mistake_level_1" href="#test_feedback.test_feedback_with_1_sw_eng_term_mistake_level_1">test_feedback_with_1_sw_eng_term_mistake_level_1</a></code></li>
+<li><code><a title="test_feedback.test_feedback_with_1_sw_eng_term_mistake_level_2" href="#test_feedback.test_feedback_with_1_sw_eng_term_mistake_level_2">test_feedback_with_1_sw_eng_term_mistake_level_2</a></code></li>
+<li><code><a title="test_feedback.test_feedback_with_1_sw_eng_term_mistake_level_3" href="#test_feedback.test_feedback_with_1_sw_eng_term_mistake_level_3">test_feedback_with_1_sw_eng_term_mistake_level_3</a></code></li>
+<li><code><a title="test_feedback.test_feedback_with_1_sw_eng_term_mistake_level_4" href="#test_feedback.test_feedback_with_1_sw_eng_term_mistake_level_4">test_feedback_with_1_sw_eng_term_mistake_level_4</a></code></li>
+<li><code><a title="test_feedback.test_feedback_with_1_sw_eng_term_mistake_levels_1_4" href="#test_feedback.test_feedback_with_1_sw_eng_term_mistake_levels_1_4">test_feedback_with_1_sw_eng_term_mistake_levels_1_4</a></code></li>
+<li><code><a title="test_feedback.test_feedback_with_1_wrong_mult_mistake_level_1" href="#test_feedback.test_feedback_with_1_wrong_mult_mistake_level_1">test_feedback_with_1_wrong_mult_mistake_level_1</a></code></li>
+<li><code><a title="test_feedback.test_feedback_with_1_wrong_mult_mistake_level_2" href="#test_feedback.test_feedback_with_1_wrong_mult_mistake_level_2">test_feedback_with_1_wrong_mult_mistake_level_2</a></code></li>
+<li><code><a title="test_feedback.test_feedback_with_1_wrong_mult_mistake_level_3" href="#test_feedback.test_feedback_with_1_wrong_mult_mistake_level_3">test_feedback_with_1_wrong_mult_mistake_level_3</a></code></li>
+<li><code><a title="test_feedback.test_feedback_with_1_wrong_mult_mistake_level_4" href="#test_feedback.test_feedback_with_1_wrong_mult_mistake_level_4">test_feedback_with_1_wrong_mult_mistake_level_4</a></code></li>
+<li><code><a title="test_feedback.test_feedback_with_1_wrong_mult_mistake_level_5" href="#test_feedback.test_feedback_with_1_wrong_mult_mistake_level_5">test_feedback_with_1_wrong_mult_mistake_level_5</a></code></li>
+<li><code><a title="test_feedback.test_feedback_with_1_wrong_mult_mistake_level_6" href="#test_feedback.test_feedback_with_1_wrong_mult_mistake_level_6">test_feedback_with_1_wrong_mult_mistake_level_6</a></code></li>
+<li><code><a title="test_feedback.test_feedback_without_mistakes" href="#test_feedback.test_feedback_without_mistakes">test_feedback_without_mistakes</a></code></li>
+<li><code><a title="test_feedback.test_feedbackto_elements_with_multiple_colors" href="#test_feedback.test_feedbackto_elements_with_multiple_colors">test_feedbackto_elements_with_multiple_colors</a></code></li>
+<li><code><a title="test_feedback.test_feedbackto_instructor_element" href="#test_feedback.test_feedbackto_instructor_element">test_feedbackto_instructor_element</a></code></li>
+<li><code><a title="test_feedback.test_feedbackto_multiple_student_and_instructor_elements" href="#test_feedback.test_feedbackto_multiple_student_and_instructor_elements">test_feedbackto_multiple_student_and_instructor_elements</a></code></li>
+<li><code><a title="test_feedback.test_feedbackto_student_element" href="#test_feedback.test_feedbackto_student_element">test_feedbackto_student_element</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
