@@ -414,6 +414,14 @@ public class MistakeDetectionTest extends MistakeDetectionBaseTest {
   @Test
   public void testMistakeDetectionMultipleInvocationsWithInputModelingAssistantEcoreStringsFromWebApp() {
     try {
+      /*
+       * TODO This test currently reads Modeling Assistant files from disk, runs the MDS on them, and performs
+       * assertions on the result. It is brittle because the files need to be updated every time the Learning Corpus
+       * changes, since the XMI IDs for mistake types (eg, Missing class) are no longer current.
+       *
+       * This test should be rewritten to dynamically generate the string, then deserialize it again, to simulate
+       * input from the Web app frontend. See other tests in the test suite for examples on how this can be done.
+       */
       var maStr1 = Files.readString(Paths.get("../modelingassistant/testinstances/ma_test5.modelingassistant"));
       var ma = ModelingAssistant.fromEcoreString(maStr1);
 

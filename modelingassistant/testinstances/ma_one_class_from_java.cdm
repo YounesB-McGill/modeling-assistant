@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="ASCII"?>
-<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_FVNmwh6zEe2pfb5TUJnsIQ" name="Student1_solution">
-  <classes xsi:type="classdiagram:Class" xmi:id="_FVON0B6zEe2pfb5TUJnsIQ" name="Car">
-    <associationEnds xmi:id="_FVON0R6zEe2pfb5TUJnsIQ" name="carInFront" assoc="_FVON1x6zEe2pfb5TUJnsIQ"/>
-    <associationEnds xmi:id="_FVON0h6zEe2pfb5TUJnsIQ" name="carBehind" assoc="_FVON1x6zEe2pfb5TUJnsIQ"/>
-    <attributes xmi:id="_FVON0x6zEe2pfb5TUJnsIQ" name="id" type="_FVON1R6zEe2pfb5TUJnsIQ"/>
-    <attributes xmi:id="_FVON1B6zEe2pfb5TUJnsIQ" name="make" type="_FVON1h6zEe2pfb5TUJnsIQ"/>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_YrAUQj_EEe2A0siflNWVOg" name="Student1_solution">
+  <classes xsi:type="classdiagram:Class" xmi:id="_YrAUQz_EEe2A0siflNWVOg" name="Car">
+    <associationEnds xmi:id="_YrAURD_EEe2A0siflNWVOg" name="carInFront" assoc="_YrAUSj_EEe2A0siflNWVOg"/>
+    <associationEnds xmi:id="_YrAURT_EEe2A0siflNWVOg" name="carBehind" assoc="_YrAUSj_EEe2A0siflNWVOg"/>
+    <attributes xmi:id="_YrAURj_EEe2A0siflNWVOg" name="id" type="_YrAUSD_EEe2A0siflNWVOg"/>
+    <attributes xmi:id="_YrAURz_EEe2A0siflNWVOg" name="make" type="_YrAUST_EEe2A0siflNWVOg"/>
   </classes>
-  <types xsi:type="classdiagram:CDInt" xmi:id="_FVON1R6zEe2pfb5TUJnsIQ"/>
-  <types xsi:type="classdiagram:CDString" xmi:id="_FVON1h6zEe2pfb5TUJnsIQ"/>
-  <associations xmi:id="_FVON1x6zEe2pfb5TUJnsIQ" ends="_FVON0R6zEe2pfb5TUJnsIQ _FVON0h6zEe2pfb5TUJnsIQ"/>
-  <layout xmi:id="_FVON2B6zEe2pfb5TUJnsIQ">
-    <containers xmi:id="_FVON2R6zEe2pfb5TUJnsIQ" key="_FVNmwh6zEe2pfb5TUJnsIQ">
-      <value xmi:id="_FVON2h6zEe2pfb5TUJnsIQ" key="_FVON0R6zEe2pfb5TUJnsIQ">
-        <value xmi:id="_FVON2x6zEe2pfb5TUJnsIQ" x="20.0" y="23.0"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_YrAUSD_EEe2A0siflNWVOg"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_YrAUST_EEe2A0siflNWVOg"/>
+  <associations xmi:id="_YrAUSj_EEe2A0siflNWVOg" ends="_YrAURD_EEe2A0siflNWVOg _YrAURT_EEe2A0siflNWVOg"/>
+  <layout xmi:id="_YrAUSz_EEe2A0siflNWVOg">
+    <containers xmi:id="_YrAUTD_EEe2A0siflNWVOg" key="_YrAUQj_EEe2A0siflNWVOg">
+      <value xmi:id="_YrAUTT_EEe2A0siflNWVOg" key="_YrAURD_EEe2A0siflNWVOg">
+        <value xmi:id="_YrAUTj_EEe2A0siflNWVOg" x="20.0" y="23.0"/>
       </value>
     </containers>
   </layout>
