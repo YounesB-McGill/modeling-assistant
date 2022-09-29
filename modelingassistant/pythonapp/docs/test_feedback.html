@@ -575,7 +575,8 @@ def get_mistakes(ma: ModelingAssistant, instructor_cdm: ClassDiagram, student_cd
     return ma
 
 
-# @pytest.mark.skip(reason=&#34;Longer test time because running the MDS REST API server is required&#34;)
+# Uncomment the line below to skip this test if you are working on an unrelated part of the system
+#@pytest.mark.skip(reason=&#34;Longer test time because running the MDS REST API server is required&#34;)
 def test_feedback_for_modeling_assistant_instance_with_mistakes_from_mistake_detection_system():
     &#34;&#34;&#34;
     Test feedback for a modeling assistant instance with mistakes detected from the actual mistake detection system.
@@ -618,6 +619,7 @@ def test_feedback_for_modeling_assistant_instance_with_mistakes_from_mistake_det
     assert 9 == ma.studentKnowledges[0].levelOfKnowledge
 
 
+# Uncomment the line below to skip this test if you are working on an unrelated part of the system
 #@pytest.mark.skip(reason=&#34;Longer test time because running the MDS REST API server is required&#34;)
 def test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_mistake_detection_system():
     &#34;&#34;&#34;
@@ -749,10 +751,7 @@ def test_feedbackto_elements_with_multiple_colors():
 
 
 if __name__ == &#39;__main__&#39;:
-    &#34;Main entry point (used for debugging).&#34;
-    # test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_mistake_detection_system()
-    # test_feedbackto_multiple_student_and_instructor_elements()
-    test_feedbackto_student_element()</code></pre>
+    &#34;Main entry point (used for debugging).&#34;</code></pre>
 </details>
 </section>
 <section>

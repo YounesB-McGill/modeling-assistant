@@ -74,7 +74,8 @@ MA_REST_ENDPOINT = f&#34;http://localhost:{PORT}/modelingassistant&#34;
 
 SLEEP_TIME_S = 0.2  # 1/5 second
 
-# Skip all pytest tests in this module by setting the pytestmark global variable
+
+# Skip all pytest tests in this module by uncommenting the line below, which sets the pytestmark global variable
 #pytestmark = pytest.mark.skip(&#34;Skipping all integrations tests since they depend on the WebCORE server&#34;)
 
 
@@ -417,15 +418,15 @@ def _setup_instructor_solution():
 
 if __name__ == &#39;__main__&#39;:
     &#34;Main entry point.&#34;
-    # test_webcore_user_register()
-    # test_webcore_user_login()
-    # test_webcore_user_logout()
-    # test_communication_between_mock_frontend_and_webcore(webcore)
-    # test_ma_two_class_student_mistake(ma_rest_app, webcore)
-    # # run again to ensure WebCORE still works after the previous test
+    test_webcore_user_register()
+    test_webcore_user_login()
+    test_webcore_user_logout()
     test_communication_between_mock_frontend_and_webcore(webcore)
-    # test_communication_between_mock_frontend_and_webcore_multiple_students(webcore)
-    # test_ma_multiple_feedback_levels(webcore)</code></pre>
+    test_ma_two_class_student_mistake(ma_rest_app, webcore)
+    # run again to ensure WebCORE still works after the previous test
+    test_communication_between_mock_frontend_and_webcore(webcore)
+    test_communication_between_mock_frontend_and_webcore_multiple_students(webcore)
+    test_ma_multiple_feedback_levels(webcore)</code></pre>
 </details>
 </section>
 <section>

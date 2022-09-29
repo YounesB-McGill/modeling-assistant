@@ -41,8 +41,9 @@ MA_REST_ENDPOINT = f"http://localhost:{PORT}/modelingassistant"
 
 SLEEP_TIME_S = 0.2  # 1/5 second
 
-# Skip all pytest tests in this module by setting the pytestmark global variable
-pytestmark = pytest.mark.skip("Skipping all integrations tests since they depend on the WebCORE server")
+
+# Skip all pytest tests in this module by uncommenting the line below, which sets the pytestmark global variable
+#pytestmark = pytest.mark.skip("Skipping all integrations tests since they depend on the WebCORE server")
 
 
 @pytest.fixture(scope="module")
@@ -392,4 +393,4 @@ if __name__ == '__main__':
     # run again to ensure WebCORE still works after the previous test
     test_communication_between_mock_frontend_and_webcore(webcore)
     test_communication_between_mock_frontend_and_webcore_multiple_students(webcore)
-    test_communication_between_modeling_assistant_python_app_and_webcore(webcore)
+    test_ma_multiple_feedback_levels(webcore)
