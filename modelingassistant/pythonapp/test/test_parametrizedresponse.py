@@ -203,8 +203,8 @@ def test_all_pr_params_can_be_parsed():
 
 
 def test_get_mapping_from_mistake_elem_descriptions_to_actual_mistake_elems():
-    "Test test_get_mapping_from_mistake_elem_descriptions_to_actual_mistake_elems() helper function."
-    simple_mt = MistakeType(name="Simple mistake", studentElements=[MistakeElement(type=n) for n in ["a", "b"]])
+    "Test get_mapping_from_mistake_elem_descriptions_to_actual_mistake_elems() helper function."
+    simple_mt = MistakeType(name="Simple mistake", studentElements=[MistakeElement(type=n) for n in "ab"])
     varargs_mt = MistakeType(
         name="Varargs mistake",
         studentElements=[MistakeElement(type=n.removesuffix("*"), many=n.endswith("*")) for n in ["a", "b", "c*"]])

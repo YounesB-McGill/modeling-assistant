@@ -44,6 +44,7 @@ from utils import fbs, mt, HighlightSolution, McqFactory
 
 state_machine_reference = Reference()  # pylint: disable=invalid-name
 tmcq = McqFactory()
+metatypes = {"trans": None, "state": None}
 
 # formatting following what is used in the paper
 transition_with_correct_event_to_wrong_target_state = mt(
@@ -66,6 +67,7 @@ transition_with_correct_event_to_wrong_target_state = mt(
             "Green"                : "    |   √    |      ",
         ]]),
         5: ResourceResponse(
-            learningResources=[state_machine_reference])}))
+            learningResources=[state_machine_reference])}),
+    types=metatypes)
 
 # priority of this mistake is not explicitly defined, but this can be omitted given the context

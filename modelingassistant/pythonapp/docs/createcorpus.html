@@ -1,0 +1,2078 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>createcorpus API documentation</title>
+<meta name="description" content="Script to create these Learning Corpus artifacts from corpus.py: …" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>createcorpus</code></h1>
+</header>
+<section id="section-intro">
+<p>Script to create these Learning Corpus artifacts from corpus.py:</p>
+<ul>
+<li>default.learningcorpus: The default Learning Corpus instance in XMI format.</li>
+<li>mistaketypes.py: A Python module with all mistake types and categories in the default corpus.</li>
+<li>MistakeTypes.java: A Java class with all mistake types and categories in the default corpus.</li>
+<li>README.md: A Markdown table-of-contents file for the default Learning Corpus.</li>
+</ul>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">#!/usr/bin/env python3
+
+&#34;&#34;&#34;
+Script to create these Learning Corpus artifacts from corpus.py:
+
+- default.learningcorpus: The default Learning Corpus instance in XMI format.
+- mistaketypes.py: A Python module with all mistake types and categories in the default corpus.
+- MistakeTypes.java: A Java class with all mistake types and categories in the default corpus.
+- README.md: A Markdown table-of-contents file for the default Learning Corpus.
+&#34;&#34;&#34;
+
+import os
+import re
+from abc import ABC, abstractmethod
+from re import Match
+from datetime import datetime
+from textwrap import dedent
+
+import cv2
+
+from metatypes import Metatype, CDM_METATYPES as metatypes
+from constants import LEARNING_CORPUS_PATH, MULTIPLE_FEEDBACKS_PER_LEVEL
+from corpus import corpus
+from fileserdes import save_to_file
+from learningcorpus import (MistakeTypeCategory, MistakeType, Feedback, TextResponse, ParametrizedResponse,
+                            MistakeElement, ResourceResponse, Quiz)
+from learningcorpusquiz import Blank, FillInTheBlanksQuiz, ListMultipleChoiceQuiz, NonBlank, TableMultipleChoiceQuiz
+from utils import NonNoneDict
+
+
+MAX_NUM_OF_HASHES_IN_HEADING = 6  # See https://github.github.com/gfm/#atx-heading
+MAX_COLUMN_WIDTH = 120
+
+PYTHON_MISTAKE_TYPES_FILE = &#34;modelingassistant/pythonapp/mistaketypes.py&#34;
+JAVA_MISTAKE_TYPES_FILE = &#34;modelingassistant/src/learningcorpus/mistaketypes/MistakeTypes.java&#34;
+CORPUS_DESCRIPTION_DIR = &#34;modelingassistant/corpus_descriptions&#34;
+LEARNING_CORPUS_MARKDOWN_FILE = f&#34;{CORPUS_DESCRIPTION_DIR}/README.md&#34;
+LEARNING_CORPUS_TEX_FILE = f&#34;{CORPUS_DESCRIPTION_DIR}/learningcorpusdefs.tex&#34;
+
+NL = &#34;\n&#34;  # Use this instead of os.linesep to ensure consistent line endings across platforms, including Windows
+
+PYTHON_HEADER = f&#39;&#39;&#39;\
+&#34;&#34;&#34;
+This file contains all mistake types and categories.
+It is generated automatically by the {os.path.basename(__file__)} script.
+&#34;&#34;&#34;
+
+from constants import LEARNING_CORPUS_PATH
+from corpus import corpus as runtime_corpus
+from fileserdes import load_lc
+from learningcorpus import MistakeTypeCategory, MistakeType
+
+corpus = load_lc(LEARNING_CORPUS_PATH)
+
+# Populate dictionaries
+MISTAKE_TYPE_CATEGORIES_BY_NAME: dict[str, MistakeTypeCategory] = {{c.name: c for c in corpus.mistakeTypeCategories}}
+MISTAKE_TYPES_BY_NAME: dict[str, MistakeType] = {{mt.name: mt for mt in corpus.mistakeTypes()}}
+
+# Short-name references to the above dicts for greater code legibility
+_MTCS = MISTAKE_TYPE_CATEGORIES_BY_NAME
+_MTS = MISTAKE_TYPES_BY_NAME
+
+
+# Mistake type categories
+&#39;&#39;&#39;
+
+JAVA_HEADER = f&#34;&#34;&#34;\
+package learningcorpus.mistaketypes;
+
+import java.util.HashMap;
+import java.util.Map;
+import learningcorpus.LearningCorpus;
+import learningcorpus.MistakeType;
+import learningcorpus.MistakeTypeCategory;
+
+/**
+ * This class contains all mistake types and categories.
+ * It is generated automatically by the {os.path.basename(__file__)} script.
+ */
+public class MistakeTypes {{
+
+  /** The path of the learning corpus instance with mistake types. */
+  public static final String LEARNING_CORPUS_PATH =
+      &#34;../{LEARNING_CORPUS_PATH}&#34;;
+
+  /** Map of mistake type categories by name. */
+  public static final Map&lt;String, MistakeTypeCategory&gt; MISTAKE_TYPE_CATEGORIES_BY_NAME = new HashMap&lt;&gt;();
+
+  /** Map of mistake types by name. */
+  public static final Map&lt;String, MistakeType&gt; MISTAKE_TYPES_BY_NAME = new HashMap&lt;&gt;();
+
+  // Short-name references to the above maps for greater code legibility
+  private static final Map&lt;String, MistakeTypeCategory&gt; MTCS = MISTAKE_TYPE_CATEGORIES_BY_NAME;
+  private static final Map&lt;String, MistakeType&gt; MTS = MISTAKE_TYPES_BY_NAME;
+
+  static {{
+    var learningCorpus = LearningCorpus.fromFile(LEARNING_CORPUS_PATH);
+    learningCorpus.getMistakeTypeCategories().forEach(mtc -&gt; MISTAKE_TYPE_CATEGORIES_BY_NAME.put(mtc.getName(), mtc));
+    learningCorpus.getMistakeTypes().forEach(mt -&gt; MISTAKE_TYPES_BY_NAME.put(mt.getName(), mt));
+  }}
+
+  // Mistake type categories
+
+&#34;&#34;&#34;
+
+TEX_HEADER = f&#34;&#34;&#34;\
+% Modeling Assistant Learning Corpus
+
+% This tex file was generated automatically by the {os.path.basename(__file__)} script.
+% Generation time: {datetime.now().strftime(&#34;%Y-%m-%d %H:%M:%S&#34;)}
+
+\\textbf{{Legend:}}
+In the textual responses, items in \\verb|${{this format}}| represent the parameters of
+a parametrized response, which are computed and substituted at runtime from the general
+template based on the specific mistake. Items [in square brackets] refer to optional
+text which may or may not be included, depending on the student&#39;s knowledge.
+Some of the resource responses, e.g., the ones used for the Player-Role pattern and
+Abstraction-Occurrence pattern, are adapted from the textbook by
+Lethbridge and Laganière~\\cite{{Lethbridge05}}.
+
+&#34;&#34;&#34;
+
+TEX_PR_TABLE = R&#34;&#34;&#34;
+\begin{tabular}{lcccc}
+\hline
+\textbf{Solution} &amp;
+  \textbf{\begin{tabular}[c]{@{}c@{}}Roles\\ have\\ different\\ features\end{tabular}} &amp;
+  \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &amp;
+  \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &amp;
+  \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
+Enumeration         &amp; $\square$   &amp; $\boxtimes$ &amp; $\boxtimes$ &amp; $\square$   \\
+Subclasses          &amp; $\boxtimes$ &amp; $\boxtimes$ &amp; $\square$   &amp; $\square$   \\
+Associations        &amp; $\square$   &amp; $\boxtimes$ &amp; $\boxtimes$ &amp; $\boxtimes$ \\
+Player-Role Pattern &amp; $\boxtimes$ &amp; $\boxtimes$ &amp; $\boxtimes$ &amp; $\boxtimes$ \\ \hline
+\end{tabular} \bigskip
+
+
+&#34;&#34;&#34;
+
+QUIZ_DISPLAY_NAMES: dict[type, str] = {
+    FillInTheBlanksQuiz: &#34;Fill-in-the-blanks quiz&#34;,
+    ListMultipleChoiceQuiz: &#34;List multiple-choice quiz&#34;,
+    TableMultipleChoiceQuiz: &#34;Table multiple-choice quiz&#34;,
+    Quiz: &#34;Quiz&#34;,  # fallback option, not expected to be used
+}
+
+_quizzes_to_md: dict[Quiz, str] = NonNoneDict()
+
+
+def dashify(s: str) -&gt; str:
+    &#34;Dashify the input string.&#34;
+    return clean(s).replace(&#34; &#34;, &#34;-&#34;).replace(&#34;/&#34;, &#34;-&#34;).replace(&#34;--&#34;, &#34;-&#34;).lower()
+
+
+def clean(s: str) -&gt; str:
+    &#34;Clean the input string.&#34;
+    s = s.replace(&#34;(&#34;, &#34;&#34;).replace(&#34;)&#34;, &#34;&#34;).replace(&#34;,&#34;, &#34;&#34;).replace(&#34;yet incorrect&#34;, &#34;&#34;)
+    return re.sub(r&#34;\s+&#34;, &#34; &#34;, s).strip()
+
+
+def underscorify(s: str) -&gt; str:
+    &#34;&#34;&#34;
+    Underscorifies and capitalizes the given input string, omitting any information in parentheses.
+    Example: &#34;Extra (redundant) class&#34; -&gt; &#34;EXTRA_CLASS&#34;
+    &#34;&#34;&#34;
+    s = re.sub(r&#34;\((.+?)\)&#34;, &#34;&#34;, s).strip().replace(&#34;/&#34;, &#34;_&#34;).replace(&#34;-&#34;, &#34;_&#34;)
+    s = re.sub(r&#34;\s+&#34;, &#34;_&#34;, s)
+    return re.sub(r&#34;_+&#34;, &#34;_&#34;, s).upper()
+
+
+def generate_python():
+    &#34;&#34;&#34;
+    Generate Python file with all mistake types and categories.
+    &#34;&#34;&#34;
+    result = PYTHON_HEADER
+
+    for mtc in corpus.mistakeTypeCategories:
+        lhs = f&#34;{underscorify(mtc.name)}: MistakeTypeCategory&#34;
+        rhs = f&#39;_MTCS[&#34;{mtc.name}&#34;]&#39;
+        mtc_decl = f&#34;{lhs} = {rhs}&#34;
+        if len(mtc_decl) &lt; MAX_COLUMN_WIDTH:
+            result += f&#34;{mtc_decl}\n&#34;
+        else:
+            result += f&#34;{lhs} = \\\n    {rhs}\n&#34;
+
+    result += &#34;\n# Mistake types\n&#34;
+
+    for mt in corpus.mistakeTypes():
+        lhs = f&#34;{underscorify(mt.name)}: MistakeType&#34;
+        rhs = f&#39;_MTS[&#34;{mt.name}&#34;]&#39;
+        mt_decl = f&#34;{lhs} = {rhs}&#34;
+        if len(mt_decl) &lt; MAX_COLUMN_WIDTH:
+            result += f&#34;{mt_decl}\n&#34;
+        else:
+            result += f&#34;{lhs} = \\\n    {rhs}\n&#34;
+
+    with open(PYTHON_MISTAKE_TYPES_FILE, &#34;w&#34;, encoding=&#34;utf-8&#34;) as f:
+        f.write(result)
+
+
+def generate_python_mts(mtc: MistakeTypeCategory) -&gt; str:
+    &#34;&#34;&#34;
+    Generate mistake types from input mistake type category, eg, &#34;missing_class := mt(n=&#34;Missing class&#34;),&#34;
+    &#34;&#34;&#34;
+    if not mtc.mistakeTypes:
+        return &#34;&#34;
+    return f&#39;&#39;&#39;, mistakeTypes=[\n{[
+        NL.join(f&#39;{8 * &#34; &#34;}{underscorify(mt.name)} := mt(n={NL}{mt.name}{NL}),&#39;)
+        for mt in mtc.mistakeTypes]}\n    ]&#39;&#39;&#39;
+
+
+def generate_java():
+    &#34;&#34;&#34;
+    Generate Java class with all mistake types and categories.
+    &#34;&#34;&#34;
+    result = JAVA_HEADER
+
+    for mtc in corpus.mistakeTypeCategories:
+        result += f&#39;  /** The category for {mtc.name.lower()}. */\n&#39;
+        lhs = f&#39;  public static final MistakeTypeCategory {underscorify(mtc.name)}&#39;
+        rhs = f&#39;MTCS.get(&#34;{mtc.name}&#34;);&#39;
+        mtc_decl = f&#39;{lhs} = {rhs}&#39;
+        if len(mtc_decl) &lt;= MAX_COLUMN_WIDTH:
+            result += f&#39;{mtc_decl}\n\n&#39;
+        else:
+            result += f&#39;{lhs} =\n      {rhs}\n\n&#39;
+
+    result += &#34;\n  // Mistake types\n\n&#34;
+
+    for mt in corpus.mistakeTypes():
+        result += f&#39;  /** The {mt.description.lower()} mistake type. */\n&#39;.replace(&#34; isa &#34;, &#34; isA &#34;)
+        lhs = f&#39;  public static final MistakeType {underscorify(mt.name)}&#39;
+        rhs = f&#39;MTS.get(&#34;{mt.name}&#34;);&#39;
+        mt_decl = f&#39;{lhs} = {rhs}&#39;
+        if len(mt_decl) &lt;= MAX_COLUMN_WIDTH:
+            result += f&#39;{mt_decl}\n\n&#39;
+        else:
+            result += f&#39;{lhs} =\n      {rhs}\n\n&#39;
+
+    result += &#34;}\n&#34;
+
+    with open(JAVA_MISTAKE_TYPES_FILE, &#34;w&#34;, encoding=&#34;utf-8&#34;) as f:
+        f.write(result)
+
+
+def is_table(s: str) -&gt; bool:
+    &#34;Return True if the input markdown string is a table.&#34;
+    return &#34;|&#34; in s and all(&#34;|&#34; in line for line in s.splitlines()[2:-2])
+
+
+class TextualGenerator(ABC):
+    &#34;Abstract base class for textual generators.&#34;
+    @classmethod
+    def nested_body_output_for(cls, mtc: MistakeTypeCategory, indentation: int = 0) -&gt; str:
+        &#34;Return the nested body output for the input in a recursive way.&#34;
+        return f&#39;&#39;&#39;{cls.make_body_title(mtc.name, indentation)}{
+            &#34;&#34;.join([cls.nested_body_output_for(sc, indentation + 1) for sc in mtc.subcategories])}{
+            NL.join([cls.make_mt_body(mt, indentation + 1) for mt in mtc.mistakeTypes])}\n&#39;&#39;&#39;
+
+    @classmethod
+    @abstractmethod
+    def make_body_title(cls, name: str, indentation: int = 0) -&gt; str:
+        &#34;Return the title of the body for the input, indented by the given amount.&#34;
+
+    @classmethod
+    @abstractmethod
+    def make_mt_body(cls, mt: MistakeType, indentation: int = 0) -&gt; str:
+        &#34;Return the body for the mistake type, indented by the given amount.&#34;
+
+    @classmethod
+    def mistake_elem_display_name(cls, mistake_elem: MistakeElement | str) -&gt; str:
+        &#34;Return the display name for the input mistake element name.&#34;
+        def display_name(s: str) -&gt; str:
+            return metatypes[s].long_name if s in metatypes else s
+
+        return (&#34; &#34;.join([display_name(w).capitalize() for w in str(mistake_elem).split(&#34;_&#34;)])
+                .replace(&#34;Sub Class&#34;, &#34;Subclass&#34;).replace(&#34;Super Class&#34;, &#34;Superclass&#34;)
+                .replace(&#34;Minlowerbound&#34;, &#34;Minimum lower bound&#34;)
+                .replace(&#34;Abs&#34;, &#34;Abstraction&#34;).replace(&#34;Occ&#34;, &#34;Occurrence&#34;)).capitalize()
+
+    @classmethod
+    @abstractmethod
+    def make_mistake_type_element_description(cls, mt: MistakeType) -&gt; str:
+        &#34;&#34;&#34;
+        Return the mistake element description for the mistake type.
+
+        Example: For the mistake type &#34;Using attribute instead of association,&#34; the output is the string
+        &#34;Student element: Attribute. Instructor element: Association end.&#34;
+        &#34;&#34;&#34;
+        if not mt.studentElements and not mt.instructorElements:
+            raise ValueError(f&#34;Mistake type {mt.name} must have student or instructor elements.&#34;)
+        result = &#34;&#34;
+        sep = &#34; &#34; if mt.instructorElements else &#34;&#34;  # add space after student elements only if inst elements are present
+        match len(mt.studentElements):
+            case 0:
+                result += &#34;&#34;
+            case 1:
+                result += f&#34;Student element: {cls.mistake_elem_display_name(mt.studentElements[0])}.{sep}&#34;
+            case _:
+                result += f&#34;&#34;&#34;Student elements: {
+                           &#39;, &#39;.join([cls.mistake_elem_display_name(e) for e in mt.studentElements])}.{sep}&#34;&#34;&#34;
+        match len(mt.instructorElements):
+            case 0:
+                result += &#34;&#34;
+            case 1:
+                result += f&#34;Instructor element: {cls.mistake_elem_display_name(mt.instructorElements[0])}.&#34;
+            case _:
+                result += f&#34;&#34;&#34;Instructor elements: {
+                    &#39;, &#39;.join([cls.mistake_elem_display_name(e) for e in mt.instructorElements])}.&#34;&#34;&#34;
+        return result
+
+    @classmethod
+    @abstractmethod
+    def generate(cls) -&gt; str:
+        &#34;Generate and return the output.&#34;
+
+    @classmethod
+    @abstractmethod
+    def save_to_file(cls, filename: str = None):
+        &#34;Save the output to a file. Use the default location if no filename is given.&#34;
+
+
+class MarkdownGenerator(TextualGenerator):
+    &#34;&#34;&#34;
+    Generator for Markdown version of the learning corpus.
+    &#34;&#34;&#34;
+    @classmethod
+    def nested_toc_output_for(cls, mtc: MistakeTypeCategory, indentation: int = 0) -&gt; str:
+        &#34;Return the nested table of contents output for the input in a recursive way.&#34;
+        return f&#39;&#39;&#39;{cls.make_toc_title(mtc.name, indentation)}{
+            &#34;&#34;.join([cls.nested_toc_output_for(sc, indentation + 3) for sc in mtc.subcategories])}{
+            &#34;&#34;.join([cls.make_toc_title(mt.description, indentation + 3) for mt in mtc.mistakeTypes])}&#39;&#39;&#39;
+
+    @classmethod
+    def make_toc_title(cls, name: str, indentation: int = 0) -&gt; str:
+        &#34;Return the title of the table of contents for the input, indented by the given amount.&#34;
+        return f&#39;{indentation * &#34; &#34;}1. [{name}](#{dashify(name)})\n&#39;
+
+    @classmethod
+    def make_body_title(cls, name: str, indentation: int = 0) -&gt; str:
+        hashes = indentation + 2
+        cn = clean(name)
+        return (f&#39;{hashes * &#34;#&#34;} {cn}&#39; if hashes &lt;= MAX_NUM_OF_HASHES_IN_HEADING else f&#39;**{cn}**&#39;) + &#34;\n\n&#34;
+
+    @classmethod
+    def make_mt_body(cls, mt: MistakeType, indentation: int = 0) -&gt; str:
+        &#34;Return the Markdown body of the output.&#34;
+        result = f&#34;{cls.make_body_title(mt.description, indentation)}{cls.make_mistake_type_element_description(mt)}&#34;
+        levels = sorted(fb.level for fb in mt.feedbacks)
+        for level in levels:
+            if (level_header := f&#34;Level {level}: &#34;) not in result:
+                result += level_header
+            prev_fb = None
+            for fb in mt.feedbacks:
+                if fb.level != level:
+                    continue
+                match fb:
+                    case Feedback(highlightProblem=True):
+                        &#34;&#34;&#34;
+                        Possible outcomes here are:
+
+                        &#34;Highlight specific problem statement elements referring to the instructor element(s)\n\n&#34;
+                        &#34;Highlight sentence(s) in problem statement referring to the instructor element(s)\n\n&#34;
+                        &#34;&#34;&#34;
+                        sp = &#34;specific&#34; if fb.level &gt; 1 else &#34;sentence(s) in&#34;
+                        pse = &#34;elements &#34; if fb.level &gt; 1 else &#34;&#34;
+                        # use elem type here in the future if it can be made more specific, eg, enum instead of class
+                        plural_item_marker = &#34;(s)&#34;
+                        elem_owner = &#34;&#34;
+                        if mt.instructorElements:
+                            elem_owner = &#34;the instructor &#34;
+                            if len(mt.instructorElements) == 1:
+                                plural_item_marker = &#34;&#34;
+                        elem = f&#34;referring to {elem_owner}element{plural_item_marker}&#34;
+                        result += f&#34;Highlight {sp} problem statement {pse}{elem}\n\n&#34;
+                    case Feedback(highlightSolution=True):
+                        result += &#34;Highlight solution\n\n&#34;
+                    case TextResponse() as resp:
+                        if resp.text not in result:
+                            result += f&#34;Text response:\n\n&gt; {resp.text}\n\n&#34;
+                    case ParametrizedResponse() as resp:
+                        if resp.text not in result:
+                            result += f&#34;&#34;&#34;{
+                                &#39;&#39; if isinstance(prev_fb, ParametrizedResponse) else f&#39;Parametrized response:{NL}&#39;
+                                }\n&gt; {resp.text}\n\n&#34;&#34;&#34;
+                    case ResourceResponse() as resp if resp.learningResources:
+                        primary_rsc = resp.learningResources[0]
+                        rsc_type = type(primary_rsc)
+                        rsc_type_name = type(primary_rsc).__name__
+                        if issubclass(rsc_type, Quiz) and rsc_type != Quiz:  # Quiz subclasses but not Quiz itself
+                            content = f&#34;&#34;&#34;Resource response with {QUIZ_DISPLAY_NAMES[type(primary_rsc)]}:\n\n{
+                                          primary_rsc.content}\n\n&#34;&#34;&#34;
+                            if isinstance(primary_rsc, FillInTheBlanksQuiz):
+                                for statement in primary_rsc.statements:
+                                    content += &#34;* &#34;
+                                    for component in statement.components:
+                                        if isinstance(component, NonBlank):
+                                            content += f&#34;{component.text}&#34;
+                                        if isinstance(component, Blank):
+                                            # use &lt;ins&gt; to underline answer, which makes it appear as a filled blank
+                                            content += f&#34;&lt;ins&gt;{component.correctAnswer}&lt;/ins&gt;&#34;
+                                    content += &#34;\n&#34;
+                            elif isinstance(primary_rsc, ListMultipleChoiceQuiz):
+                                for choice in primary_rsc.choices:
+                                    sel = &#34;x&#34; if choice in primary_rsc.correctChoices else &#34; &#34;
+                                    content += f&#34;- [{sel}] {choice.text}\n&#34;
+                            elif isinstance(primary_rsc, TableMultipleChoiceQuiz):
+                                ...
+                            content = content.strip()
+                            result += (content + &#34;\n\n&#34;) if content not in result else &#34;&#34;
+                            _quizzes_to_md[primary_rsc] = content
+                        elif is_table(primary_rsc.content):
+                            content = f&#34;&#34;&#34;Resource response with {rsc_type_name}:\n\n{(2 * NL).join(
+                                [f&#34;&gt; {f.learningResources[0].content.replace(NL, f&#39;{NL}&gt; &#39;)}&#34;
+                                 for f in mt.feedbacks if f.level == level])}\n\n&#34;&#34;&#34;
+                            result += content if content not in result else &#34;&#34;
+                        else:
+                            content = f&#34;&#34;&#34;Resource response with {rsc_type_name}:\n\n{(2 * NL).join(
+                                [f&#34;&gt; {f.learningResources[0].content}&#34; for f in mt.feedbacks if f.level == level])
+                                }\n\n&#34;&#34;&#34;
+                            result += content if content not in result else &#34;&#34;
+                prev_fb = fb
+                if not MULTIPLE_FEEDBACKS_PER_LEVEL:
+                    break
+        return result
+
+    @classmethod
+    def make_mistake_type_element_description(cls, mt: MistakeType) -&gt; str:
+        descr = super().make_mistake_type_element_description(mt)
+        return (descr + &#34;\n\n&#34;) if descr else &#34;&#34;
+
+    @classmethod
+    def generate(cls):
+        mtcs = corpus.topLevelMistakeTypeCategories()
+        return f&#34;&#34;&#34;{NL.join(cls.nested_toc_output_for(c) for c in mtcs)}\n{
+            NL.join(cls.nested_body_output_for(c) for c in mtcs)}&#34;&#34;&#34;
+
+    @classmethod
+    def save_to_file(cls, filename: str = None):
+        if not filename:
+            filename = LEARNING_CORPUS_MARKDOWN_FILE
+        md = cls.generate()
+        with open(filename, &#34;w&#34;, encoding=&#34;utf-8&#34;) as f:
+            f.write(md)
+
+
+class LatexGenerator(TextualGenerator):
+    &#34;&#34;&#34;
+    Generate LaTeX version of the learning corpus.
+    &#34;&#34;&#34;
+    # pylint: disable=too-many-statements, invalid-name
+    # function-level constants must be defined here, before any inner functions
+    NO_INDENT = &#34;\\noindent &#34;
+    NLS = &#34; \\medskip\n\n&#34;
+    MAX_WIDTH = 0.9  # relative to line width
+    NESTING_KEYWORDS = [&#34;section&#34;, &#34;subsection&#34;, &#34;subsubsection&#34;]
+
+    MarkdownGenerator.generate()  # save generated markdown as intermediate output
+
+    @classmethod
+    def make_body_title(cls, name: str, indentation: int = 0) -&gt; str:
+        cn = clean(name)
+        # &#34;paragraph&#34; and lower levels don&#39;t render properly, so simply boldface them
+        return (f&#39;\\{cls.NESTING_KEYWORDS[indentation]}{{{cn}}}\n\n&#39; if indentation &lt; len(cls.NESTING_KEYWORDS)
+                else f&#39;{cls.NO_INDENT}\\textbf{{{cn}}}{cls.NLS}&#39;)
+
+    @classmethod
+    def blockquote(cls, s: str) -&gt; str:
+        &#39;Return a block quote of the input string, eg, &#34;&gt; Hello&#34;, which appears as &#34;| Hello&#34;.&#39;
+        return f&#34;\\begin{{tabular}}{{|p{{{cls.MAX_WIDTH}\\linewidth}}}}\n{cls.sanitize(s)}\n\\end{{tabular}}{cls.NLS}&#34;
+
+    @classmethod
+    def sanitize(cls, s: str) -&gt; str:
+        &#34;Return the string with any params surrounded by `verb|...|` and with links removed and images rendered.&#34;
+        def find_and_replace_image_link(match: Match[str]) -&gt; str:
+            &#34;Find the image link and replace it with actual image with appropriate dimensions.&#34;
+            img_name = match.group(1).replace(&#34;\\&#34;, &#34;&#34;)
+            img_path = os.path.join(CORPUS_DESCRIPTION_DIR, img_name)
+            img = cv2.imread(img_path)  # pylint: disable=no-member
+            height, width, _ = img.shape
+            img_width = cls.MAX_WIDTH if height / width &lt; 0.33 else 0.6
+            return f&#34;\\\\\n\\includegraphics[width={img_width}\\textwidth]{{{img_name}}}&#34;
+
+        def handle_list(s: str, old_bullets: tuple[str], new_bullets: tuple[str]) -&gt; str:
+            if not any(bullet in s for bullet in old_bullets) or &#34;\n&#34; not in s:
+                return s  # short-circuit: no list to handle
+            begin_itemize, end_itemize = &#34;\\begin{itemize}&#34;, &#34;\\end{itemize}\n&#34;
+            lines = s.splitlines()
+            new_lines = []
+            for line in lines:
+                new_line = line
+                for c in &#34;{}_&#34;:
+                    new_line = new_line.replace(c, f&#34;\\{c}&#34;)
+                for old, new in zip(old_bullets, new_bullets):
+                    if new_line.strip().startswith(old):
+                        new_line = f&#39;    {new_line.replace(&#34;`&#34;, &#34;&#34;).replace(old, new, 1)}&#39;
+                new_lines.append(new_line)
+            lines = new_lines
+            first_bullet_line = last_bullet_line = None
+            for i, line in enumerate(lines):
+                for bullet in new_bullets:
+                    if bullet in line:
+                        if not first_bullet_line:
+                            first_bullet_line = i
+                        last_bullet_line = i
+            lines.insert(first_bullet_line, begin_itemize)
+            lines.insert(last_bullet_line + 2, end_itemize)
+            return &#34;\n&#34;.join(lines)
+
+        # use math notation for certain items so they render as intended
+        s = handle_list(s, (&#34;- [ ]&#34;,&#34;- [x]&#34;, &#34;* &#34;), (&#34;\\item[$\\square$]&#34;, &#34;\\item[$\\boxtimes$]&#34;, &#34;\\item &#34;))
+        # replace &lt;ins&gt;text&lt;/ins&gt; with \underline{text}
+        s = re.sub(r&#34;&lt;ins&gt;(.*?)&lt;/ins&gt;&#34;, r&#34;\\underline{\1}&#34;, s)
+        for c in &#34;|&lt;&gt;&#34;:
+            s = s.replace(c, f&#34;${c}$&#34;)
+        # replace image links with actual images
+        s = re.sub(r&#34;!\[.*?\]\((?P&lt;img&gt;.*?)\)&#34;, find_and_replace_image_link, s)
+        # replace regular links with italics
+        s = re.sub(r&#34;\[(?P&lt;text&gt;.*?)\]\(.*?\)&#34; , r&#34;\\textit{\g&lt;text&gt;}&#34;, s)  # regex101.com/r/m58sNO/1
+        # replace markdown bold and italics with latex versions (do this more elegantly in the future)
+        s = re.sub(r&#34;\*\*(.*?)\*\*&#34;, r&#34;\\textbf{\1}&#34;, s)
+        if &#34;_&#34; in s:
+            lines = s.splitlines()
+            new_lines: list[str] = []
+            for line in lines:
+                if &#34;${&#34; not in line and &#34;\\includegraphics&#34; not in line:
+                    new_lines.append(re.sub(r&#34;_(.*?)_&#34;, r&#34;\\textit{\1}&#34;, line))
+                else:
+                    new_lines.append(line)
+            s = &#34;\n&#34;.join(new_lines)
+            if &#34;itemize&#34; in s:
+                s += &#34;\n&#34;
+        if &#34;verb|&#34; in s:
+            return s  # already verbized
+        return re.sub(r&#34;\${(?P&lt;text&gt;.*?)}&#34;, r&#34;\\verb|${\g&lt;text&gt;}|&#34;, s)
+
+    @classmethod
+    def make_tex_table(cls, s: str) -&gt; str:
+        &#34;Return the markdown string as a LaTeX table. The table must not contain duplicate rows at the end.&#34;
+        def processed(s: str) -&gt; str:
+            &#34;Render markdown emojis ✔ and ❌ in LaTeX.&#34;
+            return s.replace(&#34;:heavy_check_mark:&#34;, &#34;\\textcolor{ForestGreen}{\\checkmark}&#34;).replace(
+                &#34;:x:&#34;, &#34;\\textcolor{red}{$\\times$}&#34;)
+
+        def process_row(s: str) -&gt; str:
+            &#34;Return the string as a LaTeX table row.&#34;
+            return &#34;&amp;&#34;.join(processed(s).split(&#34;|&#34;)) + &#34; \\\\\n&#34;
+
+        if &#34;Player-Role Pattern&#34; in s:
+            return dedent(f&#34;&#34;&#34;{cls.blockquote(&#39;Complete the following table by checking the correct boxes:&#39;).strip()}
+                {TEX_PR_TABLE}&#34;&#34;&#34;)
+        lines = s.strip().split(NL)
+        result = &#34;&#34;
+        prev_in_table = in_table = False
+        for line in lines:
+            if &#34;---&#34; in line:
+                continue  # headers are handled separately below
+            in_table = &#34;|&#34; in line
+            n_cols = line.count(&#34;|&#34;) + 1
+            if not prev_in_table and not in_table:
+                result += cls.blockquote(line)
+            elif not prev_in_table and in_table:  # just entered table, so add the header
+                result += f&#34;&#34;&#34;\\begin{{tabular}}{{{n_cols * &#34;l&#34;}}}\n\\hline\n{process_row(line)}\\hline\n&#34;&#34;&#34;
+            elif prev_in_table and in_table and line != lines[-1]:  # in table, so add a row
+                result += process_row(line)
+            elif (prev_in_table and not in_table) or line == lines[-1]:  # just left table, so add the footer
+                result += process_row(line) + f&#34;\\hline\n\\end{{tabular}}{cls.NLS}&#34;
+            prev_in_table = in_table
+        return result
+
+    @classmethod
+    def make_mt_body(cls, mt: MistakeType, indentation: int = 0) -&gt; str:
+        &#34;Return the LaTeX body of the output.&#34;
+        result = f&#34;{cls.make_body_title(mt.description, indentation)}{cls.make_mistake_type_element_description(mt)}&#34;
+        levels = sorted(fb.level for fb in mt.feedbacks)
+        for level in levels:
+            if (level_header := f&#34;{cls.NO_INDENT}Level {level}: &#34;) not in result:
+                result += level_header
+            prev_fb = None
+            for fb in mt.feedbacks:
+                if fb.level != level:
+                    continue
+                # safe navigation equiv. of metatypes[[*mt.studentElements, *mt.instructorElements][0].type].long_name
+                elem_type = getattr(metatypes.get([*mt.studentElements, *mt.instructorElements][0].type,
+                                                  Metatype(short_name=&#34;&#34;, long_name=&#34;&#34;, eClass=None)),
+                                    &#34;long_name&#34;)
+                elem_type = &#34;&#34;  # for now, don&#39;t show the element type
+                match fb:
+                    case Feedback(highlightProblem=True):
+                        &#34;&#34;&#34;
+                        Possible outcomes here are:
+
+                        &#34;Highlight specific problem statement elements referring to the inst. element(s) \\medskip\n&#34;
+                        &#34;Highlight sentence(s) in problem statement referring to the instructor element(s) \\medskip\n&#34;
+                        &#34;&#34;&#34;
+                        sp = &#34;specific&#34; if fb.level &gt; 1 else &#34;sentence(s) in&#34;
+                        pse = &#34;elements &#34; if fb.level &gt; 1 else &#34;&#34;
+                        # use elem_type here in the future if it can be made more specific, eg, enum instead of class
+                        plural_item_marker = &#34;(s)&#34;
+                        elem_owner = &#34;&#34;
+                        if mt.instructorElements:
+                            elem_owner = &#34;the instructor &#34;
+                            if len(mt.instructorElements) == 1:
+                                plural_item_marker = &#34;&#34;
+                        elem = f&#34;referring to {elem_owner}element{plural_item_marker}&#34;
+                        result += f&#34;Highlight {sp} problem statement {pse}{elem}{cls.NLS}&#34;
+                    case Feedback(highlightSolution=True):
+                        result += f&#34;Highlight solution {f&#39;({elem_type})&#39; if elem_type else &#39;&#39;}{cls.NLS}&#34;
+                    case TextResponse() as resp:
+                        if (content := cls.blockquote(resp.text)) not in result:
+                            result += f&#34;Text response:{cls.NLS}{content}&#34;
+                    case ParametrizedResponse() as resp:
+                        if (content := cls.blockquote(resp.text)) not in result:
+                            result += f&#34;&#34;&#34;{&#39;&#39; if isinstance(prev_fb, ParametrizedResponse)
+                                else f&#39;Parametrized response:{cls.NLS}&#39;}{content}&#34;&#34;&#34;
+                    case ResourceResponse() as resp if resp.learningResources:
+                        primary_rsc = resp.learningResources[0]
+                        rsc_type = type(primary_rsc)
+                        rsc_type_name = rsc_type.__name__
+                        if issubclass(rsc_type, Quiz) and rsc_type != Quiz:  # Quiz subclasses but not Quiz itself
+                            if isinstance(primary_rsc, FillInTheBlanksQuiz | ListMultipleChoiceQuiz):
+                                quiz_md_lines = _quizzes_to_md[primary_rsc].split(NL)
+                                title, body = quiz_md_lines[0], NL.join(quiz_md_lines[1:])
+                            elif isinstance(primary_rsc, TableMultipleChoiceQuiz):
+                                ...
+                            content = f&#34;{title}{cls.NLS}{cls.blockquote(body)}&#34;
+                            result += content if content not in result else &#34;&#34;
+                        elif is_table(primary_rsc.content):
+                            content = f&#34;&#34;&#34;Resource response with {rsc_type_name}:{cls.NLS}{(2 * NL).join(
+                                [cls.make_tex_table(f.learningResources[0].content)
+                                 for f in mt.feedbacks if f.level == level])}&#34;&#34;&#34;
+                            result += content if content not in result else &#34;&#34;
+                        else:
+                            content = f&#34;&#34;&#34;Resource response with {rsc_type_name}:{cls.NLS}{(2 * NL).join(
+                                [f&#34;{cls.blockquote(f.learningResources[0].content)}&#34;
+                                 for f in mt.feedbacks if f.level == level])}&#34;&#34;&#34;
+                            result += content if content not in result else &#34;&#34;
+                prev_fb = fb
+                if not MULTIPLE_FEEDBACKS_PER_LEVEL:
+                    break
+        return result
+
+    @classmethod
+    def make_mistake_type_element_description(cls, mt: MistakeType) -&gt; str:
+        descr = super().make_mistake_type_element_description(mt)
+        return f&#34;{descr}{cls.NLS}&#34; if descr else &#34;&#34;
+
+    @classmethod
+    def generate(cls):
+        return TEX_HEADER + NL.join(cls.nested_body_output_for(c) for c in corpus.topLevelMistakeTypeCategories())
+
+    @classmethod
+    def save_to_file(cls, filename: str = None):
+        if not filename:
+            filename = LEARNING_CORPUS_TEX_FILE
+        tex = cls.generate()
+        with open(filename, &#34;w&#34;, encoding=&#34;utf-8&#34;) as f:
+            f.write(tex)
+
+
+def create_corpus():
+    &#34;Create the learning corpus.&#34;
+    save_to_file(LEARNING_CORPUS_PATH, corpus)
+    print(f&#34;Created learning corpus with {len(corpus.mistakeTypes())} mistake types.&#34;)
+    generate_python()
+    generate_java()
+    MarkdownGenerator.save_to_file()
+    LatexGenerator.save_to_file()
+
+
+if __name__ == &#34;__main__&#34;:
+    &#34;Main entry point.&#34;
+    create_corpus()</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="createcorpus.clean"><code class="name flex">
+<span>def <span class="ident">clean</span></span>(<span>s: str) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Clean the input string.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def clean(s: str) -&gt; str:
+    &#34;Clean the input string.&#34;
+    s = s.replace(&#34;(&#34;, &#34;&#34;).replace(&#34;)&#34;, &#34;&#34;).replace(&#34;,&#34;, &#34;&#34;).replace(&#34;yet incorrect&#34;, &#34;&#34;)
+    return re.sub(r&#34;\s+&#34;, &#34; &#34;, s).strip()</code></pre>
+</details>
+</dd>
+<dt id="createcorpus.create_corpus"><code class="name flex">
+<span>def <span class="ident">create_corpus</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create the learning corpus.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_corpus():
+    &#34;Create the learning corpus.&#34;
+    save_to_file(LEARNING_CORPUS_PATH, corpus)
+    print(f&#34;Created learning corpus with {len(corpus.mistakeTypes())} mistake types.&#34;)
+    generate_python()
+    generate_java()
+    MarkdownGenerator.save_to_file()
+    LatexGenerator.save_to_file()</code></pre>
+</details>
+</dd>
+<dt id="createcorpus.dashify"><code class="name flex">
+<span>def <span class="ident">dashify</span></span>(<span>s: str) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Dashify the input string.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def dashify(s: str) -&gt; str:
+    &#34;Dashify the input string.&#34;
+    return clean(s).replace(&#34; &#34;, &#34;-&#34;).replace(&#34;/&#34;, &#34;-&#34;).replace(&#34;--&#34;, &#34;-&#34;).lower()</code></pre>
+</details>
+</dd>
+<dt id="createcorpus.generate_java"><code class="name flex">
+<span>def <span class="ident">generate_java</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generate Java class with all mistake types and categories.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_java():
+    &#34;&#34;&#34;
+    Generate Java class with all mistake types and categories.
+    &#34;&#34;&#34;
+    result = JAVA_HEADER
+
+    for mtc in corpus.mistakeTypeCategories:
+        result += f&#39;  /** The category for {mtc.name.lower()}. */\n&#39;
+        lhs = f&#39;  public static final MistakeTypeCategory {underscorify(mtc.name)}&#39;
+        rhs = f&#39;MTCS.get(&#34;{mtc.name}&#34;);&#39;
+        mtc_decl = f&#39;{lhs} = {rhs}&#39;
+        if len(mtc_decl) &lt;= MAX_COLUMN_WIDTH:
+            result += f&#39;{mtc_decl}\n\n&#39;
+        else:
+            result += f&#39;{lhs} =\n      {rhs}\n\n&#39;
+
+    result += &#34;\n  // Mistake types\n\n&#34;
+
+    for mt in corpus.mistakeTypes():
+        result += f&#39;  /** The {mt.description.lower()} mistake type. */\n&#39;.replace(&#34; isa &#34;, &#34; isA &#34;)
+        lhs = f&#39;  public static final MistakeType {underscorify(mt.name)}&#39;
+        rhs = f&#39;MTS.get(&#34;{mt.name}&#34;);&#39;
+        mt_decl = f&#39;{lhs} = {rhs}&#39;
+        if len(mt_decl) &lt;= MAX_COLUMN_WIDTH:
+            result += f&#39;{mt_decl}\n\n&#39;
+        else:
+            result += f&#39;{lhs} =\n      {rhs}\n\n&#39;
+
+    result += &#34;}\n&#34;
+
+    with open(JAVA_MISTAKE_TYPES_FILE, &#34;w&#34;, encoding=&#34;utf-8&#34;) as f:
+        f.write(result)</code></pre>
+</details>
+</dd>
+<dt id="createcorpus.generate_python"><code class="name flex">
+<span>def <span class="ident">generate_python</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generate Python file with all mistake types and categories.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_python():
+    &#34;&#34;&#34;
+    Generate Python file with all mistake types and categories.
+    &#34;&#34;&#34;
+    result = PYTHON_HEADER
+
+    for mtc in corpus.mistakeTypeCategories:
+        lhs = f&#34;{underscorify(mtc.name)}: MistakeTypeCategory&#34;
+        rhs = f&#39;_MTCS[&#34;{mtc.name}&#34;]&#39;
+        mtc_decl = f&#34;{lhs} = {rhs}&#34;
+        if len(mtc_decl) &lt; MAX_COLUMN_WIDTH:
+            result += f&#34;{mtc_decl}\n&#34;
+        else:
+            result += f&#34;{lhs} = \\\n    {rhs}\n&#34;
+
+    result += &#34;\n# Mistake types\n&#34;
+
+    for mt in corpus.mistakeTypes():
+        lhs = f&#34;{underscorify(mt.name)}: MistakeType&#34;
+        rhs = f&#39;_MTS[&#34;{mt.name}&#34;]&#39;
+        mt_decl = f&#34;{lhs} = {rhs}&#34;
+        if len(mt_decl) &lt; MAX_COLUMN_WIDTH:
+            result += f&#34;{mt_decl}\n&#34;
+        else:
+            result += f&#34;{lhs} = \\\n    {rhs}\n&#34;
+
+    with open(PYTHON_MISTAKE_TYPES_FILE, &#34;w&#34;, encoding=&#34;utf-8&#34;) as f:
+        f.write(result)</code></pre>
+</details>
+</dd>
+<dt id="createcorpus.generate_python_mts"><code class="name flex">
+<span>def <span class="ident">generate_python_mts</span></span>(<span>mtc: <a title="learningcorpus.learningcorpus.MistakeTypeCategory" href="learningcorpus/learningcorpus.html#learningcorpus.learningcorpus.MistakeTypeCategory">MistakeTypeCategory</a>) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generate mistake types from input mistake type category, eg, "missing_class := mt(n="Missing class"),"</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_python_mts(mtc: MistakeTypeCategory) -&gt; str:
+    &#34;&#34;&#34;
+    Generate mistake types from input mistake type category, eg, &#34;missing_class := mt(n=&#34;Missing class&#34;),&#34;
+    &#34;&#34;&#34;
+    if not mtc.mistakeTypes:
+        return &#34;&#34;
+    return f&#39;&#39;&#39;, mistakeTypes=[\n{[
+        NL.join(f&#39;{8 * &#34; &#34;}{underscorify(mt.name)} := mt(n={NL}{mt.name}{NL}),&#39;)
+        for mt in mtc.mistakeTypes]}\n    ]&#39;&#39;&#39;</code></pre>
+</details>
+</dd>
+<dt id="createcorpus.is_table"><code class="name flex">
+<span>def <span class="ident">is_table</span></span>(<span>s: str) ‑> bool</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return True if the input markdown string is a table.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_table(s: str) -&gt; bool:
+    &#34;Return True if the input markdown string is a table.&#34;
+    return &#34;|&#34; in s and all(&#34;|&#34; in line for line in s.splitlines()[2:-2])</code></pre>
+</details>
+</dd>
+<dt id="createcorpus.underscorify"><code class="name flex">
+<span>def <span class="ident">underscorify</span></span>(<span>s: str) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Underscorifies and capitalizes the given input string, omitting any information in parentheses.
+Example: "Extra (redundant) class" -&gt; "EXTRA_CLASS"</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def underscorify(s: str) -&gt; str:
+    &#34;&#34;&#34;
+    Underscorifies and capitalizes the given input string, omitting any information in parentheses.
+    Example: &#34;Extra (redundant) class&#34; -&gt; &#34;EXTRA_CLASS&#34;
+    &#34;&#34;&#34;
+    s = re.sub(r&#34;\((.+?)\)&#34;, &#34;&#34;, s).strip().replace(&#34;/&#34;, &#34;_&#34;).replace(&#34;-&#34;, &#34;_&#34;)
+    s = re.sub(r&#34;\s+&#34;, &#34;_&#34;, s)
+    return re.sub(r&#34;_+&#34;, &#34;_&#34;, s).upper()</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="createcorpus.LatexGenerator"><code class="flex name class">
+<span>class <span class="ident">LatexGenerator</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generate LaTeX version of the learning corpus.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class LatexGenerator(TextualGenerator):
+    &#34;&#34;&#34;
+    Generate LaTeX version of the learning corpus.
+    &#34;&#34;&#34;
+    # pylint: disable=too-many-statements, invalid-name
+    # function-level constants must be defined here, before any inner functions
+    NO_INDENT = &#34;\\noindent &#34;
+    NLS = &#34; \\medskip\n\n&#34;
+    MAX_WIDTH = 0.9  # relative to line width
+    NESTING_KEYWORDS = [&#34;section&#34;, &#34;subsection&#34;, &#34;subsubsection&#34;]
+
+    MarkdownGenerator.generate()  # save generated markdown as intermediate output
+
+    @classmethod
+    def make_body_title(cls, name: str, indentation: int = 0) -&gt; str:
+        cn = clean(name)
+        # &#34;paragraph&#34; and lower levels don&#39;t render properly, so simply boldface them
+        return (f&#39;\\{cls.NESTING_KEYWORDS[indentation]}{{{cn}}}\n\n&#39; if indentation &lt; len(cls.NESTING_KEYWORDS)
+                else f&#39;{cls.NO_INDENT}\\textbf{{{cn}}}{cls.NLS}&#39;)
+
+    @classmethod
+    def blockquote(cls, s: str) -&gt; str:
+        &#39;Return a block quote of the input string, eg, &#34;&gt; Hello&#34;, which appears as &#34;| Hello&#34;.&#39;
+        return f&#34;\\begin{{tabular}}{{|p{{{cls.MAX_WIDTH}\\linewidth}}}}\n{cls.sanitize(s)}\n\\end{{tabular}}{cls.NLS}&#34;
+
+    @classmethod
+    def sanitize(cls, s: str) -&gt; str:
+        &#34;Return the string with any params surrounded by `verb|...|` and with links removed and images rendered.&#34;
+        def find_and_replace_image_link(match: Match[str]) -&gt; str:
+            &#34;Find the image link and replace it with actual image with appropriate dimensions.&#34;
+            img_name = match.group(1).replace(&#34;\\&#34;, &#34;&#34;)
+            img_path = os.path.join(CORPUS_DESCRIPTION_DIR, img_name)
+            img = cv2.imread(img_path)  # pylint: disable=no-member
+            height, width, _ = img.shape
+            img_width = cls.MAX_WIDTH if height / width &lt; 0.33 else 0.6
+            return f&#34;\\\\\n\\includegraphics[width={img_width}\\textwidth]{{{img_name}}}&#34;
+
+        def handle_list(s: str, old_bullets: tuple[str], new_bullets: tuple[str]) -&gt; str:
+            if not any(bullet in s for bullet in old_bullets) or &#34;\n&#34; not in s:
+                return s  # short-circuit: no list to handle
+            begin_itemize, end_itemize = &#34;\\begin{itemize}&#34;, &#34;\\end{itemize}\n&#34;
+            lines = s.splitlines()
+            new_lines = []
+            for line in lines:
+                new_line = line
+                for c in &#34;{}_&#34;:
+                    new_line = new_line.replace(c, f&#34;\\{c}&#34;)
+                for old, new in zip(old_bullets, new_bullets):
+                    if new_line.strip().startswith(old):
+                        new_line = f&#39;    {new_line.replace(&#34;`&#34;, &#34;&#34;).replace(old, new, 1)}&#39;
+                new_lines.append(new_line)
+            lines = new_lines
+            first_bullet_line = last_bullet_line = None
+            for i, line in enumerate(lines):
+                for bullet in new_bullets:
+                    if bullet in line:
+                        if not first_bullet_line:
+                            first_bullet_line = i
+                        last_bullet_line = i
+            lines.insert(first_bullet_line, begin_itemize)
+            lines.insert(last_bullet_line + 2, end_itemize)
+            return &#34;\n&#34;.join(lines)
+
+        # use math notation for certain items so they render as intended
+        s = handle_list(s, (&#34;- [ ]&#34;,&#34;- [x]&#34;, &#34;* &#34;), (&#34;\\item[$\\square$]&#34;, &#34;\\item[$\\boxtimes$]&#34;, &#34;\\item &#34;))
+        # replace &lt;ins&gt;text&lt;/ins&gt; with \underline{text}
+        s = re.sub(r&#34;&lt;ins&gt;(.*?)&lt;/ins&gt;&#34;, r&#34;\\underline{\1}&#34;, s)
+        for c in &#34;|&lt;&gt;&#34;:
+            s = s.replace(c, f&#34;${c}$&#34;)
+        # replace image links with actual images
+        s = re.sub(r&#34;!\[.*?\]\((?P&lt;img&gt;.*?)\)&#34;, find_and_replace_image_link, s)
+        # replace regular links with italics
+        s = re.sub(r&#34;\[(?P&lt;text&gt;.*?)\]\(.*?\)&#34; , r&#34;\\textit{\g&lt;text&gt;}&#34;, s)  # regex101.com/r/m58sNO/1
+        # replace markdown bold and italics with latex versions (do this more elegantly in the future)
+        s = re.sub(r&#34;\*\*(.*?)\*\*&#34;, r&#34;\\textbf{\1}&#34;, s)
+        if &#34;_&#34; in s:
+            lines = s.splitlines()
+            new_lines: list[str] = []
+            for line in lines:
+                if &#34;${&#34; not in line and &#34;\\includegraphics&#34; not in line:
+                    new_lines.append(re.sub(r&#34;_(.*?)_&#34;, r&#34;\\textit{\1}&#34;, line))
+                else:
+                    new_lines.append(line)
+            s = &#34;\n&#34;.join(new_lines)
+            if &#34;itemize&#34; in s:
+                s += &#34;\n&#34;
+        if &#34;verb|&#34; in s:
+            return s  # already verbized
+        return re.sub(r&#34;\${(?P&lt;text&gt;.*?)}&#34;, r&#34;\\verb|${\g&lt;text&gt;}|&#34;, s)
+
+    @classmethod
+    def make_tex_table(cls, s: str) -&gt; str:
+        &#34;Return the markdown string as a LaTeX table. The table must not contain duplicate rows at the end.&#34;
+        def processed(s: str) -&gt; str:
+            &#34;Render markdown emojis ✔ and ❌ in LaTeX.&#34;
+            return s.replace(&#34;:heavy_check_mark:&#34;, &#34;\\textcolor{ForestGreen}{\\checkmark}&#34;).replace(
+                &#34;:x:&#34;, &#34;\\textcolor{red}{$\\times$}&#34;)
+
+        def process_row(s: str) -&gt; str:
+            &#34;Return the string as a LaTeX table row.&#34;
+            return &#34;&amp;&#34;.join(processed(s).split(&#34;|&#34;)) + &#34; \\\\\n&#34;
+
+        if &#34;Player-Role Pattern&#34; in s:
+            return dedent(f&#34;&#34;&#34;{cls.blockquote(&#39;Complete the following table by checking the correct boxes:&#39;).strip()}
+                {TEX_PR_TABLE}&#34;&#34;&#34;)
+        lines = s.strip().split(NL)
+        result = &#34;&#34;
+        prev_in_table = in_table = False
+        for line in lines:
+            if &#34;---&#34; in line:
+                continue  # headers are handled separately below
+            in_table = &#34;|&#34; in line
+            n_cols = line.count(&#34;|&#34;) + 1
+            if not prev_in_table and not in_table:
+                result += cls.blockquote(line)
+            elif not prev_in_table and in_table:  # just entered table, so add the header
+                result += f&#34;&#34;&#34;\\begin{{tabular}}{{{n_cols * &#34;l&#34;}}}\n\\hline\n{process_row(line)}\\hline\n&#34;&#34;&#34;
+            elif prev_in_table and in_table and line != lines[-1]:  # in table, so add a row
+                result += process_row(line)
+            elif (prev_in_table and not in_table) or line == lines[-1]:  # just left table, so add the footer
+                result += process_row(line) + f&#34;\\hline\n\\end{{tabular}}{cls.NLS}&#34;
+            prev_in_table = in_table
+        return result
+
+    @classmethod
+    def make_mt_body(cls, mt: MistakeType, indentation: int = 0) -&gt; str:
+        &#34;Return the LaTeX body of the output.&#34;
+        result = f&#34;{cls.make_body_title(mt.description, indentation)}{cls.make_mistake_type_element_description(mt)}&#34;
+        levels = sorted(fb.level for fb in mt.feedbacks)
+        for level in levels:
+            if (level_header := f&#34;{cls.NO_INDENT}Level {level}: &#34;) not in result:
+                result += level_header
+            prev_fb = None
+            for fb in mt.feedbacks:
+                if fb.level != level:
+                    continue
+                # safe navigation equiv. of metatypes[[*mt.studentElements, *mt.instructorElements][0].type].long_name
+                elem_type = getattr(metatypes.get([*mt.studentElements, *mt.instructorElements][0].type,
+                                                  Metatype(short_name=&#34;&#34;, long_name=&#34;&#34;, eClass=None)),
+                                    &#34;long_name&#34;)
+                elem_type = &#34;&#34;  # for now, don&#39;t show the element type
+                match fb:
+                    case Feedback(highlightProblem=True):
+                        &#34;&#34;&#34;
+                        Possible outcomes here are:
+
+                        &#34;Highlight specific problem statement elements referring to the inst. element(s) \\medskip\n&#34;
+                        &#34;Highlight sentence(s) in problem statement referring to the instructor element(s) \\medskip\n&#34;
+                        &#34;&#34;&#34;
+                        sp = &#34;specific&#34; if fb.level &gt; 1 else &#34;sentence(s) in&#34;
+                        pse = &#34;elements &#34; if fb.level &gt; 1 else &#34;&#34;
+                        # use elem_type here in the future if it can be made more specific, eg, enum instead of class
+                        plural_item_marker = &#34;(s)&#34;
+                        elem_owner = &#34;&#34;
+                        if mt.instructorElements:
+                            elem_owner = &#34;the instructor &#34;
+                            if len(mt.instructorElements) == 1:
+                                plural_item_marker = &#34;&#34;
+                        elem = f&#34;referring to {elem_owner}element{plural_item_marker}&#34;
+                        result += f&#34;Highlight {sp} problem statement {pse}{elem}{cls.NLS}&#34;
+                    case Feedback(highlightSolution=True):
+                        result += f&#34;Highlight solution {f&#39;({elem_type})&#39; if elem_type else &#39;&#39;}{cls.NLS}&#34;
+                    case TextResponse() as resp:
+                        if (content := cls.blockquote(resp.text)) not in result:
+                            result += f&#34;Text response:{cls.NLS}{content}&#34;
+                    case ParametrizedResponse() as resp:
+                        if (content := cls.blockquote(resp.text)) not in result:
+                            result += f&#34;&#34;&#34;{&#39;&#39; if isinstance(prev_fb, ParametrizedResponse)
+                                else f&#39;Parametrized response:{cls.NLS}&#39;}{content}&#34;&#34;&#34;
+                    case ResourceResponse() as resp if resp.learningResources:
+                        primary_rsc = resp.learningResources[0]
+                        rsc_type = type(primary_rsc)
+                        rsc_type_name = rsc_type.__name__
+                        if issubclass(rsc_type, Quiz) and rsc_type != Quiz:  # Quiz subclasses but not Quiz itself
+                            if isinstance(primary_rsc, FillInTheBlanksQuiz | ListMultipleChoiceQuiz):
+                                quiz_md_lines = _quizzes_to_md[primary_rsc].split(NL)
+                                title, body = quiz_md_lines[0], NL.join(quiz_md_lines[1:])
+                            elif isinstance(primary_rsc, TableMultipleChoiceQuiz):
+                                ...
+                            content = f&#34;{title}{cls.NLS}{cls.blockquote(body)}&#34;
+                            result += content if content not in result else &#34;&#34;
+                        elif is_table(primary_rsc.content):
+                            content = f&#34;&#34;&#34;Resource response with {rsc_type_name}:{cls.NLS}{(2 * NL).join(
+                                [cls.make_tex_table(f.learningResources[0].content)
+                                 for f in mt.feedbacks if f.level == level])}&#34;&#34;&#34;
+                            result += content if content not in result else &#34;&#34;
+                        else:
+                            content = f&#34;&#34;&#34;Resource response with {rsc_type_name}:{cls.NLS}{(2 * NL).join(
+                                [f&#34;{cls.blockquote(f.learningResources[0].content)}&#34;
+                                 for f in mt.feedbacks if f.level == level])}&#34;&#34;&#34;
+                            result += content if content not in result else &#34;&#34;
+                prev_fb = fb
+                if not MULTIPLE_FEEDBACKS_PER_LEVEL:
+                    break
+        return result
+
+    @classmethod
+    def make_mistake_type_element_description(cls, mt: MistakeType) -&gt; str:
+        descr = super().make_mistake_type_element_description(mt)
+        return f&#34;{descr}{cls.NLS}&#34; if descr else &#34;&#34;
+
+    @classmethod
+    def generate(cls):
+        return TEX_HEADER + NL.join(cls.nested_body_output_for(c) for c in corpus.topLevelMistakeTypeCategories())
+
+    @classmethod
+    def save_to_file(cls, filename: str = None):
+        if not filename:
+            filename = LEARNING_CORPUS_TEX_FILE
+        tex = cls.generate()
+        with open(filename, &#34;w&#34;, encoding=&#34;utf-8&#34;) as f:
+            f.write(tex)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="createcorpus.TextualGenerator" href="#createcorpus.TextualGenerator">TextualGenerator</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="createcorpus.LatexGenerator.MAX_WIDTH"><code class="name">var <span class="ident">MAX_WIDTH</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="createcorpus.LatexGenerator.NESTING_KEYWORDS"><code class="name">var <span class="ident">NESTING_KEYWORDS</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="createcorpus.LatexGenerator.NLS"><code class="name">var <span class="ident">NLS</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="createcorpus.LatexGenerator.NO_INDENT"><code class="name">var <span class="ident">NO_INDENT</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Static methods</h3>
+<dl>
+<dt id="createcorpus.LatexGenerator.blockquote"><code class="name flex">
+<span>def <span class="ident">blockquote</span></span>(<span>s: str) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return a block quote of the input string, eg, "&gt; Hello", which appears as "| Hello".</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def blockquote(cls, s: str) -&gt; str:
+    &#39;Return a block quote of the input string, eg, &#34;&gt; Hello&#34;, which appears as &#34;| Hello&#34;.&#39;
+    return f&#34;\\begin{{tabular}}{{|p{{{cls.MAX_WIDTH}\\linewidth}}}}\n{cls.sanitize(s)}\n\\end{{tabular}}{cls.NLS}&#34;</code></pre>
+</details>
+</dd>
+<dt id="createcorpus.LatexGenerator.generate"><code class="name flex">
+<span>def <span class="ident">generate</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generate and return the output.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def generate(cls):
+    return TEX_HEADER + NL.join(cls.nested_body_output_for(c) for c in corpus.topLevelMistakeTypeCategories())</code></pre>
+</details>
+</dd>
+<dt id="createcorpus.LatexGenerator.make_body_title"><code class="name flex">
+<span>def <span class="ident">make_body_title</span></span>(<span>name: str, indentation: int = 0) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the title of the body for the input, indented by the given amount.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def make_body_title(cls, name: str, indentation: int = 0) -&gt; str:
+    cn = clean(name)
+    # &#34;paragraph&#34; and lower levels don&#39;t render properly, so simply boldface them
+    return (f&#39;\\{cls.NESTING_KEYWORDS[indentation]}{{{cn}}}\n\n&#39; if indentation &lt; len(cls.NESTING_KEYWORDS)
+            else f&#39;{cls.NO_INDENT}\\textbf{{{cn}}}{cls.NLS}&#39;)</code></pre>
+</details>
+</dd>
+<dt id="createcorpus.LatexGenerator.make_mistake_type_element_description"><code class="name flex">
+<span>def <span class="ident">make_mistake_type_element_description</span></span>(<span>mt: <a title="learningcorpus.learningcorpus.MistakeType" href="learningcorpus/learningcorpus.html#learningcorpus.learningcorpus.MistakeType">MistakeType</a>) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the mistake element description for the mistake type.</p>
+<p>Example: For the mistake type "Using attribute instead of association," the output is the string
+"Student element: Attribute. Instructor element: Association end."</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def make_mistake_type_element_description(cls, mt: MistakeType) -&gt; str:
+    descr = super().make_mistake_type_element_description(mt)
+    return f&#34;{descr}{cls.NLS}&#34; if descr else &#34;&#34;</code></pre>
+</details>
+</dd>
+<dt id="createcorpus.LatexGenerator.make_mt_body"><code class="name flex">
+<span>def <span class="ident">make_mt_body</span></span>(<span>mt: <a title="learningcorpus.learningcorpus.MistakeType" href="learningcorpus/learningcorpus.html#learningcorpus.learningcorpus.MistakeType">MistakeType</a>, indentation: int = 0) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the LaTeX body of the output.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def make_mt_body(cls, mt: MistakeType, indentation: int = 0) -&gt; str:
+    &#34;Return the LaTeX body of the output.&#34;
+    result = f&#34;{cls.make_body_title(mt.description, indentation)}{cls.make_mistake_type_element_description(mt)}&#34;
+    levels = sorted(fb.level for fb in mt.feedbacks)
+    for level in levels:
+        if (level_header := f&#34;{cls.NO_INDENT}Level {level}: &#34;) not in result:
+            result += level_header
+        prev_fb = None
+        for fb in mt.feedbacks:
+            if fb.level != level:
+                continue
+            # safe navigation equiv. of metatypes[[*mt.studentElements, *mt.instructorElements][0].type].long_name
+            elem_type = getattr(metatypes.get([*mt.studentElements, *mt.instructorElements][0].type,
+                                              Metatype(short_name=&#34;&#34;, long_name=&#34;&#34;, eClass=None)),
+                                &#34;long_name&#34;)
+            elem_type = &#34;&#34;  # for now, don&#39;t show the element type
+            match fb:
+                case Feedback(highlightProblem=True):
+                    &#34;&#34;&#34;
+                    Possible outcomes here are:
+
+                    &#34;Highlight specific problem statement elements referring to the inst. element(s) \\medskip\n&#34;
+                    &#34;Highlight sentence(s) in problem statement referring to the instructor element(s) \\medskip\n&#34;
+                    &#34;&#34;&#34;
+                    sp = &#34;specific&#34; if fb.level &gt; 1 else &#34;sentence(s) in&#34;
+                    pse = &#34;elements &#34; if fb.level &gt; 1 else &#34;&#34;
+                    # use elem_type here in the future if it can be made more specific, eg, enum instead of class
+                    plural_item_marker = &#34;(s)&#34;
+                    elem_owner = &#34;&#34;
+                    if mt.instructorElements:
+                        elem_owner = &#34;the instructor &#34;
+                        if len(mt.instructorElements) == 1:
+                            plural_item_marker = &#34;&#34;
+                    elem = f&#34;referring to {elem_owner}element{plural_item_marker}&#34;
+                    result += f&#34;Highlight {sp} problem statement {pse}{elem}{cls.NLS}&#34;
+                case Feedback(highlightSolution=True):
+                    result += f&#34;Highlight solution {f&#39;({elem_type})&#39; if elem_type else &#39;&#39;}{cls.NLS}&#34;
+                case TextResponse() as resp:
+                    if (content := cls.blockquote(resp.text)) not in result:
+                        result += f&#34;Text response:{cls.NLS}{content}&#34;
+                case ParametrizedResponse() as resp:
+                    if (content := cls.blockquote(resp.text)) not in result:
+                        result += f&#34;&#34;&#34;{&#39;&#39; if isinstance(prev_fb, ParametrizedResponse)
+                            else f&#39;Parametrized response:{cls.NLS}&#39;}{content}&#34;&#34;&#34;
+                case ResourceResponse() as resp if resp.learningResources:
+                    primary_rsc = resp.learningResources[0]
+                    rsc_type = type(primary_rsc)
+                    rsc_type_name = rsc_type.__name__
+                    if issubclass(rsc_type, Quiz) and rsc_type != Quiz:  # Quiz subclasses but not Quiz itself
+                        if isinstance(primary_rsc, FillInTheBlanksQuiz | ListMultipleChoiceQuiz):
+                            quiz_md_lines = _quizzes_to_md[primary_rsc].split(NL)
+                            title, body = quiz_md_lines[0], NL.join(quiz_md_lines[1:])
+                        elif isinstance(primary_rsc, TableMultipleChoiceQuiz):
+                            ...
+                        content = f&#34;{title}{cls.NLS}{cls.blockquote(body)}&#34;
+                        result += content if content not in result else &#34;&#34;
+                    elif is_table(primary_rsc.content):
+                        content = f&#34;&#34;&#34;Resource response with {rsc_type_name}:{cls.NLS}{(2 * NL).join(
+                            [cls.make_tex_table(f.learningResources[0].content)
+                             for f in mt.feedbacks if f.level == level])}&#34;&#34;&#34;
+                        result += content if content not in result else &#34;&#34;
+                    else:
+                        content = f&#34;&#34;&#34;Resource response with {rsc_type_name}:{cls.NLS}{(2 * NL).join(
+                            [f&#34;{cls.blockquote(f.learningResources[0].content)}&#34;
+                             for f in mt.feedbacks if f.level == level])}&#34;&#34;&#34;
+                        result += content if content not in result else &#34;&#34;
+            prev_fb = fb
+            if not MULTIPLE_FEEDBACKS_PER_LEVEL:
+                break
+    return result</code></pre>
+</details>
+</dd>
+<dt id="createcorpus.LatexGenerator.make_tex_table"><code class="name flex">
+<span>def <span class="ident">make_tex_table</span></span>(<span>s: str) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the markdown string as a LaTeX table. The table must not contain duplicate rows at the end.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def make_tex_table(cls, s: str) -&gt; str:
+    &#34;Return the markdown string as a LaTeX table. The table must not contain duplicate rows at the end.&#34;
+    def processed(s: str) -&gt; str:
+        &#34;Render markdown emojis ✔ and ❌ in LaTeX.&#34;
+        return s.replace(&#34;:heavy_check_mark:&#34;, &#34;\\textcolor{ForestGreen}{\\checkmark}&#34;).replace(
+            &#34;:x:&#34;, &#34;\\textcolor{red}{$\\times$}&#34;)
+
+    def process_row(s: str) -&gt; str:
+        &#34;Return the string as a LaTeX table row.&#34;
+        return &#34;&amp;&#34;.join(processed(s).split(&#34;|&#34;)) + &#34; \\\\\n&#34;
+
+    if &#34;Player-Role Pattern&#34; in s:
+        return dedent(f&#34;&#34;&#34;{cls.blockquote(&#39;Complete the following table by checking the correct boxes:&#39;).strip()}
+            {TEX_PR_TABLE}&#34;&#34;&#34;)
+    lines = s.strip().split(NL)
+    result = &#34;&#34;
+    prev_in_table = in_table = False
+    for line in lines:
+        if &#34;---&#34; in line:
+            continue  # headers are handled separately below
+        in_table = &#34;|&#34; in line
+        n_cols = line.count(&#34;|&#34;) + 1
+        if not prev_in_table and not in_table:
+            result += cls.blockquote(line)
+        elif not prev_in_table and in_table:  # just entered table, so add the header
+            result += f&#34;&#34;&#34;\\begin{{tabular}}{{{n_cols * &#34;l&#34;}}}\n\\hline\n{process_row(line)}\\hline\n&#34;&#34;&#34;
+        elif prev_in_table and in_table and line != lines[-1]:  # in table, so add a row
+            result += process_row(line)
+        elif (prev_in_table and not in_table) or line == lines[-1]:  # just left table, so add the footer
+            result += process_row(line) + f&#34;\\hline\n\\end{{tabular}}{cls.NLS}&#34;
+        prev_in_table = in_table
+    return result</code></pre>
+</details>
+</dd>
+<dt id="createcorpus.LatexGenerator.sanitize"><code class="name flex">
+<span>def <span class="ident">sanitize</span></span>(<span>s: str) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the string with any params surrounded by <code>verb|...|</code> and with links removed and images rendered.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def sanitize(cls, s: str) -&gt; str:
+    &#34;Return the string with any params surrounded by `verb|...|` and with links removed and images rendered.&#34;
+    def find_and_replace_image_link(match: Match[str]) -&gt; str:
+        &#34;Find the image link and replace it with actual image with appropriate dimensions.&#34;
+        img_name = match.group(1).replace(&#34;\\&#34;, &#34;&#34;)
+        img_path = os.path.join(CORPUS_DESCRIPTION_DIR, img_name)
+        img = cv2.imread(img_path)  # pylint: disable=no-member
+        height, width, _ = img.shape
+        img_width = cls.MAX_WIDTH if height / width &lt; 0.33 else 0.6
+        return f&#34;\\\\\n\\includegraphics[width={img_width}\\textwidth]{{{img_name}}}&#34;
+
+    def handle_list(s: str, old_bullets: tuple[str], new_bullets: tuple[str]) -&gt; str:
+        if not any(bullet in s for bullet in old_bullets) or &#34;\n&#34; not in s:
+            return s  # short-circuit: no list to handle
+        begin_itemize, end_itemize = &#34;\\begin{itemize}&#34;, &#34;\\end{itemize}\n&#34;
+        lines = s.splitlines()
+        new_lines = []
+        for line in lines:
+            new_line = line
+            for c in &#34;{}_&#34;:
+                new_line = new_line.replace(c, f&#34;\\{c}&#34;)
+            for old, new in zip(old_bullets, new_bullets):
+                if new_line.strip().startswith(old):
+                    new_line = f&#39;    {new_line.replace(&#34;`&#34;, &#34;&#34;).replace(old, new, 1)}&#39;
+            new_lines.append(new_line)
+        lines = new_lines
+        first_bullet_line = last_bullet_line = None
+        for i, line in enumerate(lines):
+            for bullet in new_bullets:
+                if bullet in line:
+                    if not first_bullet_line:
+                        first_bullet_line = i
+                    last_bullet_line = i
+        lines.insert(first_bullet_line, begin_itemize)
+        lines.insert(last_bullet_line + 2, end_itemize)
+        return &#34;\n&#34;.join(lines)
+
+    # use math notation for certain items so they render as intended
+    s = handle_list(s, (&#34;- [ ]&#34;,&#34;- [x]&#34;, &#34;* &#34;), (&#34;\\item[$\\square$]&#34;, &#34;\\item[$\\boxtimes$]&#34;, &#34;\\item &#34;))
+    # replace &lt;ins&gt;text&lt;/ins&gt; with \underline{text}
+    s = re.sub(r&#34;&lt;ins&gt;(.*?)&lt;/ins&gt;&#34;, r&#34;\\underline{\1}&#34;, s)
+    for c in &#34;|&lt;&gt;&#34;:
+        s = s.replace(c, f&#34;${c}$&#34;)
+    # replace image links with actual images
+    s = re.sub(r&#34;!\[.*?\]\((?P&lt;img&gt;.*?)\)&#34;, find_and_replace_image_link, s)
+    # replace regular links with italics
+    s = re.sub(r&#34;\[(?P&lt;text&gt;.*?)\]\(.*?\)&#34; , r&#34;\\textit{\g&lt;text&gt;}&#34;, s)  # regex101.com/r/m58sNO/1
+    # replace markdown bold and italics with latex versions (do this more elegantly in the future)
+    s = re.sub(r&#34;\*\*(.*?)\*\*&#34;, r&#34;\\textbf{\1}&#34;, s)
+    if &#34;_&#34; in s:
+        lines = s.splitlines()
+        new_lines: list[str] = []
+        for line in lines:
+            if &#34;${&#34; not in line and &#34;\\includegraphics&#34; not in line:
+                new_lines.append(re.sub(r&#34;_(.*?)_&#34;, r&#34;\\textit{\1}&#34;, line))
+            else:
+                new_lines.append(line)
+        s = &#34;\n&#34;.join(new_lines)
+        if &#34;itemize&#34; in s:
+            s += &#34;\n&#34;
+    if &#34;verb|&#34; in s:
+        return s  # already verbized
+    return re.sub(r&#34;\${(?P&lt;text&gt;.*?)}&#34;, r&#34;\\verb|${\g&lt;text&gt;}|&#34;, s)</code></pre>
+</details>
+</dd>
+<dt id="createcorpus.LatexGenerator.save_to_file"><code class="name flex">
+<span>def <span class="ident">save_to_file</span></span>(<span>filename: str = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Save the output to a file. Use the default location if no filename is given.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def save_to_file(cls, filename: str = None):
+    if not filename:
+        filename = LEARNING_CORPUS_TEX_FILE
+    tex = cls.generate()
+    with open(filename, &#34;w&#34;, encoding=&#34;utf-8&#34;) as f:
+        f.write(tex)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="createcorpus.MarkdownGenerator"><code class="flex name class">
+<span>class <span class="ident">MarkdownGenerator</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generator for Markdown version of the learning corpus.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class MarkdownGenerator(TextualGenerator):
+    &#34;&#34;&#34;
+    Generator for Markdown version of the learning corpus.
+    &#34;&#34;&#34;
+    @classmethod
+    def nested_toc_output_for(cls, mtc: MistakeTypeCategory, indentation: int = 0) -&gt; str:
+        &#34;Return the nested table of contents output for the input in a recursive way.&#34;
+        return f&#39;&#39;&#39;{cls.make_toc_title(mtc.name, indentation)}{
+            &#34;&#34;.join([cls.nested_toc_output_for(sc, indentation + 3) for sc in mtc.subcategories])}{
+            &#34;&#34;.join([cls.make_toc_title(mt.description, indentation + 3) for mt in mtc.mistakeTypes])}&#39;&#39;&#39;
+
+    @classmethod
+    def make_toc_title(cls, name: str, indentation: int = 0) -&gt; str:
+        &#34;Return the title of the table of contents for the input, indented by the given amount.&#34;
+        return f&#39;{indentation * &#34; &#34;}1. [{name}](#{dashify(name)})\n&#39;
+
+    @classmethod
+    def make_body_title(cls, name: str, indentation: int = 0) -&gt; str:
+        hashes = indentation + 2
+        cn = clean(name)
+        return (f&#39;{hashes * &#34;#&#34;} {cn}&#39; if hashes &lt;= MAX_NUM_OF_HASHES_IN_HEADING else f&#39;**{cn}**&#39;) + &#34;\n\n&#34;
+
+    @classmethod
+    def make_mt_body(cls, mt: MistakeType, indentation: int = 0) -&gt; str:
+        &#34;Return the Markdown body of the output.&#34;
+        result = f&#34;{cls.make_body_title(mt.description, indentation)}{cls.make_mistake_type_element_description(mt)}&#34;
+        levels = sorted(fb.level for fb in mt.feedbacks)
+        for level in levels:
+            if (level_header := f&#34;Level {level}: &#34;) not in result:
+                result += level_header
+            prev_fb = None
+            for fb in mt.feedbacks:
+                if fb.level != level:
+                    continue
+                match fb:
+                    case Feedback(highlightProblem=True):
+                        &#34;&#34;&#34;
+                        Possible outcomes here are:
+
+                        &#34;Highlight specific problem statement elements referring to the instructor element(s)\n\n&#34;
+                        &#34;Highlight sentence(s) in problem statement referring to the instructor element(s)\n\n&#34;
+                        &#34;&#34;&#34;
+                        sp = &#34;specific&#34; if fb.level &gt; 1 else &#34;sentence(s) in&#34;
+                        pse = &#34;elements &#34; if fb.level &gt; 1 else &#34;&#34;
+                        # use elem type here in the future if it can be made more specific, eg, enum instead of class
+                        plural_item_marker = &#34;(s)&#34;
+                        elem_owner = &#34;&#34;
+                        if mt.instructorElements:
+                            elem_owner = &#34;the instructor &#34;
+                            if len(mt.instructorElements) == 1:
+                                plural_item_marker = &#34;&#34;
+                        elem = f&#34;referring to {elem_owner}element{plural_item_marker}&#34;
+                        result += f&#34;Highlight {sp} problem statement {pse}{elem}\n\n&#34;
+                    case Feedback(highlightSolution=True):
+                        result += &#34;Highlight solution\n\n&#34;
+                    case TextResponse() as resp:
+                        if resp.text not in result:
+                            result += f&#34;Text response:\n\n&gt; {resp.text}\n\n&#34;
+                    case ParametrizedResponse() as resp:
+                        if resp.text not in result:
+                            result += f&#34;&#34;&#34;{
+                                &#39;&#39; if isinstance(prev_fb, ParametrizedResponse) else f&#39;Parametrized response:{NL}&#39;
+                                }\n&gt; {resp.text}\n\n&#34;&#34;&#34;
+                    case ResourceResponse() as resp if resp.learningResources:
+                        primary_rsc = resp.learningResources[0]
+                        rsc_type = type(primary_rsc)
+                        rsc_type_name = type(primary_rsc).__name__
+                        if issubclass(rsc_type, Quiz) and rsc_type != Quiz:  # Quiz subclasses but not Quiz itself
+                            content = f&#34;&#34;&#34;Resource response with {QUIZ_DISPLAY_NAMES[type(primary_rsc)]}:\n\n{
+                                          primary_rsc.content}\n\n&#34;&#34;&#34;
+                            if isinstance(primary_rsc, FillInTheBlanksQuiz):
+                                for statement in primary_rsc.statements:
+                                    content += &#34;* &#34;
+                                    for component in statement.components:
+                                        if isinstance(component, NonBlank):
+                                            content += f&#34;{component.text}&#34;
+                                        if isinstance(component, Blank):
+                                            # use &lt;ins&gt; to underline answer, which makes it appear as a filled blank
+                                            content += f&#34;&lt;ins&gt;{component.correctAnswer}&lt;/ins&gt;&#34;
+                                    content += &#34;\n&#34;
+                            elif isinstance(primary_rsc, ListMultipleChoiceQuiz):
+                                for choice in primary_rsc.choices:
+                                    sel = &#34;x&#34; if choice in primary_rsc.correctChoices else &#34; &#34;
+                                    content += f&#34;- [{sel}] {choice.text}\n&#34;
+                            elif isinstance(primary_rsc, TableMultipleChoiceQuiz):
+                                ...
+                            content = content.strip()
+                            result += (content + &#34;\n\n&#34;) if content not in result else &#34;&#34;
+                            _quizzes_to_md[primary_rsc] = content
+                        elif is_table(primary_rsc.content):
+                            content = f&#34;&#34;&#34;Resource response with {rsc_type_name}:\n\n{(2 * NL).join(
+                                [f&#34;&gt; {f.learningResources[0].content.replace(NL, f&#39;{NL}&gt; &#39;)}&#34;
+                                 for f in mt.feedbacks if f.level == level])}\n\n&#34;&#34;&#34;
+                            result += content if content not in result else &#34;&#34;
+                        else:
+                            content = f&#34;&#34;&#34;Resource response with {rsc_type_name}:\n\n{(2 * NL).join(
+                                [f&#34;&gt; {f.learningResources[0].content}&#34; for f in mt.feedbacks if f.level == level])
+                                }\n\n&#34;&#34;&#34;
+                            result += content if content not in result else &#34;&#34;
+                prev_fb = fb
+                if not MULTIPLE_FEEDBACKS_PER_LEVEL:
+                    break
+        return result
+
+    @classmethod
+    def make_mistake_type_element_description(cls, mt: MistakeType) -&gt; str:
+        descr = super().make_mistake_type_element_description(mt)
+        return (descr + &#34;\n\n&#34;) if descr else &#34;&#34;
+
+    @classmethod
+    def generate(cls):
+        mtcs = corpus.topLevelMistakeTypeCategories()
+        return f&#34;&#34;&#34;{NL.join(cls.nested_toc_output_for(c) for c in mtcs)}\n{
+            NL.join(cls.nested_body_output_for(c) for c in mtcs)}&#34;&#34;&#34;
+
+    @classmethod
+    def save_to_file(cls, filename: str = None):
+        if not filename:
+            filename = LEARNING_CORPUS_MARKDOWN_FILE
+        md = cls.generate()
+        with open(filename, &#34;w&#34;, encoding=&#34;utf-8&#34;) as f:
+            f.write(md)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="createcorpus.TextualGenerator" href="#createcorpus.TextualGenerator">TextualGenerator</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Static methods</h3>
+<dl>
+<dt id="createcorpus.MarkdownGenerator.generate"><code class="name flex">
+<span>def <span class="ident">generate</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generate and return the output.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def generate(cls):
+    mtcs = corpus.topLevelMistakeTypeCategories()
+    return f&#34;&#34;&#34;{NL.join(cls.nested_toc_output_for(c) for c in mtcs)}\n{
+        NL.join(cls.nested_body_output_for(c) for c in mtcs)}&#34;&#34;&#34;</code></pre>
+</details>
+</dd>
+<dt id="createcorpus.MarkdownGenerator.make_body_title"><code class="name flex">
+<span>def <span class="ident">make_body_title</span></span>(<span>name: str, indentation: int = 0) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the title of the body for the input, indented by the given amount.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def make_body_title(cls, name: str, indentation: int = 0) -&gt; str:
+    hashes = indentation + 2
+    cn = clean(name)
+    return (f&#39;{hashes * &#34;#&#34;} {cn}&#39; if hashes &lt;= MAX_NUM_OF_HASHES_IN_HEADING else f&#39;**{cn}**&#39;) + &#34;\n\n&#34;</code></pre>
+</details>
+</dd>
+<dt id="createcorpus.MarkdownGenerator.make_mistake_type_element_description"><code class="name flex">
+<span>def <span class="ident">make_mistake_type_element_description</span></span>(<span>mt: <a title="learningcorpus.learningcorpus.MistakeType" href="learningcorpus/learningcorpus.html#learningcorpus.learningcorpus.MistakeType">MistakeType</a>) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the mistake element description for the mistake type.</p>
+<p>Example: For the mistake type "Using attribute instead of association," the output is the string
+"Student element: Attribute. Instructor element: Association end."</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def make_mistake_type_element_description(cls, mt: MistakeType) -&gt; str:
+    descr = super().make_mistake_type_element_description(mt)
+    return (descr + &#34;\n\n&#34;) if descr else &#34;&#34;</code></pre>
+</details>
+</dd>
+<dt id="createcorpus.MarkdownGenerator.make_mt_body"><code class="name flex">
+<span>def <span class="ident">make_mt_body</span></span>(<span>mt: <a title="learningcorpus.learningcorpus.MistakeType" href="learningcorpus/learningcorpus.html#learningcorpus.learningcorpus.MistakeType">MistakeType</a>, indentation: int = 0) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the Markdown body of the output.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def make_mt_body(cls, mt: MistakeType, indentation: int = 0) -&gt; str:
+    &#34;Return the Markdown body of the output.&#34;
+    result = f&#34;{cls.make_body_title(mt.description, indentation)}{cls.make_mistake_type_element_description(mt)}&#34;
+    levels = sorted(fb.level for fb in mt.feedbacks)
+    for level in levels:
+        if (level_header := f&#34;Level {level}: &#34;) not in result:
+            result += level_header
+        prev_fb = None
+        for fb in mt.feedbacks:
+            if fb.level != level:
+                continue
+            match fb:
+                case Feedback(highlightProblem=True):
+                    &#34;&#34;&#34;
+                    Possible outcomes here are:
+
+                    &#34;Highlight specific problem statement elements referring to the instructor element(s)\n\n&#34;
+                    &#34;Highlight sentence(s) in problem statement referring to the instructor element(s)\n\n&#34;
+                    &#34;&#34;&#34;
+                    sp = &#34;specific&#34; if fb.level &gt; 1 else &#34;sentence(s) in&#34;
+                    pse = &#34;elements &#34; if fb.level &gt; 1 else &#34;&#34;
+                    # use elem type here in the future if it can be made more specific, eg, enum instead of class
+                    plural_item_marker = &#34;(s)&#34;
+                    elem_owner = &#34;&#34;
+                    if mt.instructorElements:
+                        elem_owner = &#34;the instructor &#34;
+                        if len(mt.instructorElements) == 1:
+                            plural_item_marker = &#34;&#34;
+                    elem = f&#34;referring to {elem_owner}element{plural_item_marker}&#34;
+                    result += f&#34;Highlight {sp} problem statement {pse}{elem}\n\n&#34;
+                case Feedback(highlightSolution=True):
+                    result += &#34;Highlight solution\n\n&#34;
+                case TextResponse() as resp:
+                    if resp.text not in result:
+                        result += f&#34;Text response:\n\n&gt; {resp.text}\n\n&#34;
+                case ParametrizedResponse() as resp:
+                    if resp.text not in result:
+                        result += f&#34;&#34;&#34;{
+                            &#39;&#39; if isinstance(prev_fb, ParametrizedResponse) else f&#39;Parametrized response:{NL}&#39;
+                            }\n&gt; {resp.text}\n\n&#34;&#34;&#34;
+                case ResourceResponse() as resp if resp.learningResources:
+                    primary_rsc = resp.learningResources[0]
+                    rsc_type = type(primary_rsc)
+                    rsc_type_name = type(primary_rsc).__name__
+                    if issubclass(rsc_type, Quiz) and rsc_type != Quiz:  # Quiz subclasses but not Quiz itself
+                        content = f&#34;&#34;&#34;Resource response with {QUIZ_DISPLAY_NAMES[type(primary_rsc)]}:\n\n{
+                                      primary_rsc.content}\n\n&#34;&#34;&#34;
+                        if isinstance(primary_rsc, FillInTheBlanksQuiz):
+                            for statement in primary_rsc.statements:
+                                content += &#34;* &#34;
+                                for component in statement.components:
+                                    if isinstance(component, NonBlank):
+                                        content += f&#34;{component.text}&#34;
+                                    if isinstance(component, Blank):
+                                        # use &lt;ins&gt; to underline answer, which makes it appear as a filled blank
+                                        content += f&#34;&lt;ins&gt;{component.correctAnswer}&lt;/ins&gt;&#34;
+                                content += &#34;\n&#34;
+                        elif isinstance(primary_rsc, ListMultipleChoiceQuiz):
+                            for choice in primary_rsc.choices:
+                                sel = &#34;x&#34; if choice in primary_rsc.correctChoices else &#34; &#34;
+                                content += f&#34;- [{sel}] {choice.text}\n&#34;
+                        elif isinstance(primary_rsc, TableMultipleChoiceQuiz):
+                            ...
+                        content = content.strip()
+                        result += (content + &#34;\n\n&#34;) if content not in result else &#34;&#34;
+                        _quizzes_to_md[primary_rsc] = content
+                    elif is_table(primary_rsc.content):
+                        content = f&#34;&#34;&#34;Resource response with {rsc_type_name}:\n\n{(2 * NL).join(
+                            [f&#34;&gt; {f.learningResources[0].content.replace(NL, f&#39;{NL}&gt; &#39;)}&#34;
+                             for f in mt.feedbacks if f.level == level])}\n\n&#34;&#34;&#34;
+                        result += content if content not in result else &#34;&#34;
+                    else:
+                        content = f&#34;&#34;&#34;Resource response with {rsc_type_name}:\n\n{(2 * NL).join(
+                            [f&#34;&gt; {f.learningResources[0].content}&#34; for f in mt.feedbacks if f.level == level])
+                            }\n\n&#34;&#34;&#34;
+                        result += content if content not in result else &#34;&#34;
+            prev_fb = fb
+            if not MULTIPLE_FEEDBACKS_PER_LEVEL:
+                break
+    return result</code></pre>
+</details>
+</dd>
+<dt id="createcorpus.MarkdownGenerator.make_toc_title"><code class="name flex">
+<span>def <span class="ident">make_toc_title</span></span>(<span>name: str, indentation: int = 0) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the title of the table of contents for the input, indented by the given amount.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def make_toc_title(cls, name: str, indentation: int = 0) -&gt; str:
+    &#34;Return the title of the table of contents for the input, indented by the given amount.&#34;
+    return f&#39;{indentation * &#34; &#34;}1. [{name}](#{dashify(name)})\n&#39;</code></pre>
+</details>
+</dd>
+<dt id="createcorpus.MarkdownGenerator.nested_toc_output_for"><code class="name flex">
+<span>def <span class="ident">nested_toc_output_for</span></span>(<span>mtc: <a title="learningcorpus.learningcorpus.MistakeTypeCategory" href="learningcorpus/learningcorpus.html#learningcorpus.learningcorpus.MistakeTypeCategory">MistakeTypeCategory</a>, indentation: int = 0) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the nested table of contents output for the input in a recursive way.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def nested_toc_output_for(cls, mtc: MistakeTypeCategory, indentation: int = 0) -&gt; str:
+    &#34;Return the nested table of contents output for the input in a recursive way.&#34;
+    return f&#39;&#39;&#39;{cls.make_toc_title(mtc.name, indentation)}{
+        &#34;&#34;.join([cls.nested_toc_output_for(sc, indentation + 3) for sc in mtc.subcategories])}{
+        &#34;&#34;.join([cls.make_toc_title(mt.description, indentation + 3) for mt in mtc.mistakeTypes])}&#39;&#39;&#39;</code></pre>
+</details>
+</dd>
+<dt id="createcorpus.MarkdownGenerator.save_to_file"><code class="name flex">
+<span>def <span class="ident">save_to_file</span></span>(<span>filename: str = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Save the output to a file. Use the default location if no filename is given.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def save_to_file(cls, filename: str = None):
+    if not filename:
+        filename = LEARNING_CORPUS_MARKDOWN_FILE
+    md = cls.generate()
+    with open(filename, &#34;w&#34;, encoding=&#34;utf-8&#34;) as f:
+        f.write(md)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="createcorpus.TextualGenerator"><code class="flex name class">
+<span>class <span class="ident">TextualGenerator</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Abstract base class for textual generators.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TextualGenerator(ABC):
+    &#34;Abstract base class for textual generators.&#34;
+    @classmethod
+    def nested_body_output_for(cls, mtc: MistakeTypeCategory, indentation: int = 0) -&gt; str:
+        &#34;Return the nested body output for the input in a recursive way.&#34;
+        return f&#39;&#39;&#39;{cls.make_body_title(mtc.name, indentation)}{
+            &#34;&#34;.join([cls.nested_body_output_for(sc, indentation + 1) for sc in mtc.subcategories])}{
+            NL.join([cls.make_mt_body(mt, indentation + 1) for mt in mtc.mistakeTypes])}\n&#39;&#39;&#39;
+
+    @classmethod
+    @abstractmethod
+    def make_body_title(cls, name: str, indentation: int = 0) -&gt; str:
+        &#34;Return the title of the body for the input, indented by the given amount.&#34;
+
+    @classmethod
+    @abstractmethod
+    def make_mt_body(cls, mt: MistakeType, indentation: int = 0) -&gt; str:
+        &#34;Return the body for the mistake type, indented by the given amount.&#34;
+
+    @classmethod
+    def mistake_elem_display_name(cls, mistake_elem: MistakeElement | str) -&gt; str:
+        &#34;Return the display name for the input mistake element name.&#34;
+        def display_name(s: str) -&gt; str:
+            return metatypes[s].long_name if s in metatypes else s
+
+        return (&#34; &#34;.join([display_name(w).capitalize() for w in str(mistake_elem).split(&#34;_&#34;)])
+                .replace(&#34;Sub Class&#34;, &#34;Subclass&#34;).replace(&#34;Super Class&#34;, &#34;Superclass&#34;)
+                .replace(&#34;Minlowerbound&#34;, &#34;Minimum lower bound&#34;)
+                .replace(&#34;Abs&#34;, &#34;Abstraction&#34;).replace(&#34;Occ&#34;, &#34;Occurrence&#34;)).capitalize()
+
+    @classmethod
+    @abstractmethod
+    def make_mistake_type_element_description(cls, mt: MistakeType) -&gt; str:
+        &#34;&#34;&#34;
+        Return the mistake element description for the mistake type.
+
+        Example: For the mistake type &#34;Using attribute instead of association,&#34; the output is the string
+        &#34;Student element: Attribute. Instructor element: Association end.&#34;
+        &#34;&#34;&#34;
+        if not mt.studentElements and not mt.instructorElements:
+            raise ValueError(f&#34;Mistake type {mt.name} must have student or instructor elements.&#34;)
+        result = &#34;&#34;
+        sep = &#34; &#34; if mt.instructorElements else &#34;&#34;  # add space after student elements only if inst elements are present
+        match len(mt.studentElements):
+            case 0:
+                result += &#34;&#34;
+            case 1:
+                result += f&#34;Student element: {cls.mistake_elem_display_name(mt.studentElements[0])}.{sep}&#34;
+            case _:
+                result += f&#34;&#34;&#34;Student elements: {
+                           &#39;, &#39;.join([cls.mistake_elem_display_name(e) for e in mt.studentElements])}.{sep}&#34;&#34;&#34;
+        match len(mt.instructorElements):
+            case 0:
+                result += &#34;&#34;
+            case 1:
+                result += f&#34;Instructor element: {cls.mistake_elem_display_name(mt.instructorElements[0])}.&#34;
+            case _:
+                result += f&#34;&#34;&#34;Instructor elements: {
+                    &#39;, &#39;.join([cls.mistake_elem_display_name(e) for e in mt.instructorElements])}.&#34;&#34;&#34;
+        return result
+
+    @classmethod
+    @abstractmethod
+    def generate(cls) -&gt; str:
+        &#34;Generate and return the output.&#34;
+
+    @classmethod
+    @abstractmethod
+    def save_to_file(cls, filename: str = None):
+        &#34;Save the output to a file. Use the default location if no filename is given.&#34;</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>abc.ABC</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="createcorpus.LatexGenerator" href="#createcorpus.LatexGenerator">LatexGenerator</a></li>
+<li><a title="createcorpus.MarkdownGenerator" href="#createcorpus.MarkdownGenerator">MarkdownGenerator</a></li>
+</ul>
+<h3>Static methods</h3>
+<dl>
+<dt id="createcorpus.TextualGenerator.generate"><code class="name flex">
+<span>def <span class="ident">generate</span></span>(<span>) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generate and return the output.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+@abstractmethod
+def generate(cls) -&gt; str:
+    &#34;Generate and return the output.&#34;</code></pre>
+</details>
+</dd>
+<dt id="createcorpus.TextualGenerator.make_body_title"><code class="name flex">
+<span>def <span class="ident">make_body_title</span></span>(<span>name: str, indentation: int = 0) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the title of the body for the input, indented by the given amount.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+@abstractmethod
+def make_body_title(cls, name: str, indentation: int = 0) -&gt; str:
+    &#34;Return the title of the body for the input, indented by the given amount.&#34;</code></pre>
+</details>
+</dd>
+<dt id="createcorpus.TextualGenerator.make_mistake_type_element_description"><code class="name flex">
+<span>def <span class="ident">make_mistake_type_element_description</span></span>(<span>mt: <a title="learningcorpus.learningcorpus.MistakeType" href="learningcorpus/learningcorpus.html#learningcorpus.learningcorpus.MistakeType">MistakeType</a>) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the mistake element description for the mistake type.</p>
+<p>Example: For the mistake type "Using attribute instead of association," the output is the string
+"Student element: Attribute. Instructor element: Association end."</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+@abstractmethod
+def make_mistake_type_element_description(cls, mt: MistakeType) -&gt; str:
+    &#34;&#34;&#34;
+    Return the mistake element description for the mistake type.
+
+    Example: For the mistake type &#34;Using attribute instead of association,&#34; the output is the string
+    &#34;Student element: Attribute. Instructor element: Association end.&#34;
+    &#34;&#34;&#34;
+    if not mt.studentElements and not mt.instructorElements:
+        raise ValueError(f&#34;Mistake type {mt.name} must have student or instructor elements.&#34;)
+    result = &#34;&#34;
+    sep = &#34; &#34; if mt.instructorElements else &#34;&#34;  # add space after student elements only if inst elements are present
+    match len(mt.studentElements):
+        case 0:
+            result += &#34;&#34;
+        case 1:
+            result += f&#34;Student element: {cls.mistake_elem_display_name(mt.studentElements[0])}.{sep}&#34;
+        case _:
+            result += f&#34;&#34;&#34;Student elements: {
+                       &#39;, &#39;.join([cls.mistake_elem_display_name(e) for e in mt.studentElements])}.{sep}&#34;&#34;&#34;
+    match len(mt.instructorElements):
+        case 0:
+            result += &#34;&#34;
+        case 1:
+            result += f&#34;Instructor element: {cls.mistake_elem_display_name(mt.instructorElements[0])}.&#34;
+        case _:
+            result += f&#34;&#34;&#34;Instructor elements: {
+                &#39;, &#39;.join([cls.mistake_elem_display_name(e) for e in mt.instructorElements])}.&#34;&#34;&#34;
+    return result</code></pre>
+</details>
+</dd>
+<dt id="createcorpus.TextualGenerator.make_mt_body"><code class="name flex">
+<span>def <span class="ident">make_mt_body</span></span>(<span>mt: <a title="learningcorpus.learningcorpus.MistakeType" href="learningcorpus/learningcorpus.html#learningcorpus.learningcorpus.MistakeType">MistakeType</a>, indentation: int = 0) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the body for the mistake type, indented by the given amount.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+@abstractmethod
+def make_mt_body(cls, mt: MistakeType, indentation: int = 0) -&gt; str:
+    &#34;Return the body for the mistake type, indented by the given amount.&#34;</code></pre>
+</details>
+</dd>
+<dt id="createcorpus.TextualGenerator.mistake_elem_display_name"><code class="name flex">
+<span>def <span class="ident">mistake_elem_display_name</span></span>(<span>mistake_elem: <a title="learningcorpus.learningcorpus.MistakeElement" href="learningcorpus/learningcorpus.html#learningcorpus.learningcorpus.MistakeElement">MistakeElement</a> | str) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the display name for the input mistake element name.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def mistake_elem_display_name(cls, mistake_elem: MistakeElement | str) -&gt; str:
+    &#34;Return the display name for the input mistake element name.&#34;
+    def display_name(s: str) -&gt; str:
+        return metatypes[s].long_name if s in metatypes else s
+
+    return (&#34; &#34;.join([display_name(w).capitalize() for w in str(mistake_elem).split(&#34;_&#34;)])
+            .replace(&#34;Sub Class&#34;, &#34;Subclass&#34;).replace(&#34;Super Class&#34;, &#34;Superclass&#34;)
+            .replace(&#34;Minlowerbound&#34;, &#34;Minimum lower bound&#34;)
+            .replace(&#34;Abs&#34;, &#34;Abstraction&#34;).replace(&#34;Occ&#34;, &#34;Occurrence&#34;)).capitalize()</code></pre>
+</details>
+</dd>
+<dt id="createcorpus.TextualGenerator.nested_body_output_for"><code class="name flex">
+<span>def <span class="ident">nested_body_output_for</span></span>(<span>mtc: <a title="learningcorpus.learningcorpus.MistakeTypeCategory" href="learningcorpus/learningcorpus.html#learningcorpus.learningcorpus.MistakeTypeCategory">MistakeTypeCategory</a>, indentation: int = 0) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the nested body output for the input in a recursive way.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def nested_body_output_for(cls, mtc: MistakeTypeCategory, indentation: int = 0) -&gt; str:
+    &#34;Return the nested body output for the input in a recursive way.&#34;
+    return f&#39;&#39;&#39;{cls.make_body_title(mtc.name, indentation)}{
+        &#34;&#34;.join([cls.nested_body_output_for(sc, indentation + 1) for sc in mtc.subcategories])}{
+        NL.join([cls.make_mt_body(mt, indentation + 1) for mt in mtc.mistakeTypes])}\n&#39;&#39;&#39;</code></pre>
+</details>
+</dd>
+<dt id="createcorpus.TextualGenerator.save_to_file"><code class="name flex">
+<span>def <span class="ident">save_to_file</span></span>(<span>filename: str = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Save the output to a file. Use the default location if no filename is given.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+@abstractmethod
+def save_to_file(cls, filename: str = None):
+    &#34;Save the output to a file. Use the default location if no filename is given.&#34;</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="two-column">
+<li><code><a title="createcorpus.clean" href="#createcorpus.clean">clean</a></code></li>
+<li><code><a title="createcorpus.create_corpus" href="#createcorpus.create_corpus">create_corpus</a></code></li>
+<li><code><a title="createcorpus.dashify" href="#createcorpus.dashify">dashify</a></code></li>
+<li><code><a title="createcorpus.generate_java" href="#createcorpus.generate_java">generate_java</a></code></li>
+<li><code><a title="createcorpus.generate_python" href="#createcorpus.generate_python">generate_python</a></code></li>
+<li><code><a title="createcorpus.generate_python_mts" href="#createcorpus.generate_python_mts">generate_python_mts</a></code></li>
+<li><code><a title="createcorpus.is_table" href="#createcorpus.is_table">is_table</a></code></li>
+<li><code><a title="createcorpus.underscorify" href="#createcorpus.underscorify">underscorify</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="createcorpus.LatexGenerator" href="#createcorpus.LatexGenerator">LatexGenerator</a></code></h4>
+<ul class="">
+<li><code><a title="createcorpus.LatexGenerator.MAX_WIDTH" href="#createcorpus.LatexGenerator.MAX_WIDTH">MAX_WIDTH</a></code></li>
+<li><code><a title="createcorpus.LatexGenerator.NESTING_KEYWORDS" href="#createcorpus.LatexGenerator.NESTING_KEYWORDS">NESTING_KEYWORDS</a></code></li>
+<li><code><a title="createcorpus.LatexGenerator.NLS" href="#createcorpus.LatexGenerator.NLS">NLS</a></code></li>
+<li><code><a title="createcorpus.LatexGenerator.NO_INDENT" href="#createcorpus.LatexGenerator.NO_INDENT">NO_INDENT</a></code></li>
+<li><code><a title="createcorpus.LatexGenerator.blockquote" href="#createcorpus.LatexGenerator.blockquote">blockquote</a></code></li>
+<li><code><a title="createcorpus.LatexGenerator.generate" href="#createcorpus.LatexGenerator.generate">generate</a></code></li>
+<li><code><a title="createcorpus.LatexGenerator.make_body_title" href="#createcorpus.LatexGenerator.make_body_title">make_body_title</a></code></li>
+<li><code><a title="createcorpus.LatexGenerator.make_mistake_type_element_description" href="#createcorpus.LatexGenerator.make_mistake_type_element_description">make_mistake_type_element_description</a></code></li>
+<li><code><a title="createcorpus.LatexGenerator.make_mt_body" href="#createcorpus.LatexGenerator.make_mt_body">make_mt_body</a></code></li>
+<li><code><a title="createcorpus.LatexGenerator.make_tex_table" href="#createcorpus.LatexGenerator.make_tex_table">make_tex_table</a></code></li>
+<li><code><a title="createcorpus.LatexGenerator.sanitize" href="#createcorpus.LatexGenerator.sanitize">sanitize</a></code></li>
+<li><code><a title="createcorpus.LatexGenerator.save_to_file" href="#createcorpus.LatexGenerator.save_to_file">save_to_file</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="createcorpus.MarkdownGenerator" href="#createcorpus.MarkdownGenerator">MarkdownGenerator</a></code></h4>
+<ul class="">
+<li><code><a title="createcorpus.MarkdownGenerator.generate" href="#createcorpus.MarkdownGenerator.generate">generate</a></code></li>
+<li><code><a title="createcorpus.MarkdownGenerator.make_body_title" href="#createcorpus.MarkdownGenerator.make_body_title">make_body_title</a></code></li>
+<li><code><a title="createcorpus.MarkdownGenerator.make_mistake_type_element_description" href="#createcorpus.MarkdownGenerator.make_mistake_type_element_description">make_mistake_type_element_description</a></code></li>
+<li><code><a title="createcorpus.MarkdownGenerator.make_mt_body" href="#createcorpus.MarkdownGenerator.make_mt_body">make_mt_body</a></code></li>
+<li><code><a title="createcorpus.MarkdownGenerator.make_toc_title" href="#createcorpus.MarkdownGenerator.make_toc_title">make_toc_title</a></code></li>
+<li><code><a title="createcorpus.MarkdownGenerator.nested_toc_output_for" href="#createcorpus.MarkdownGenerator.nested_toc_output_for">nested_toc_output_for</a></code></li>
+<li><code><a title="createcorpus.MarkdownGenerator.save_to_file" href="#createcorpus.MarkdownGenerator.save_to_file">save_to_file</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="createcorpus.TextualGenerator" href="#createcorpus.TextualGenerator">TextualGenerator</a></code></h4>
+<ul class="">
+<li><code><a title="createcorpus.TextualGenerator.generate" href="#createcorpus.TextualGenerator.generate">generate</a></code></li>
+<li><code><a title="createcorpus.TextualGenerator.make_body_title" href="#createcorpus.TextualGenerator.make_body_title">make_body_title</a></code></li>
+<li><code><a title="createcorpus.TextualGenerator.make_mistake_type_element_description" href="#createcorpus.TextualGenerator.make_mistake_type_element_description">make_mistake_type_element_description</a></code></li>
+<li><code><a title="createcorpus.TextualGenerator.make_mt_body" href="#createcorpus.TextualGenerator.make_mt_body">make_mt_body</a></code></li>
+<li><code><a title="createcorpus.TextualGenerator.mistake_elem_display_name" href="#createcorpus.TextualGenerator.mistake_elem_display_name">mistake_elem_display_name</a></code></li>
+<li><code><a title="createcorpus.TextualGenerator.nested_body_output_for" href="#createcorpus.TextualGenerator.nested_body_output_for">nested_body_output_for</a></code></li>
+<li><code><a title="createcorpus.TextualGenerator.save_to_file" href="#createcorpus.TextualGenerator.save_to_file">save_to_file</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

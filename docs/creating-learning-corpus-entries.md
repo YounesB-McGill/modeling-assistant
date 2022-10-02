@@ -4,9 +4,10 @@ This file describes the steps to create a new learning corpus entry, correspondi
 
 ## Prerequisites
 
-* Python project set up as described in [the project README](README.md).
+* Python project set up as described in
+[the setup doc](docs/onboarding/setup.md).
 * Background knowledge of the Modeling Assistant and Learning Corpus, including the metamodels.
-  See the [onboarding README](docs/onboarding/README.md) for more information.
+  See the project documentation for more information.
 
 ## Steps
 
@@ -20,7 +21,7 @@ based on what is specified in the `corpusdefinition.py` file.
    feedback:
 
    ```python
-   missing_class := mt(n="Missing class", feedbacks=fbs({
+   missing_class := mt(n="Missing class", stud=[], inst="cls", feedbacks=fbs({
        1: Feedback(highlightProblem=True),
    })),
    ```
@@ -28,9 +29,12 @@ based on what is specified in the `corpusdefinition.py` file.
    Note that `missing_class` is a variable which must match the lowercase name (`n`) of the mistake type,
    with spaces and dashes replaced by underscores. Also note the `:=` (used to define the named expression)
    and the trailing commas.
+   Student and instructor `MistakeElement`s are specified using the `stud` and `inst`
+   parameters, respectively. If both are the same, `stud_inst` can be used instead.
+   If there is only one element, it can be specified directly as a string instead of
+   using a list as in the example above.
 
 2. Add the mistake type to the priority list in the corpus definition file.
-3. Add the mistake detection format for the mistake type to the corpus definition file.
 
 ### Step 2: Update Corpus Instance
 

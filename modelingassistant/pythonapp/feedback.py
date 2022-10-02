@@ -4,18 +4,23 @@
 Module containing feedback algorithm for modeling assistant.
 """
 
+from collections.abc import Iterable
 from dataclasses import dataclass, field
 from functools import cache
 from typing import Tuple
 import logging
 
-from classdiagram import ClassDiagram
-from modelingassistant_app import MODELING_ASSISTANT, get_mistakes
+from ordered_set import OrderedSet
+
+from classdiagram import ClassDiagram, NamedElement
+from color import Color
+from modelingassistantapp import MODELING_ASSISTANT, get_mistakes
 from parametrizedresponse import parametrize_response
+from serdes import set_static_class_for
 from stringserdes import str_to_cdm
-from learningcorpus import Feedback, ParametrizedResponse, TextResponse
+from learningcorpus import Feedback, LearningResource, ParametrizedResponse, TextResponse
 from modelingassistant import (ModelingAssistant, Student, ProblemStatement, FeedbackItem, Mistake, Solution,
-                               StudentKnowledge)
+                               SolutionElement, StudentKnowledge)
 
 
 logger = logging.getLogger(__name__)
@@ -25,19 +30,71 @@ MAX_STUDENT_LEVEL_OF_KNOWLEDGE = 10.0
 BEGINNER_LEVEL_OF_KNOWLEDGE = 7.0
 
 
+DEFAULT_HIGHLIGHT_COLOR = Color.LIGHT_YELLOW
+
+_empty_resource = LearningResource(name="Empty", content="")
+
+
 @dataclass
 class FeedbackTO:
-    "Feedback transfer object class. An explicit class is used to allow for compile-time type checking."
+    """
+    Feedback transfer object class. An explicit class is used to allow for lint and compile-time type checking.
+
+    When transformed to JSON, this object will have the following structure:
+
+    ```json
+    {
+        "grade": 0.0,
+        "problemStatementElements": {"#fffacd": ["7", "8", "9"]},
+        "solutionElements": {"#add8e6": [ "1", "2", "3", "4"]},
+        "writtenFeedback": "The hex strings above refer to the colors used to highlight the diagram elements."
+    }
+    ```
+    """
     # pylint: disable=invalid-name
-    solutionElements: list[str] = field(default_factory=list)  # to avoid mutable default value
-    # TODO add this (or similar)
-    #wrongGeneralizations: list[tuple[str, str]] = field(default_factory=list)
-    instructorElements: list[str] = field(default_factory=list)
-    problemStatementElements: list[str] = field(default_factory=list)
-    highlightProblemStatementElements: bool = False
-    highlightSolutionElements: bool = False
+    solutionElements: dict[str, list[str]] = field(default_factory=dict)  # includes generalizations
+    problemStatementElements: dict[str, list[str]] = field(default_factory=dict)
     grade: float = 0.0
     writtenFeedback: str = ""
+
+    # custom __init__ for correct JSON (de)serialization
+    def __init__(self, solutionElements: dict[str, list[str]] = field(default_factory=dict),
+                 problemStatementElements: dict[str, list[str]] = field(default_factory=dict),
+                 grade: float = 0.0, writtenFeedback: str = "", feedback: FeedbackItem = None):
+
+        def make_highlighted_elems(
+            elems: Iterable[str] | Iterable[NamedElement] | Iterable[SolutionElement]
+                 | dict[str, list[str] | list[NamedElement] | list[SolutionElement]]) -> dict[str, list[str]]:
+            def id_for(e: str | NamedElement | SolutionElement) -> str:
+                if not isinstance(e, str | NamedElement | SolutionElement):
+                    raise TypeError(f"Expected str, NamedElement, or SolutionElement but got {e} of type {type(e)}")
+                return e.element._internal_id if isinstance(e, SolutionElement) else (
+                    e._internal_id if isinstance(e, NamedElement) else e)
+            if not elems:
+                return {}
+            if isinstance(elems, list | OrderedSet):
+                return {DEFAULT_HIGHLIGHT_COLOR.to_hex(): [id_for(e) for e in elems]}
+            if isinstance(elems, dict):
+                return {color: [id_for(e) for e in elems[color]] for color in elems}
+            raise TypeError(f"Unexpected type elems type: {type(elems)}")
+
+        def get_ids(elems: dict[str, list[str]]) -> list[str]:
+            result = set()
+            for _, ids in elems.items():
+                result.update(ids)
+            return list(result)
+
+        if feedback:
+            solutionElements: OrderedSet[SolutionElement] = feedback.mistake.studentElements
+            problemStatementElements: OrderedSet[SolutionElement] = feedback.mistake.instructorElements
+            writtenFeedback = (feedback.text or feedback.feedback.text
+                               or getattr(feedback.feedback, "learningResources", [_empty_resource])[0].content)
+        self.solutionElements = make_highlighted_elems(solutionElements)
+        self.solutionElementIds = get_ids(self.solutionElements)
+        self.problemStatementElements = make_highlighted_elems(problemStatementElements)
+        self.problemStatementElementIds = get_ids(self.problemStatementElements)
+        self.grade = grade
+        self.writtenFeedback = writtenFeedback
 
 
 def give_feedback(student_solution: Solution) -> FeedbackItem | list[FeedbackItem]:
@@ -87,7 +144,8 @@ def next_feedback(mistake: Mistake) -> FeedbackItem:
         next_feedback(mistake with lastFeedback.level = 2) = feedback at level 3
     """
     target_level = mistake.lastFeedback.feedback.level + 1 if mistake.lastFeedback else 1
-    next_fb: Feedback = next(fb for fb in mistake.mistakeType.feedbacks if fb.level == target_level)
+    next_fb: Feedback = set_static_class_for(
+        next(fb for fb in mistake.mistakeType.feedbacks if fb.level == target_level))
     fb_text = next_fb.text
     if isinstance(next_fb, ParametrizedResponse):
         fb_text = parametrize_response(next_fb, mistake)
@@ -139,16 +197,7 @@ def give_feedback_for_student_cdm(username: str, student_cdm: ClassDiagram | str
 
     if not fb.mistake:
         return FeedbackTO()
-
-    feedback = FeedbackTO(
-        solutionElements=[e.element._internal_id for e in fb.mistake.studentElements],
-        instructorElements=[e.element._internal_id for e in fb.mistake.instructorElements],
-        problemStatementElements=[],  #[pse._internal_id for e in fb.mistake.instructorElements for pse in e],
-        highlightProblemStatementElements=fb.feedback.highlightProblem,
-        highlightSolutionElements=fb.feedback.highlightSolution,
-        grade=0.0,  # for now
-        writtenFeedback=fb.text or fb.feedback.text or "")
-
+    feedback = FeedbackTO(feedback=fb)
     return (feedback, ma) if use_local_ma else feedback
 
 

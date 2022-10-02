@@ -716,7 +716,7 @@ def test_learning_corpus_top_level_mtcs():
 
 def test_debug_ma4():
     "Debugging test for MA4."
-    ma_file = f"{MA_PATH}/ma-test4.modelingassistant"
+    ma_file = f"{MA_PATH}/ma_test4.modelingassistant"
     ma1 = load_ma(ma_file)
     with open(ma_file, encoding="utf-8") as f:
         ma_str = f.read()

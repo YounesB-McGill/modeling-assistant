@@ -262,7 +262,7 @@ def override_pyecorevalue_check(self, value, _isinstance=isinstance):
         except Exception as root_cause:
             raise AttributeError(f'Feature {feature} has no type nor generic') from root_cause
     if not _isinstance(value, etype):
-        if etype in (EPackage, EClassifier, EString) or isinstance(value, EProxy) or value.eClass.name == etype.__name__:
+        if etype in (EPackage, EClassifier, EString) or isinstance(value, EProxy) or value.eClass.name == etype.__name__ or (etype.__name__ in [c.name for c in value.eClass.eSuperTypes]):
             return True
         for _module in [classdiagram, learningcorpus, __import__(__name__)]:
             for (name, cls) in inspect.getmembers(_module, inspect.isclass):

@@ -49,7 +49,7 @@ no fancy AST manipulation required).
         new LearningcorpusResourceFactoryImpl());
     try {
       var lcResource = rset.createResource(URI.createFileURI(file.getCanonicalPath()));
-      lcResource.load(Collections.EMPTY_MAP);
+      lcResource.load(Collections.emptyMap());
       return (LearningCorpus) lcResource.getContents().get(0);
     } catch (IOException e) {
       return null;
@@ -152,7 +152,7 @@ public final class ResourceHelper {
     Resource resource = resourceSet.createResource(URI.createFileURI(file));
     resource.getContents().add(model);
     try {
-      resource.save(Collections.EMPTY_MAP);
+      resource.save(Collections.emptyMap());
     } catch (IOException e) {
       System.err.println("Error saving model: " + e.getLocalizedMessage());
     }

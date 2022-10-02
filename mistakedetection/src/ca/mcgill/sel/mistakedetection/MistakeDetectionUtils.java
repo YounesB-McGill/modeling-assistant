@@ -213,9 +213,16 @@ public class MistakeDetectionUtils {
       return null;
     }
     var id = EcoreUtil.getID(eObject);
-    if (id == null && eObject.eResource() != null) {
-      // from eclipse.org/forums/index.php?t=msg&th=403365&goto=944954&#msg_944954
-      id = eObject.eResource().getURIFragment(eObject);
+    if (id == null) {
+      if (eObject.eResource() != null) {
+        // from eclipse.org/forums/index.php?t=msg&th=403365&goto=944954&#msg_944954
+        id = eObject.eResource().getURIFragment(eObject);
+      } else {
+        var s = eObject.toString();
+        if (s.contains("#")) {
+          id = s.substring(s.lastIndexOf('#') + 1, s.lastIndexOf(')'));
+        }
+      }
     }
     return id;
   }

@@ -5,8 +5,10 @@
 Tests for feedback algorithm.
 """
 
+from dataclasses import asdict, is_dataclass
 from threading import Thread
 from time import sleep
+from typing import Any
 import os
 import json
 import sys
@@ -17,9 +19,11 @@ import pytest  # (to allow tests to be skipped) pylint: disable=unused-import
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from classdiagram import Association, Class, ClassDiagram
+from classdiagram import Association, Attribute, CDEnum, CDEnumLiteral, Class, ClassDiagram
+from color import Color
 from constants import MANY
-from feedback import give_feedback, give_feedback_for_student_cdm
+from corpusdefinition import attribute_duplicated, enum_should_be_full_pr_pattern, missing_enum
+from feedback import DEFAULT_HIGHLIGHT_COLOR, FeedbackTO, give_feedback, give_feedback_for_student_cdm
 from fileserdes import load_cdm
 from learningcorpus import Feedback, ParametrizedResponse, Reference, ResourceResponse, TextResponse, Quiz
 from mistaketypes import (BAD_CLASS_NAME_SPELLING, INCOMPLETE_CONTAINMENT_TREE, MISSING_CLASS,
@@ -34,6 +38,8 @@ HOST = "localhost"
 PORT = 8539
 
 DELAY = 20  # seconds
+
+_HIGHLIGHT_COLOR = DEFAULT_HIGHLIGHT_COLOR.to_hex()
 
 
 def make_ma_without_mistakes() -> ModelingAssistant:
@@ -106,6 +112,12 @@ def make_ma_with_airline_system() -> ModelingAssistant:
     airline_system_ps.instructorSolution = inst_sol
     airline_system_ps.studentSolutions.append(stud_sol)
     return ma
+
+
+def _json_str(item: Any) -> str:
+    if is_dataclass(item):
+        item = asdict(item)
+    return json.dumps(item, indent=4, sort_keys=True)
 
 
 def test_feedback_without_mistakes():
@@ -534,7 +546,8 @@ def get_mistakes(ma: ModelingAssistant, instructor_cdm: ClassDiagram, student_cd
     return ma
 
 
-@pytest.mark.skip(reason="Longer test time because running the MDS REST API server is required")
+# Uncomment the line below to skip this test if you are working on an unrelated part of the system
+#@pytest.mark.skip(reason="Longer test time because running the MDS REST API server is required")
 def test_feedback_for_modeling_assistant_instance_with_mistakes_from_mistake_detection_system():
     """
     Test feedback for a modeling assistant instance with mistakes detected from the actual mistake detection system.
@@ -577,6 +590,7 @@ def test_feedback_for_modeling_assistant_instance_with_mistakes_from_mistake_det
     assert 9 == ma.studentKnowledges[0].levelOfKnowledge
 
 
+# Uncomment the line below to skip this test if you are working on an unrelated part of the system
 #@pytest.mark.skip(reason="Longer test time because running the MDS REST API server is required")
 def test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_mistake_detection_system():
     """
@@ -593,8 +607,7 @@ def test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_
     missing_class_mistake = mistakes[0]
 
     assert missing_class_mistake.mistakeType == MISSING_CLASS
-    assert fb.highlightProblemStatementElements
-    assert fb.instructorElements[0] == missing_class_mistake.instructorElements[0].element._internal_id
+    assert fb.problemStatementElements
 
     cdm: ClassDiagram = solution.classDiagram
     cdm.__class__ = ClassDiagram
@@ -608,10 +621,105 @@ def test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_
     solution = next(sol for sol in ma.solutions if sol.student)  # false positive: pylint: disable=no-member
     mistakes: list[Mistake] = solution.mistakes
 
-    assert fb.highlightSolutionElements
+    assert fb.solutionElements
     assert INCOMPLETE_CONTAINMENT_TREE in [m.mistakeType for m in mistakes]
+
+
+def test_feedbackto_student_element():
+    """
+    Test the FeedbackTO class, including its serialization to JSON, with a student element.
+    """
+    active_id = "3"
+    active = Attribute(name="active")
+    active._internal_id = active_id  # pylint: disable=protected-access
+    feedback = FeedbackTO(feedback=FeedbackItem(
+        text="Does this need to be included more than once?",
+        feedback=next(fb for fb in attribute_duplicated.feedbacks if isinstance(fb, TextResponse)),
+        mistake=Mistake(numDetections=4, mistakeType=attribute_duplicated, studentElements=[
+            SolutionElement(element=active)], instructorElements=[])))
+    fb_json = _json_str(feedback)
+    assert fb_json == _json_str({
+        "grade": 0.0,
+        "problemStatementElements": {},
+        "solutionElements": {
+            _HIGHLIGHT_COLOR: [active_id],
+            # if there were elements highlighted with other colors, they would be listed here
+        },
+        "writtenFeedback": "Does this need to be included more than once?"
+    })
+
+
+def test_feedbackto_instructor_element():
+    """
+    Test the FeedbackTO class, including its serialization to JSON, with an instructor element.
+    """
+    status_id = "7"
+    status = CDEnum(name="Status")
+    status._internal_id = status_id  # pylint: disable=protected-access
+    feedback = FeedbackTO(feedback=FeedbackItem(
+        text="Add a Status enumeration.",  # assume already parameterized
+        feedback=next(fb for fb in missing_enum.feedbacks if isinstance(fb, ParametrizedResponse)),
+        mistake=Mistake(numDetections=4, mistakeType=missing_enum, studentElements=[], instructorElements=[
+            SolutionElement(element=status)])))
+    fb_json = _json_str(feedback)
+    assert fb_json == _json_str({
+        "grade": 0.0,
+        "problemStatementElements": {_HIGHLIGHT_COLOR: [status_id]},
+        "solutionElements": {},
+        "writtenFeedback": "Add a Status enumeration."
+    })
+
+
+def test_feedbackto_multiple_student_and_instructor_elements():
+    """
+    Test the FeedbackTO class, including its serialization to JSON, with multiple student and instructor elements.
+    """
+    # Use the Enum should be full PR pattern mistake type as an example, which has the following solution elements:
+    # stud=["player_cls", "role_attr", "role_enum", "role_enumitem*"], inst=["player_cls", "role_cls*"],
+    stud_person = Class(name="Person", attributes=[stud_role_attr := Attribute(name="role", type=(stud_role := CDEnum(
+        name="Role", literals=[stud_passenger := CDEnumLiteral(name="Passenger"),
+                               stud_employee := CDEnumLiteral(name="Employee"),
+                               stud_visitor := CDEnumLiteral(name="Visitor")])))])
+    inst_person = Class(name="Person")
+    inst_passenger = Class(name="Passenger")
+    inst_employee = Class(name="Employee")
+    inst_visitor = Class(name="Visitor")
+    for i, e in enumerate([stud_person, stud_role_attr, stud_role, stud_passenger, stud_employee, stud_visitor,
+                           inst_person, inst_passenger, inst_employee, inst_visitor], 1):
+        e._internal_id = str(i)
+    feedback = FeedbackTO(feedback=FeedbackItem(
+        text=("An instance of Person can play more than one role out of Passenger, Employee, and Visitor at the same "
+              "time and different features need to be captured for the roles."),
+        feedback=next(fb for fb in enum_should_be_full_pr_pattern.feedbacks if isinstance(fb, ParametrizedResponse)),
+        mistake=Mistake(numDetections=3, mistakeType=enum_should_be_full_pr_pattern,
+        studentElements=[SolutionElement(element=e) for e in (stud_person, stud_role_attr, stud_role, stud_passenger)],
+        instructorElements=[SolutionElement(element=e) for e in (inst_person, inst_passenger, inst_employee)])))
+    fb_json = _json_str(feedback)
+    assert fb_json == _json_str({
+        "grade": 0.0,
+        "problemStatementElements": {_HIGHLIGHT_COLOR: ["7", "8", "9"]},
+        "solutionElements": {_HIGHLIGHT_COLOR: ["1", "2", "3", "4"]},
+        "writtenFeedback": ("An instance of Person can play more than one role out of Passenger, Employee, and Visitor "
+                            "at the same time and different features need to be captured for the roles.")
+    })
+
+
+def test_feedbackto_elements_with_multiple_colors():
+    """
+    Test the FeedbackTO class, including its serialization to JSON, with elements highlighted with multiple colors.
+    """
+    wf = "What do all these numbers mean?"
+    ses = {Color.LIGHT_YELLOW.to_hex(): ["211", "326"], Color.LIGHT_ORANGE.to_hex(): ["401", "418"]}
+    pses = {Color.LIGHT_BLUE.to_hex(): ["512", "539", "598.3"]}
+    feedback = FeedbackTO(solutionElements=ses, problemStatementElements=pses, writtenFeedback=wf)
+    fb_json = _json_str(feedback)
+    assert fb_json == _json_str({
+        "grade": 0.0,
+        "problemStatementElements": pses,
+        "solutionElements": ses,
+        "writtenFeedback": wf
+    })
 
 
 if __name__ == '__main__':
     "Main entry point (used for debugging)."
-    test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_mistake_detection_system()

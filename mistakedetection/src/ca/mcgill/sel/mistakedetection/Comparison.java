@@ -8,13 +8,17 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import ca.mcgill.sel.classdiagram.Association;
 import ca.mcgill.sel.classdiagram.Attribute;
 import ca.mcgill.sel.classdiagram.CDEnum;
 import ca.mcgill.sel.classdiagram.CDEnumLiteral;
 import ca.mcgill.sel.classdiagram.ClassDiagram;
 import ca.mcgill.sel.classdiagram.Classifier;
+import ca.mcgill.sel.classdiagram.NamedElement;
 import modelingassistant.Mistake;
+import modelingassistant.Solution;
 
 /**
  * Helper class to represent information about a mistake detection comparison.
@@ -128,170 +132,93 @@ public class Comparison {
 
   /** Returns the comparison sorted log as a string. */
   public String getSortedLog() {
-    var sb = new StringBuilder();
-    sb.append(getMappings());
-    var sortedList = newMistakes;
-    sortedList = getSortedMistakeList(newMistakes);
-    sb.append("\n");
-    sb.append("Total Mistakes: "+ newMistakes.size() +"\nMistakes: \n");
-    sortedList.forEach(m -> {
-      if (!m.getInstructorElements().isEmpty() && !m.getStudentElements().isEmpty()) {
-        sb.append(" ' " + m.getMistakeType().getName() + " ' " + " Inst Elements: ");
-        m.getInstructorElements().forEach(ie -> sb.append(ie.getElement().getName() + " "));
-        sb.append(" student Elements:");
-        m.getStudentElements().forEach(se -> sb.append(se.getElement().getName() + " "));
-        sb.append("\n");
-      } else if (!m.getInstructorElements().isEmpty()) {
-        sb.append(" ' " + m.getMistakeType().getName() + " ' " + " Inst Elements: ");
-        m.getInstructorElements().forEach(ie -> sb.append(ie.getElement().getName() + " "));
-        sb.append("\n");
-      } else if (!m.getStudentElements().isEmpty()) {
-        sb.append(" ' " + m.getMistakeType().getName() + " ' " + " Stud Elements: ");
-        m.getStudentElements().forEach(se -> sb.append(se.getElement().getName() + " "));
-        sb.append("\n");
-      } else {
-        sb.append(" ' " + m.getMistakeType().getName() + " ' \n");
-      }
-    });
-    return sb.toString();
+    return getLog(true);
   }
 
-  /** Returns the comparison sorted log as a string. */
+  /** Returns the comparison log as a string. */
   public String getLog() {
+    return getLog(false);
+  }
+
+  /** Returns the comparison log as a string. */
+  public String getLog(boolean sortMistakes) {
     var sb = new StringBuilder();
-    sb.append(getMappings());
-    sb.append("\n");
-    sb.append("Total Mistakes: "+ newMistakes.size() +"\nMistakes: \n");
-    newMistakes.forEach(m -> {
-      if (!m.getInstructorElements().isEmpty() && !m.getStudentElements().isEmpty()) {
-        sb.append(" ' " + m.getMistakeType().getName() + " ' " + " Inst Elements: ");
-        m.getInstructorElements().forEach(ie -> sb.append(ie.getElement().getName() + " "));
-        sb.append(" Student Elements: ");
-        m.getStudentElements().forEach(se -> sb.append(se.getElement().getName() + " "));
-        sb.append("\n");
-      } else if (!m.getInstructorElements().isEmpty()) {
-        sb.append(" ' " + m.getMistakeType().getName() + " ' " + " Inst Elements: ");
-        m.getInstructorElements().forEach(ie -> sb.append(ie.getElement().getName() + " "));
-        sb.append("\n");
-      } else if (!m.getStudentElements().isEmpty()) {
-        sb.append(" ' " + m.getMistakeType().getName() + " ' " + " Stud Elements: ");
-        m.getStudentElements().forEach(se -> sb.append(se.getElement().getName() + " "));
-        sb.append("\n");
-      } else {
-        sb.append(" ' " + m.getMistakeType().getName() + " ' \n");
-      }
-    });
+    sb.append(getMappingsDescription());
+    sb.append("\nTotal Mistakes: " + numTotalMistakes() + "\nNew mistakes: " + newMistakes.size());
+    if (!newMistakes.isEmpty()) {
+      sb.append(":\n");
+    }
+    var mistakes = newMistakes;
+    if (sortMistakes) {
+      mistakes = getSortedMistakeList(newMistakes);
+    }
+    mistakes.forEach(m -> sb.append(" - " + m.getMistakeType().getName() + ": ")
+        .append("Student Elements: " + m.getStudentElementNames() + ", ")
+        .append("Instructor Elements: " + m.getInstructorElementNames() + "\n"));
     return sb.toString();
   }
 
-  public String getMappings() {
-    var sb = new StringBuilder();
-    sb.append("\n");
-    sb.append("-----Comparison Log-----\n");
+  /**
+   * Returns a human-readable description of the mappings made between a student solution and an instructor solution,
+   * useful for logging and debugging.
+   */
+  public String getMappingsDescription() {
+    final var sb = new StringBuilder();
+
+    final Consumer<? super NamedElement> appendName = e -> sb.append(e.getName() + " ");
+    BiConsumer<? super NamedElement, ? super NamedElement> appendKeyValueNames =
+        (key, value) -> sb.append(key.getName() + " = " + value.getName() + "\n");
+    BiConsumer<? super Classifier, ? super List<Classifier>> appendGeneralizations = (key, value) -> {
+      sb.append(key.getName() + " <- ");
+      value.forEach(appendName);
+      sb.append("\n");
+    };
+
+    sb.append("\n-----Comparison Log-----\n");
     sb.append("Not Mapped InstructorClassifier List: ");
-    for (Classifier c: notMappedInstructorClassifiers) {
-      sb.append(c.getName() + " ");
-    }
-    sb.append("\n");
-    sb.append("Not Mapped extraStudentClassifier: ");
-    for (Classifier c: extraStudentClassifiers) {
-      sb.append(c.getName() + " ");
-    }
-    sb.append("\n");
-    sb.append("Mapped Classifiers: \n");
-    mappedClassifiers.forEach((key, value) -> sb.append(key.getName() + " = " + value.getName() + "\n"));
-    sb.append("\n");
-    sb.append("Not Mapped InstructorAttribute List: ");
-    for (Attribute c: notMappedInstructorAttributes) {
-      sb.append(c.getName() + " ");
-    }
-    sb.append("\n");
-    sb.append("Not Mapped extraStudentAttribute: ");
-    for (Attribute c: extraStudentAttributes) {
-      sb.append(c.getName() + " ");
-    }
-    sb.append("\n");
-    sb.append("duplicate Attribute: ");
-    for (Attribute c: duplicateStudentAttributes) {
-      sb.append(c.getName() + " ");
-    }
-    sb.append("\n");
-    sb.append("Mapped Attributes: \n");
+    notMappedInstructorClassifiers.forEach(appendName);
+    sb.append("\nNot Mapped extraStudentClassifier: ");
+    extraStudentClassifiers.forEach(c -> sb.append(c.getName() + " "));
+    sb.append("\nMapped Classifiers: \n");
+    mappedClassifiers.forEach(appendKeyValueNames);
+    sb.append("\nNot Mapped InstructorAttribute List: ");
+    notMappedInstructorAttributes.forEach(appendName);
+    sb.append("\nNot Mapped extraStudentAttribute: ");
+    extraStudentAttributes.forEach(appendName);
+    sb.append("\nDuplicate Attribute: ");
+    duplicateStudentAttributes.forEach(appendName);
+    sb.append("\nMapped Attributes: \n");
     mappedAttributes.forEach((key, value) -> sb.append(key.getType().getClass() + " " + key.getName() + " = "
         + value.getType().getClass() + " " + value.getName() + "\n"));
 
-    sb.append("\n");
-    sb.append("Not Mapped Association: ");
-    for (Association assoc: notMappedInstructorAssociations) {
-      sb.append(assoc.getName() + " ");
-    }
+    sb.append("\nNot Mapped Association: ");
+    notMappedInstructorAssociations.forEach(appendName);
+    sb.append("\nExtra Association: ");
+    extraStudentAssociations.forEach(appendName);
+    sb.append("\nMapped Association: \n");
+    mappedAssociations.forEach(appendKeyValueNames);
 
-    sb.append("\n");
-    sb.append("Extra Association: ");
-    for (Association assoc: extraStudentAssociations) {
-      sb.append(assoc.getName() + " ");
-    }
-    sb.append("\n");
-    sb.append("Mapped Association: \n");
-    mappedAssociations.forEach((key, value) -> sb.append(key.getName() + " " + value.getName() + "\n"));
+    sb.append("\nMapped Enumerations: \n");
+    mappedEnumerations.forEach(appendKeyValueNames);
+    sb.append("\nNot Mapped Enumerations: ");
+    notMappedInstructorEnums.forEach(appendName);
+    sb.append("\nExtra Enumeration: ");
+    extraStudentEnums.forEach(appendName);
+    sb.append("\nMapped Enumerations items: \n");
+    mappedEnumerationItems.forEach(appendKeyValueNames);
+    sb.append("\nNot Mapped Enumerations items: ");
+    notMappedInstructorEnumLiterals.forEach(appendName);
+    sb.append("\nExtra Enumeration items: ");
+    extraStudentEnumLiterals.forEach(appendName);
 
-    sb.append("\n");
-    sb.append("Mapped Enumerations: \n");
-    mappedEnumerations.forEach((key, value) -> sb.append(key.getName() + " " + value.getName() + "\n"));
-
-    sb.append("\n");
-    sb.append("Not Mapped Enumerations: ");
-    for (CDEnum c: notMappedInstructorEnums) {
-      sb.append(c.getName() + " ");
-    }
-    sb.append("\n");
-    sb.append("Extra Enumeration: ");
-    for (CDEnum c: extraStudentEnums) {
-      sb.append(c.getName() + " ");
-    }
-
-    sb.append("\n");
-    sb.append("Mapped Enumerations items: \n");
-    mappedEnumerationItems.forEach((key, value) -> sb.append(key.getName() + " " + value.getName() + "\n"));
-
-    sb.append("\n");
-    sb.append("Not Mapped Enumerations items: ");
-    for (CDEnumLiteral c: notMappedInstructorEnumLiterals) {
-      sb.append(c.getName() + " ");
-    }
-    sb.append("\n");
-    sb.append("Extra Enumeration items: ");
-    for (CDEnumLiteral c: extraStudentEnumLiterals) {
-      sb.append(c.getName() + " ");
-    }
-
-    sb.append("\n");
-    sb.append("Instuctor Generalizations: \n");
-    instructorSuperclassesToSubclasses.forEach((key, value) -> {
-      sb.append(key.getName() + "<- ");
-      value.forEach(v -> {sb.append(v.getName() + " ");});
-      sb.append("\n");
-    });
-
-    sb.append("\n");
-    sb.append("Student Generalizations: \n");
-    studentSuperclassesToSubclasses.forEach((key, value) -> {
-      sb.append(key.getName() + "<- ");
-      value.forEach(v -> sb.append(v.getName() + " "));
-      sb.append("\n");
-    });
-
-    sb.append("\n");
-    sb.append("instructor Generalization classes: ");
-    for (Classifier c: instructorGeneralizationClassifiers) {
-      sb.append(c.getName() + " ");
-    }
-
-    sb.append("\n");
-    sb.append("student Generalization classes: ");
-    for (Classifier c: studentGeneralizationClassifiers) {
-      sb.append(c.getName() + " ");
-    }
+    sb.append("\nInstructor Generalizations: \n");
+    instructorSuperclassesToSubclasses.forEach(appendGeneralizations);
+    sb.append("\nStudent Generalizations: \n");
+    studentSuperclassesToSubclasses.forEach(appendGeneralizations);
+    sb.append("\nInstructor Generalization classes: ");
+    instructorGeneralizationClassifiers.forEach(appendName);
+    sb.append("\nStudent Generalization classes: ");
+    studentGeneralizationClassifiers.forEach(appendName);
 
     return sb.toString();
   }
@@ -299,6 +226,13 @@ public class Comparison {
   public static List<Mistake> getSortedMistakeList(List<Mistake> mistakes){
     Collections.sort(mistakes, Comparator.comparing(Mistake::getMistakeType));
     return mistakes;
+  }
+
+  private int numTotalMistakes() {
+    if (!Solution.classDiagramsToSolutions.containsKey(studentCdm)) {
+      return 0;
+    }
+    return Solution.forClassDiagram(studentCdm).getMistakes().size();
   }
 
 }

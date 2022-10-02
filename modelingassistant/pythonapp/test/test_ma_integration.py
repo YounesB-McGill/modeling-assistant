@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # None of these apply to pytests
-# pylint: disable=wrong-import-position, redefined-outer-name, unused-argument
+# pylint: disable=wrong-import-position, wrong-import-order, redefined-outer-name, unused-argument
 
 """
 Module for Modeling Assistant integration tests.
@@ -25,25 +25,25 @@ import requests
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from classdiagram import CDBoolean, CDInt, CDString, Class, ClassDiagram
-from constants import WEBCORE_ENDPOINT
+from classdiagram import CDBoolean, CDInt, CDString, Class
+from constants import MANY, WEBCORE_ENDPOINT
 from envvars import TOUCHCORE_PATH
+from feedback import FeedbackTO, DEFAULT_HIGHLIGHT_COLOR
 from flaskapp import app, DEBUG_MODE, PORT
 from fileserdes import load_cdm, save_to_file
-from modelingassistant_app import MODELING_ASSISTANT
 from stringserdes import SRSET, str_to_modelingassistant
 from user import MockStudent, User, users
-from modelingassistant import ModelingAssistant, ProblemStatement, Solution
+from modelingassistant import ModelingAssistant
+from modelingassistantapp import get_ma_with_ps, EXAMPLE_CDM_NAME, EXAMPLE_INSTRUCTOR_CDM
 
 
-CDM_NAME = "AirlineSystem"
-INSTRUCTOR_CDM = f"modelingassistant/testmodels/{CDM_NAME}_instructor.cdm"
 MA_REST_ENDPOINT = f"http://localhost:{PORT}/modelingassistant"
 
 SLEEP_TIME_S = 0.2  # 1/5 second
 
-# Skip all pytest tests in this module by setting the pytestmark global variable
-pytestmark = pytest.mark.skip("Skipping all integrations tests since they depend on the WebCORE server")
+
+# Skip all pytest tests in this module by uncommenting the line below, which sets the pytestmark global variable
+#pytestmark = pytest.mark.skip("Skipping all integrations tests since they depend on the WebCORE server")
 
 
 @pytest.fixture(scope="module")
@@ -87,19 +87,19 @@ def test_ma_two_class_student_mistake(ma_rest_app, webcore):
     """
     # Step 0
     # use this until WebCORE is updated to allow initializing with a problem statement
-    ma = get_ma_with_ps(load_cdm(INSTRUCTOR_CDM))
+    ma = get_ma_with_ps(load_cdm(EXAMPLE_INSTRUCTOR_CDM))
     assert valid(ma)
     set_modeling_assistant(ma)
 
     # Step 1
     student = MockStudent.create_random()
-    cdm_name = "AirlineSystem"
+    cdm_name = EXAMPLE_CDM_NAME
     assert student.create_cdm(cdm_name)
 
     # Steps 2-5
     bad_cls_id = student.create_class(cdm_name, "badClsName")
     assert bad_cls_id
-    feedback = student.request_feedback(cdm_name)
+    feedback: FeedbackTO = student.request_feedback(cdm_name)
 
     ma = get_modeling_assistant()
     assert valid(ma)
@@ -109,34 +109,72 @@ def test_ma_two_class_student_mistake(ma_rest_app, webcore):
     assert len(ma.solutions) == 2, "Must have exactly one instructor solution and one student solution"
 
     # Step 6
-    assert feedback.highlightSolutionElements
+    assert feedback.solutionElements
     # more strict checks possible after WebCORE is completed
     print(feedback)
-    assert bad_cls_id in feedback.solutionElements
+    assert bad_cls_id in feedback.solutionElementIds
 
     # Steps 7-10
     airplane_id = student.create_class(cdm_name, "Airplane")
     feedback = student.request_feedback(cdm_name)
 
-    assert feedback.highlightSolutionElements  # Airplane not contained in Root class
-    assert set(feedback.solutionElements) == {bad_cls_id, airplane_id}  # both should be highlighted
+    assert feedback.solutionElements  # Airplane not contained in Root class
+    assert set(feedback.solutionElementIds) == {bad_cls_id, airplane_id}  # both should be highlighted
 
     # Step 11
     # TODO Enable these assertions after the necessary updates to WebCORE and the Modeling Assistant are made
     # It should be possible to delete bad_cls_id without any errors,
     # and it should be possible to make Airplane contained in the Root class once WebCORE supports this feature
 
-    # assert not feedback.highlightSolutionElements
     # assert not feedback.solutionElements
     # assert "no mistakes" in feedback.writtenFeedback.lower()
+
+
+def test_ma_multiple_feedback_levels(webcore):
+    """
+    Test that the application can provide multiple consecutive feedback levels correctly.
+
+    This integration test exercises WebCORE, the Feedback Algorithm, and the Mistake Detection System.
+    """
+    cdm_name = EXAMPLE_CDM_NAME
+    student = MockStudent.create_random()
+    assert student.login() and student.logged_in
+    assert student.create_cdm(cdm_name)
+    cdm = student.get_cdm(cdm_name)
+    assert cdm
+
+    # Missing class level 1: highlight problem
+    feedback = student.request_feedback(cdm_name)
+    assert feedback.problemStatementElements and not feedback.solutionElements and not feedback.writtenFeedback
+
+    class1 = student.create_class(cdm_name, "Class1")
+
+    # Extra class level 1: highlight solution
+    feedback = student.request_feedback(cdm_name)
+    assert (class1 in feedback.solutionElementIds and not feedback.problemStatementElements and
+            not feedback.writtenFeedback)
+    assert DEFAULT_HIGHLIGHT_COLOR.to_hex() in feedback.solutionElements
+
+    # Extra class level 2: text response
+    feedback = student.request_feedback(cdm_name)
+    assert feedback.writtenFeedback and "${" not in feedback.writtenFeedback and not feedback.problemStatementElements
+
+    # Extra class level 3: more detailed text response
+    feedback = student.request_feedback(cdm_name)
+    assert feedback.writtenFeedback and "${" not in feedback.writtenFeedback and not feedback.problemStatementElements
+
+    # Extra class level 4: parametrized response
+    feedback = student.request_feedback(cdm_name)
+    assert feedback.writtenFeedback and "${" not in feedback.writtenFeedback and not feedback.problemStatementElements
 
 
 def test_communication_between_mock_frontend_and_webcore(webcore):
     """
     Test the communication between this mock frontend and WebCORE.
     """
+    # pylint: disable=too-many-locals, too-many-statements, protected-access
     student = MockStudent.create_random()
-    cdm_name = "AirlineSystem"
+    cdm_name = EXAMPLE_CDM_NAME
     assert student.create_cdm(cdm_name)
 
     cdm = student.get_cdm(cdm_name)
@@ -150,7 +188,7 @@ def test_communication_between_mock_frontend_and_webcore(webcore):
     assert cdm[airplane]  # class should be in the new cdm
     assert cdm[airplane].name == "Airplane"
 
-    # Repeat for multiple classes
+    # Repeat for multiple numbered classes (Class0, ..., Class5)
     class_ids: list[str] = []
     for i in range(5):
         cls_name = f"Class{i}"
@@ -162,7 +200,7 @@ def test_communication_between_mock_frontend_and_webcore(webcore):
         assert cdm[cls]  # class should be in the cdm now
         assert cdm[cls].name == cls_name
 
-    # Delete the classes made in the previous loop
+    # Delete the numbered classes made in the previous loop
     for c in class_ids:
         student.delete_class(cdm_name, c)
         assert not student.get_cdm(cdm_name)[c]
@@ -186,6 +224,76 @@ def test_communication_between_mock_frontend_and_webcore(webcore):
         cdm = student.get_cdm(cdm_name)
         assert not cdm[attr_id]
 
+    # Add Pilot and Person classes
+    pilot = student.create_class(cdm_name, "Pilot")
+    person = student.create_class(cdm_name, "Person")
+    assert pilot and person
+    cdm = student.get_cdm(cdm_name)
+
+    assert cdm[pilot] and cdm[person]
+
+    # Add the following relationships
+    # Pilot isA Person
+    pilot, person = student.create_generalization(cdm_name, pilot, person)
+    cdm = student.get_cdm(cdm_name)
+    assert cdm[pilot] and cdm[person]
+    assert person in cdm[pilot].superTypes
+    assert pilot not in cdm[person].superTypes
+
+    # 1..2 Pilot pilots -- * Airplane airplanes
+    airplane = cdm.get_ids_by_class_names()["Airplane"]
+    pilot, pilots, pilot_airplane, airplanes, airplane = student.create_association(
+        cdm_name, (1, 2), pilot, "pilots", MANY, airplane, "airplanes")
+    cdm = student.get_cdm(cdm_name)
+    assert all((cdm[pilot], cdm[pilots], cdm[pilot_airplane], cdm[airplanes], cdm[airplane]))
+    assert cdm[pilot].name == "Pilot"
+    assert cdm[pilots].name == "pilots"
+    assert pilots in [ae._id for ae in cdm[airplane].associationEnds]  # Airplane.pilots
+    assert cdm[pilots].lowerBound == 1 and cdm[pilots].upperBound == 2
+    assert set(cdm[pilot_airplane].ends) == {pilots, airplanes}
+    assert cdm[airplanes].name == "airplanes"
+    assert airplanes in [ae._id for ae in cdm[pilot].associationEnds]  # Pilot.airplanes
+    assert cdm[airplanes].lowerBound == cdm[airplanes].upperBound == MANY
+    assert cdm[airplane].name == "Airplane"
+    assert person in cdm[pilot].superTypes  # make sure previous assertion still holds
+
+    # * Person passengers -- * Airplane airplanes
+    person = cdm.get_ids_by_class_names()["Person"]
+    airplane = cdm.get_ids_by_class_names()["Airplane"]
+    person, passengers, passenger_airplane, airplanes, airplane = student.create_association(
+        cdm_name, MANY, person, "passengers", MANY, airplane, "airplanes")
+    cdm = student.get_cdm(cdm_name)
+    assert all((cdm[person], cdm[passengers], cdm[passenger_airplane], cdm[airplanes], cdm[airplane]))
+    assert cdm[person].name == "Person"
+    assert cdm[passengers].name == "passengers"
+    assert passengers in [ae._id for ae in cdm[airplane].associationEnds]  # Airplane.passengers
+    assert cdm[passengers].lowerBound == cdm[passengers].upperBound == MANY
+    assert set(cdm[passenger_airplane].ends) == {passengers, airplanes}
+    assert cdm[airplanes].name == "airplanes"
+    assert airplanes in [ae._id for ae in cdm[person].associationEnds]  # Person.airplanes
+    assert cdm[airplanes].lowerBound == cdm[airplanes].upperBound == MANY
+    assert cdm[airplane].name == "Airplane"
+    assert person in cdm[pilot].superTypes
+
+    # 1 Airplane airplane <@>- 1..4 Engine engines
+    engine = student.create_class(cdm_name, "Engine")
+    airplane = cdm.get_ids_by_class_names()["Airplane"]
+    airplane, airplane_ae, airplane_engine, engines, engine = student.create_composition(
+        cdm_name, 1, airplane, "airplane", (1, 4), engine, "engines")
+    cdm = student.get_cdm(cdm_name)
+    assert all((cdm[airplane], cdm[airplane_ae], cdm[airplane_engine], cdm[engines], cdm[engine]))
+    assert cdm[airplane].name == "Airplane"
+    assert cdm[airplane_ae].name == "airplane"
+    assert cdm[airplane_ae].lowerBound == 1 and cdm[airplane_ae].upperBound == 1
+    assert cdm[airplane_ae].referenceType == "Regular"
+    assert set(cdm[airplane_engine].ends) == {airplane_ae, engines}
+    assert cdm[engines].name == "engines"
+    assert engines in [ae._id for ae in cdm[airplane].associationEnds]  # Airplane.engines
+    assert cdm[engines].lowerBound == 1 and cdm[engines].upperBound == 4
+    assert cdm[engines].referenceType == "Composition"
+    assert cdm[engine].name == "Engine"
+    assert person in cdm[pilot].superTypes
+
 
 def test_communication_between_mock_frontend_and_webcore_multiple_students(webcore):
     """
@@ -198,19 +306,9 @@ def test_communication_between_mock_frontend_and_webcore_multiple_students(webco
         # Logout logic is currently faulty, so uncommenting the lines below will cause the create_cdm() call to fail
         # assert student.logout() and not student.logged_in
         # assert student.login() and student.logged_in
-        assert student.create_cdm(CDM_NAME)
-        assert student.get_cdm(CDM_NAME)
+        assert student.create_cdm(EXAMPLE_CDM_NAME)
+        assert student.get_cdm(EXAMPLE_CDM_NAME)
         sleep(SLEEP_TIME_S)
-
-
-@pytest.mark.skip(reason="Not yet implemented")
-def test_communication_between_modeling_assistant_python_app_and_webcore(webcore):
-    """
-    Test the communication between the Modeling Assistant Python app and WebCORE.
-
-    A Modeling Assistant instance has solutions with solution elements, respectively
-    linked to class diagrams (accessed via WebCORE) with cdm elements.
-    """
 
 
 def test_webcore_user_register():
@@ -255,21 +353,6 @@ def set_modeling_assistant(ma: ModelingAssistant):
     requests.post(MA_REST_ENDPOINT, json={"modelingAssistantXmi": ma_str})
 
 
-def get_ma_with_ps(instructor_cdm: ClassDiagram) -> ModelingAssistant:
-    """
-    Create a Modeling Assistant instance with the provided parameters.
-    """
-    ma = MODELING_ASSISTANT.instance
-    ps = ProblemStatement(name=instructor_cdm.name.removesuffix("_instructor"), modelingAssistant=ma)
-    sol = Solution(classDiagram=instructor_cdm, problemStatement=ps, modelingAssistant=ma)
-    ps.instructorSolution = sol
-    ma.problemStatements.append(ps)
-    ma.solutions.append(sol)
-    assert ma.problemStatements[0].name
-    assert ma.solutions[0].classDiagram.name
-    return ma
-
-
 def valid(ma: ModelingAssistant) -> bool:
     """
     Check whether the provided Modeling Assistant instance is valid.
@@ -292,12 +375,12 @@ def _setup_instructor_solution():
     Setup the instructor solution by modifying the instructor cdm file.
     It is only meant to be called when the cdm needs to be modified.
     """
-    instructor_cdm = load_cdm(INSTRUCTOR_CDM, use_static_classes=False)
+    instructor_cdm = load_cdm(EXAMPLE_INSTRUCTOR_CDM, use_static_classes=False)
     instructor_cdm.name = "MULTIPLE_CLASSES_instructor"
     airplane_cls = Class(name="Airplane")
     airplane_cls.__class__ = instructor_cdm.classes[0].__class__  # do this hack for now
     instructor_cdm.classes.append(airplane_cls)
-    save_to_file(INSTRUCTOR_CDM, instructor_cdm)
+    save_to_file(EXAMPLE_INSTRUCTOR_CDM, instructor_cdm)
 
 
 if __name__ == '__main__':
@@ -309,3 +392,5 @@ if __name__ == '__main__':
     test_ma_two_class_student_mistake(ma_rest_app, webcore)
     # run again to ensure WebCORE still works after the previous test
     test_communication_between_mock_frontend_and_webcore(webcore)
+    test_communication_between_mock_frontend_and_webcore_multiple_students(webcore)
+    test_ma_multiple_feedback_levels(webcore)

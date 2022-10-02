@@ -153,10 +153,16 @@
 							<sources>
 								<source>../mistakedetection/src</source>
 								<source>../modelingassistant/src</source>
+								<!-- Maven will use these folders if all TouchCORE Eclipse projects are in one common folder -->
 								<source>${env.TOUCHCORE_SRC}/ca.mcgill.sel.classdiagram/src</source>
 								<source>${env.TOUCHCORE_SRC}/ca.mcgill.sel.commons/src</source>
 								<source>${env.TOUCHCORE_SRC}/ca.mcgill.sel.core/src</source>
 								<source>${env.TOUCHCORE_SRC}/ca.mcgill.sel.core.controller/src</source>
+								<!-- Maven will use these folders if the TouchCORE repo folders are side by side -->
+								<source>${env.TOUCHCORE_SRC}/touchram/ca.mcgill.sel.classdiagram/src</source>
+								<source>${env.TOUCHCORE_SRC}/core/ca.mcgill.sel.commons/src</source>
+								<source>${env.TOUCHCORE_SRC}/core/ca.mcgill.sel.core/src</source>
+								<source>${env.TOUCHCORE_SRC}/core/ca.mcgill.sel.core.controller/src</source>
 							</sources>
 						</configuration>
 					</execution>

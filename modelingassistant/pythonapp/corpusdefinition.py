@@ -223,10 +223,10 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 })),
                 attribute_duplicated := mt(n="Attribute duplicated", stud="attr", inst=[], feedbacks=fbs({
                     1: HighlightSolution(),
-                    3: TextResponse(text="Does this need to be included more than once?"),
-                    4: ParametrizedResponse(text="The ${stud_attr} already exists in the same class or another class "
+                    2: TextResponse(text="Does this need to be included more than once?"),
+                    3: ParametrizedResponse(text="The ${stud_attr} already exists in the same class or another class "
                         "in the generalization hierarchy, so there is no need to include it again."),
-                    5: ResourceResponse(learningResources=[attribute_reference]),
+                    4: ResourceResponse(learningResources=[attribute_reference]),
                 })),
                 attribute_misplaced_in_generalization_hierarchy := mt(
                     n="Attribute misplaced in generalization hierarchy", stud_inst="attr", feedbacks=fbs({
@@ -1035,8 +1035,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
                     3: ParametrizedResponse(text="An instance of ${stud_player_cls} can play more than one role out of "
-                                                  "${stud_role_enumitem*} at the same time and different features need "
-                                                  "to be captured for the roles."),
+                                                 "${stud_role_enumitem*} at the same time and different features need "
+                                                 "to be captured for the roles."),
                     4: ResourceResponse(learningResources=[pr_quiz]),
                     5: ResourceResponse(learningResources=[pr_ref]),
                 })),

@@ -1,0 +1,842 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>test_parametrizedresponse API documentation</title>
+<meta name="description" content="Tests for parametrized responses …" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>test_parametrizedresponse</code></h1>
+</header>
+<section id="section-intro">
+<p>Tests for parametrized responses.</p>
+<p>Note that some of the examples are somewhat contrived, since the focus of the tests is on the correctness of the
+parametrized responses and not the correctness of the example domain models.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">#!/usr/bin/env python3
+# pylint: disable=wrong-import-position
+
+&#34;&#34;&#34;
+Tests for parametrized responses.
+
+Note that some of the examples are somewhat contrived, since the focus of the tests is on the correctness of the
+parametrized responses and not the correctness of the example domain models.
+&#34;&#34;&#34;
+
+import os
+import re
+import sys
+from collections.abc import Iterable
+from string import digits
+from textwrap import dedent
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from metatypes import Metatype, aggr, assoc, assocend, assocends, attr, attrs, cls
+from classdiagram import Association, AssociationEnd, Class, NamedElement
+from createcorpus import LatexGenerator, underscorify
+from corpus import corpus
+from corpusdefinition import attribute_misplaced, missing_association_name, missing_class, wrong_role_name
+from parametrizedresponse import (comma_seperated_with_and, extract_params, parametrize_response,
+                                  param_parts_before_dot, param_start_elem_type, param_valid,
+                                  get_mapping_from_mistake_elem_descriptions_to_actual_mistake_elems, parse)
+from utils import mt
+from learningcorpus import MistakeElement, MistakeType, ParametrizedResponse
+from modelingassistant import Mistake, SolutionElement
+
+
+_PR_PARAM_PARSED_OUTPUT_FILE = &#34;modelingassistant/pythonapp/test/pr_param_parsed_output.md&#34;
+
+
+def test_prs_correctly_specified():
+    &#34;&#34;&#34;
+    Ensure that parametrized responses are correctly specified.
+
+    Each parameter must be parsable to a value that can be converted to a string and substituted into the response.
+
+    Numbers, `_`, `.`, and `*` have special meanings:
+    - [0-9] mean &#34;get the nth item of the subscriptable&#34;
+    - `_` is a separator, eg, `stud_sub_cls` means &#34;student subclass&#34;. Each parameter must start with `stud` or `inst`
+      and end with a valid type
+    - `.` is used to get the attribute of an object just like in Python. If no prespecified parameter is found,
+      Python&#39;s `getattr` is used to get the attribute.
+    - `*` indicates a sequence of items. Only one sequence is allowed in each element list.
+
+    Programmatic attributes are a metamodel property or a shorthand for it defined in parametrizedresponse.py.
+    &#34;&#34;&#34;
+    # assert syntactic correctness
+    for param, mt_ in get_pr_parameters_to_mistake_types().items():
+        assert param_valid(param, mt_)
+    # assert parameters in parametrized response text are actually contained in the mistake type&#39;s elements
+    for mt_ in corpus.mistakeTypes():
+        for pr in mt_.parametrized_responses():
+            for param in extract_params(pr.text):
+                for person in (&#34;stud&#34;, &#34;inst&#34;):
+                    if param.startswith(pers_ := f&#34;{person}_&#34;):
+                        p = &#34;student&#34; if person == &#34;stud&#34; else &#34;instructor&#34;
+                        assert (re.sub(r&#34;\d+&#34;, &#34;*&#34;, param.removeprefix(pers_).split(&#34;.&#34;)[0]) in
+                                [str(e) for e in getattr(mt_, f&#34;{p}Elements&#34;)]
+                        ), f&#34;Param {param} for {mt_.name} does not match mistake type element descriptions.&#34;
+
+
+def test_pr_aggr():
+    &#34;Test parametrized response for a single aggregation.&#34;
+    # Dummy mistake type used for testing
+    wrong_aggr_name = mt(&#34;Wrong aggregation name&#34;, stud_inst=&#34;aggr&#34;, feedbacks=[wrong_aggr_name_pr :=
+        ParametrizedResponse(text=&#34;The ${stud_aggr} aggregation should be renamed to ${inst_aggr}.&#34;)])
+    # Assume this mistake is returned from the Mistake Detection System
+    wrong_aggr_name_mistake = Mistake(instructorElements=[SolutionElement(element=aggr.example)],
+                                      studentElements=[SolutionElement(element=Association(ends=(stud_aes := [
+                                          AssociationEnd(classifier=Class(name=n)) for n in (&#34;Bad&#34;, &#34;Name&#34;)])))],
+                                      mistakeType=wrong_aggr_name)
+    pr_result = parametrize_response(wrong_aggr_name_pr, wrong_aggr_name_mistake)
+    assert pr_result
+    assert &#34;${&#34; not in pr_result
+    inst_cls0, inst_cls1 = (ae.classifier.name for ae in aggr.example.ends)
+    stud_cls0, stud_cls1 = (ae.classifier.name for ae in stud_aes)
+    assert pr_result == f&#34;The {stud_cls0}_{stud_cls1} aggregation should be renamed to {inst_cls0}_{inst_cls1}.&#34;
+
+
+def test_pr_assoc():
+    &#34;Test parametrized response for a single association.&#34;
+    missing_assoc_name_mistake = Mistake(instructorElements=[SolutionElement(element=assoc.example)],
+                                         studentElements=[SolutionElement(element=Association())],
+                                         mistakeType=missing_association_name)
+    missing_assoc_name_pr = missing_association_name.parametrized_responses()[0]
+    pr_result = parametrize_response(missing_assoc_name_pr, missing_assoc_name_mistake)
+    assert pr_result
+    assert &#34;${&#34; not in pr_result
+    cls0, cls1 = (ae.classifier.name for ae in assoc.example.ends)
+    assert pr_result == f&#34;This association should be named {cls0}_{cls1}.&#34;
+
+
+def test_pr_assoc_end():
+    &#34;Test parametrized response for a single association end.&#34;
+    wrong_role_name_mistake = Mistake(instructorElements=[SolutionElement(element=assocends.example[1])],
+                                      studentElements=[SolutionElement(element=assocend.example)],
+                                      mistakeType=wrong_role_name)
+    wrong_role_name_pr = wrong_role_name.parametrized_responses()[0]
+    pr_result = parametrize_response(wrong_role_name_pr, wrong_role_name_mistake)
+    assert pr_result
+    assert &#34;${&#34; not in pr_result
+    assert pr_result == f&#34;The {assocend.example.name} role name is not correct.&#34;
+
+
+def test_pr_attr():
+    &#34;Test parametrized response for a single attribute.&#34;
+    attribute_misplaced_mistake = Mistake(studentElements=[SolutionElement(element=attr.example)],
+                                          instructorElements=[SolutionElement(element=attrs.example[1])],
+                                          mistakeType=attribute_misplaced)
+    attribute_misplaced_pr = attribute_misplaced.parametrized_responses()[0]
+    pr_result = parametrize_response(attribute_misplaced_pr, attribute_misplaced_mistake)
+    assert pr_result
+    assert &#34;${&#34; not in pr_result
+    assert pr_result.startswith(
+        f&#34;The {attr.example.name} attribute does not belong in the {attr.example.eContainer().name} class.&#34;)
+
+
+def test_pr_cls():
+    &#34;Test parametrized response for a single class.&#34;
+    missing_class_mistake = Mistake(instructorElements=[SolutionElement(element=cls.example)],
+                                    mistakeType=missing_class)
+    missing_class_pr = missing_class.parametrized_responses()[0]
+    pr_result = parametrize_response(missing_class_pr, missing_class_mistake)
+    assert pr_result
+    assert &#34;${&#34; not in pr_result
+    assert pr_result == f&#34;Remember to add the {cls.example.name} class.&#34;
+
+
+def test_pr_missing_class():
+    &#34;&#34;&#34;
+    Test parametrized response for missing class mistake.
+    Note that for the time being, this test is a duplicate of another test above. In the future, tests should cover
+    all mistake types explicitly, and the assertions may be different.
+    &#34;&#34;&#34;
+    missing_class_name = &#34;Airplane&#34;
+    missing_class_mistake = Mistake(instructorElements=[SolutionElement(element=Class(name=missing_class_name))],
+                                    mistakeType=missing_class)
+    missing_class_pr = missing_class.parametrized_responses()[0]
+    pr_result = parametrize_response(missing_class_pr, missing_class_mistake)
+    assert pr_result
+    assert &#34;${&#34; not in pr_result
+    assert pr_result == f&#34;Remember to add the {missing_class_name} class.&#34;
+
+
+def test_all_pr_params_can_be_parsed():
+    &#34;&#34;&#34;
+    Test that all possible PR parameters can logically be parsed and save them to file for manual verification of
+    correctness.
+    &#34;&#34;&#34;
+    # TODO Remove this debugging code once logic is more stable
+    # param = &#34;stud_assocend0.cls&#34;
+    # start_elem = param_start_elem_type(param, as_type=CdmMetatype).example
+    # output = parse(param, start_elem)
+    # print(f&#34;{param = }&#34;)
+    # print(f&#34;cdm metatype = {param_start_elem_type(param, as_type=CdmMetatype).short_name}&#34;)
+    # print(f&#34;{start_elem = }&#34;)
+    # print(f&#34;{output = }&#34;)
+    # assert False
+
+    params_to_start_elem_and_parsed_output: dict[str, tuple[str, str]] = {}
+    for param in get_pr_parameters_to_mistake_types():
+        assert (start_elem := param_start_elem_type(param, as_type=Metatype).example), f&#34;Invalid {start_elem = }&#34;
+        assert (parsed_output := parse(param, start_elem)), f&#34;Invalid {parsed_output = }&#34;
+        assert isinstance(parsed_output, str) and &#34;${&#34; not in parsed_output
+        if any((c in param) for c in digits[1:]):
+            continue  # skip items with digits other than 0
+        params_to_start_elem_and_parsed_output[param.split(&#34;_&#34;)[-1]] = (start_elem, parsed_output)
+
+    pr_md = dedent(&#34;&#34;&#34;\
+        # Parametrized Response Parameters and Parsed Outputs
+
+        This file contains the parsed output of all possible parametrized response parameters.
+        It is used to verify correctness of the learning corpus parametrized responses as well as the parsing logic and
+        is generated by the `test_all_pr_params_can_be_parsed()` test.
+        The example domain model used in the test is defined in the `metatypes.py` file.
+        To avoid repetition, parameter prefixes such as &#34;stud_&#34; have been omitted from this document.
+
+        Parameter | Start Element(s) | Parsed Output
+        --------- | ---------------- | -------------
+        &#34;&#34;&#34;)
+    for param, start_elem_and_output in sorted(params_to_start_elem_and_parsed_output.items()):
+        start_elem, parsed_output = start_elem_and_output
+        if isinstance(start_elem, NamedElement):
+            start_elem = start_elem.name
+        elif isinstance(start_elem, Iterable):
+            if start_elem and isinstance(start_elem[0], NamedElement):
+                start_elem = comma_seperated_with_and(start_elem)
+            else:  # these last 2 cases should not happen, but are useful for debugging
+                start_elem = &#34;[]&#34;
+        else:
+            start_elem = getattr(start_elem, &#34;name&#34;, str(start_elem))
+        pr_md += f&#34;{param} | {start_elem} | {parsed_output}\n&#34;
+
+    with open(_PR_PARAM_PARSED_OUTPUT_FILE, &#34;w&#34;, encoding=&#34;utf-8&#34;) as f:
+        f.write(pr_md)
+
+    return pr_md
+
+
+def test_get_mapping_from_mistake_elem_descriptions_to_actual_mistake_elems():
+    &#34;Test get_mapping_from_mistake_elem_descriptions_to_actual_mistake_elems() helper function.&#34;
+    simple_mt = MistakeType(name=&#34;Simple mistake&#34;, studentElements=[MistakeElement(type=n) for n in &#34;ab&#34;])
+    varargs_mt = MistakeType(
+        name=&#34;Varargs mistake&#34;,
+        studentElements=[MistakeElement(type=n.removesuffix(&#34;*&#34;), many=n.endswith(&#34;*&#34;)) for n in [&#34;a&#34;, &#34;b&#34;, &#34;c*&#34;]])
+    simple_mistake = Mistake(studentElements=[SolutionElement(element=Class(name=c)) for c in &#34;ab&#34;],
+                             mistakeType=simple_mt)
+    varargs_mistake = Mistake(studentElements=[SolutionElement(element=Class(name=c)) for c in &#34;abxyz&#34;],
+                              mistakeType=varargs_mt)
+
+    assert get_mapping_from_mistake_elem_descriptions_to_actual_mistake_elems(simple_mistake) == {
+        &#34;stud_a&#34;: simple_mistake.studentElements[0].element,
+        &#34;stud_b&#34;: simple_mistake.studentElements[1].element,
+    }
+    assert get_mapping_from_mistake_elem_descriptions_to_actual_mistake_elems(varargs_mistake) == {
+        &#34;stud_a&#34;: varargs_mistake.studentElements[0].element,
+        &#34;stud_b&#34;: varargs_mistake.studentElements[1].element,
+        &#34;stud_c*&#34;: [varargs_mistake.studentElements[i].element for i in range(2, len(varargs_mistake.studentElements))],
+    }
+
+
+def test_extract_params():
+    &#34;Test extract_params() helper function.&#34;
+    assert extract_params(&#34;Example without params&#34;) == []
+    assert extract_params(&#34;Example with one ${stud_aggr}&#34;) == [&#34;stud_aggr&#34;]
+    assert extract_params(&#34;Example ${stud_cls} and ${stud_compos.end1.cls} and even ${inst_assoc.cls*}.&#34;) == [
+        &#34;stud_cls&#34;, &#34;stud_compos.end1.cls&#34;, &#34;inst_assoc.cls*&#34;]
+
+
+def test_param_parts_before_dot():
+    &#34;Test param_parts_before_dot() helper function.&#34;
+    assert param_parts_before_dot([]) == []
+    assert param_parts_before_dot([&#34;stud_cls&#34;]) == [&#34;stud_cls&#34;]
+    assert param_parts_before_dot(
+        [&#34;stud_cls&#34;, &#34;stud_attr.cls&#34;, &#34;stud_compos.end1.cls&#34;]) == [&#34;stud_cls&#34;, &#34;stud_attr&#34;, &#34;stud_compos&#34;]
+
+
+def get_all_pr_parameters() -&gt; dict[str, MistakeType]:
+    &#34;&#34;&#34;
+    Return a dict of all ParametrizedResponse parameters mapped to their mistake types. Note that a parameter may be
+    shared by multiple mistake types. An assertion is performed to ensure each response contains at least one parameter.
+    &#34;&#34;&#34;
+    prs = {}
+    pattern = re.compile(r&#34;\$\{(?P&lt;param&gt;.*?)\}&#34;)
+    for mt_ in corpus.mistakeTypes():
+        for pr in mt_.parametrized_responses():
+            matches = re.finditer(pattern, pr.text)
+            assert matches, f&#34;&#34;&#34;The parametrized response for mistake type {pr.mistakeType} with text {pr.text
+                             } does not contain any parameters.&#34;&#34;&#34;
+            for match_ in matches:
+                prs[match_.group(&#34;param&#34;)] = mt_
+    return prs
+
+
+def get_pr_parameters_to_mistake_types() -&gt; dict[str, MistakeType]:
+    &#34;Return a dict of ParametrizedResponse parameters mapped to mistake types with mistake detection formats.&#34;
+    return {param: mt_ for param, mt_ in get_all_pr_parameters().items()}
+
+
+def get_number_of_mistake_types_with_parametrized_responses() -&gt; int:
+    &#34;Return the number of mistake types with parametrized responses.&#34;
+    result = 0
+    for mt_ in corpus.mistakeTypes():
+        for fb in mt_.feedbacks:
+            if isinstance(fb, ParametrizedResponse):
+                result += 1
+                break
+    return result
+
+
+def get_latex_pr_param_parsed_output() -&gt; str:
+    &#34;Return the latex code for the parsed output of all parametrized response parameters.&#34;
+    tex = LatexGenerator.make_tex_table(test_all_pr_params_can_be_parsed())
+    print(tex)
+    return tex
+
+
+def get_mdis4lc_human_validated_parametrized_responses_java_mapping_entries() -&gt; str:
+    &#34;&#34;&#34;
+    Return the mapping entries for the HumanValidatedParametrizedResponses.java file.
+
+    Example entry:
+
+    ```java
+    entry(MISSING_ATTRIBUTE_TYPE, Set.of(&#34;The ${stud_attr.cls}.${stud_attr} attribute is missing something.&#34;,
+        &#34;The type of the ${stud_attr.cls}.${stud_attr} attribute should be ${inst_attr.type}.&#34;)),
+    ```
+    &#34;&#34;&#34;
+    entries = &#34;&#34;
+    mts_to_prs: dict[MistakeType, str | list[str]] = {}
+    for mt_ in corpus.mistakeTypes():
+        for fb in mt_.feedbacks:
+            if isinstance(fb, ParametrizedResponse):
+                if mt_ not in mts_to_prs:
+                    mts_to_prs[mt_] = fb.text
+                else:
+                    if isinstance(mts_to_prs[mt_], str):
+                        mts_to_prs[mt_] = [mts_to_prs[mt_], fb.text]
+                    else:
+                        mts_to_prs[mt_].append(fb.text)
+
+    for mt_, pr_text in sorted(mts_to_prs.items(), key=lambda pair: pair[0].name):
+        name = underscorify(mt_.name)
+        nl = &#34;\n&#34;
+        if isinstance(pr_text, str):
+            entries += f&#39;      entry({name}, Set.of(&#34;{pr_text}&#34;)),\n&#39;
+        else:
+            entries += f&#34;&#34;&#34;      entry({name}, Set.of(&#34;{f&#39;&#34;,{nl}          &#34;&#39;.join(pr_text)}&#34;)),\n&#34;&#34;&#34;
+
+    return entries.removesuffix(&#34;,\n&#34;)
+
+
+if __name__ == &#34;__main__&#34;:
+    &#34;Main entry point (used for debugging).&#34;
+    test_get_mapping_from_mistake_elem_descriptions_to_actual_mistake_elems()</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="test_parametrizedresponse.get_all_pr_parameters"><code class="name flex">
+<span>def <span class="ident">get_all_pr_parameters</span></span>(<span>) ‑> dict[str, <a title="learningcorpus.learningcorpus.MistakeType" href="learningcorpus/learningcorpus.html#learningcorpus.learningcorpus.MistakeType">MistakeType</a>]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return a dict of all ParametrizedResponse parameters mapped to their mistake types. Note that a parameter may be
+shared by multiple mistake types. An assertion is performed to ensure each response contains at least one parameter.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_all_pr_parameters() -&gt; dict[str, MistakeType]:
+    &#34;&#34;&#34;
+    Return a dict of all ParametrizedResponse parameters mapped to their mistake types. Note that a parameter may be
+    shared by multiple mistake types. An assertion is performed to ensure each response contains at least one parameter.
+    &#34;&#34;&#34;
+    prs = {}
+    pattern = re.compile(r&#34;\$\{(?P&lt;param&gt;.*?)\}&#34;)
+    for mt_ in corpus.mistakeTypes():
+        for pr in mt_.parametrized_responses():
+            matches = re.finditer(pattern, pr.text)
+            assert matches, f&#34;&#34;&#34;The parametrized response for mistake type {pr.mistakeType} with text {pr.text
+                             } does not contain any parameters.&#34;&#34;&#34;
+            for match_ in matches:
+                prs[match_.group(&#34;param&#34;)] = mt_
+    return prs</code></pre>
+</details>
+</dd>
+<dt id="test_parametrizedresponse.get_latex_pr_param_parsed_output"><code class="name flex">
+<span>def <span class="ident">get_latex_pr_param_parsed_output</span></span>(<span>) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the latex code for the parsed output of all parametrized response parameters.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_latex_pr_param_parsed_output() -&gt; str:
+    &#34;Return the latex code for the parsed output of all parametrized response parameters.&#34;
+    tex = LatexGenerator.make_tex_table(test_all_pr_params_can_be_parsed())
+    print(tex)
+    return tex</code></pre>
+</details>
+</dd>
+<dt id="test_parametrizedresponse.get_mdis4lc_human_validated_parametrized_responses_java_mapping_entries"><code class="name flex">
+<span>def <span class="ident">get_mdis4lc_human_validated_parametrized_responses_java_mapping_entries</span></span>(<span>) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the mapping entries for the HumanValidatedParametrizedResponses.java file.</p>
+<p>Example entry:</p>
+<pre><code class="language-java">entry(MISSING_ATTRIBUTE_TYPE, Set.of(&quot;The ${stud_attr.cls}.${stud_attr} attribute is missing something.&quot;,
+    &quot;The type of the ${stud_attr.cls}.${stud_attr} attribute should be ${inst_attr.type}.&quot;)),
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_mdis4lc_human_validated_parametrized_responses_java_mapping_entries() -&gt; str:
+    &#34;&#34;&#34;
+    Return the mapping entries for the HumanValidatedParametrizedResponses.java file.
+
+    Example entry:
+
+    ```java
+    entry(MISSING_ATTRIBUTE_TYPE, Set.of(&#34;The ${stud_attr.cls}.${stud_attr} attribute is missing something.&#34;,
+        &#34;The type of the ${stud_attr.cls}.${stud_attr} attribute should be ${inst_attr.type}.&#34;)),
+    ```
+    &#34;&#34;&#34;
+    entries = &#34;&#34;
+    mts_to_prs: dict[MistakeType, str | list[str]] = {}
+    for mt_ in corpus.mistakeTypes():
+        for fb in mt_.feedbacks:
+            if isinstance(fb, ParametrizedResponse):
+                if mt_ not in mts_to_prs:
+                    mts_to_prs[mt_] = fb.text
+                else:
+                    if isinstance(mts_to_prs[mt_], str):
+                        mts_to_prs[mt_] = [mts_to_prs[mt_], fb.text]
+                    else:
+                        mts_to_prs[mt_].append(fb.text)
+
+    for mt_, pr_text in sorted(mts_to_prs.items(), key=lambda pair: pair[0].name):
+        name = underscorify(mt_.name)
+        nl = &#34;\n&#34;
+        if isinstance(pr_text, str):
+            entries += f&#39;      entry({name}, Set.of(&#34;{pr_text}&#34;)),\n&#39;
+        else:
+            entries += f&#34;&#34;&#34;      entry({name}, Set.of(&#34;{f&#39;&#34;,{nl}          &#34;&#39;.join(pr_text)}&#34;)),\n&#34;&#34;&#34;
+
+    return entries.removesuffix(&#34;,\n&#34;)</code></pre>
+</details>
+</dd>
+<dt id="test_parametrizedresponse.get_number_of_mistake_types_with_parametrized_responses"><code class="name flex">
+<span>def <span class="ident">get_number_of_mistake_types_with_parametrized_responses</span></span>(<span>) ‑> int</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the number of mistake types with parametrized responses.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_number_of_mistake_types_with_parametrized_responses() -&gt; int:
+    &#34;Return the number of mistake types with parametrized responses.&#34;
+    result = 0
+    for mt_ in corpus.mistakeTypes():
+        for fb in mt_.feedbacks:
+            if isinstance(fb, ParametrizedResponse):
+                result += 1
+                break
+    return result</code></pre>
+</details>
+</dd>
+<dt id="test_parametrizedresponse.get_pr_parameters_to_mistake_types"><code class="name flex">
+<span>def <span class="ident">get_pr_parameters_to_mistake_types</span></span>(<span>) ‑> dict[str, <a title="learningcorpus.learningcorpus.MistakeType" href="learningcorpus/learningcorpus.html#learningcorpus.learningcorpus.MistakeType">MistakeType</a>]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return a dict of ParametrizedResponse parameters mapped to mistake types with mistake detection formats.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_pr_parameters_to_mistake_types() -&gt; dict[str, MistakeType]:
+    &#34;Return a dict of ParametrizedResponse parameters mapped to mistake types with mistake detection formats.&#34;
+    return {param: mt_ for param, mt_ in get_all_pr_parameters().items()}</code></pre>
+</details>
+</dd>
+<dt id="test_parametrizedresponse.test_all_pr_params_can_be_parsed"><code class="name flex">
+<span>def <span class="ident">test_all_pr_params_can_be_parsed</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test that all possible PR parameters can logically be parsed and save them to file for manual verification of
+correctness.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_all_pr_params_can_be_parsed():
+    &#34;&#34;&#34;
+    Test that all possible PR parameters can logically be parsed and save them to file for manual verification of
+    correctness.
+    &#34;&#34;&#34;
+    # TODO Remove this debugging code once logic is more stable
+    # param = &#34;stud_assocend0.cls&#34;
+    # start_elem = param_start_elem_type(param, as_type=CdmMetatype).example
+    # output = parse(param, start_elem)
+    # print(f&#34;{param = }&#34;)
+    # print(f&#34;cdm metatype = {param_start_elem_type(param, as_type=CdmMetatype).short_name}&#34;)
+    # print(f&#34;{start_elem = }&#34;)
+    # print(f&#34;{output = }&#34;)
+    # assert False
+
+    params_to_start_elem_and_parsed_output: dict[str, tuple[str, str]] = {}
+    for param in get_pr_parameters_to_mistake_types():
+        assert (start_elem := param_start_elem_type(param, as_type=Metatype).example), f&#34;Invalid {start_elem = }&#34;
+        assert (parsed_output := parse(param, start_elem)), f&#34;Invalid {parsed_output = }&#34;
+        assert isinstance(parsed_output, str) and &#34;${&#34; not in parsed_output
+        if any((c in param) for c in digits[1:]):
+            continue  # skip items with digits other than 0
+        params_to_start_elem_and_parsed_output[param.split(&#34;_&#34;)[-1]] = (start_elem, parsed_output)
+
+    pr_md = dedent(&#34;&#34;&#34;\
+        # Parametrized Response Parameters and Parsed Outputs
+
+        This file contains the parsed output of all possible parametrized response parameters.
+        It is used to verify correctness of the learning corpus parametrized responses as well as the parsing logic and
+        is generated by the `test_all_pr_params_can_be_parsed()` test.
+        The example domain model used in the test is defined in the `metatypes.py` file.
+        To avoid repetition, parameter prefixes such as &#34;stud_&#34; have been omitted from this document.
+
+        Parameter | Start Element(s) | Parsed Output
+        --------- | ---------------- | -------------
+        &#34;&#34;&#34;)
+    for param, start_elem_and_output in sorted(params_to_start_elem_and_parsed_output.items()):
+        start_elem, parsed_output = start_elem_and_output
+        if isinstance(start_elem, NamedElement):
+            start_elem = start_elem.name
+        elif isinstance(start_elem, Iterable):
+            if start_elem and isinstance(start_elem[0], NamedElement):
+                start_elem = comma_seperated_with_and(start_elem)
+            else:  # these last 2 cases should not happen, but are useful for debugging
+                start_elem = &#34;[]&#34;
+        else:
+            start_elem = getattr(start_elem, &#34;name&#34;, str(start_elem))
+        pr_md += f&#34;{param} | {start_elem} | {parsed_output}\n&#34;
+
+    with open(_PR_PARAM_PARSED_OUTPUT_FILE, &#34;w&#34;, encoding=&#34;utf-8&#34;) as f:
+        f.write(pr_md)
+
+    return pr_md</code></pre>
+</details>
+</dd>
+<dt id="test_parametrizedresponse.test_extract_params"><code class="name flex">
+<span>def <span class="ident">test_extract_params</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test extract_params() helper function.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_extract_params():
+    &#34;Test extract_params() helper function.&#34;
+    assert extract_params(&#34;Example without params&#34;) == []
+    assert extract_params(&#34;Example with one ${stud_aggr}&#34;) == [&#34;stud_aggr&#34;]
+    assert extract_params(&#34;Example ${stud_cls} and ${stud_compos.end1.cls} and even ${inst_assoc.cls*}.&#34;) == [
+        &#34;stud_cls&#34;, &#34;stud_compos.end1.cls&#34;, &#34;inst_assoc.cls*&#34;]</code></pre>
+</details>
+</dd>
+<dt id="test_parametrizedresponse.test_get_mapping_from_mistake_elem_descriptions_to_actual_mistake_elems"><code class="name flex">
+<span>def <span class="ident">test_get_mapping_from_mistake_elem_descriptions_to_actual_mistake_elems</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test get_mapping_from_mistake_elem_descriptions_to_actual_mistake_elems() helper function.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_get_mapping_from_mistake_elem_descriptions_to_actual_mistake_elems():
+    &#34;Test get_mapping_from_mistake_elem_descriptions_to_actual_mistake_elems() helper function.&#34;
+    simple_mt = MistakeType(name=&#34;Simple mistake&#34;, studentElements=[MistakeElement(type=n) for n in &#34;ab&#34;])
+    varargs_mt = MistakeType(
+        name=&#34;Varargs mistake&#34;,
+        studentElements=[MistakeElement(type=n.removesuffix(&#34;*&#34;), many=n.endswith(&#34;*&#34;)) for n in [&#34;a&#34;, &#34;b&#34;, &#34;c*&#34;]])
+    simple_mistake = Mistake(studentElements=[SolutionElement(element=Class(name=c)) for c in &#34;ab&#34;],
+                             mistakeType=simple_mt)
+    varargs_mistake = Mistake(studentElements=[SolutionElement(element=Class(name=c)) for c in &#34;abxyz&#34;],
+                              mistakeType=varargs_mt)
+
+    assert get_mapping_from_mistake_elem_descriptions_to_actual_mistake_elems(simple_mistake) == {
+        &#34;stud_a&#34;: simple_mistake.studentElements[0].element,
+        &#34;stud_b&#34;: simple_mistake.studentElements[1].element,
+    }
+    assert get_mapping_from_mistake_elem_descriptions_to_actual_mistake_elems(varargs_mistake) == {
+        &#34;stud_a&#34;: varargs_mistake.studentElements[0].element,
+        &#34;stud_b&#34;: varargs_mistake.studentElements[1].element,
+        &#34;stud_c*&#34;: [varargs_mistake.studentElements[i].element for i in range(2, len(varargs_mistake.studentElements))],
+    }</code></pre>
+</details>
+</dd>
+<dt id="test_parametrizedresponse.test_param_parts_before_dot"><code class="name flex">
+<span>def <span class="ident">test_param_parts_before_dot</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test param_parts_before_dot() helper function.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_param_parts_before_dot():
+    &#34;Test param_parts_before_dot() helper function.&#34;
+    assert param_parts_before_dot([]) == []
+    assert param_parts_before_dot([&#34;stud_cls&#34;]) == [&#34;stud_cls&#34;]
+    assert param_parts_before_dot(
+        [&#34;stud_cls&#34;, &#34;stud_attr.cls&#34;, &#34;stud_compos.end1.cls&#34;]) == [&#34;stud_cls&#34;, &#34;stud_attr&#34;, &#34;stud_compos&#34;]</code></pre>
+</details>
+</dd>
+<dt id="test_parametrizedresponse.test_pr_aggr"><code class="name flex">
+<span>def <span class="ident">test_pr_aggr</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test parametrized response for a single aggregation.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_pr_aggr():
+    &#34;Test parametrized response for a single aggregation.&#34;
+    # Dummy mistake type used for testing
+    wrong_aggr_name = mt(&#34;Wrong aggregation name&#34;, stud_inst=&#34;aggr&#34;, feedbacks=[wrong_aggr_name_pr :=
+        ParametrizedResponse(text=&#34;The ${stud_aggr} aggregation should be renamed to ${inst_aggr}.&#34;)])
+    # Assume this mistake is returned from the Mistake Detection System
+    wrong_aggr_name_mistake = Mistake(instructorElements=[SolutionElement(element=aggr.example)],
+                                      studentElements=[SolutionElement(element=Association(ends=(stud_aes := [
+                                          AssociationEnd(classifier=Class(name=n)) for n in (&#34;Bad&#34;, &#34;Name&#34;)])))],
+                                      mistakeType=wrong_aggr_name)
+    pr_result = parametrize_response(wrong_aggr_name_pr, wrong_aggr_name_mistake)
+    assert pr_result
+    assert &#34;${&#34; not in pr_result
+    inst_cls0, inst_cls1 = (ae.classifier.name for ae in aggr.example.ends)
+    stud_cls0, stud_cls1 = (ae.classifier.name for ae in stud_aes)
+    assert pr_result == f&#34;The {stud_cls0}_{stud_cls1} aggregation should be renamed to {inst_cls0}_{inst_cls1}.&#34;</code></pre>
+</details>
+</dd>
+<dt id="test_parametrizedresponse.test_pr_assoc"><code class="name flex">
+<span>def <span class="ident">test_pr_assoc</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test parametrized response for a single association.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_pr_assoc():
+    &#34;Test parametrized response for a single association.&#34;
+    missing_assoc_name_mistake = Mistake(instructorElements=[SolutionElement(element=assoc.example)],
+                                         studentElements=[SolutionElement(element=Association())],
+                                         mistakeType=missing_association_name)
+    missing_assoc_name_pr = missing_association_name.parametrized_responses()[0]
+    pr_result = parametrize_response(missing_assoc_name_pr, missing_assoc_name_mistake)
+    assert pr_result
+    assert &#34;${&#34; not in pr_result
+    cls0, cls1 = (ae.classifier.name for ae in assoc.example.ends)
+    assert pr_result == f&#34;This association should be named {cls0}_{cls1}.&#34;</code></pre>
+</details>
+</dd>
+<dt id="test_parametrizedresponse.test_pr_assoc_end"><code class="name flex">
+<span>def <span class="ident">test_pr_assoc_end</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test parametrized response for a single association end.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_pr_assoc_end():
+    &#34;Test parametrized response for a single association end.&#34;
+    wrong_role_name_mistake = Mistake(instructorElements=[SolutionElement(element=assocends.example[1])],
+                                      studentElements=[SolutionElement(element=assocend.example)],
+                                      mistakeType=wrong_role_name)
+    wrong_role_name_pr = wrong_role_name.parametrized_responses()[0]
+    pr_result = parametrize_response(wrong_role_name_pr, wrong_role_name_mistake)
+    assert pr_result
+    assert &#34;${&#34; not in pr_result
+    assert pr_result == f&#34;The {assocend.example.name} role name is not correct.&#34;</code></pre>
+</details>
+</dd>
+<dt id="test_parametrizedresponse.test_pr_attr"><code class="name flex">
+<span>def <span class="ident">test_pr_attr</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test parametrized response for a single attribute.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_pr_attr():
+    &#34;Test parametrized response for a single attribute.&#34;
+    attribute_misplaced_mistake = Mistake(studentElements=[SolutionElement(element=attr.example)],
+                                          instructorElements=[SolutionElement(element=attrs.example[1])],
+                                          mistakeType=attribute_misplaced)
+    attribute_misplaced_pr = attribute_misplaced.parametrized_responses()[0]
+    pr_result = parametrize_response(attribute_misplaced_pr, attribute_misplaced_mistake)
+    assert pr_result
+    assert &#34;${&#34; not in pr_result
+    assert pr_result.startswith(
+        f&#34;The {attr.example.name} attribute does not belong in the {attr.example.eContainer().name} class.&#34;)</code></pre>
+</details>
+</dd>
+<dt id="test_parametrizedresponse.test_pr_cls"><code class="name flex">
+<span>def <span class="ident">test_pr_cls</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test parametrized response for a single class.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_pr_cls():
+    &#34;Test parametrized response for a single class.&#34;
+    missing_class_mistake = Mistake(instructorElements=[SolutionElement(element=cls.example)],
+                                    mistakeType=missing_class)
+    missing_class_pr = missing_class.parametrized_responses()[0]
+    pr_result = parametrize_response(missing_class_pr, missing_class_mistake)
+    assert pr_result
+    assert &#34;${&#34; not in pr_result
+    assert pr_result == f&#34;Remember to add the {cls.example.name} class.&#34;</code></pre>
+</details>
+</dd>
+<dt id="test_parametrizedresponse.test_pr_missing_class"><code class="name flex">
+<span>def <span class="ident">test_pr_missing_class</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test parametrized response for missing class mistake.
+Note that for the time being, this test is a duplicate of another test above. In the future, tests should cover
+all mistake types explicitly, and the assertions may be different.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_pr_missing_class():
+    &#34;&#34;&#34;
+    Test parametrized response for missing class mistake.
+    Note that for the time being, this test is a duplicate of another test above. In the future, tests should cover
+    all mistake types explicitly, and the assertions may be different.
+    &#34;&#34;&#34;
+    missing_class_name = &#34;Airplane&#34;
+    missing_class_mistake = Mistake(instructorElements=[SolutionElement(element=Class(name=missing_class_name))],
+                                    mistakeType=missing_class)
+    missing_class_pr = missing_class.parametrized_responses()[0]
+    pr_result = parametrize_response(missing_class_pr, missing_class_mistake)
+    assert pr_result
+    assert &#34;${&#34; not in pr_result
+    assert pr_result == f&#34;Remember to add the {missing_class_name} class.&#34;</code></pre>
+</details>
+</dd>
+<dt id="test_parametrizedresponse.test_prs_correctly_specified"><code class="name flex">
+<span>def <span class="ident">test_prs_correctly_specified</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Ensure that parametrized responses are correctly specified.</p>
+<p>Each parameter must be parsable to a value that can be converted to a string and substituted into the response.</p>
+<p>Numbers, <code>_</code>, <code>.</code>, and <code>*</code> have special meanings:
+- [0-9] mean "get the nth item of the subscriptable"
+- <code>_</code> is a separator, eg, <code>stud_sub_cls</code> means "student subclass". Each parameter must start with <code>stud</code> or <code>inst</code>
+and end with a valid type
+- <code>.</code> is used to get the attribute of an object just like in Python. If no prespecified parameter is found,
+Python's <code>getattr</code> is used to get the attribute.
+- <code>*</code> indicates a sequence of items. Only one sequence is allowed in each element list.</p>
+<p>Programmatic attributes are a metamodel property or a shorthand for it defined in parametrizedresponse.py.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_prs_correctly_specified():
+    &#34;&#34;&#34;
+    Ensure that parametrized responses are correctly specified.
+
+    Each parameter must be parsable to a value that can be converted to a string and substituted into the response.
+
+    Numbers, `_`, `.`, and `*` have special meanings:
+    - [0-9] mean &#34;get the nth item of the subscriptable&#34;
+    - `_` is a separator, eg, `stud_sub_cls` means &#34;student subclass&#34;. Each parameter must start with `stud` or `inst`
+      and end with a valid type
+    - `.` is used to get the attribute of an object just like in Python. If no prespecified parameter is found,
+      Python&#39;s `getattr` is used to get the attribute.
+    - `*` indicates a sequence of items. Only one sequence is allowed in each element list.
+
+    Programmatic attributes are a metamodel property or a shorthand for it defined in parametrizedresponse.py.
+    &#34;&#34;&#34;
+    # assert syntactic correctness
+    for param, mt_ in get_pr_parameters_to_mistake_types().items():
+        assert param_valid(param, mt_)
+    # assert parameters in parametrized response text are actually contained in the mistake type&#39;s elements
+    for mt_ in corpus.mistakeTypes():
+        for pr in mt_.parametrized_responses():
+            for param in extract_params(pr.text):
+                for person in (&#34;stud&#34;, &#34;inst&#34;):
+                    if param.startswith(pers_ := f&#34;{person}_&#34;):
+                        p = &#34;student&#34; if person == &#34;stud&#34; else &#34;instructor&#34;
+                        assert (re.sub(r&#34;\d+&#34;, &#34;*&#34;, param.removeprefix(pers_).split(&#34;.&#34;)[0]) in
+                                [str(e) for e in getattr(mt_, f&#34;{p}Elements&#34;)]
+                        ), f&#34;Param {param} for {mt_.name} does not match mistake type element descriptions.&#34;</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="test_parametrizedresponse.get_all_pr_parameters" href="#test_parametrizedresponse.get_all_pr_parameters">get_all_pr_parameters</a></code></li>
+<li><code><a title="test_parametrizedresponse.get_latex_pr_param_parsed_output" href="#test_parametrizedresponse.get_latex_pr_param_parsed_output">get_latex_pr_param_parsed_output</a></code></li>
+<li><code><a title="test_parametrizedresponse.get_mdis4lc_human_validated_parametrized_responses_java_mapping_entries" href="#test_parametrizedresponse.get_mdis4lc_human_validated_parametrized_responses_java_mapping_entries">get_mdis4lc_human_validated_parametrized_responses_java_mapping_entries</a></code></li>
+<li><code><a title="test_parametrizedresponse.get_number_of_mistake_types_with_parametrized_responses" href="#test_parametrizedresponse.get_number_of_mistake_types_with_parametrized_responses">get_number_of_mistake_types_with_parametrized_responses</a></code></li>
+<li><code><a title="test_parametrizedresponse.get_pr_parameters_to_mistake_types" href="#test_parametrizedresponse.get_pr_parameters_to_mistake_types">get_pr_parameters_to_mistake_types</a></code></li>
+<li><code><a title="test_parametrizedresponse.test_all_pr_params_can_be_parsed" href="#test_parametrizedresponse.test_all_pr_params_can_be_parsed">test_all_pr_params_can_be_parsed</a></code></li>
+<li><code><a title="test_parametrizedresponse.test_extract_params" href="#test_parametrizedresponse.test_extract_params">test_extract_params</a></code></li>
+<li><code><a title="test_parametrizedresponse.test_get_mapping_from_mistake_elem_descriptions_to_actual_mistake_elems" href="#test_parametrizedresponse.test_get_mapping_from_mistake_elem_descriptions_to_actual_mistake_elems">test_get_mapping_from_mistake_elem_descriptions_to_actual_mistake_elems</a></code></li>
+<li><code><a title="test_parametrizedresponse.test_param_parts_before_dot" href="#test_parametrizedresponse.test_param_parts_before_dot">test_param_parts_before_dot</a></code></li>
+<li><code><a title="test_parametrizedresponse.test_pr_aggr" href="#test_parametrizedresponse.test_pr_aggr">test_pr_aggr</a></code></li>
+<li><code><a title="test_parametrizedresponse.test_pr_assoc" href="#test_parametrizedresponse.test_pr_assoc">test_pr_assoc</a></code></li>
+<li><code><a title="test_parametrizedresponse.test_pr_assoc_end" href="#test_parametrizedresponse.test_pr_assoc_end">test_pr_assoc_end</a></code></li>
+<li><code><a title="test_parametrizedresponse.test_pr_attr" href="#test_parametrizedresponse.test_pr_attr">test_pr_attr</a></code></li>
+<li><code><a title="test_parametrizedresponse.test_pr_cls" href="#test_parametrizedresponse.test_pr_cls">test_pr_cls</a></code></li>
+<li><code><a title="test_parametrizedresponse.test_pr_missing_class" href="#test_parametrizedresponse.test_pr_missing_class">test_pr_missing_class</a></code></li>
+<li><code><a title="test_parametrizedresponse.test_prs_correctly_specified" href="#test_parametrizedresponse.test_prs_correctly_specified">test_prs_correctly_specified</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

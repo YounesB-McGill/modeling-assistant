@@ -2,19 +2,21 @@
  */
 package modelingassistant;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.Map;
 import java.util.stream.Collectors;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.xmi.XMLResource;
 import ca.mcgill.sel.classdiagram.CdmPackage;
 import ca.mcgill.sel.classdiagram.util.CdmResourceFactoryImpl;
 import learningcorpus.LearningcorpusPackage;
@@ -43,10 +45,18 @@ import modelingassistant.util.ModelingassistantResourceFactoryImpl;
 public interface ModelingAssistant extends EObject {
 
   /**
-   * The resource set for all modeling assistant instances. This is an internal member and should not be referenced from
-   * other classes. Ideally, it should have been private, however this is not possible in current versions of Java,
-   * so it is marked as "internal," which is the convention used by Java and Eclipse for implementation details
-   * that cannot be made private.
+   * Dummy URI used as the "location" for ModelingAssistant instances that are serialized to a string.
+   * This is also an internal member and should not be referenced from other classes. Ideally, it should have been
+   * private, however this is not possible in current versions of Java interfaces, so it is marked as "internal," which
+   * is the convention used by Java and Eclipse for implementation details that cannot be made private.
+   *
+   * @generated NOT
+   */
+  /*private*/ String SAVE_TO_STRING_URI_INTERNAL = "*.modelingassistant";
+
+  /**
+   * The resource set for all modeling assistant instances. This is also an internal member and should not be referenced
+   * from other classes.
    *
    * @generated NOT
    */
@@ -116,7 +126,7 @@ public interface ModelingAssistant extends EObject {
   static ModelingAssistant fromFile(File file) {
     try {
       var maResource = RSET_INTERNAL.createResource(URI.createFileURI(file.getCanonicalPath()));
-      maResource.load(Collections.EMPTY_MAP);
+      maResource.load(Collections.emptyMap());
       return (ModelingAssistant) maResource.getContents().get(0);
     } catch (IOException e) {
       return null;
@@ -138,9 +148,10 @@ public interface ModelingAssistant extends EObject {
    * @generated NOT
    */
   static ModelingAssistant fromEcoreString(String maString) {
-    var resource = RSET_INTERNAL.createResource(URI.createFileURI("*.modelingassistant"));
+    RSET_INTERNAL.getResources().removeIf(r -> SAVE_TO_STRING_URI_INTERNAL.equals(r.getURI().toString()));
+    var resource = RSET_INTERNAL.createResource(URI.createFileURI(SAVE_TO_STRING_URI_INTERNAL));
     try {
-      resource.load(new URIConverter.ReadableInputStream(maString), Collections.EMPTY_MAP);
+      resource.load(new URIConverter.ReadableInputStream(maString), Collections.emptyMap());
       return (ModelingAssistant) resource.getContents().get(0);
     } catch (IOException e) {
       e.printStackTrace();
@@ -154,14 +165,18 @@ public interface ModelingAssistant extends EObject {
    * @generated NOT
    */
   default String toEcoreString() {
-    var resource = RSET_INTERNAL.createResource(URI.createFileURI("*.modelingassistant"));
+    var resource = zerothSaveToStringResource();
+    if (resource == null) {
+      resource = RSET_INTERNAL.createResource(URI.createFileURI(SAVE_TO_STRING_URI_INTERNAL));
+    }
+    resource.getContents().clear();
     resource.getContents().add(this);
     resource.getContents().addAll(getSolutions().stream().map(Solution::getClassDiagram)
         .collect(Collectors.toUnmodifiableList()));
     var outputStream = new ByteArrayOutputStream();
     try {
-      resource.save(outputStream, Collections.EMPTY_MAP);
-      return outputStream.toString(StandardCharsets.UTF_8);
+      resource.save(outputStream, Map.of(XMLResource.OPTION_ENCODING, UTF_8.name()));
+      return outputStream.toString(UTF_8);
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -183,6 +198,16 @@ public interface ModelingAssistant extends EObject {
         LearningcorpusPackage.eNAME, new LearningcorpusResourceFactoryImpl(),
         ModelingassistantPackage.eNAME, new ModelingassistantResourceFactoryImpl()));
     return rset;
+  }
+
+ /**
+  * Returns the zeroth resource in RSET_INTERNAL with a URI matching SAVE_TO_STRING_URI_INTERNAL.
+  *
+  * @generated NOT
+  */
+  private static Resource zerothSaveToStringResource() {
+    return RSET_INTERNAL.getResources().stream().filter(r -> SAVE_TO_STRING_URI_INTERNAL.equals(r.getURI().toString()))
+        .findFirst().orElse(null);
   }
 
 } // ModelingAssistant

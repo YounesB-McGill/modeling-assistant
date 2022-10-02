@@ -1,0 +1,1108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>utils API documentation</title>
+<meta name="description" content="Utility functions for the Modeling Assistant Python app.
+This module must not depend on any other to avoid circular dependencies." />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>utils</code></h1>
+</header>
+<section id="section-intro">
+<p>Utility functions for the Modeling Assistant Python app.
+This module must not depend on any other to avoid circular dependencies.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;
+Utility functions for the Modeling Assistant Python app.
+This module must not depend on any other to avoid circular dependencies.
+&#34;&#34;&#34;
+# pylint: disable=no-member
+
+# Ok to import items from standard library, constants, envvars, and pyecore model code only
+import json
+import re
+from collections import namedtuple
+from collections.abc import Iterable
+from functools import lru_cache
+from string import Formatter
+from types import SimpleNamespace
+from typing import Literal, Tuple
+
+from classdiagram import AssociationEnd, Classifier, ReferenceType
+from color import Color
+from constants import CORRECT_QUIZ_ITEM_NOTATIONS, MULTIPLE_FEEDBACKS_PER_LEVEL
+from learningcorpus import MistakeElement, MistakeTypeCategory, MistakeType, Feedback
+from learningcorpusquiz import (Blank, Choice, FillInTheBlanksQuiz, FillInTheBlanksQuizStatement,
+                                ListMultipleChoiceQuiz, NonBlank)
+from modelingassistant import ModelingAssistant
+
+
+# Add this to autogenerated classdiagram code in the future
+AeReferenceType = Literal[&#34;Regular&#34;, &#34;Composition&#34;, &#34;Aggregation&#34;, &#34;Qualified&#34;]
+
+_mtc_subcats: dict[MistakeTypeCategory, list[MistakeTypeCategory]] = {}
+
+_CACHE_SIZE = 128
+
+
+def warn(text: str):
+    &#34;Print a warning message to the console.&#34;
+    print(Color.ORANGE(f&#34;Warning: {text}&#34;))
+
+
+class RobustSimpleNamespace(SimpleNamespace):
+    &#34;&#34;&#34;
+    A SimpleNamespace that can handle missing keys.
+    &#34;&#34;&#34;
+    def __iter__(self):
+        return iter(self.__dict__)
+
+    def __getattr__(self, name: str) -&gt; object:
+        # In the cases where self represents an AssociationEnd with default values
+        # (eg, upperBound=1, referenceType=&#34;Regular&#34;), WebCORE omits them from the JSON and so we need add it manually
+        # This logic should be rewritten in a type safe way within the generated metamodel code somehow
+        if name == &#34;upperBound&#34; and &#34;lowerBound&#34; in self.__dict__:
+            return 1
+        if name == &#34;referenceType&#34;:
+            return &#34;Regular&#34;
+        return self.__dict__[name] if name in self.__dict__ else RobustSimpleNamespace()
+
+    def get(self, name: str, default: object = None) -&gt; object:
+        &#34;Get the item from the namespace dict, or the default if it doesn&#39;t exist.&#34;
+        return self.__dict__.get(name, default)
+
+
+def to_simplenamespace(d: dict) -&gt; SimpleNamespace:
+    &#34;&#34;&#34;
+    Convert a dictionary to a SimpleNamespace, to make it easier to access its keys using dot notation, eg,
+    d.p instead of d[&#34;p&#34;].
+    &#34;&#34;&#34;
+    return RobustSimpleNamespace(**d)
+
+
+def ae(cls_: Classifier, lb: int = 1, ub: int = 1, ref_type: ReferenceType = ReferenceType.Regular, n: str = &#34;&#34;
+       ) -&gt; AssociationEnd:
+    &#34;Shorthand to create a CDM association end.&#34;
+    return AssociationEnd(classifier=cls_, lowerBound=lb, upperBound=ub, referenceType=ref_type, name=n)
+
+
+def mtc(n, s=None, **kwargs) -&gt; MistakeTypeCategory:
+    &#34;Shorthand for MistakeTypeCategory initializer.&#34;
+    _mtc = MistakeTypeCategory(name=n, supercategory=s, **kwargs)
+    if &#34;subcategories&#34; in kwargs:
+        _mtc_subcats[_mtc] = kwargs[&#34;subcategories&#34;]
+    return _mtc
+
+
+def mt(n, d=&#34;&#34;, stud: str | list[str] = None, inst: str | list[str] = None, stud_inst: str | list[str] = None,
+       types: dict = None, **kwargs) -&gt; MistakeType:
+    &#34;&#34;&#34;
+    Shorthand for MistakeType initializer.
+
+    n: name of the mistake type
+    d: description of the mistake type
+    &#34;&#34;&#34;
+    # change the line below to use other languages
+    if not types:
+        from metatypes import CDM_METATYPES as types  # pylint: disable=import-outside-toplevel
+    def elems(me_s: str | list[str]) -&gt; list[MistakeElement]:
+        &#34;Helper function to create the list of MistakeElements for the given input string(s).&#34;
+        strs = tmp if isinstance(tmp := (stud_inst or me_s), list) else [tmp]
+        result = []
+        for s in strs:
+            _split = s.split(&#34;_&#34;)
+            desired_type_name = re.sub(r&#34;[*\d]+&#34;, &#34;&#34;, _split[-1])
+            if desired_type_name not in types:
+                raise ValueError(f&#34;{desired_type_name} is not a valid metatype name.&#34;)
+            t = re.sub(r&#34;[*\d]+&#34;, &#34;&#34;, _split[-1])  # TODO improve this later
+            result.append(MistakeElement(name=&#34;_&#34;.join(_split[:-1]), many=s.endswith(&#34;*&#34;), type=t))
+        return result
+    if n == d:
+        warn(f&#34;Name and description are identical for mistake type {n}&#34;)
+    if not d:
+        d = n
+    if not any((stud, inst, stud_inst)):
+        raise ValueError(&#34;At least one of stud, inst, stud_inst must be provided&#34;)
+    if (stud and stud_inst) or (inst and stud_inst):
+        raise ValueError(&#34;stud_inst cannot be used in conjunction with stud or inst&#34;)
+    if stud and stud == inst:
+        warn(f&#34;stud and inst are identical for mistake type {n}, so prefer stud_inst to specify mistake elements&#34;)
+    return MistakeType(name=n, description=d, studentElements=elems(stud), instructorElements=elems(inst), **kwargs)
+
+
+def fbs(fbs_by_level: dict[int, Feedback | list[Feedback]]) -&gt; list[Feedback]:
+    &#34;&#34;&#34;
+    Shorthand for Feedback initializer.
+
+    fbs_by_level: dictionary of feedbacks, keyed by the feedback level
+    &#34;&#34;&#34;
+    feedbacks = []
+    for level, fb_s in fbs_by_level.items():
+        if isinstance(fb_s, list):
+            for fb in fb_s:
+                fb.level = level
+                feedbacks.append(fb)
+                if not MULTIPLE_FEEDBACKS_PER_LEVEL:
+                    break
+        else:
+            fb: Feedback = fb_s
+            fb.level = level
+            feedbacks.append(fb)
+    return feedbacks
+
+
+def fitb(prompt: str, *statements) -&gt; FillInTheBlanksQuiz:
+    &#34;&#34;&#34;
+    Shorthand for FillInTheBlanksQuiz initializer.
+
+    prompt: introductory text for the quiz
+    statements: quiz statements with blanks to be filled in, with the following format:
+        &#34;Python formatted string with {blanks} in {curly braces}.&#34;
+     -&gt; &#34;Python formatted string with ________ in ______________.&#34;
+
+    Example usage:
+    ```
+    fitb(&#34;Fill in the blanks to complete the sentence:&#34;,
+         &#34;The capital of Canada is {Ottawa} and its largest city is {Toronto}.&#34;,
+         &#34;The capital and largest city of France is {Paris}.&#34;,
+         &#34;The capital of {Australia} is Canberra.&#34;)
+    ```
+    &#34;&#34;&#34;
+    if not prompt or not isinstance(prompt, str):
+        raise ValueError(f&#34;Prompt must be a non-empty string, got {prompt}&#34;)
+    if not statements:
+        raise ValueError(&#34;No statements provided for FillInTheBlanksQuiz&#34;)
+
+    quiz = FillInTheBlanksQuiz(content=prompt)
+
+    &#34;&#34;&#34;
+    Use the Python string formatter to parse the statements as in this example:
+
+    &gt;&gt;&gt; list(Formatter().parse(&#34;A{B}C{D}{E}F&#34;))
+    [(&#39;A&#39;, &#39;B&#39;, &#39;&#39;, None), (&#39;C&#39;, &#39;D&#39;, &#39;&#39;, None), (&#39;&#39;, &#39;E&#39;, &#39;&#39;, None), (&#39;F&#39;, None, None, None)]
+    &#34;&#34;&#34;
+    fmt = Formatter()
+    for statement_str in statements:
+        if not statement_str:
+            continue
+        statement = FillInTheBlanksQuizStatement()
+        for non_blank, blank, _, _ in fmt.parse(statement_str):
+            if non_blank:
+                statement.components.append(NonBlank(text=non_blank))
+            if blank:
+                statement.components.append(Blank(correctAnswer=blank))
+        quiz.statements.append(statement)
+    return quiz
+
+
+class HighlightProblem(Feedback):
+    &#34;Shorthand for Feedback initializer with highlightProblem=True.&#34;
+    # Use __new__ here to create a Feedback instance instead of a subclass not found in the metamodel
+    def __new__(cls, *args, **kwargs):
+        return Feedback(*args, highlightProblem=True, **kwargs)
+
+
+class HighlightSolution(Feedback):
+    &#34;Shorthand for Feedback initializer with highlightSolution=True.&#34;
+    def __new__(cls, *args, **kwargs):
+        return Feedback(*args, highlightSolution=True, **kwargs)
+
+
+class McqFactory:
+    &#34;&#34;&#34;
+    Factory to create a list multiple choice quiz.
+    &#34;&#34;&#34;
+    def __getitem__(self, items: tuple[str | slice]) -&gt; ListMultipleChoiceQuiz:
+        &#34;&#34;&#34;
+        Get the list multiple choice quiz defined according to the following input format:
+
+        The first item is the prompt for the quiz, which must be a string.
+        The remaining items are the choices for the quiz, and can be either strings or slices. If a slice is given and
+        the start item is a correct choice notation, the choice will be considered correct. There must be at least two
+        choices.
+
+        Example usage:
+        ```
+        mcq = McqFactory()
+        quiz = mcq[
+            &#34;What cities are located in Canada?&#34;,
+                  &#34;Chicago&#34;,
+            True: &#34;Montréal&#34;,
+                  &#34;Delhi&#34;,
+            True: &#34;Toronto&#34;,
+        ]
+        ```
+        &#34;&#34;&#34;
+        if not isinstance(items, tuple) or len(items) &lt; 3:
+            raise ValueError(&#34;Multiple choice quiz must have a prompt and at least two choices&#34;)
+        if not isinstance(items[0], str):
+            raise ValueError(&#34;Multiple choice quiz must start with a prompt&#34;)
+
+        mc_quiz = ListMultipleChoiceQuiz(content=items[0])
+
+        for item in items[1:]:
+            if isinstance(item, str):
+                mc_quiz.choices.append(Choice(text=item, quiz=mc_quiz))
+            if isinstance(item, slice):
+                # slice will have 3 parts in the order (start : stop [: step])
+                choice = Choice(text=item.stop, quiz=mc_quiz)
+                mc_quiz.choices.append(choice)
+                if str(item.start).lower() in CORRECT_QUIZ_ITEM_NOTATIONS:
+                    mc_quiz.correctChoices.append(choice)
+        if not mc_quiz.correctChoices:
+            warn(f&#39;Multiple choice quiz with prompt &#34;{mc_quiz.content}&#34;&#34; has no correct choices&#39;)
+
+        return mc_quiz
+
+
+mcq = McqFactory()
+
+
+class ClassDiagramDTO(RobustSimpleNamespace):
+    &#34;&#34;&#34;
+    Class Diagram Data Transfer (JSON) Object returned by WebCORE.
+
+    Properties: { eClass, _id, name, classes, types, layout }
+    &#34;&#34;&#34;
+    # pylint: disable=protected-access, super-init-not-called
+    def __init__(self, json_repr: dict | str | SimpleNamespace):
+        if isinstance(json_repr, str):
+            json_repr = json.loads(json_repr, object_hook=to_simplenamespace)
+        elif isinstance(json_repr, dict):
+            json_repr = to_simplenamespace(json_repr)
+        self.__dict__.update(json_repr.__dict__)
+        # Perhaps this can be cached in the future, if it is certain that WebCORE&#39;s type _ids will not change
+        self.type_names_to_ids: dict[str, str] = {t.eClass.removeprefix(&#34;http://cs.mcgill.ca/sel/cdm/1.0#//&#34;): t._id
+                                                  for t in self.classDiagram.types}
+
+    def get_class_names_by_ids(self) -&gt; dict[str, str]:
+        &#34;Return a dictionary mapping class _ids to class names.&#34;
+        # The RobustSimpleNamespace handles attribute existence checking
+        return {c._id: c.name for c in self.classDiagram.classes}
+
+    def get_ids_by_class_names(self) -&gt; dict[str, str]:
+        &#34;Return a dictionary mapping class names to class _ids.&#34;
+        return {c.name: c._id for c in self.classDiagram.classes}
+
+    def get_associations_by_ids(self) -&gt; dict:
+        &#34;Return a dictionary mapping association _ids to associations.&#34;
+        return {a._id: a for a in self.classDiagram.associations}
+
+    def type_id_for(self, type_: type | str) -&gt; str:
+        &#34;Return the type _id for the given type.&#34;
+        type_name = type_.__name__ if isinstance(type_, type) else type_
+        d = self.type_names_to_ids
+        return d.get(type_name, d[&#34;CDAny&#34;])  # return the Any type if exact type not found
+
+    @lru_cache(maxsize=_CACHE_SIZE)
+    def __getitem__(self, item: str) -&gt; SimpleNamespace:
+        return get_by_id(item, self)
+
+    class CustomJSONEncoder(json.JSONEncoder):
+        &#34;Custom JSON encoder to display object in a more readable way.&#34;
+        def default(self, o):
+            return o.__dict__
+
+    def __repr__(self):
+        return json.dumps(self.__dict__, indent=2, cls=self.CustomJSONEncoder)
+
+    def __eq__(self, __o: object) -&gt; bool:
+        return self.__dict__ == __o.__dict__
+
+    def __hash__(self) -&gt; int:
+        return hash(frozenset(self.__dict__))
+
+
+def cdm_diff(old_cdm: dict, new_cdm: dict) -&gt; Tuple[list[str], list[str]]:
+    &#34;Return the difference between the old and new cdms in the format (additions, removals).&#34;
+    def get_ids(iterable: Iterable, result: list[str] = None) -&gt; list[str]:
+        &#34;Recursively get the _ids of the given input.&#34;
+        if result is None:
+            result = []
+        if isinstance(iterable, SimpleNamespace):
+            iterable = iterable.__dict__
+        if isinstance(iterable, list):
+            for item in iterable:
+                for _id in get_ids(item):
+                    if _id not in result:
+                        result.append(_id)
+        elif isinstance(iterable, dict):
+            for key, value in iterable.items():
+                if key == &#34;_id&#34; and value not in result:
+                    result.append(value)
+                else:
+                    for _id in get_ids(value, result):
+                        if _id not in result:
+                            result.append(_id)
+        return result
+
+    old_ids, new_ids = get_ids(old_cdm), get_ids(new_cdm)
+    result_template = namedtuple(&#34;result&#34;, &#34;additions, removals&#34;)
+    additions = [_id for _id in new_ids if _id not in old_ids]
+    removals = [_id for _id in old_ids if _id not in new_ids]
+    return result_template(additions, removals)
+
+
+def get_by_id(_id: str, iterable: Iterable) -&gt; str:
+    &#34;Get the item with the given _id by recursing into the iterable.&#34;
+    if isinstance(iterable, SimpleNamespace):
+        iterable = iterable.__dict__
+    if isinstance(iterable, list):
+        for item in iterable:
+            if hasattr(item, &#34;get&#34;) and _id == item.get(&#34;_id&#34;, None):
+                return item
+            if result := get_by_id(_id, item):
+                return result
+    elif isinstance(iterable, dict):
+        for key, value in iterable.items():
+            if (key, value) == (&#34;_id&#34;, _id):
+                return to_simplenamespace(iterable)
+            if result := get_by_id(_id, value):
+                return result
+    return None
+
+
+class NonNoneDict(dict):
+    &#34;&#34;&#34;
+    A dictionary that disallows None keys and values.
+    &#34;&#34;&#34;
+    def __setitem__(self, key, value):
+        if key is None:
+            raise ValueError(&#34;Cannot set NonNoneDict key to None&#34;)
+        if value is None:
+            raise ValueError(&#34;Cannot set NonNoneDict value to None&#34;)
+        super().__setitem__(key, value)
+
+
+class ModelingAssistantContainer:
+    &#34;Class to contain a Modeling Assistant instance.&#34;
+    def __init__(self, modeling_assistant: ModelingAssistant = None):
+        self.instance: ModelingAssistant = modeling_assistant</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="utils.ae"><code class="name flex">
+<span>def <span class="ident">ae</span></span>(<span>cls_: <a title="classdiagram.classdiagram.Classifier" href="classdiagram/classdiagram.html#classdiagram.classdiagram.Classifier">Classifier</a>, lb: int = 1, ub: int = 1, ref_type: ReferenceType[EOrderedSet([Composition=0, Aggregation=1, Regular=2, Qualified=3])] = Regular=2, n: str = '') ‑> <a title="classdiagram.classdiagram.AssociationEnd" href="classdiagram/classdiagram.html#classdiagram.classdiagram.AssociationEnd">AssociationEnd</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Shorthand to create a CDM association end.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def ae(cls_: Classifier, lb: int = 1, ub: int = 1, ref_type: ReferenceType = ReferenceType.Regular, n: str = &#34;&#34;
+       ) -&gt; AssociationEnd:
+    &#34;Shorthand to create a CDM association end.&#34;
+    return AssociationEnd(classifier=cls_, lowerBound=lb, upperBound=ub, referenceType=ref_type, name=n)</code></pre>
+</details>
+</dd>
+<dt id="utils.cdm_diff"><code class="name flex">
+<span>def <span class="ident">cdm_diff</span></span>(<span>old_cdm: dict, new_cdm: dict) ‑> Tuple[list[str], list[str]]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the difference between the old and new cdms in the format (additions, removals).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def cdm_diff(old_cdm: dict, new_cdm: dict) -&gt; Tuple[list[str], list[str]]:
+    &#34;Return the difference between the old and new cdms in the format (additions, removals).&#34;
+    def get_ids(iterable: Iterable, result: list[str] = None) -&gt; list[str]:
+        &#34;Recursively get the _ids of the given input.&#34;
+        if result is None:
+            result = []
+        if isinstance(iterable, SimpleNamespace):
+            iterable = iterable.__dict__
+        if isinstance(iterable, list):
+            for item in iterable:
+                for _id in get_ids(item):
+                    if _id not in result:
+                        result.append(_id)
+        elif isinstance(iterable, dict):
+            for key, value in iterable.items():
+                if key == &#34;_id&#34; and value not in result:
+                    result.append(value)
+                else:
+                    for _id in get_ids(value, result):
+                        if _id not in result:
+                            result.append(_id)
+        return result
+
+    old_ids, new_ids = get_ids(old_cdm), get_ids(new_cdm)
+    result_template = namedtuple(&#34;result&#34;, &#34;additions, removals&#34;)
+    additions = [_id for _id in new_ids if _id not in old_ids]
+    removals = [_id for _id in old_ids if _id not in new_ids]
+    return result_template(additions, removals)</code></pre>
+</details>
+</dd>
+<dt id="utils.fbs"><code class="name flex">
+<span>def <span class="ident">fbs</span></span>(<span>fbs_by_level: dict[int, <a title="learningcorpus.learningcorpus.Feedback" href="learningcorpus/learningcorpus.html#learningcorpus.learningcorpus.Feedback">Feedback</a> | list[<a title="learningcorpus.learningcorpus.Feedback" href="learningcorpus/learningcorpus.html#learningcorpus.learningcorpus.Feedback">Feedback</a>]]) ‑> list[<a title="learningcorpus.learningcorpus.Feedback" href="learningcorpus/learningcorpus.html#learningcorpus.learningcorpus.Feedback">Feedback</a>]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Shorthand for Feedback initializer.</p>
+<p>fbs_by_level: dictionary of feedbacks, keyed by the feedback level</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def fbs(fbs_by_level: dict[int, Feedback | list[Feedback]]) -&gt; list[Feedback]:
+    &#34;&#34;&#34;
+    Shorthand for Feedback initializer.
+
+    fbs_by_level: dictionary of feedbacks, keyed by the feedback level
+    &#34;&#34;&#34;
+    feedbacks = []
+    for level, fb_s in fbs_by_level.items():
+        if isinstance(fb_s, list):
+            for fb in fb_s:
+                fb.level = level
+                feedbacks.append(fb)
+                if not MULTIPLE_FEEDBACKS_PER_LEVEL:
+                    break
+        else:
+            fb: Feedback = fb_s
+            fb.level = level
+            feedbacks.append(fb)
+    return feedbacks</code></pre>
+</details>
+</dd>
+<dt id="utils.fitb"><code class="name flex">
+<span>def <span class="ident">fitb</span></span>(<span>prompt: str, *statements) ‑> <a title="learningcorpusquiz.learningcorpusquiz.FillInTheBlanksQuiz" href="learningcorpusquiz/learningcorpusquiz.html#learningcorpusquiz.learningcorpusquiz.FillInTheBlanksQuiz">FillInTheBlanksQuiz</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Shorthand for FillInTheBlanksQuiz initializer.</p>
+<p>prompt: introductory text for the quiz
+statements: quiz statements with blanks to be filled in, with the following format:
+"Python formatted string with {blanks} in {curly braces}."
+-&gt; "Python formatted string with <strong><em>_</em></strong>_ in <strong><em>_</em></strong><strong><em>_</em></strong>."</p>
+<p>Example usage:</p>
+<pre><code>fitb(&quot;Fill in the blanks to complete the sentence:&quot;,
+     &quot;The capital of Canada is {Ottawa} and its largest city is {Toronto}.&quot;,
+     &quot;The capital and largest city of France is {Paris}.&quot;,
+     &quot;The capital of {Australia} is Canberra.&quot;)
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def fitb(prompt: str, *statements) -&gt; FillInTheBlanksQuiz:
+    &#34;&#34;&#34;
+    Shorthand for FillInTheBlanksQuiz initializer.
+
+    prompt: introductory text for the quiz
+    statements: quiz statements with blanks to be filled in, with the following format:
+        &#34;Python formatted string with {blanks} in {curly braces}.&#34;
+     -&gt; &#34;Python formatted string with ________ in ______________.&#34;
+
+    Example usage:
+    ```
+    fitb(&#34;Fill in the blanks to complete the sentence:&#34;,
+         &#34;The capital of Canada is {Ottawa} and its largest city is {Toronto}.&#34;,
+         &#34;The capital and largest city of France is {Paris}.&#34;,
+         &#34;The capital of {Australia} is Canberra.&#34;)
+    ```
+    &#34;&#34;&#34;
+    if not prompt or not isinstance(prompt, str):
+        raise ValueError(f&#34;Prompt must be a non-empty string, got {prompt}&#34;)
+    if not statements:
+        raise ValueError(&#34;No statements provided for FillInTheBlanksQuiz&#34;)
+
+    quiz = FillInTheBlanksQuiz(content=prompt)
+
+    &#34;&#34;&#34;
+    Use the Python string formatter to parse the statements as in this example:
+
+    &gt;&gt;&gt; list(Formatter().parse(&#34;A{B}C{D}{E}F&#34;))
+    [(&#39;A&#39;, &#39;B&#39;, &#39;&#39;, None), (&#39;C&#39;, &#39;D&#39;, &#39;&#39;, None), (&#39;&#39;, &#39;E&#39;, &#39;&#39;, None), (&#39;F&#39;, None, None, None)]
+    &#34;&#34;&#34;
+    fmt = Formatter()
+    for statement_str in statements:
+        if not statement_str:
+            continue
+        statement = FillInTheBlanksQuizStatement()
+        for non_blank, blank, _, _ in fmt.parse(statement_str):
+            if non_blank:
+                statement.components.append(NonBlank(text=non_blank))
+            if blank:
+                statement.components.append(Blank(correctAnswer=blank))
+        quiz.statements.append(statement)
+    return quiz</code></pre>
+</details>
+</dd>
+<dt id="utils.get_by_id"><code class="name flex">
+<span>def <span class="ident">get_by_id</span></span>(<span>_id: str, iterable: collections.abc.Iterable) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get the item with the given _id by recursing into the iterable.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_by_id(_id: str, iterable: Iterable) -&gt; str:
+    &#34;Get the item with the given _id by recursing into the iterable.&#34;
+    if isinstance(iterable, SimpleNamespace):
+        iterable = iterable.__dict__
+    if isinstance(iterable, list):
+        for item in iterable:
+            if hasattr(item, &#34;get&#34;) and _id == item.get(&#34;_id&#34;, None):
+                return item
+            if result := get_by_id(_id, item):
+                return result
+    elif isinstance(iterable, dict):
+        for key, value in iterable.items():
+            if (key, value) == (&#34;_id&#34;, _id):
+                return to_simplenamespace(iterable)
+            if result := get_by_id(_id, value):
+                return result
+    return None</code></pre>
+</details>
+</dd>
+<dt id="utils.mt"><code class="name flex">
+<span>def <span class="ident">mt</span></span>(<span>n, d='', stud: str | list[str] = None, inst: str | list[str] = None, stud_inst: str | list[str] = None, types: dict = None, **kwargs) ‑> <a title="learningcorpus.learningcorpus.MistakeType" href="learningcorpus/learningcorpus.html#learningcorpus.learningcorpus.MistakeType">MistakeType</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Shorthand for MistakeType initializer.</p>
+<p>n: name of the mistake type
+d: description of the mistake type</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def mt(n, d=&#34;&#34;, stud: str | list[str] = None, inst: str | list[str] = None, stud_inst: str | list[str] = None,
+       types: dict = None, **kwargs) -&gt; MistakeType:
+    &#34;&#34;&#34;
+    Shorthand for MistakeType initializer.
+
+    n: name of the mistake type
+    d: description of the mistake type
+    &#34;&#34;&#34;
+    # change the line below to use other languages
+    if not types:
+        from metatypes import CDM_METATYPES as types  # pylint: disable=import-outside-toplevel
+    def elems(me_s: str | list[str]) -&gt; list[MistakeElement]:
+        &#34;Helper function to create the list of MistakeElements for the given input string(s).&#34;
+        strs = tmp if isinstance(tmp := (stud_inst or me_s), list) else [tmp]
+        result = []
+        for s in strs:
+            _split = s.split(&#34;_&#34;)
+            desired_type_name = re.sub(r&#34;[*\d]+&#34;, &#34;&#34;, _split[-1])
+            if desired_type_name not in types:
+                raise ValueError(f&#34;{desired_type_name} is not a valid metatype name.&#34;)
+            t = re.sub(r&#34;[*\d]+&#34;, &#34;&#34;, _split[-1])  # TODO improve this later
+            result.append(MistakeElement(name=&#34;_&#34;.join(_split[:-1]), many=s.endswith(&#34;*&#34;), type=t))
+        return result
+    if n == d:
+        warn(f&#34;Name and description are identical for mistake type {n}&#34;)
+    if not d:
+        d = n
+    if not any((stud, inst, stud_inst)):
+        raise ValueError(&#34;At least one of stud, inst, stud_inst must be provided&#34;)
+    if (stud and stud_inst) or (inst and stud_inst):
+        raise ValueError(&#34;stud_inst cannot be used in conjunction with stud or inst&#34;)
+    if stud and stud == inst:
+        warn(f&#34;stud and inst are identical for mistake type {n}, so prefer stud_inst to specify mistake elements&#34;)
+    return MistakeType(name=n, description=d, studentElements=elems(stud), instructorElements=elems(inst), **kwargs)</code></pre>
+</details>
+</dd>
+<dt id="utils.mtc"><code class="name flex">
+<span>def <span class="ident">mtc</span></span>(<span>n, s=None, **kwargs) ‑> <a title="learningcorpus.learningcorpus.MistakeTypeCategory" href="learningcorpus/learningcorpus.html#learningcorpus.learningcorpus.MistakeTypeCategory">MistakeTypeCategory</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Shorthand for MistakeTypeCategory initializer.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def mtc(n, s=None, **kwargs) -&gt; MistakeTypeCategory:
+    &#34;Shorthand for MistakeTypeCategory initializer.&#34;
+    _mtc = MistakeTypeCategory(name=n, supercategory=s, **kwargs)
+    if &#34;subcategories&#34; in kwargs:
+        _mtc_subcats[_mtc] = kwargs[&#34;subcategories&#34;]
+    return _mtc</code></pre>
+</details>
+</dd>
+<dt id="utils.to_simplenamespace"><code class="name flex">
+<span>def <span class="ident">to_simplenamespace</span></span>(<span>d: dict) ‑> types.SimpleNamespace</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Convert a dictionary to a SimpleNamespace, to make it easier to access its keys using dot notation, eg,
+d.p instead of d["p"].</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def to_simplenamespace(d: dict) -&gt; SimpleNamespace:
+    &#34;&#34;&#34;
+    Convert a dictionary to a SimpleNamespace, to make it easier to access its keys using dot notation, eg,
+    d.p instead of d[&#34;p&#34;].
+    &#34;&#34;&#34;
+    return RobustSimpleNamespace(**d)</code></pre>
+</details>
+</dd>
+<dt id="utils.warn"><code class="name flex">
+<span>def <span class="ident">warn</span></span>(<span>text: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Print a warning message to the console.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def warn(text: str):
+    &#34;Print a warning message to the console.&#34;
+    print(Color.ORANGE(f&#34;Warning: {text}&#34;))</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="utils.ClassDiagramDTO"><code class="flex name class">
+<span>class <span class="ident">ClassDiagramDTO</span></span>
+<span>(</span><span>json_repr: dict | str | types.SimpleNamespace)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Class Diagram Data Transfer (JSON) Object returned by WebCORE.</p>
+<p>Properties: { eClass, _id, name, classes, types, layout }</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ClassDiagramDTO(RobustSimpleNamespace):
+    &#34;&#34;&#34;
+    Class Diagram Data Transfer (JSON) Object returned by WebCORE.
+
+    Properties: { eClass, _id, name, classes, types, layout }
+    &#34;&#34;&#34;
+    # pylint: disable=protected-access, super-init-not-called
+    def __init__(self, json_repr: dict | str | SimpleNamespace):
+        if isinstance(json_repr, str):
+            json_repr = json.loads(json_repr, object_hook=to_simplenamespace)
+        elif isinstance(json_repr, dict):
+            json_repr = to_simplenamespace(json_repr)
+        self.__dict__.update(json_repr.__dict__)
+        # Perhaps this can be cached in the future, if it is certain that WebCORE&#39;s type _ids will not change
+        self.type_names_to_ids: dict[str, str] = {t.eClass.removeprefix(&#34;http://cs.mcgill.ca/sel/cdm/1.0#//&#34;): t._id
+                                                  for t in self.classDiagram.types}
+
+    def get_class_names_by_ids(self) -&gt; dict[str, str]:
+        &#34;Return a dictionary mapping class _ids to class names.&#34;
+        # The RobustSimpleNamespace handles attribute existence checking
+        return {c._id: c.name for c in self.classDiagram.classes}
+
+    def get_ids_by_class_names(self) -&gt; dict[str, str]:
+        &#34;Return a dictionary mapping class names to class _ids.&#34;
+        return {c.name: c._id for c in self.classDiagram.classes}
+
+    def get_associations_by_ids(self) -&gt; dict:
+        &#34;Return a dictionary mapping association _ids to associations.&#34;
+        return {a._id: a for a in self.classDiagram.associations}
+
+    def type_id_for(self, type_: type | str) -&gt; str:
+        &#34;Return the type _id for the given type.&#34;
+        type_name = type_.__name__ if isinstance(type_, type) else type_
+        d = self.type_names_to_ids
+        return d.get(type_name, d[&#34;CDAny&#34;])  # return the Any type if exact type not found
+
+    @lru_cache(maxsize=_CACHE_SIZE)
+    def __getitem__(self, item: str) -&gt; SimpleNamespace:
+        return get_by_id(item, self)
+
+    class CustomJSONEncoder(json.JSONEncoder):
+        &#34;Custom JSON encoder to display object in a more readable way.&#34;
+        def default(self, o):
+            return o.__dict__
+
+    def __repr__(self):
+        return json.dumps(self.__dict__, indent=2, cls=self.CustomJSONEncoder)
+
+    def __eq__(self, __o: object) -&gt; bool:
+        return self.__dict__ == __o.__dict__
+
+    def __hash__(self) -&gt; int:
+        return hash(frozenset(self.__dict__))</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="utils.RobustSimpleNamespace" href="#utils.RobustSimpleNamespace">RobustSimpleNamespace</a></li>
+<li>types.SimpleNamespace</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="utils.ClassDiagramDTO.CustomJSONEncoder"><code class="name">var <span class="ident">CustomJSONEncoder</span></code></dt>
+<dd>
+<div class="desc"><p>Custom JSON encoder to display object in a more readable way.</p></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="utils.ClassDiagramDTO.get_associations_by_ids"><code class="name flex">
+<span>def <span class="ident">get_associations_by_ids</span></span>(<span>self) ‑> dict</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return a dictionary mapping association _ids to associations.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_associations_by_ids(self) -&gt; dict:
+    &#34;Return a dictionary mapping association _ids to associations.&#34;
+    return {a._id: a for a in self.classDiagram.associations}</code></pre>
+</details>
+</dd>
+<dt id="utils.ClassDiagramDTO.get_class_names_by_ids"><code class="name flex">
+<span>def <span class="ident">get_class_names_by_ids</span></span>(<span>self) ‑> dict[str, str]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return a dictionary mapping class _ids to class names.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_class_names_by_ids(self) -&gt; dict[str, str]:
+    &#34;Return a dictionary mapping class _ids to class names.&#34;
+    # The RobustSimpleNamespace handles attribute existence checking
+    return {c._id: c.name for c in self.classDiagram.classes}</code></pre>
+</details>
+</dd>
+<dt id="utils.ClassDiagramDTO.get_ids_by_class_names"><code class="name flex">
+<span>def <span class="ident">get_ids_by_class_names</span></span>(<span>self) ‑> dict[str, str]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return a dictionary mapping class names to class _ids.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_ids_by_class_names(self) -&gt; dict[str, str]:
+    &#34;Return a dictionary mapping class names to class _ids.&#34;
+    return {c.name: c._id for c in self.classDiagram.classes}</code></pre>
+</details>
+</dd>
+<dt id="utils.ClassDiagramDTO.type_id_for"><code class="name flex">
+<span>def <span class="ident">type_id_for</span></span>(<span>self, type_: type | str) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the type _id for the given type.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def type_id_for(self, type_: type | str) -&gt; str:
+    &#34;Return the type _id for the given type.&#34;
+    type_name = type_.__name__ if isinstance(type_, type) else type_
+    d = self.type_names_to_ids
+    return d.get(type_name, d[&#34;CDAny&#34;])  # return the Any type if exact type not found</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="utils.HighlightProblem"><code class="flex name class">
+<span>class <span class="ident">HighlightProblem</span></span>
+<span>(</span><span>*, level=None, congratulatory=None, usefulness=None, highlightProblem=None, highlightSolution=None, mistakeType=None, text=None, learningCorpus=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Shorthand for Feedback initializer with highlightProblem=True.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class HighlightProblem(Feedback):
+    &#34;Shorthand for Feedback initializer with highlightProblem=True.&#34;
+    # Use __new__ here to create a Feedback instance instead of a subclass not found in the metamodel
+    def __new__(cls, *args, **kwargs):
+        return Feedback(*args, highlightProblem=True, **kwargs)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="learningcorpus.learningcorpus.Feedback" href="learningcorpus/learningcorpus.html#learningcorpus.learningcorpus.Feedback">Feedback</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="utils.HighlightProblem.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="utils.HighlightSolution"><code class="flex name class">
+<span>class <span class="ident">HighlightSolution</span></span>
+<span>(</span><span>*, level=None, congratulatory=None, usefulness=None, highlightProblem=None, highlightSolution=None, mistakeType=None, text=None, learningCorpus=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Shorthand for Feedback initializer with highlightSolution=True.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class HighlightSolution(Feedback):
+    &#34;Shorthand for Feedback initializer with highlightSolution=True.&#34;
+    def __new__(cls, *args, **kwargs):
+        return Feedback(*args, highlightSolution=True, **kwargs)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="learningcorpus.learningcorpus.Feedback" href="learningcorpus/learningcorpus.html#learningcorpus.learningcorpus.Feedback">Feedback</a></li>
+<li>pyecore.ecore.EObject</li>
+<li>pyecore.notification.ENotifer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="utils.HighlightSolution.eClass"><code class="name">var <span class="ident">eClass</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="utils.McqFactory"><code class="flex name class">
+<span>class <span class="ident">McqFactory</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Factory to create a list multiple choice quiz.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class McqFactory:
+    &#34;&#34;&#34;
+    Factory to create a list multiple choice quiz.
+    &#34;&#34;&#34;
+    def __getitem__(self, items: tuple[str | slice]) -&gt; ListMultipleChoiceQuiz:
+        &#34;&#34;&#34;
+        Get the list multiple choice quiz defined according to the following input format:
+
+        The first item is the prompt for the quiz, which must be a string.
+        The remaining items are the choices for the quiz, and can be either strings or slices. If a slice is given and
+        the start item is a correct choice notation, the choice will be considered correct. There must be at least two
+        choices.
+
+        Example usage:
+        ```
+        mcq = McqFactory()
+        quiz = mcq[
+            &#34;What cities are located in Canada?&#34;,
+                  &#34;Chicago&#34;,
+            True: &#34;Montréal&#34;,
+                  &#34;Delhi&#34;,
+            True: &#34;Toronto&#34;,
+        ]
+        ```
+        &#34;&#34;&#34;
+        if not isinstance(items, tuple) or len(items) &lt; 3:
+            raise ValueError(&#34;Multiple choice quiz must have a prompt and at least two choices&#34;)
+        if not isinstance(items[0], str):
+            raise ValueError(&#34;Multiple choice quiz must start with a prompt&#34;)
+
+        mc_quiz = ListMultipleChoiceQuiz(content=items[0])
+
+        for item in items[1:]:
+            if isinstance(item, str):
+                mc_quiz.choices.append(Choice(text=item, quiz=mc_quiz))
+            if isinstance(item, slice):
+                # slice will have 3 parts in the order (start : stop [: step])
+                choice = Choice(text=item.stop, quiz=mc_quiz)
+                mc_quiz.choices.append(choice)
+                if str(item.start).lower() in CORRECT_QUIZ_ITEM_NOTATIONS:
+                    mc_quiz.correctChoices.append(choice)
+        if not mc_quiz.correctChoices:
+            warn(f&#39;Multiple choice quiz with prompt &#34;{mc_quiz.content}&#34;&#34; has no correct choices&#39;)
+
+        return mc_quiz</code></pre>
+</details>
+</dd>
+<dt id="utils.ModelingAssistantContainer"><code class="flex name class">
+<span>class <span class="ident">ModelingAssistantContainer</span></span>
+<span>(</span><span>modeling_assistant: <a title="modelingassistant.modelingassistant.ModelingAssistant" href="modelingassistant/modelingassistant.html#modelingassistant.modelingassistant.ModelingAssistant">ModelingAssistant</a> = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Class to contain a Modeling Assistant instance.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ModelingAssistantContainer:
+    &#34;Class to contain a Modeling Assistant instance.&#34;
+    def __init__(self, modeling_assistant: ModelingAssistant = None):
+        self.instance: ModelingAssistant = modeling_assistant</code></pre>
+</details>
+</dd>
+<dt id="utils.NonNoneDict"><code class="flex name class">
+<span>class <span class="ident">NonNoneDict</span></span>
+<span>(</span><span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A dictionary that disallows None keys and values.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class NonNoneDict(dict):
+    &#34;&#34;&#34;
+    A dictionary that disallows None keys and values.
+    &#34;&#34;&#34;
+    def __setitem__(self, key, value):
+        if key is None:
+            raise ValueError(&#34;Cannot set NonNoneDict key to None&#34;)
+        if value is None:
+            raise ValueError(&#34;Cannot set NonNoneDict value to None&#34;)
+        super().__setitem__(key, value)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>builtins.dict</li>
+</ul>
+</dd>
+<dt id="utils.RobustSimpleNamespace"><code class="flex name class">
+<span>class <span class="ident">RobustSimpleNamespace</span></span>
+<span>(</span><span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A SimpleNamespace that can handle missing keys.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class RobustSimpleNamespace(SimpleNamespace):
+    &#34;&#34;&#34;
+    A SimpleNamespace that can handle missing keys.
+    &#34;&#34;&#34;
+    def __iter__(self):
+        return iter(self.__dict__)
+
+    def __getattr__(self, name: str) -&gt; object:
+        # In the cases where self represents an AssociationEnd with default values
+        # (eg, upperBound=1, referenceType=&#34;Regular&#34;), WebCORE omits them from the JSON and so we need add it manually
+        # This logic should be rewritten in a type safe way within the generated metamodel code somehow
+        if name == &#34;upperBound&#34; and &#34;lowerBound&#34; in self.__dict__:
+            return 1
+        if name == &#34;referenceType&#34;:
+            return &#34;Regular&#34;
+        return self.__dict__[name] if name in self.__dict__ else RobustSimpleNamespace()
+
+    def get(self, name: str, default: object = None) -&gt; object:
+        &#34;Get the item from the namespace dict, or the default if it doesn&#39;t exist.&#34;
+        return self.__dict__.get(name, default)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>types.SimpleNamespace</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="utils.ClassDiagramDTO" href="#utils.ClassDiagramDTO">ClassDiagramDTO</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="utils.RobustSimpleNamespace.get"><code class="name flex">
+<span>def <span class="ident">get</span></span>(<span>self, name: str, default: object = None) ‑> object</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get the item from the namespace dict, or the default if it doesn't exist.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get(self, name: str, default: object = None) -&gt; object:
+    &#34;Get the item from the namespace dict, or the default if it doesn&#39;t exist.&#34;
+    return self.__dict__.get(name, default)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="two-column">
+<li><code><a title="utils.ae" href="#utils.ae">ae</a></code></li>
+<li><code><a title="utils.cdm_diff" href="#utils.cdm_diff">cdm_diff</a></code></li>
+<li><code><a title="utils.fbs" href="#utils.fbs">fbs</a></code></li>
+<li><code><a title="utils.fitb" href="#utils.fitb">fitb</a></code></li>
+<li><code><a title="utils.get_by_id" href="#utils.get_by_id">get_by_id</a></code></li>
+<li><code><a title="utils.mt" href="#utils.mt">mt</a></code></li>
+<li><code><a title="utils.mtc" href="#utils.mtc">mtc</a></code></li>
+<li><code><a title="utils.to_simplenamespace" href="#utils.to_simplenamespace">to_simplenamespace</a></code></li>
+<li><code><a title="utils.warn" href="#utils.warn">warn</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="utils.ClassDiagramDTO" href="#utils.ClassDiagramDTO">ClassDiagramDTO</a></code></h4>
+<ul class="">
+<li><code><a title="utils.ClassDiagramDTO.CustomJSONEncoder" href="#utils.ClassDiagramDTO.CustomJSONEncoder">CustomJSONEncoder</a></code></li>
+<li><code><a title="utils.ClassDiagramDTO.get_associations_by_ids" href="#utils.ClassDiagramDTO.get_associations_by_ids">get_associations_by_ids</a></code></li>
+<li><code><a title="utils.ClassDiagramDTO.get_class_names_by_ids" href="#utils.ClassDiagramDTO.get_class_names_by_ids">get_class_names_by_ids</a></code></li>
+<li><code><a title="utils.ClassDiagramDTO.get_ids_by_class_names" href="#utils.ClassDiagramDTO.get_ids_by_class_names">get_ids_by_class_names</a></code></li>
+<li><code><a title="utils.ClassDiagramDTO.type_id_for" href="#utils.ClassDiagramDTO.type_id_for">type_id_for</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="utils.HighlightProblem" href="#utils.HighlightProblem">HighlightProblem</a></code></h4>
+<ul class="">
+<li><code><a title="utils.HighlightProblem.eClass" href="#utils.HighlightProblem.eClass">eClass</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="utils.HighlightSolution" href="#utils.HighlightSolution">HighlightSolution</a></code></h4>
+<ul class="">
+<li><code><a title="utils.HighlightSolution.eClass" href="#utils.HighlightSolution.eClass">eClass</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="utils.McqFactory" href="#utils.McqFactory">McqFactory</a></code></h4>
+</li>
+<li>
+<h4><code><a title="utils.ModelingAssistantContainer" href="#utils.ModelingAssistantContainer">ModelingAssistantContainer</a></code></h4>
+</li>
+<li>
+<h4><code><a title="utils.NonNoneDict" href="#utils.NonNoneDict">NonNoneDict</a></code></h4>
+</li>
+<li>
+<h4><code><a title="utils.RobustSimpleNamespace" href="#utils.RobustSimpleNamespace">RobustSimpleNamespace</a></code></h4>
+<ul class="">
+<li><code><a title="utils.RobustSimpleNamespace.get" href="#utils.RobustSimpleNamespace.get">get</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,1336 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>corpusdefinition API documentation</title>
+<meta name="description" content="Learning Corpus definition file. The corpus mistake types and learning items are defined here in a
+DSL style, as well as the mistake type priorities …" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>corpusdefinition</code></h1>
+</header>
+<section id="section-intro">
+<p>Learning Corpus definition file. The corpus mistake types and learning items are defined here in a
+DSL style, as well as the mistake type priorities.</p>
+<p>The actual corpus initialization is done in the corpus.py file.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;
+Learning Corpus definition file. The corpus mistake types and learning items are defined here in a
+DSL style, as well as the mistake type priorities.
+
+The actual corpus initialization is done in the corpus.py file.
+&#34;&#34;&#34;
+
+from textwrap import dedent
+
+from constants import T
+from learningcorpus import (Example, LearningCorpus, MistakeType, ParametrizedResponse, Quiz, Reference,
+                            ResourceResponse, TextResponse)
+from utils import mcq, mtc, mt, fbs, fitb, HighlightProblem, HighlightSolution
+
+
+# HTML checked and unchecked boxes, used in generated output
+CHECKED_BOX = &#34;&amp;#10003;&#34;
+UNCHECKED_BOX = &#34;&amp;#9744;&#34;
+
+
+corpus = LearningCorpus(mistakeTypeCategories=[
+    class_mistakes := mtc(n=&#34;Class mistakes&#34;,
+        mistakeTypes=[
+            missing_class := mt(n=&#34;Missing class&#34;, stud=[], inst=&#34;cls&#34;, feedbacks=fbs({
+                1: HighlightProblem(),  # Highlight entire sentence. Can infer this from level
+                2: TextResponse(text=&#34;Make sure you have modeled all the classes in the problem description.&#34;),
+                3: HighlightProblem(),
+                4: ParametrizedResponse(text=&#34;Remember to add the ${inst_cls} class.&#34;),
+                5: ResourceResponse(learningResources=[class_ref := Reference(content=&#34;Please review the &#34;
+                            &#34;[Classes](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.&#34;)]),
+            })),
+            extra_class := mt(n=&#34;Extra class&#34;, stud=&#34;cls&#34;, inst=[], feedbacks=fbs({
+                1: HighlightSolution(),
+                2: TextResponse(text=&#34;Make sure you only model the concepts mentioned in the problem description.&#34;),
+                3: TextResponse(text=&#34;Is it really necessary to include this class?&#34;),
+                # Context-specific written feedbacks are not yet supported. Only the zeroth items in these lists are
+                # added to the learning corpus for now. In the future, detected mistakes will either have a reason, or
+                # these additional feedbacks will be migrated to new mistake types
+                4: [ParametrizedResponse(
+                    text=&#34;The ${stud_cls} class is not part of the problem domain, so please remove it.&#34;),
+                    TextResponse(text=&#34;Remember that a domain model should not contain concepts from the user &#34;
+                                      &#34;interfaces or databases, like Window, Database, etc.&#34;)],
+                5: ResourceResponse(learningResources=[class_ref]),
+            })),
+        ],
+        subcategories=[
+            class_name_mistakes := mtc(n=&#34;Class name mistakes&#34;, mistakeTypes=[
+                plural_class_name := mt(n=&#34;Plural class name&#34;, atomic=True, stud_inst=&#34;cls&#34;, feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(text=&#34;Remember that class names should be singular.&#34;),
+                    3: ParametrizedResponse(text=&#34;${stud_cls} should be ${inst_cls}, using the singular.&#34;),
+                    # markdown emojis ✔ and ❌, which can be transform to LaTeX
+                    4: ResourceResponse(learningResources=[correct_class_naming_example := Example(content=dedent(&#34;&#34;&#34;\
+                        Please note these examples of correct vs incorrect class naming:
+                        :x: Examples to avoid | :heavy_check_mark: Good class names
+                        --- | ---
+                        pilot | Pilot
+                        Airplanes | Airplane 
+                        AirlineData | Airline&#34;&#34;&#34;))]),
+                    5: ResourceResponse(learningResources=[class_ref]),
+                })),
+                lowercase_class_name := mt(n=&#34;Lowercase class name&#34;, atomic=True, stud_inst=&#34;cls&#34;, feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(text=&#34;Remember that class names must start with a Capital Letter.&#34;),
+                    3: ParametrizedResponse(text=&#34;${stud_cls} should be ${inst_cls}, with a Capital Letter.&#34;),
+                    4: ResourceResponse(learningResources=[correct_class_naming_example]),
+                    5: ResourceResponse(learningResources=[class_ref]),
+                })),
+                software_engineering_term := mt(
+                    n=&#34;Software engineering term&#34;, atomic=True, stud_inst=&#34;cls&#34;, feedbacks=fbs({
+                        1: HighlightSolution(),
+                        2: TextResponse(
+                            text=&#34;Remember that a domain model should not contain software engineering terms.&#34;),
+                        3: ParametrizedResponse(text=&#34;${stud_cls} contains a software engineering term (e.g., data, &#34;
+                            &#34;database, table, record), which does not belong in a domain model.&#34;),
+                        4: ResourceResponse(learningResources=[correct_class_naming_example]),
+                        5: ResourceResponse(learningResources=[class_ref]),
+                    })),
+                bad_class_name_spelling := mt(n=&#34;Bad class name spelling&#34;, atomic=True, stud_inst=&#34;cls&#34;, feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(text=&#34;Double check this class name.&#34;),
+                    3: ParametrizedResponse(text=&#34;The ${stud_cls} class has a misspelled name.&#34;),
+                    4: ParametrizedResponse(text=&#34;The ${stud_cls} class should be changed to ${inst_cls}.&#34;),
+                    5: ResourceResponse(learningResources=[class_ref]),
+                })),
+                wrong_class_name := mt(n=&#34;Wrong class name&#34;, d=&#34;Wrong class name but correct attributes/relationships&#34;,
+                                       atomic=True, stud_inst=&#34;cls&#34;, feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(text=&#34;Double check this class name.&#34;),
+                    3: ParametrizedResponse(text=&#34;The ${stud_cls} class has a name that is not &#34;
+                                                 &#34;quite right but the attributes and/or associations are correct.&#34;),
+                    4: ParametrizedResponse(text=&#34;The ${stud_cls} class should be changed to ${inst_cls}.&#34;),
+                    5: ResourceResponse(learningResources=[class_ref]),
+                })),
+                class_should_be_abstract := mt(n=&#34;Class should be abstract&#34;, stud_inst=&#34;cls&#34;, feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(text=&#34;Isn&#39;t there something special about this class?&#34;),
+                    3: ParametrizedResponse(text=&#34;${stud_cls} should be abstract.&#34;),
+                    4: ResourceResponse(learningResources=[class_ref]),
+                })),
+                class_should_not_be_abstract := mt(n=&#34;Class should not be abstract&#34;, stud_inst=&#34;cls&#34;, feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(text=&#34;Is there something special about this class?&#34;),
+                    3: ParametrizedResponse(text=&#34;${stud_cls} should not be abstract.&#34;),
+                    4: ResourceResponse(learningResources=[class_ref]),
+                })),
+            ]),
+            enumeration_mistakes := mtc(n=&#34;Enumeration mistakes&#34;, mistakeTypes=[
+                class_should_be_enum := mt(
+                    n=&#34;Class should be enum&#34;, d=&#34;Regular class should be enumeration&#34;, stud=&#34;cls&#34;, inst=&#34;enum&#34;,
+                    feedbacks=fbs({
+                        1: HighlightSolution(),
+                        2: TextResponse(text=&#34;Is there anything special about this class?&#34;),
+                        3: ParametrizedResponse(text=&#34;The ${stud_cls} can only be one of ${inst_enum.literals.length} &#34;
+                                                     &#34;options, so what is the best way to model this?&#34;),
+                        4: ResourceResponse(learningResources=[enum_reference := Reference(content=&#34;Please review the &#34;
+                            &#34;[Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.&#34;)]),
+                    })),
+                enum_should_be_class := mt(
+                    n=&#34;Enum should be class&#34;, d=&#34;Enumeration should be regular class&#34;, stud=&#34;enum&#34;, inst=&#34;cls&#34;,
+                    feedbacks=fbs({
+                        1: HighlightSolution(),
+                        2: TextResponse(text=&#34;Is there anything special about this class?&#34;),
+                        3: ParametrizedResponse(
+                            text=&#34;Is ${stud_enum} limited to a fixed set of options? Can this be modeled differently?&#34;),
+                        4: ResourceResponse(learningResources=[enum_reference]),
+                    })),
+                missing_enum := mt(n=&#34;Missing enum&#34;, d=&#34;Missing enumeration&#34;, stud=[], inst=&#34;enum&#34;, feedbacks=fbs({
+                    1: HighlightProblem(),
+                    2: TextResponse(text=&#34;How would you model this concept?&#34;),
+                    3: TextResponse(text=&#34;Model this concept with an enumeration.&#34;),
+                    4: ParametrizedResponse(text=&#34;Add a ${inst_enum} enumeration.&#34;),
+                    5: ResourceResponse(learningResources=[enum_reference]),
+                })),
+                extra_enum := mt(n=&#34;Extra enum&#34;, d=&#34;Extra enumeration&#34;, stud=&#34;enum&#34;, inst=[], feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(text=&#34;Is this enumeration really necessary?&#34;),
+                    3: ParametrizedResponse(text=&#34;Remove the ${stud_enum} enumeration. It is not needed.&#34;),
+                    4: ResourceResponse(learningResources=[enum_reference]),
+                })),
+                bad_enum_name_spelling := mt(
+                    n=&#34;Bad enum name spelling&#34;, d=&#34;Bad enumeration name spelling&#34;, stud_inst=&#34;enum&#34;, feedbacks=fbs({
+                        1: HighlightSolution(),
+                        2: TextResponse(text=&#34;Double check the name of this enumeration.&#34;),
+                        3: ParametrizedResponse(text=&#34;The ${stud_enum} should be changed to ${inst_enum}.&#34;),
+                        4: ResourceResponse(learningResources=[enum_reference]),
+                    })),
+                missing_enum_item := mt(
+                    n=&#34;Missing enum item&#34;, d=&#34;Missing enumeration item&#34;, stud=&#34;enum&#34;, inst=&#34;enumitem&#34;, feedbacks=fbs({
+                        1: HighlightSolution(),
+                        2: TextResponse(text=&#34;Is there anything missing here?&#34;),
+                        3: ParametrizedResponse(text=&#34;The ${stud_enum} enumeration is missing an item.&#34;),
+                        4: ParametrizedResponse(text=&#34;Add ${inst_enumitem} to the ${stud_enum} enumeration.&#34;),
+                        5: ResourceResponse(learningResources=[enum_reference]),
+                    })),
+                extra_enum_item := mt(
+                    n=&#34;Extra enum item&#34;, d=&#34;Extra enumeration item&#34;, stud=&#34;enumitem&#34;, inst=[], feedbacks=fbs({
+                        1: HighlightSolution(),
+                        2: TextResponse(text=&#34;Should this really be here?&#34;),
+                        3: ParametrizedResponse(
+                            text=&#34;${stud_enumitem} does not belong in the ${stud_enumitem.enum} enumeration.&#34;),
+                        4: ResourceResponse(learningResources=[enum_reference]),
+                    })),
+                bad_enum_item_spelling := mt(
+                    n=&#34;Bad enum item spelling&#34;, d=&#34;Bad enumeration item spelling&#34;, stud_inst=&#34;enumitem&#34;, feedbacks=fbs({
+                        1: HighlightSolution(),
+                        2: TextResponse(text=&#34;Double check this enumeration item.&#34;),
+                        3: ParametrizedResponse(text=&#34;${stud_enumitem} in the ${stud_enumitem.enum} should be changed &#34;
+                                                     &#34;to ${inst_enumitem}.&#34;),
+                        4: ResourceResponse(learningResources=[enum_reference]),
+                    })),
+            ]),
+        ]
+    ),
+
+    attribute_mistakes := mtc(n=&#34;Attribute mistakes&#34;,
+        mistakeTypes=[
+            missing_attribute := mt(n=&#34;Missing attribute&#34;, stud=&#34;cls&#34;, inst=&#34;attr&#34;, feedbacks=fbs({
+                1: HighlightSolution(),
+                2: TextResponse(text=&#34;Make sure to model all the attributes of this class.&#34;),
+                3: ParametrizedResponse(text=&#34;A ${inst_attr.cls} has a ${inst_attr}.&#34;),
+                4: ResourceResponse(learningResources=[attribute_reference := Reference(
+                    content=&#34;Please review the [Attribute](https://mycourses2.mcgill.ca/) and &#34;
+                        &#34;[Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.&#34;)]),
+            })),
+        ],
+        subcategories=[
+            attribute_name_mistakes := mtc(n=&#34;Attribute name mistakes&#34;, mistakeTypes=[
+                bad_attribute_name_spelling := mt(n=&#34;Bad attribute name spelling&#34;, stud_inst=&#34;attr&#34;, feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(text=&#34;Double check this attribute name.&#34;),
+                    3: ParametrizedResponse(text=&#34;The ${stud_attr.cls}.${stud_attr} attribute is misspelled.[ Use the &#34;
+                                                 &#34;same spelling as the problem description.]&#34;),
+                    4: ResourceResponse(learningResources=[attr_naming_quiz := mcq[
+                        &#34;Select all the correct attribute names from the list below.&#34;,
+                           &#34;needsReciept&#34;,
+                        T: &#34;numberOfItems&#34;,
+                           &#34;ID&#34;,
+                           &#34;numItems&#34;,
+                           &#34;Name&#34;,
+                        T: &#34;identifier&#34;,
+                    ]]),
+                    5: ResourceResponse(learningResources=[attribute_reference]),
+                })),
+                uppercase_attribute_name := mt(n=&#34;Uppercase attribute name&#34;, stud_inst=&#34;attr&#34;, feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: [TextResponse(text=&#34;Remember that attributes are written in `lowerCamelCase`.&#34;),
+                        TextResponse(text=&#34;Can this attribute be renamed?&#34;)],
+                    3: ParametrizedResponse(text=&#34;The ${stud_attr.cls}.${stud_attr} attribute incorrectly starts with &#34;
+                        &#34;an Uppercase Letter. Attributes should start with a lowercase letter.&#34;),
+                    4: ResourceResponse(learningResources=[attr_naming_quiz]),
+                    5: ResourceResponse(learningResources=[attribute_reference]),
+                })),
+            ]),
+            attribute_in_wrong_class_mistakes := mtc(n=&#34;Attribute in wrong class mistakes&#34;, mistakeTypes=[
+                attribute_misplaced := mt(n=&#34;Attribute misplaced&#34;, stud_inst=&#34;attr&#34;, feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(text=&#34;Can you think of a better place for this attribute?&#34;),
+                    3: ParametrizedResponse(text=&#34;The ${stud_attr} attribute does not belong in the ${stud_attr.cls} &#34;
+                                                 &#34;class. Where else can we place it?&#34;),
+                    4: ParametrizedResponse(text=&#34;The ${stud_attr} attribute belongs in the ${inst_attr.cls} class.&#34;),
+                    5: ResourceResponse(learningResources=[attribute_reference]),
+                })),
+                attribute_duplicated := mt(n=&#34;Attribute duplicated&#34;, stud=&#34;attr&#34;, inst=[], feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(text=&#34;Does this need to be included more than once?&#34;),
+                    3: ParametrizedResponse(text=&#34;The ${stud_attr} already exists in the same class or another class &#34;
+                        &#34;in the generalization hierarchy, so there is no need to include it again.&#34;),
+                    4: ResourceResponse(learningResources=[attribute_reference]),
+                })),
+                attribute_misplaced_in_generalization_hierarchy := mt(
+                    n=&#34;Attribute misplaced in generalization hierarchy&#34;, stud_inst=&#34;attr&#34;, feedbacks=fbs({
+                        1: HighlightSolution(),
+                        2: TextResponse(text=&#34;Can you think of a better place for this?&#34;),
+                        3: ParametrizedResponse(text=&#34;The ${stud_attr} attribute belongs in the ${inst_attr.cls} &#34;
+                                                     &#34;class, i.e., a different class in the inheritance hierarchy.&#34;),
+                        4: ResourceResponse(learningResources=[attribute_reference]),
+                    })),
+            ]),
+            extra_attribute_mistakes := mtc(n=&#34;Extra attribute mistakes&#34;, mistakeTypes=[
+                plural_attribute := mt(n=&#34;Plural attribute&#34;, stud_inst=&#34;attr&#34;, feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(text=&#34;Double check this attribute name.&#34;),
+                    3: ParametrizedResponse(text=&#34;The ${stud_attr.cls}.${stud_attr} attribute should be singular.&#34;),
+                    # Create a list multiple choice quiz using the McqFactory. See its documentation for more details
+                    4: ResourceResponse(learningResources=[attribute_quiz := mcq[
+                        &#34;Pick the classes which are modeled correctly with Umple.&#34;,  # prompt
+                           &#34;class Student { courses; }&#34;,
+                           &#34;class Folder { List&lt;File&gt; files; }&#34;,
+                        T: &#34;class Restaurant { 1 -- * Employee; }&#34;,  # correct (true) choice
+                    ]]),
+                    5: ResourceResponse(learningResources=[attribute_reference]),
+                })),
+                list_attribute := mt(n=&#34;List attribute&#34;, stud_inst=&#34;attr&#34;, feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(text=&#34;Is there a better way to model this concept?&#34;),
+                    3: TextResponse(text=&#34;Remember that attributes are simple pieces of data.&#34;),
+                    4: ParametrizedResponse(
+                        text=&#34;${stud_attr} should be modeled as an association instead.&#34;),
+                    5: ResourceResponse(learningResources=[attribute_quiz]),
+                    6: ResourceResponse(learningResources=[attribute_reference]),
+                })),
+                extra_attribute := mt(n=&#34;Extra attribute&#34;, stud=&#34;attr&#34;, inst=[], feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(text=&#34;Do we really need to model this concept?&#34;),
+                    3: [ParametrizedResponse(text=&#34;The ${stud_attr} in the ${stud_attr.cls} class is not needed.&#34;),
+                        ParametrizedResponse(text=&#34;The ${stud_attr} attribute in the ${stud_attr.cls} class is &#34;
+                            &#34;not needed because it can be derived from ${inst_deriv_cls}.&#34;),
+                        ParametrizedResponse(text=&#34;The ${stud_attr} attribute in the ${stud_attr.cls} class is &#34;
+                            &#34;not needed because it is not part of the domain. You only need to model concepts related &#34;
+                            &#34;to the given problem description.&#34;)],
+                    4: ResourceResponse(learningResources=[attribute_reference]),
+                })),
+            ]),
+            attribute_property_mistakes := mtc(n=&#34;Attribute property mistakes&#34;, mistakeTypes=[
+                wrong_attribute_type := mt(n=&#34;Wrong attribute type&#34;, stud_inst=&#34;attr&#34;, feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(text=&#34;Double check the properties of this attribute.&#34;),
+                    3: ParametrizedResponse(text=&#34;Can you think of a better type for ${stud_attr}?&#34;),
+                    4: ParametrizedResponse(
+                        text=&#34;The ${stud_attr.cls}.${stud_attr} attribute should be of type ${inst_attr.type}.&#34;),
+                    5: ResourceResponse(learningResources=[attribute_reference]),
+                })),
+                missing_attribute_type := mt(n=&#34;Missing attribute type&#34;, stud_inst=&#34;attr&#34;, feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: ParametrizedResponse(text=&#34;The ${stud_attr.cls}.${stud_attr} attribute is missing something.&#34;),
+                    3: ParametrizedResponse(
+                        text=&#34;The type of the ${stud_attr.cls}.${stud_attr} attribute should be ${inst_attr.type}.&#34;),
+                    4: ResourceResponse(learningResources=[attribute_reference]),
+                })),
+                attribute_should_be_static := mt(n=&#34;Attribute should be static&#34;, stud_inst=&#34;attr&#34;, feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(text=&#34;Isn&#39;t there something special about this attribute?&#34;),
+                    3: ParametrizedResponse(text=&#34;${stud_attr} should be static, because its value is the same for all &#34;
+                                                 &#34;instances of ${stud_attr.cls}.&#34;),
+                    4: ResourceResponse(learningResources=[attribute_reference]),
+                })),
+                attribute_should_not_be_static := mt(
+                    n=&#34;Attribute should not be static&#34;, stud_inst=&#34;attr&#34;, feedbacks=fbs({
+                        1: HighlightSolution(),
+                        2: TextResponse(text=&#34;Double check the properties of this attribute.&#34;),
+                        3: ParametrizedResponse(text=&#34;${stud_attr} should not be static, because its value may be &#34;
+                                                    &#34;different for instances of ${stud_attr.cls}.&#34;),
+                        4: ResourceResponse(learningResources=[attribute_reference]),
+                    })),
+            ]),
+        ]
+    ),
+
+    relationship_mistakes := mtc(n=&#34;Relationship mistakes&#34;, subcategories=[
+        missing_association_aggregation_mistakes := mtc(n=&#34;Missing association/aggregation mistakes&#34;, mistakeTypes=[
+            missing_association := mt(n=&#34;Missing association&#34;, stud=[], inst=&#34;assoc&#34;, feedbacks=fbs({
+                1: HighlightProblem(),
+                2: TextResponse(text=&#34;How should this relationship be modeled?&#34;),
+                3: ParametrizedResponse(text=&#34;How would you capture the relationship between ${inst_assoc.end0.cls} &#34;
+                                             &#34;and ${inst_assoc.end1.cls}?&#34;),
+                4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref := Reference(content=dedent(&#34;&#34;&#34;\
+                    Please review the _Composition vs. Aggregation vs. Association_ section of 
+                    the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
+                    better understand these relationships and where they are used.
+
+                    ![composition vs aggregation vs association](images/composition_aggregation_association.png)&#34;&#34;&#34;)
+                )]),
+            })),
+            missing_aggregation := mt(
+                n=&#34;Missing aggregation&#34;, stud=[], inst=[&#34;aggr&#34;, &#34;whole_assocend&#34;, &#34;part_assocend&#34;], feedbacks=fbs({
+                    1: HighlightProblem(),
+                    2: TextResponse(text=&#34;How should this relationship be modeled?&#34;),
+                    3: ParametrizedResponse(text=&#34;How would you capture that a ${inst_whole_assocend.refcls} has a &#34;
+                                                &#34;${inst_part_assocend.refcls}?&#34;),
+                    4: ParametrizedResponse(text=&#34;Use aggregation to model the relationship between &#34;
+                                                &#34;${inst_part_assocend.cls} and ${inst_whole_assocend.cls}.&#34;),
+                    5: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
+                })),
+            missing_n_ary_association := mt(
+                n=&#34;Missing n-ary association&#34;, stud=[], inst=[&#34;assoc&#34;, &#34;assocend*&#34;], feedbacks=fbs({
+                    1: HighlightProblem(),
+                    2: TextResponse(text=&#34;How should this relationship be modeled?&#34;),
+                    3: ParametrizedResponse(text=&#34;How would you capture the relationship between ${inst_assoc.cls*}?&#34;),
+                    4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
+                })),
+            using_attribute_instead_of_assoc := mt(
+                n=&#34;Using attribute instead of assoc&#34;, d=&#34;Using attribute instead of association&#34;,
+                stud=&#34;attr&#34;, inst=&#34;assocend&#34;, feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(text=&#34;Remember that attributes are simple pieces of data.&#34;),
+                    3: ParametrizedResponse(text=&#34;${stud_attr} should be its own class.&#34;),
+                    4: ResourceResponse(learningResources=[mcq[
+                        &#34;Pick the class(es) modeled correctly in Umple.&#34;,
+                           &#34;class BankAccount { Client client; }&#34;,
+                        T: &#34;class BankAccount { * -- 1..2 Client clients; }; class Client {}&#34;,
+                           &#34;class BankAccount { 1..2 -- * Client clients; }; class Client {}&#34;,
+                           &#34;class Loan { libraryPatron; }&#34;]]),
+                    5: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
+                })),
+        ]),
+        extra_association_mistakes := mtc(n=&#34;Extra association mistakes&#34;, mistakeTypes=[
+            extra_association := mt(n=&#34;Extra association&#34;, stud=&#34;assoc&#34;, inst=[], feedbacks=fbs({
+                1: HighlightSolution(),
+                2: TextResponse(text=&#34;Is this association really necessary?&#34;),
+                3: [ParametrizedResponse(text=&#34;There should not be an association between ${stud_assoc.end0.cls} and &#34;
+                                              &#34;${stud_assoc.end1.cls}.&#34;),
+                    ParametrizedResponse(text=&#34;The relationship between ${stud_assoc.end0.cls} and &#34;
+                                              &#34;${stud_assoc.end1.cls} is not expressed in the problem description.&#34;),
+                    ParametrizedResponse(text=&#34;The relationship between ${classOne} and ${classTwo} is redundant &#34;
+                        &#34;since we can access ${classTwo} from ${classOne} via ${classThree}.&#34;)],
+                4: ResourceResponse(learningResources=[mcq[
+                    # Class diagram source: Hospital system sample UML class diagram in Umple Online
+                    dedent(&#34;&#34;&#34;\
+                        Find the redundant association(s) in this class diagram:
+                        
+                        ![Extra associations](images/hospital_cdm_extra_assocs.png)&#34;&#34;&#34;),
+                    T: &#34;Hospital -- Patient&#34;,
+                       &#34;Hospital -- Employee&#34;,
+                    T: &#34;Patient -- Surgeon&#34;,
+                    T: &#34;Doctor -- Ward&#34;,
+                       &#34;Hospital -- Ward&#34;,
+                    ]]),
+                5: ResourceResponse(learningResources=[generic_extra_item_ref := Reference(
+                        content=&#34;Please review the [domain modeling lecture](https://mycourses2.mcgill.ca/) to &#34;
+                                &#34;know which concepts should be a part of a domain model.&#34;)]),
+            })),
+            extra_aggregation := mt(
+                n=&#34;Extra aggregation&#34;, stud=[&#34;aggr&#34;, &#34;whole_assocend&#34;, &#34;part_assocend&#34;], inst=[], feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(text=&#34;Is this aggregation really necessary?&#34;),
+                    3: ParametrizedResponse(text=&#34;There should not be an aggregation between ${stud_aggr.end0.cls} and &#34;
+                                                 &#34;${stud_aggr.end1.cls}.&#34;),
+                    4: ResourceResponse(learningResources=[generic_extra_item_ref]),
+                })),
+            extra_n_ary_association := mt(
+                n=&#34;Extra n-ary association&#34;, stud=[&#34;assoc&#34;, &#34;assocend*&#34;], inst=[], feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(text=&#34;Is this association really necessary?&#34;),
+                    3: ParametrizedResponse(
+                        text=&#34;The relationship between the ${stud_assoc.cls*} classes is redundant.&#34;),
+                    4: ResourceResponse(learningResources=[generic_extra_item_ref]),
+                })),
+        ]),
+        multiplicity_mistakes := mtc(n=&#34;Multiplicity mistakes&#34;, mistakeTypes=[
+            infinite_recursive_dependency := mt(
+                n=&#34;Infinite recursive dependency&#34;, stud=&#34;assocend*&#34;, inst=[], feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(text=&#34;Double check this relationship.&#34;),
+                    3: TextResponse(text=&#34;The multiplicit(y|ies) for this relationship (is|are) incorrect.&#34;),
+                    4: ParametrizedResponse(text=&#34;Is it a good idea to specify that every ${stud_assocend0.cls} has a &#34;
+                                                &#34;minimum of ${stud_assocend0.lowerBound} ${stud_assocend0}?&#34;),
+                    5: ResourceResponse(learningResources=[mcq[
+                        dedent(&#34;&#34;&#34;\
+                            Given the following class diagram modeled in Umple, select the correct answer(s).
+                            
+                            class Employee { 1 supervisor -- * Employee employees; }&#34;&#34;&#34;),
+                        &#34;The class diagram is correct.&#34;,
+                        &#34;The class diagram is incorrect, because some Employees do not oversee any other Employees.&#34;,
+                        &#39;The &#34;employees&#34; multiplicity should be 1..* instead of *.&#39;,
+                        T: &#34;The class diagram is incorrect, because at least one Employee cannot have a supervisor, &#34;
+                        &#34;otherwise an infinite recursive dependency will occur.&#34;,
+                    ]]),
+                    6: ResourceResponse(learningResources=[mult_ref := Reference(
+                        content=&#34;Please review the [multiplicities](https://mycourses2.mcgill.ca/) part of the &#34;
+                                &#34;Class Diagram lecture.&#34;)]),
+                })),
+            wrong_multiplicity := mt(n=&#34;Wrong multiplicity&#34;, stud_inst=&#34;assocend&#34;, feedbacks=fbs({
+                1: HighlightSolution(),
+                2: TextResponse(text=&#34;Double check this association.&#34;),
+                3: TextResponse(text=&#34;The multiplicity for this association end is incorrect.&#34;),
+                4: ParametrizedResponse(
+                    text=&#34;How many ${stud_assocend.opposite.cls} instances does a ${stud_assocend.cls} have?&#34;),
+                5: ResourceResponse(learningResources=[multiplicities_quiz := mcq[
+                    &#34;Pick the association(s) with correct multiplicities:&#34;,
+                       &#34;1 EmployeeRole -- 1 Person;&#34;,
+                    T: &#34;* Episode -- 1 TvSeries;&#34;,
+                       &#34;* Bank -- 1 Client;&#34;,
+                       &#34;* Client -- 1 BankAccount;&#34;,
+                    T: &#34;0..2 Loan -- 1 Client;&#34;,
+                       &#34;* Person -- 1 EmployeeRole;&#34;,
+                    T: &#34;* EmployeeRole -- 1 Person;&#34;,
+                    ]]),
+                6: ResourceResponse(learningResources=[mult_ref]),
+            })),
+            missing_multiplicity := mt(n=&#34;Missing multiplicity&#34;, stud_inst=&#34;assocend&#34;, feedbacks=fbs({
+                1: HighlightSolution(),
+                2: TextResponse(text=&#34;Double check this association.&#34;),
+                3: TextResponse(text=&#34;The multiplicit(y|ies) for this association (is|are) missing.&#34;),
+                4: ParametrizedResponse(
+                    text=&#34;How many ${stud_assocend.opposite.cls} instances does a ${stud_assocend.cls} have?&#34;),
+                5: ResourceResponse(learningResources=[multiplicities_quiz]),
+                6: ResourceResponse(learningResources=[mult_ref]),
+            })),
+        ]),
+        role_name_mistakes := mtc(n=&#34;Role name mistakes&#34;, mistakeTypes=[
+            missing_role_name := mt(n=&#34;Missing role name&#34;, stud_inst=&#34;assocend&#34;, feedbacks=fbs({
+                1: HighlightSolution(),
+                2: TextResponse(text=&#34;Can you model this relationship more precisely?&#34;),
+                3: ParametrizedResponse(text=&#34;The relationship between ${stud_assocend.cls} and &#34;
+                    &#34;${stud_assocend.opposite.cls} is missing a role name.&#34;),
+                4: ResourceResponse(learningResources=[role_name_ref := Reference(content=dedent(&#34;&#34;&#34;\
+                    Can you think of appropriate [role names](https://mycourses2.mcgill.ca/)
+                    for this relationship? Role names help identify the role a class plays in a
+                    relationship and are particularly important if there is more than one relationship
+                    between the same two classes.
+
+                    ![Role name](images/role_name.png)
+                    &#34;&#34;&#34;))]),
+            })),
+            role_should_be_static := mt(n=&#34;Role should be static&#34;, stud_inst=&#34;assocend&#34;, feedbacks=fbs({
+                1: HighlightSolution(),
+                2: TextResponse(text=&#34;Isn&#39;t there something special about this role name?&#34;),
+                3: ParametrizedResponse(text=&#34;${stud_assocend} should be static, because each ${stud_assocend.cls} &#34;
+                    &#34;instance is related to the same set of ${stud_assocend.opposite.cls} instances.&#34;),
+                4: ResourceResponse(learningResources=[assoc_ref := Reference(content=&#34;Please review the &#34;
+                    &#34;[Association](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.&#34;)]),
+            })),
+            role_should_not_be_static := mt(n=&#34;Role should not be static&#34;, stud_inst=&#34;assocend&#34;, feedbacks=fbs({
+                1: HighlightSolution(),
+                2: TextResponse(text=&#34;Is there something special about this role name?&#34;),
+                3: ParametrizedResponse(
+                    text=&#34;${stud_assocend} should not be static, because different ${stud_assocend.cls} instances may &#34;
+                         &#34;be related to different ${stud_assocend.opposite.cls} instances.&#34;),
+                4: ResourceResponse(learningResources=[assoc_ref]),
+            })),
+            bad_role_name_spelling := mt(n=&#34;Bad role name spelling&#34;, stud_inst=&#34;assocend&#34;, feedbacks=fbs({
+                1: HighlightSolution(),
+                2: TextResponse(text=&#34;Double check this role name.&#34;),
+                3: ParametrizedResponse(
+                    text=&#34;${stud_assocend} is misspelled.[ Use the same spelling as the problem description.]&#34;),
+                4: ResourceResponse(learningResources=[assoc_na_ref := Reference(content=&#34;Please review the &#34;
+                    &#34;[Association](https://mycourses2.mcgill.ca/) and &#34;
+                    &#34;[Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.&#34;)]),
+            })),
+            representing_action_with_assoc := mt(
+                n=&#34;Representing action with assoc&#34;, d=&#34;Representing an action with an association&#34;,
+                stud_inst=&#34;assocend&#34;, feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(text=&#34;Is this the best role name to use here?&#34;),
+                    3: ParametrizedResponse(text=&#34;The ${stud_assocend} role name represents an action, which is not &#34;
+                                                 &#34;correct.[ Use ${inst_assocend} instead.]&#34;),
+                    4: ResourceResponse(learningResources=[assoc_na_ref]),
+                })),
+            wrong_role_name := mt(
+                n=&#34;Wrong role name&#34;, d=&#34;Wrong role name but correct association&#34;, stud_inst=&#34;assocend&#34;, feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(text=&#34;Double check this role name.&#34;),
+                    3: ParametrizedResponse(text=&#34;The ${stud_assocend} role name is not correct.&#34;),
+                    4: ParametrizedResponse(
+                        text=&#34;The ${stud_assocend} role name should be changed to ${inst_assocend}.&#34;),
+                    5: ResourceResponse(learningResources=[role_name_ref]),
+                })),
+        ]),
+        association_type_mistakes := mtc(n=&#34;Association type mistakes&#34;, mistakeTypes=[
+            using_aggregation_instead_of_assoc := mt(
+                n=&#34;Using aggregation instead of assoc&#34;,
+                d=&#34;Using aggregation instead of association&#34;,
+                stud=[&#34;aggr&#34;, &#34;whole_assocend&#34;, &#34;part_assocend&#34;], inst=[&#34;assoc&#34;, &#34;assocend&#34;, &#34;other_assocend&#34;],
+                feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(text=&#34;What is the relationship between these two concepts?&#34;),
+                    3: ParametrizedResponse(text=&#34;The relationship between ${stud_part_assocend.cls} and &#34;
+                        &#34;${stud_whole_assocend.cls} can be modeled with a simple association.&#34;),
+                    4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
+                })),
+            using_composition_instead_of_assoc := mt(
+                n=&#34;Using composition instead of assoc&#34;,
+                d=&#34;Using composition instead of association&#34;,
+                stud=[&#34;compos&#34;, &#34;whole_assocend&#34;, &#34;part_assocend&#34;], inst=[&#34;assoc&#34;, &#34;assocend&#34;, &#34;other_assocend&#34;],
+                feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(text=&#34;What is the relationship between these two concepts?&#34;),
+                    3: ParametrizedResponse(
+                        text=&#34;Why is ${stud_part_assocend.refcls} contained in ${stud_whole_assocend.refcls}?&#34;),
+                    4: ParametrizedResponse(text=&#34;The relationship between ${stud_part_assocend.cls} and &#34;
+                        &#34;${stud_whole_assocend.cls} should be modeled with a simple association.&#34;),
+                    5: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
+                })),
+            using_directed_relationship_instead_of_undirected := mt(
+                n=&#34;Using directed relationship instead of undirected&#34;,
+                d=&#34;Using directed relationship instead of undirected relationship&#34;,
+                stud=[&#34;aggr_compos_or_assoc&#34;, &#34;target_assocend&#34;, &#34;source_assocend&#34;],
+                inst=[&#34;aggr_compos_or_assoc&#34;, &#34;assocend&#34;, &#34;other_assocend&#34;],
+                feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(text=&#34;Why is navigation restricted for this relationship?&#34;),
+                    3: ParametrizedResponse(text=&#34;The relationship between ${stud_source_assocend.cls} and &#34;
+                                                 &#34;${stud_target_assocend.cls} should be undirected.&#34;),
+                    4: ResourceResponse(learningResources=[dir_rel_ref := Reference(
+                        content=&#34;Please review the _Directionality in Associations_ section of the &#34;
+                                &#34;[UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/)&#34;)]),
+                })),
+            using_undirected_relationship_instead_of_directed := mt(
+                n=&#34;Using undirected relationship instead of directed&#34;,
+                d=&#34;Using undirected relationship instead of directed relationship&#34;,
+                stud=[&#34;aggr_compos_or_assoc&#34;, &#34;assocend&#34;, &#34;other_assocend&#34;],
+                inst=[&#34;aggr_compos_or_assoc&#34;, &#34;target_assocend&#34;, &#34;source_assocend&#34;],
+                feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: ParametrizedResponse(
+                        text=&#34;Does ${inst_target_assocend.refcls} need to know about ${inst_source_assocend.refcls}?&#34;),
+                    3: ParametrizedResponse(text=&#34;The relationship between ${inst_source_assocend.refcls} and &#34;
+                                                 &#34;${inst_target_assocend.refcls} should be directed[ from &#34;
+                                                 &#34;${inst_source_assocend.refcls} to ${inst_target_assocend.refcls}].&#34;),
+                    4: ResourceResponse(learningResources=[dir_rel_ref]),
+                })),
+            reversed_relationship_direction := mt(
+                n=&#34;Reversed relationship direction&#34;,
+                stud_inst=[&#34;aggr_compos_or_assoc&#34;, &#34;whole_or_target_assocend&#34;, &#34;part_or_source_assocend&#34;],
+                feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(text=&#34;Double check the direction for this relationship.&#34;),
+                    3: ParametrizedResponse(
+                        text=&#34;The direction of the relationship between ${stud_part_or_source_assocend.cls} and &#34;
+                            &#34;${stud_whole_or_target_assocend.cls} should be reversed.&#34;),
+                    4: ResourceResponse(learningResources=[dir_rel_ref]),
+                })),
+            using_composition_instead_of_aggregation := mt(
+                n=&#34;Using composition instead of aggregation&#34;,
+                stud=[&#34;compos&#34;, &#34;whole_assocend&#34;, &#34;part_assocend&#34;],
+                inst=[&#34;aggr&#34;, &#34;whole_assocend&#34;, &#34;part_assocend&#34;],
+                feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(text=&#34;Is this the best relationship to use here?&#34;),
+                    3: ParametrizedResponse(text=&#34;The composition between ${stud_part_assocend.cls} and &#34;
+                                                 &#34;${stud_whole_assocend.cls} is better modeled using aggregation.&#34;),
+                    4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
+                })),
+            using_binary_assoc_instead_of_n_ary_assoc := mt(
+                n=&#34;Using binary assoc instead of n-ary assoc&#34;,
+                d=&#34;Using binary association instead of n-ary association&#34;,
+                stud=[&#34;assoc&#34;, &#34;assocend&#34;, &#34;other_assocend&#34;], inst=[&#34;assoc&#34;, &#34;assocend*&#34;],
+                feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(text=&#34;Can you model this relationship more precisely?&#34;),
+                    3: ParametrizedResponse(text=&#34;Use an n-ary association to represent the relationship between the &#34;
+                                                 &#34;${inst_assoc.cls*} classes.&#34;),
+                    4: ResourceResponse(learningResources=[assoc_ref]),
+                })),
+            using_n_ary_assoc_instead_of_binary_assoc := mt(
+                n=&#34;Using n-ary assoc instead of binary assoc&#34;,
+                d=&#34;Using n-ary association instead of binary association&#34;,
+                stud=[&#34;assoc&#34;, &#34;assocend*&#34;], inst=[&#34;assoc&#34;, &#34;assocend&#34;, &#34;other_assocend&#34;],
+                feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(text=&#34;Can you model this relationship more precisely?&#34;),
+                    3: ParametrizedResponse(text=&#34;Use a binary association to represent the relationship between the &#34;
+                                                 &#34;${inst_assoc.cls*} classes.&#34;),
+                    4: ResourceResponse(learningResources=[assoc_ref]),
+                })),
+            using_intermediate_class_instead_of_n_ary_assoc := mt(
+                n=&#34;Using intermediate class instead of n-ary assoc&#34;,
+                d=&#34;Using intermediate class instead of n-ary association&#34;,
+                stud=&#34;cls&#34;, inst=[&#34;assoc&#34;, &#34;assocend*&#34;], feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(text=&#34;Can you model this relationship in a different way?&#34;),
+                    3: ParametrizedResponse(text=&#34;Use an n-ary association to represent the relationship between the &#34;
+                                                 &#34;${inst_assoc.cls*} classes.&#34;),
+                    4: ResourceResponse(learningResources=[assoc_ref]),
+                })),
+            using_n_ary_assoc_instead_of_intermediate_class := mt(
+                n=&#34;Using n-ary assoc instead of intermediate class&#34;,
+                d=&#34;Using n-ary association instead of intermediate class&#34;,
+                stud=[&#34;assoc&#34;, &#34;assocend*&#34;], inst=&#34;cls&#34;, feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(text=&#34;Is this the best way to model this concept?&#34;),
+                    3: ParametrizedResponse(
+                        text=&#34;Use an intermediate ${inst_cls} class instead of an n-ary association.&#34;),
+                    4: ResourceResponse(learningResources=[assoc_ref]),
+                })),
+        ]),
+        association_name_mistakes := mtc(n=&#34;Association name mistakes&#34;, mistakeTypes=[
+            missing_association_name := mt(n=&#34;Missing association name&#34;, stud_inst=&#34;assoc&#34;, feedbacks=fbs({
+                1: HighlightSolution(),
+                2: TextResponse(text=&#34;Something is missing here.&#34;),
+                3: TextResponse(text=&#34;Can you give this association a name?&#34;),
+                4: ParametrizedResponse(text=&#34;This association should be named ${inst_assoc}.&#34;),
+                5: ResourceResponse(learningResources=[assoc_na_ref]),
+            })),
+            bad_association_name_spelling := mt(n=&#34;Bad association name spelling&#34;, stud_inst=&#34;assoc&#34;, feedbacks=fbs({
+                1: HighlightSolution(),
+                2: TextResponse(text=&#34;Double check this association name.&#34;),
+                3: ParametrizedResponse(
+                    text=&#34;${stud_assoc} is misspelled.[ Use the same spelling as the problem description.]&#34;),
+                4: ResourceResponse(learningResources=[assoc_na_ref]),
+            })),
+        ]),
+        association_class_mistakes := mtc(n=&#34;Association class mistakes&#34;, mistakeTypes=[
+            missing_assoc_class := mt(
+                n=&#34;Missing assoc class&#34;, d=&#34;Missing association class&#34;, stud=[], inst=[&#34;assoc&#34;, &#34;cls&#34;], feedbacks=fbs({
+                    1: HighlightProblem(),
+                    2: TextResponse(text=&#34;Can you model this relationship more precisely?&#34;),
+                    3: ParametrizedResponse(text=&#34;Further details of the association between ${inst_assoc.end0.cls} &#34;
+                        &#34;and ${inst_assoc.end1.cls} should be modeled with an association class.&#34;),
+                    4: ResourceResponse(learningResources=[assoc_class_ref := Reference(content=dedent(&#34;&#34;&#34;\
+                        Please review the _Association class_ section of the
+                        [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/)
+                        
+                        ![Association class](images/association_class.png)&#34;&#34;&#34;))]),
+                })),
+            extra_assoc_class := mt(
+                n=&#34;Extra assoc class&#34;, d=&#34;Extra association class&#34;, stud=[&#34;assoc&#34;, &#34;cls&#34;], inst=[], feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(text=&#34;Can you model this relationship in another way?&#34;),
+                    3: TextResponse(text=&#34;Is using an association class the best way to model this?&#34;),
+                    4: ParametrizedResponse(text=&#34;Does it make sense to disallow multiple instances of ${stud_cls} &#34;
+                        &#34;with the same pair of ${stud_assoc.end0.cls} and ${stud_assoc.end1.cls} instances?&#34;),
+                    5: ParametrizedResponse(text=&#34;Further details of the association between ${stud_assoc.end0.cls} &#34;
+                        &#34;and ${stud_assoc.end1.cls} should not be modeled with an association class.&#34;),
+                    6: ResourceResponse(learningResources=[assoc_class_ref]),
+                })),
+            bad_assoc_class_name_spelling := mt(
+                n=&#34;Bad assoc class name spelling&#34;, d=&#34;Bad association class name spelling&#34;, stud_inst=[&#34;assoc&#34;, &#34;cls&#34;],
+                feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(text=&#34;Double check this association class name.&#34;),
+                    3: ParametrizedResponse(text=&#34;The ${stud_cls} class has a misspelled name.&#34;),
+                    4: ParametrizedResponse(
+                        text=&#34;The ${stud_cls} class should be changed to ${inst_cls}.&#34;),
+                    5: ResourceResponse(learningResources=[class_ref]),
+                })),
+            assoc_class_should_be_class := mt(
+                n=&#34;Assoc class should be class&#34;, d=&#34;Association class should be regular class&#34;,
+                stud=[&#34;assoc&#34;, &#34;cls&#34;], inst=&#34;cls&#34;, feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(text=&#34;Is using an association class the best way to model this?&#34;),
+                    3: ParametrizedResponse(text=&#34;The ${stud_cls} class should be a regular class.&#34;),
+                    4: ResourceResponse(learningResources=[assoc_class_ref]),
+                })),
+            class_should_be_assoc_class := mt(
+                n=&#34;Class should be assoc class&#34;, d=&#34;Regular class should be association class&#34;,
+                stud=&#34;cls&#34;, inst=[&#34;assoc&#34;, &#34;cls&#34;], feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(text=&#34;Is using a regular class the best way to model this?&#34;),
+                    3: ParametrizedResponse(text=&#34;The ${stud_cls} class should be an association class.&#34;),
+                    4: ResourceResponse(learningResources=[assoc_class_ref]),
+                })),
+        ]),
+        composition_mistakes := mtc(n=&#34;Composition mistakes&#34;, mistakeTypes=[
+            missing_composition := mt(
+                n=&#34;Missing composition&#34;, stud=[], inst=[&#34;compos&#34;, &#34;whole_assocend&#34;, &#34;part_assocend&#34;], feedbacks=fbs({
+                    1: HighlightProblem(),
+                    2: TextResponse(text=&#34;How should this relationship be modeled?&#34;),
+                    3: ParametrizedResponse(text=&#34;How would you capture that a ${inst_whole_assocend.refcls} has a &#34;
+                                                &#34;${inst_part_assocend.refcls}?&#34;),
+                    4: ParametrizedResponse(text=&#34;Use composition to show that the ${inst_part_assocend.refcls} class &#34;
+                                                &#34;is contained in the ${inst_whole_assocend.refcls} class.&#34;),
+                    5: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
+                })),
+            extra_composition := mt(
+                n=&#34;Extra composition&#34;, stud=[&#34;compos&#34;, &#34;whole_assocend&#34;, &#34;part_assocend&#34;], inst=[], feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(text=&#34;Is this composition really necessary?&#34;),
+                    3: ParametrizedResponse(text=&#34;The relationship between ${stud_compos.end0.cls} and &#34;
+                                                &#34;${stud_compos.end1.cls} is not expressed in the problem description.&#34;),
+                    4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
+                })),
+            using_assoc_instead_of_aggregation := mt(
+                n=&#34;Using assoc instead of aggregation&#34;, d=&#34;Using association instead of aggregation&#34;,
+                stud=[&#34;assoc&#34;, &#34;assocend&#34;, &#34;other_assocend&#34;], inst=[&#34;aggr&#34;, &#34;whole_assocend&#34;, &#34;part_assocend&#34;],
+                feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(text=&#34;What is the relationship between these two concepts?&#34;),
+                    3: ParametrizedResponse(text=&#34;The relationship between ${stud_assocend.cls} and &#34;
+                        &#34;${stud_other_assocend.cls} can be modeled more precisely than with a simple association.&#34;),
+                    4: ParametrizedResponse(text=&#34;The relationship between ${stud_assocend.cls} and &#34;
+                        &#34;${stud_other_assocend.cls} should be modeled with an aggregation.&#34;),
+                    5: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
+                })),
+            using_assoc_instead_of_composition := mt(
+                n=&#34;Using assoc instead of composition&#34;, d=&#34;Using association instead of composition&#34;,
+                stud=[&#34;assoc&#34;, &#34;assocend&#34;, &#34;other_assocend&#34;], inst=[&#34;compos&#34;, &#34;whole_assocend&#34;, &#34;part_assocend&#34;],
+                feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(text=&#34;What is the relationship between these two concepts?&#34;),
+                    3: ParametrizedResponse(text=&#34;The relationship between ${stud_assocend.cls} and &#34;
+                        &#34;${stud_other_assocend.cls} is more than a simple association.&#34;),
+                    4: ParametrizedResponse(text=&#34;The relationship between ${stud_assocend.cls} and &#34;
+                        &#34;${stud_other_assocend.cls} should be modeled with a composition.&#34;),
+                    5: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
+                })),
+            using_aggregation_instead_of_composition := mt(n=&#34;Using aggregation instead of composition&#34;,
+            stud=[&#34;aggr&#34;, &#34;whole_assocend&#34;, &#34;part_assocend&#34;], inst=[&#34;compos&#34;, &#34;whole_assocend&#34;, &#34;part_assocend&#34;],
+            feedbacks=fbs({
+                1: HighlightSolution(),
+                2: TextResponse(text=&#34;Is this the best relationship to use here?&#34;),
+                3: ParametrizedResponse(text=&#34;The relationship between ${stud_part_assocend.cls} and &#34;
+                                             &#34;${stud_whole_assocend.cls} is stronger than an aggregation.&#34;),
+                4: ParametrizedResponse(text=&#34;The relationship between ${stud_part_assocend.cls} and &#34;
+                                             &#34;${stud_whole_assocend.cls} should be modeled with a composition.&#34;),
+                5: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
+            })),
+            composed_part_contained_in_more_than_one_parent := mt(
+                n=&#34;Composed part contained in more than one parent&#34;, stud=&#34;cls*&#34;, inst=[], feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(text=&#34;Please double-check the relationship(s) between these class(es).&#34;),
+                    3: TextResponse(text=&#34;Please review the model containment hierarchy.&#34;),
+                    4: ParametrizedResponse(
+                        text=&#34;${stud_cls*} cannot be contained in more than one class.&#34;),
+                    5: ResourceResponse(learningResources=[containment_example := Example(content=dedent(&#34;&#34;&#34;\
+                        Observe the following domain model. Every single class except the root class is directly or
+                        indirectly contained in the root class, `PISystem`.
+
+                        ![PISystem](images/PISystem.png)&#34;&#34;&#34;))]),
+                    6: ResourceResponse(learningResources=[containment_quiz := mcq[dedent(&#34;&#34;&#34;\
+                        Which of the following compositions should be part of the containment tree for the following
+                        model?
+
+                        ![IRS](images/IRS.png)&#34;&#34;&#34;),
+                        T: &#34;1 IRS &lt;@&gt;- * StudentRole&#34;,
+                        T: &#34;1 IRS &lt;@&gt;- * Person&#34;,
+                           &#34;1 IRS &lt;@&gt;- * Game&#34;,
+                        T: &#34;1 IRS &lt;@&gt;- * League&#34;,
+                           &#34;1 IRS &lt;@&gt;- * RegularLeague&#34;,
+                        ]]),
+                    7: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
+                })),
+            incomplete_containment_tree := mt(n=&#34;Incomplete containment tree&#34;, stud=&#34;cls*&#34;, inst=[], feedbacks=fbs({
+                1: HighlightSolution(),
+                2: TextResponse(text=&#34;Please double-check the relationships of these classes.&#34;),
+                3: ParametrizedResponse(
+                    text=&#34;${stud_cls*} should be contained in the containment tree.[ Use composition for this.]&#34;),
+                4: ResourceResponse(learningResources=[containment_example]),
+                5: ResourceResponse(learningResources=[containment_quiz]),
+                6: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
+            })),
+        ]),
+        generalization_mistakes := mtc(n=&#34;Generalization mistakes&#34;, mistakeTypes=[
+            missing_generalization := mt(
+                n=&#34;Missing generalization&#34;, stud=[], inst=[&#34;sub_cls&#34;, &#34;super_cls&#34;], feedbacks=fbs({
+                    1: HighlightProblem(),
+                    2: TextResponse(text=&#34;What is the relationship between these classes?&#34;),
+                    3: ParametrizedResponse(text=&#34;A ${inst_sub_cls} is a ${inst_super_cls}. How should we model this?&#34;),
+                    4: ResourceResponse(learningResources=[inherit_hierarchy_quiz := fitb(
+                        # First parameter is the prompt (learning resource main content)
+                        &#34;Place the following classes in an inheritance hierarchy: Vehicle, Wheel, LuxuryBus, &#34;
+                        &#34;Airplane, Car, Driver, LandVehicle, Bus. Only use a term once.&#34;,
+                        # Remaining parameters are the statements with blanks in {curly braces}
+                        &#34;SportsCar isA {Car}&#34;,
+                        &#34;{Wheel} isA VehiclePart&#34;,
+                        &#34;Truck isA {LandVehicle}&#34;,
+                        &#34;AmphibiousVehicle isA {Vehicle}&#34;,
+                        &#34;{LuxuryBus} isA BusVehicle&#34;,
+                    )]),
+                5: ResourceResponse(learningResources=[gen_ref := Reference(
+                    content=&#34;Please review the [Generalization](https://mycourses2.mcgill.ca/) part of the Class &#34;
+                            &#34;Diagram lecture.&#34;)]),
+            })),
+            extra_generalization := mt(n=&#34;Extra generalization&#34;, stud=[&#34;sub_cls&#34;, &#34;super_cls&#34;], inst=[], feedbacks=fbs({
+                1: HighlightSolution(),
+                2: [TextResponse(text=&#34;Can you find a better way to express this relationship?&#34;),
+                    TextResponse(text=&#34;Is there a [direct ]relationship between these two classes?&#34;)],
+                3: [ParametrizedResponse(text=&#34;When creating a generalization between ${stud_sub_cls} and &#34;
+                    &#34;${stud_super_cls}, make sure to follow the &#34;
+                    &#34;[checks for proper generalization](https://mycourses2.mcgill.ca/).&#34;),
+                    ParametrizedResponse(text=&#34;${stud_sub_cls} is not a subclass of ${stud_super_cls}.&#34;)],
+                4: ResourceResponse(learningResources=[inherit_hierarchy_quiz]),
+                5: ResourceResponse(learningResources=[inherit_checks_quiz := fitb(dedent(&#34;&#34;&#34;\
+                    Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
+                    and complete the following:
+
+                    The five checks for generalization are:&#34;&#34;&#34;),
+                    &#34;Obeys the {isA rule}.&#34;,
+                    &#34;Subclass must retain its {distinctiveness}.&#34;,
+                    &#34;All {inherited features} must make sense in each subclass.&#34;,
+                    &#34;Subclass differs from superclass and other subclasses in {behavior} or {structure}.&#34;,
+                    &#34;Subclass must not be {an instance}.&#34;)]),
+                6: ResourceResponse(learningResources=[gen_ref]),
+            })),
+            generalization_inapplicable := mt(
+                n=&#34;Generalization inapplicable&#34;, d=&#34;Generalization does not follow isA rule&#34;,
+                stud=[&#34;sub_cls&#34;, &#34;super_cls&#34;], inst=[], feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: [TextResponse(text=&#34;Can you find a better way to express this relationship?&#34;),
+                        TextResponse(text=&#34;Is there a [direct ]relationship between these two classes?&#34;)],
+                    3: [ParametrizedResponse(text=&#34;When creating a generalization between ${stud_sub_cls} and &#34;
+                        &#34;${stud_super_cls}, make sure to follow the &#34;
+                        &#34;[checks for proper generalization](https://mycourses2.mcgill.ca/).&#34;),
+                        ParametrizedResponse(
+                            text=&#34;${wrongSubclass} is not a [direct ]subclass of ${wrongSuperclass}.&#34;)],
+                    4: ResourceResponse(learningResources=[inherit_hierarchy_quiz]),
+                    5: ResourceResponse(learningResources=[inherit_checks_quiz]),
+                    6: ResourceResponse(learningResources=[gen_ref]),
+                })),
+            subclass_not_distinct_across_lifetime := mt(
+                n=&#34;Subclass not distinct across lifetime&#34;,stud=[&#34;sub_cls&#34;, &#34;super_cls&#34;], inst=[], feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(text=&#34;Can you find a better way to model this concept?&#34;),
+                    3: ParametrizedResponse(text=&#34;Is it possible for an instance of ${stud_sub_cls} to turn into an &#34;
+                        &#34;instance of another subclass of ${stud_super_cls} over its lifetime?&#34;),
+                    4: ResourceResponse(learningResources=[distinct_subclass_quiz := mcq[
+                        &#34;Which classes are not subclasses of Account?&#34;,
+                        &#34;SavingsAccount&#34;,
+                        T: &#34;OverdrawnAccount&#34;,
+                        &#34;CheckingAccount&#34;,
+                        &#34;MortgageAccount&#34;,
+                        T: &#34;ClosedAccount&#34;,
+                        ]]),
+                    5: ResourceResponse(learningResources=[gen_ref]),
+                })),
+            inherited_feature_does_not_make_sense_for_subclass := mt(
+                n=&#34;Inherited feature does not make sense for subclass&#34;, stud=[&#34;sub_cls&#34;, &#34;super_cls&#34;], inst=[],
+                feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(text=&#34;Does this belong here?&#34;),
+                    # In the future, add ${stud_feature} to the parameterized response if supported by MDS
+                    3: ParametrizedResponse(text=&#34;A feature of the ${stud_super_cls} class does not &#34;
+                        &#34;make sense for its ${stud_sub_cls} subclass.&#34;),
+                    4: ResourceResponse(learningResources=[inherit_checks_quiz]),
+                    5: ResourceResponse(learningResources=[gen_ref]),
+                })),
+            subclass_is_an_instance_of_superclass := mt(n=&#34;Subclass is an instance of superclass&#34;,
+            stud=[&#34;sub_cls&#34;, &#34;super_cls&#34;], inst=[], feedbacks=fbs({
+                1: HighlightSolution(),
+                2: TextResponse(text=&#34;Can you find a better way to express this relationship?&#34;),
+                3: TextResponse(text=&#34;Remember the definition of the &#39;instance&#39; rule.[ Instances should not be &#34;
+                    &#34;modeled as subclasses].&#34;),
+                4: ResourceResponse(learningResources=[Example(content=&#34;A CheckingAccount isA Account, but account1234 &#34;
+                    &#34;is not an Account according to the &#39;instance&#39; rule.&#34;)]),
+                5: ResourceResponse(learningResources=[inherit_checks_quiz]),
+                6: ResourceResponse(learningResources=[gen_ref]),
+            })),
+            non_differentiated_subclass := mt(n=&#34;Non-differentiated subclass&#34;, stud=&#34;cls&#34;, inst=[], feedbacks=fbs({
+                1: HighlightSolution(),
+                2: TextResponse(text=&#34;Is it really necessary to model this as a subclass?&#34;),
+                3: ParametrizedResponse(text=&#34;${stud_cls} needs to be different from its superclass, and all sibling &#34;
+                                             &#34;subclasses, in terms of behavior or structure.&#34;),
+                4: ResourceResponse(learningResources=[inherit_checks_quiz]),
+                5: ResourceResponse(learningResources=[gen_ref]),
+            })),
+            reversed_generalization_direction := mt(
+                n=&#34;Reversed generalization direction&#34;, stud_inst=[&#34;sub_cls&#34;, &#34;super_cls&#34;], feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(text=&#34;Can you double check this relationship?&#34;),
+                    3: ParametrizedResponse(
+                        text=&#34;Is ${inst_super_cls} really a ${inst_sub_cls}?[ It should be the other way around.]&#34;),
+                    4: ResourceResponse(learningResources=[inherit_hierarchy_quiz]),
+                    5: ResourceResponse(learningResources=[inherit_checks_quiz]),
+                    6: ResourceResponse(learningResources=[gen_ref]),
+                })),
+            wrong_superclass := mt(n=&#34;Wrong superclass&#34;, stud_inst=[&#34;sub_cls&#34;, &#34;super_cls&#34;], feedbacks=fbs({
+                1: HighlightSolution(),
+                2: TextResponse(text=&#34;Can you double check this relationship?&#34;),
+                3: ParametrizedResponse(text=&#34;${stud_sub_cls} has an incorrect superclass.&#34;),
+                4: HighlightProblem(),
+                5: ParametrizedResponse(text=&#34;The superclass for ${stud_sub_cls} should be ${inst_super_cls}.&#34;),
+                6: ResourceResponse(learningResources=[inherit_hierarchy_quiz]),
+                7: ResourceResponse(learningResources=[gen_ref]),
+            })),
+        ]),
+    ]),
+
+    design_pattern_mistakes := mtc(n=&#34;Design pattern mistakes&#34;, subcategories=[
+        player_role_pattern_mistakes := mtc(n=&#34;Player-Role pattern mistakes&#34;, mistakeTypes=[
+            missing_pr_pattern := mt(
+                n=&#34;Missing PR pattern&#34;, d=&#34;Missing Player-Role pattern&#34;, stud=[], inst=[&#34;player_cls&#34;, &#34;role*&#34;],
+                feedbacks=fbs({
+                    1: HighlightProblem(),
+                    2: TextResponse(
+                        text=&#34;Think carefully about how to model the relationships between these concepts.&#34;),
+                    3: TextResponse(
+                        text=&#34;Use the Player-Role pattern to model the relationships between these concepts.&#34;),
+                    4: ParametrizedResponse(
+                        text=&#34;The concepts of ${inst_player_cls} and its roles ${inst_role*} and the relationship &#34;
+                            &#34;between them should be modeled with one of the forms of the Player-Role pattern.&#34;),
+                    # the spacing below is intentional, for the output to be properly aligned
+                    5: ResourceResponse(learningResources=[pr_quiz := Quiz(content=dedent(f&#34;&#34;&#34;\
+                        Complete the following table by checking the correct boxes:
+
+                        Solution | Roles have different features | One role at a time |{
+                            &#34; &#34;}Different roles at a time | More than one role at the same time
+                        --- | --- | --- | --- | ---
+                        Enumeration         |  {UNCHECKED_BOX} | {CHECKED_BOX} | {CHECKED_BOX} |  {UNCHECKED_BOX}
+                        Subclasses          | {CHECKED_BOX} | {CHECKED_BOX} |  {UNCHECKED_BOX} |  {UNCHECKED_BOX}
+                        Associations        |  {UNCHECKED_BOX} | {CHECKED_BOX} | {CHECKED_BOX} | {CHECKED_BOX}
+                        Player-Role Pattern | {CHECKED_BOX} | {CHECKED_BOX} | {CHECKED_BOX} | {CHECKED_BOX}&#34;&#34;&#34;))]),
+                    6: ResourceResponse(learningResources=[pr_ref := Reference(content=dedent(&#34;&#34;&#34;\
+                        The Player-Role Pattern can be used to capture the fact that an object may play different roles
+                        in different contexts.
+
+                        ![Player-Role Pattern](images/player_role.png)&#34;&#34;&#34;))]),
+                })),
+            incomplete_pr_pattern := mt(
+                n=&#34;Incomplete PR pattern&#34;, d=&#34;Incomplete Player-Role pattern&#34;, stud_inst=[&#34;player_cls&#34;, &#34;role*&#34;],
+                feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(
+                        text=&#34;Think carefully about how to model the relationships between these concepts.&#34;),
+                    3: TextResponse(
+                        text=&#34;Use the Player-Role pattern to model the relationships between these concepts.&#34;),
+                    4: ParametrizedResponse(
+                        text=&#34;The concepts of ${inst_player_cls} and its roles ${inst_role*} and the relationship &#34;
+                             &#34;between them should be modeled with one of the forms of the Player-Role pattern.&#34;),
+                    5: ResourceResponse(learningResources=[pr_quiz]),
+                    6: ResourceResponse(learningResources=[pr_ref]),
+                })),
+            subclass_should_be_full_pr_pattern := mt(
+                n=&#34;Subclass should be full PR pattern&#34;,
+                d=&#34;Subclass should be full Player-Role pattern&#34;,
+                stud_inst=[&#34;player_cls&#34;, &#34;role_cls*&#34;], feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(
+                        text=&#34;Think carefully about how to model the relationships between these concepts.&#34;),
+                    3: ParametrizedResponse(
+                        text=&#34;An instance of ${stud_player_cls} can play more than one role out of ${stud_role_cls*}.&#34;),
+                    4: ResourceResponse(learningResources=[pr_quiz]),
+                    5: ResourceResponse(learningResources=[pr_ref]),
+                })),
+            subclass_should_be_assoc_pr_pattern := mt(
+                n=&#34;Subclass should be assoc PR pattern&#34;,
+                d=&#34;Subclass should be association Player-Role pattern&#34;,
+                stud=[&#34;player_cls&#34;, &#34;role_cls*&#34;], inst=[&#34;player_cls&#34;, &#34;role_assocend*&#34;], feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(
+                        text=&#34;Think carefully about how to model the relationships between these concepts.&#34;),
+                    3: ParametrizedResponse(text=&#34;An instance of ${stud_player_cls} can play more than one role out of &#34;
+                        &#34;${inst_role_assocend*} and different features do not need to be captured for the roles.&#34;),
+                    4: ResourceResponse(learningResources=[pr_quiz]),
+                    5: ResourceResponse(learningResources=[pr_ref]),
+                })),
+            subclass_should_be_enum_pr_pattern := mt(
+                n=&#34;Subclass should be enum PR pattern&#34;,
+                d=&#34;Subclass should be enumeration Player-Role pattern&#34;,
+                stud=[&#34;player_cls&#34;, &#34;role_cls*&#34;], inst=[&#34;player_cls&#34;, &#34;role_attr&#34;, &#34;role_enum&#34;, &#34;role_enumitem*&#34;],
+                feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(
+                        text=&#34;Think carefully about how to model the relationships between these concepts.&#34;),
+                    3: ParametrizedResponse(text=&#34;An instance of ${stud_player_cls} does not need to play more than &#34;
+                                                 &#34;one role out of ${stud_role_cls*} at the same time and different &#34;
+                                                 &#34;features do not need to be captured for the roles.&#34;),
+                    4: ResourceResponse(learningResources=[pr_quiz]),
+                    5: ResourceResponse(learningResources=[pr_ref]),
+                })),
+            assoc_should_be_full_pr_pattern := mt(
+                n=&#34;Assoc should be full PR pattern&#34;,
+                d=&#34;Association should be full Player-Role pattern&#34;,
+                stud=[&#34;player_cls&#34;, &#34;role_assocend*&#34;], inst=[&#34;player_cls&#34;, &#34;role_cls*&#34;], feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(
+                        text=&#34;Think carefully about how to model the relationships between these concepts.&#34;),
+                    3: ParametrizedResponse(
+                        text=&#34;The roles ${stud_role_assocend*} have different features that need to be modeled.&#34;),
+                    4: ResourceResponse(learningResources=[pr_quiz]),
+                    5: ResourceResponse(learningResources=[pr_ref]),
+                })),
+            assoc_should_be_subclass_pr_pattern := mt(
+                n=&#34;Assoc should be subclass PR pattern&#34;,
+                d=&#34;Association should be subclass Player-Role pattern&#34;,
+                stud=[&#34;player_cls&#34;, &#34;role_assocend*&#34;], inst=[&#34;player_cls&#34;, &#34;role_cls*&#34;], feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(
+                        text=&#34;Think carefully about how to model the relationships between these concepts.&#34;),
+                    3: ParametrizedResponse(
+                        text=&#34;The roles ${stud_role_assocend*} have different features that need to be modeled, but an &#34;
+                             &#34;instance of ${stud_player_cls} does not change its role over its lifetime.&#34;),
+                    4: ResourceResponse(learningResources=[pr_quiz]),
+                    5: ResourceResponse(learningResources=[pr_ref]),
+                })),
+            assoc_should_be_enum_pr_pattern := mt(
+                n=&#34;Assoc should be enum PR pattern&#34;,
+                d=&#34;Association should be enumeration Player-Role pattern&#34;,
+                stud=[&#34;player_cls&#34;, &#34;role_assocend*&#34;], inst=[&#34;player_cls&#34;, &#34;role_attr&#34;, &#34;role_enum&#34;, &#34;role_enumitem*&#34;],
+                feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(
+                        text=&#34;Think carefully about how to model the relationships between these concepts.&#34;),
+                    3: ParametrizedResponse(text=&#34;Will the roles ${stud_role_assocend*} ever be played by an instance &#34;
+                                                 &#34;of ${stud_player_cls} at the same time?&#34;),
+                    4: ResourceResponse(learningResources=[pr_quiz]),
+                    5: ResourceResponse(learningResources=[pr_ref]),
+                })),
+            enum_should_be_full_pr_pattern := mt(
+                n=&#34;Enum should be full PR pattern&#34;,
+                d=&#34;Enumeration should be full Player-Role pattern&#34;,
+                stud=[&#34;player_cls&#34;, &#34;role_attr&#34;, &#34;role_enum&#34;, &#34;role_enumitem*&#34;], inst=[&#34;player_cls&#34;, &#34;role_cls*&#34;],
+                feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(
+                        text=&#34;Think carefully about how to model the relationships between these concepts.&#34;),
+                    3: ParametrizedResponse(text=&#34;An instance of ${stud_player_cls} can play more than one role out of &#34;
+                                                 &#34;${stud_role_enumitem*} at the same time and different features need &#34;
+                                                 &#34;to be captured for the roles.&#34;),
+                    4: ResourceResponse(learningResources=[pr_quiz]),
+                    5: ResourceResponse(learningResources=[pr_ref]),
+                })),
+            enum_should_be_subclass_pr_pattern := mt(
+                n=&#34;Enum should be subclass PR pattern&#34;,
+                d=&#34;Enumeration should be subclass Player-Role pattern&#34;,
+                stud=[&#34;player_cls&#34;, &#34;role_attr&#34;, &#34;role_enum&#34;, &#34;role_enumitem*&#34;], inst=[&#34;player_cls&#34;, &#34;role_cls*&#34;],
+                feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(
+                        text=&#34;Think carefully about how to model the relationships between these concepts.&#34;),
+                    3: ParametrizedResponse(text=&#34;The roles ${stud_role_enumitem*} have different features and never &#34;
+                                                 &#34;change to another role.&#34;),
+                    4: ResourceResponse(learningResources=[pr_quiz]),
+                    5: ResourceResponse(learningResources=[pr_ref]),
+                })),
+            enum_should_be_assoc_pr_pattern := mt(
+                n=&#34;Enum should be assoc PR pattern&#34;,
+                d=&#34;Enumeration should be association Player-Role pattern&#34;,
+                stud=[&#34;player_cls&#34;, &#34;role_attr&#34;, &#34;role_enum&#34;, &#34;role_enumitem*&#34;], inst=[&#34;player_cls&#34;, &#34;role_assocend*&#34;],
+                feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(
+                        text=&#34;Think carefully about how to model the relationships between these concepts.&#34;),
+                    3: ParametrizedResponse(text=&#34;Will an instance of ${stud_player_cls} ever play more than one role &#34;
+                                                 &#34;out of ${stud_role_enumitem*} at the same time?&#34;),
+                    4: ResourceResponse(learningResources=[pr_quiz]),
+                    5: ResourceResponse(learningResources=[pr_ref]),
+                })),
+            full_pr_pattern_should_be_subclass := mt(
+                n=&#34;Full PR pattern should be subclass&#34;,
+                d=&#34;Full Player-Role pattern should be subclass&#34;,
+                stud_inst=[&#34;player_cls&#34;, &#34;role_cls*&#34;], feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(
+                        text=&#34;Think carefully about how to model the relationships between these concepts.&#34;),
+                    3: ParametrizedResponse(text=&#34;Can an instance of ${stud_player_cls} play more than one role out of &#34;
+                                                 &#34;${stud_role_cls*} at different times or at the same time?&#34;),
+                    4: ResourceResponse(learningResources=[pr_quiz]),
+                    5: ResourceResponse(learningResources=[pr_ref]),
+                })),
+            full_pr_pattern_should_be_assoc := mt(
+                n=&#34;Full PR pattern should be assoc&#34;,
+                d=&#34;Full Player-Role pattern should be association&#34;,
+                stud=[&#34;player_cls&#34;, &#34;role_cls*&#34;], inst=[&#34;player_cls&#34;, &#34;role_assocend*&#34;], feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(
+                        text=&#34;Think carefully about how to model the relationships between these concepts.&#34;),
+                    3: ParametrizedResponse(text=&#34;Do the roles ${stud_role_cls*} need to have different features?&#34;),
+                    4: ResourceResponse(learningResources=[pr_quiz]),
+                    5: ResourceResponse(learningResources=[pr_ref]),
+                })),
+            full_pr_pattern_should_be_enum := mt(
+                n=&#34;Full PR pattern should be enum&#34;,
+                d=&#34;Full Player-Role pattern should be enumeration&#34;,
+                stud=[&#34;player_cls&#34;, &#34;role_cls*&#34;], inst=[&#34;player_cls&#34;, &#34;role_attr&#34;, &#34;role_enum&#34;, &#34;role_enumitem*&#34;],
+                feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(
+                        text=&#34;Think carefully about how to model the relationships between these concepts.&#34;),
+                    3: ParametrizedResponse(text=&#34;Do the roles ${stud_role_cls*} need to have different features and &#34;
+                                                 &#34;is it possible that more than one role is played by an instance of &#34;
+                                                 &#34;${stud_player_cls} at the same time?&#34;),
+                    4: ResourceResponse(learningResources=[pr_quiz]),
+                    5: ResourceResponse(learningResources=[pr_ref]),
+                })),
+        ]),
+        abstraction_occurrence_pattern_mistakes := mtc(n=&#34;Abstraction-Occurrence pattern mistakes&#34;, mistakeTypes=[
+            missing_ao_pattern := mt(
+                n=&#34;Missing AO pattern&#34;, d=&#34;Missing Abstraction-Occurrence pattern&#34;,
+                stud=[], inst=[&#34;abs_cls&#34;, &#34;occ_cls&#34;], feedbacks=fbs({
+                    1: HighlightProblem(),
+                    2: TextResponse(
+                        text=&#34;Think carefully about how to model the relationship between these concepts.&#34;),
+                    3: ParametrizedResponse(
+                        text=&#34;The concepts of ${inst_abs_cls} and ${inst_occ_cls} and the relationship between them &#34;
+                             &#34;should be modeled with the Abstraction-Occurrence pattern.&#34;),
+                    4: ResourceResponse(learningResources=[ao_ref := Reference(content=dedent(&#34;&#34;&#34;\
+                        The [Abstraction-Occurrence Pattern](https://mycourses2.mcgill.ca/) can be used to 
+                        represent a set of related objects that share common information but also differ
+                        from each other in an important way.
+
+                        ![Abstraction-Occurrence Pattern](images/abstraction_occurrence.png)&#34;&#34;&#34;))]),
+                })),
+            incomplete_ao_pattern := mt(
+                n=&#34;Incomplete AO pattern&#34;, d=&#34;Incomplete Abstraction-Occurrence pattern&#34;,
+                stud=&#34;existing_cls&#34;, inst=[&#34;abs_cls&#34;, &#34;occ_cls&#34;], feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(
+                        text=&#34;Think carefully about how to model the relationship between these concepts.&#34;),
+                    3: ParametrizedResponse(
+                        text=&#34;The ${stud_existing_cls} should be part of an Abstraction-Occurrence relationship.&#34;),
+                    4: ParametrizedResponse(
+                        text=&#34;The concepts of ${inst_abs_cls} and ${inst_occ_cls} and the &#34;
+                             &#34;relationship between them should be modeled with the Abstraction-Occurrence pattern.&#34;),
+                    5: ResourceResponse(learningResources=[ao_ref]),
+                })),
+            missing_association_in_ao_pattern := mt(
+                n=&#34;Missing association in AO pattern&#34;, d=&#34;Missing association in Abstraction-Occurrence pattern&#34;,
+                stud_inst=[&#34;abs_cls&#34;, &#34;occ_cls&#34;], feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(
+                        text=&#34;Think carefully about how to model the relationship between these concepts.&#34;),
+                    3: ParametrizedResponse(text=&#34;The ${stud_abs_cls} and ${stud_occ_cls} should be in an &#34;
+                                                 &#34;Abstraction-Occurrence relationship.&#34;),
+                    4: ParametrizedResponse(
+                        text=&#34;The relationship between ${stud_abs_cls} and ${stud_occ_cls} should be modeled with an &#34;
+                             &#34;association as part of the Abstraction-Occurrence pattern.&#34;),
+                    5: ResourceResponse(learningResources=[ao_ref]),
+                })),
+            generalization_should_be_assoc_ao_pattern := mt(
+                n=&#34;Generalization should be assoc AO pattern&#34;,
+                d=&#34;Generalization should be association in Abstraction-Occurrence pattern&#34;,
+                stud=[&#34;sub_cls&#34;, &#34;super_cls&#34;], inst=[&#34;abs_cls&#34;, &#34;occ_cls&#34;], feedbacks=fbs({
+                    1: HighlightSolution(),
+                    2: TextResponse(
+                        text=&#34;Think carefully about how to model the relationships between these concepts.&#34;),
+                    3: ParametrizedResponse(text=&#34;The relationship between ${stud_sub_cls} and ${stud_super_cls} &#34;
+                        &#34;should be modeled using the Abstraction-Occurrence pattern[, where ${inst_abs_cls} is the &#34;
+                        &#34;abstraction and ${inst_occ_cls} is the occurrence].&#34;),
+                    4: ResourceResponse(learningResources=[ao_ref]),
+                })),
+        ]),
+    ]),
+])
+
+
+# mistake types by priority, from most to least important
+mts_by_priority: list[MistakeType | str] = [
+    &#34;Mistakes in an existing class&#34;,
+    bad_class_name_spelling,
+    lowercase_class_name,
+    plural_class_name,
+    software_engineering_term,
+    wrong_class_name,
+    bad_assoc_class_name_spelling,
+    assoc_class_should_be_class,
+    class_should_be_assoc_class,
+    class_should_be_abstract,
+    class_should_not_be_abstract,
+    class_should_be_enum,
+    enum_should_be_class,
+    bad_enum_name_spelling,
+    bad_enum_item_spelling,
+
+    &#34;Mistakes in an existing attribute&#34;,
+    bad_attribute_name_spelling,
+    uppercase_attribute_name,
+    plural_attribute,
+    attribute_misplaced,
+    wrong_attribute_type,
+    attribute_should_not_be_static,
+    attribute_should_be_static,
+
+    &#34;Mistakes in an existing relationship&#34;,
+    infinite_recursive_dependency,
+    composed_part_contained_in_more_than_one_parent,
+    using_attribute_instead_of_assoc,
+    list_attribute,
+    attribute_misplaced_in_generalization_hierarchy,
+    generalization_inapplicable,
+    using_assoc_instead_of_composition,
+    using_assoc_instead_of_aggregation,
+    using_composition_instead_of_assoc,
+    using_aggregation_instead_of_assoc,
+    using_directed_relationship_instead_of_undirected,
+    using_undirected_relationship_instead_of_directed,
+    reversed_relationship_direction,
+    using_aggregation_instead_of_composition,
+    using_composition_instead_of_aggregation,
+    using_binary_assoc_instead_of_n_ary_assoc,
+    using_n_ary_assoc_instead_of_binary_assoc,
+    using_n_ary_assoc_instead_of_intermediate_class,
+    using_intermediate_class_instead_of_n_ary_assoc,
+    reversed_generalization_direction,
+    wrong_superclass,
+    subclass_is_an_instance_of_superclass,
+    non_differentiated_subclass,
+    subclass_not_distinct_across_lifetime,
+    inherited_feature_does_not_make_sense_for_subclass,
+    wrong_multiplicity,
+    bad_role_name_spelling,
+    representing_action_with_assoc,
+    wrong_role_name,
+    role_should_not_be_static,
+    role_should_be_static,
+    bad_association_name_spelling,
+    incomplete_containment_tree,
+
+    &#34;Design pattern mistakes&#34;,
+    generalization_should_be_assoc_ao_pattern,
+    subclass_should_be_full_pr_pattern,
+    subclass_should_be_assoc_pr_pattern,
+    subclass_should_be_enum_pr_pattern,
+    assoc_should_be_full_pr_pattern,
+    assoc_should_be_subclass_pr_pattern,
+    assoc_should_be_enum_pr_pattern,
+    enum_should_be_full_pr_pattern,
+    enum_should_be_subclass_pr_pattern,
+    enum_should_be_assoc_pr_pattern,
+    full_pr_pattern_should_be_subclass,
+    full_pr_pattern_should_be_assoc,
+    full_pr_pattern_should_be_enum,
+
+    &#34;Extra items&#34;,
+    extra_class,
+    extra_assoc_class,
+    extra_enum,
+    extra_enum_item,
+    extra_generalization,
+    extra_composition,
+    extra_association,
+    extra_aggregation,
+    extra_n_ary_association,
+    attribute_duplicated,
+    extra_attribute,
+
+    &#34;Missing items&#34;,
+    missing_class,
+    missing_attribute,
+    missing_attribute_type,
+    missing_assoc_class,
+    missing_enum,
+    missing_enum_item,
+    missing_generalization,
+    missing_composition,
+    missing_association,
+    missing_aggregation,
+    missing_n_ary_association,
+    missing_multiplicity,
+    missing_role_name,
+    missing_association_name,
+
+    &#34;Missing/incomplete patterns&#34;,
+    missing_association_in_ao_pattern,
+    incomplete_pr_pattern,
+    incomplete_ao_pattern,
+    missing_pr_pattern,
+    missing_ao_pattern,
+]</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

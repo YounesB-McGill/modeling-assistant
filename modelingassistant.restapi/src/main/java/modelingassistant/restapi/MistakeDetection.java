@@ -70,27 +70,26 @@ class MistakeDetectionController {
 
     var modelingAssistant = ModelingAssistant.fromEcoreString(modelingAssistantXmi);
 
-    System.out.println("\n\nSolutions before:");
-    modelingAssistant.getSolutions().forEach(sol -> {
-      System.out.println(sol + ", " + sol.eResource());
-      sol.getMistakes().forEach(mistake -> {
-        var mt = mistake.getMistakeType();
-        System.out.println(mt.getName() + ": " + mistake + ", " + mistake.eResource());
-      });
-    });
+    // Uncomment for detailed output on each mistake
+    //System.out.println("\n\nSolutions before:");
+    //modelingAssistant.getSolutions().forEach(sol -> {
+    //  System.out.println(sol + ", " + sol.eResource());
+    //  sol.getMistakes().forEach(mistake ->
+    //    System.out.println(mistake.getMistakeType().getName() + ": " + mistake + ", " + mistake.eResource()));
+    //});
 
     modelingAssistant.getProblemStatements().forEach(ps -> {
       ps.getStudentSolutions().forEach(studentSolution -> compare(ps.getInstructorSolution(), studentSolution).log());
     });
 
-    System.out.println("\n\nSolutions after:");
-    modelingAssistant.getSolutions().forEach(sol -> {
-      System.out.println(sol + ", " + sol.eResource());
-      sol.getMistakes().forEach(mistake -> {
-        var mt = mistake.getMistakeType();
-        System.out.println(mt.getName() + ": " + mistake + ", " + mistake.eResource());
-      });
-    });
+    // Uncomment for detailed output on each mistake
+    //System.out.println("\n\nSolutions after:");
+    //modelingAssistant.getSolutions().forEach(sol -> {
+    //  System.out.println(sol + ", " + sol.eResource());
+    //  sol.getMistakes().forEach(mistake ->
+    //    System.out.println(mistake.getMistakeType().getName() + ": " + mistake + ", " + mistake.eResource()));
+    //});
+
     System.out.println("\n\n" + dashes + "\n\nReturning MA:\n\n" + modelingAssistant.toEcoreString());
 
     return new MistakeDetection(modelingAssistant.toEcoreString());
