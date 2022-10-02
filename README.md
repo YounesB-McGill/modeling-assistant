@@ -8,18 +8,14 @@ interactive domain modeling assistant developed at
 This Modeling Assistant
 teaches students the fundamentals of domain modeling
 by asking them to model the concepts of a problem domain
-and their relationships given a natural language problem statement.
+and their relationships given a natural language problem statement,
+and it can be extended to support other model types in the future,
+eg, state machines, as described in
+[one](https://doi.org/10.1145/3550356.3556502) of our papers.
 
-This system compares the student solution to one provided by the
+This system compares a student solution to one provided by the
 instructor, detects mistakes using the Mistake Detection System,
 and returns feedback to the student with the Feedback Mechanism.
-
-The feedback is obtained from a
-[Learning Corpus](modelingassistant/corpus_descriptions/README.md)
-which consists of a mistake type hierarchy with multiple feedback
-levels for each mistake type, ranging from highlighting a UI element
-to parametrized responses and responses with learning resources
-such as quizzes.
 
 A UI mockup of the Modeling Assistant can be found below.
 
@@ -32,7 +28,37 @@ The Modeling Assistant application has the following structure.
 
 ![Modeling Assistant Architecture](docs/resources/ma-arch.png)
 
+The concepts of the application are defined using Ecore metamodels
+(models of models) found in the
+[`modelingassistant/model`](modelingassistant/model) folder.
+For more information, see the [README](modelingassistant/model/README.md)
+in that folder.
+
+
 ### Learning Corpus
+
+The feedback shown to the student is obtained from a
+[Learning Corpus](modelingassistant/corpus_descriptions/README.md)
+which consists of a mistake type hierarchy with multiple feedback
+levels for each mistake type, ranging from highlighting a UI element
+to parametrized responses and responses with learning resources
+such as quizzes.
+
+The overall structure of the Learning Corpus is defined using its
+[metamodel](modelingassistant/model/README.md).
+Its contents are defined using an internal Python/PyEcore DSL in
+[`corpusdefinition.py`](modelingassistant/pythonapp/corpusdefinition.py).
+The [`createcorpus.py`](modelingassistant/pythonapp/createcorpus.py) script
+uses this DSL to generate the
+[default Learning Corpus instance](modelingassistant/learningcorpusinstances/default.learningcorpus)
+as well as transformations to source code
+([Python](modelingassistant/pythonapp/mistaketypes.py),
+[Java](modelingassistant/src/learningcorpus/mistaketypes/MistakeTypes.java))
+and human-readable output
+([Markdown](modelingassistant/corpus_descriptions/README.md),
+[LaTeX](modelingassistant/corpus_descriptions/learningcorpusdefs.tex)).
+
+![Learning Corpus Model Transformation](docs/resources/learning-corpus-model-transformation.png)
 
 ### Mistake Detection System
 
@@ -43,7 +69,8 @@ _(details to follow)_
 ### Other Components
 
 The **Modeling UI Frontend**
-([Unity](https://github.com/eknuviad/domain-model-assistant)),
+([Unity](https://github.com/eknuviad/domain-model-assistant),
+JavaScript),
 **[WebCORE](https://bitbucket.org/mcgillram/touchcore-web)**, and
 **[TouchCORE](https://bitbucket.org/mcgillram/)**
 are all developed in separate repositories.
