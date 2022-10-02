@@ -46,7 +46,8 @@ such as quizzes.
 
 The overall structure of the Learning Corpus is defined using its
 [metamodel](modelingassistant/model/README.md).
-Its contents are defined using an internal Python/PyEcore DSL in
+Its contents are defined using an
+[internal Python/PyEcore DSL](docs/creating-learning-corpus-entries.md) in
 [`corpusdefinition.py`](modelingassistant/pythonapp/corpusdefinition.py).
 The [`createcorpus.py`](modelingassistant/pythonapp/createcorpus.py) script
 uses this DSL to generate the
@@ -62,9 +63,44 @@ and human-readable output
 
 ### Mistake Detection System
 
+The Mistake Detection System (MDS) maps domain model elements between the
+student and instructor solutions according
+to features such as type, name, and structural similarities.
+It then compares these elements and detects new mistakes in them
+depending on their context. It also updates the properties of existing
+mistakes which remain unresolved in the student solution.
+
+The MDS supports some legitimate variation in student solutions
+by allowing for synonyms, eg, "Booking" is considered to be equivalent
+to "Reservation," and design pattern alternatives, eg, using a 2-item
+enumeration instead of a boolean attribute and four variations of the
+Player-Role pattern.
+
+The MDS is implemented in Java and can be run as a Spring Boot REST application
+using the [helper script](runmistakedetectionsystem.py), which is written
+in Python to be cross-platform. To build the MDS, first perform the setup
+instructions described [here](docs/onboarding/setup.md).
+
+![Mistake Detection System](docs/resources/mistake-detection-algorithm-overview.png)
+
 ### Feedback Mechanism
 
-_(details to follow)_
+The Feedback Mechanism is used by the application to provide students with
+meaningful progressive feedback on their mistakes. This feedback is generated
+from the Learning Corpus as described above.
+For a conceptual overview, see the relevant material below.
+
+The Feedback Mechanism is implemented in Python and can be run as a
+Flask REST application using the following command within an activated
+virtual environment:
+
+```bash
+python modelingassistant/pythonapp/flaskapp.py
+```
+
+Before running this for the first time, be sure to perform the setup
+instructions described [here](docs/onboarding/setup.md).
+
 
 ### Other Components
 
@@ -146,3 +182,6 @@ Essen, Germany, April 2021.
 [Sources and docs](https://bitbucket.org/mcgillram/)
 - **Domain Modeling Assistant Unity Frontend**:
 Available on [GitHub](https://github.com/eknuviad/domain-model-assistant)
+
+**Note:** This document reuses material from the publications listed above
+with the permission of the authors.
