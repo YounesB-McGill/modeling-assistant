@@ -7,18 +7,18 @@ Module containing feedback algorithm for modeling assistant.
 from collections.abc import Iterable
 from dataclasses import dataclass, field
 from functools import cache
-from typing import Tuple
 import logging
 
 from ordered_set import OrderedSet
 
 from classdiagram import ClassDiagram, NamedElement
 from color import Color
-from modelingassistantapp import MODELING_ASSISTANT, get_mistakes
-from parametrizedresponse import parametrize_response
+from modelingassistantapp import DEBUG_MODE, MODELING_ASSISTANT, get_mistakes
+from parametrizedresponse import comma_seperated_with_and, parametrize_response
 from serdes import set_static_class_for
 from stringserdes import str_to_cdm
-from learningcorpus import Feedback, LearningResource, ParametrizedResponse, TextResponse
+from utils import warn
+from learningcorpus import Feedback, LearningResource, ParametrizedResponse, ResourceResponse, TextResponse
 from modelingassistant import (ModelingAssistant, Student, ProblemStatement, FeedbackItem, Mistake, Solution,
                                SolutionElement, StudentKnowledge)
 
@@ -173,7 +173,7 @@ def student_knowledge_for(mistake: Mistake) -> StudentKnowledge:
 
 
 def give_feedback_for_student_cdm(username: str, student_cdm: ClassDiagram | str, ma: ModelingAssistant = None
-    ) -> FeedbackTO | Tuple[FeedbackTO, ModelingAssistant]:
+    ) -> FeedbackTO | tuple[FeedbackTO, ModelingAssistant]:
     "Give feedback given a student class diagram."
     # pylint: disable=protected-access
     use_local_ma = bool(ma)
@@ -227,6 +227,75 @@ def student_solution_for(username: str, student_cdm: ClassDiagram, ma: ModelingA
         ps.studentSolutions.remove(old_sol)
     ps.studentSolutions.append(stud_sol)
     return stud_sol
+
+
+def verbalize_feedback_description(feedback: FeedbackItem) -> str:
+    """
+    Verbalize the feedback description of the given feedback item.
+
+    When debug mode is on, return a description string for highlighted problem statement and solution elements, to
+    make it easier to work on the frontend.
+
+    For all text feedback, perform the following changes:
+    - If the student is a beginner, include the text [within square brackets] in the feedback, without the square
+      brackets themselves. Otherwise, omit this text entirely
+    - If an indefinite article (A|a) is found in the text and the following word starts with a vowel, replace with
+      (An|an). In the future, use a NLP package to correctly handle cases like "a university".
+
+    For resource responses, indicate the resource type and the contents if no dedicated transformation is available.
+    """
+    if not feedback:
+        warn("verbalize_feedback_description(): input feedback is None")
+        return ""
+    mistake: Mistake = feedback.mistake
+    if DEBUG_MODE:
+        color = feedback.feedback.text if feedback.feedback.text.startswith("#") else str(DEFAULT_HIGHLIGHT_COLOR)
+        prefix = "Highlight "
+        if feedback.feedback.highlightProblem:
+            fragments = [" ".join(map(lambda pse: pse.name, ie.problemStatementElements))
+                         for ie in mistake.instructorElements]
+            suffix = f" in the problem statement in {color}"
+            match len(fragments):
+                case 0:
+                    warn("verbalize_feedback_description(): no problem statement elements found for Feedback with "
+                         "highlightProblem=True")
+                    return ""
+                case 1:
+                    return f'{prefix}"{fragments[0]}"{suffix}'
+                case 2:
+                    return f'{prefix}"{fragments[0]}" and "{fragments[1]}"{suffix}'
+                case _:
+                    return f'{prefix}{", ".join("\"" + f + "\"" for f in fragments[:-1])}, and {fragments[-1]}{suffix}'
+        if feedback.feedback.highlightSolution:
+            stud_elems = [e.element for e in mistake.studentElements]
+            return f"{prefix}{comma_seperated_with_and(stud_elems)} in the solution in {color}"
+
+    result = ""
+    if isinstance(feedback.feedback, ResourceResponse):
+        result = "\n".join(f"{type(r).__name__}: {r.content}" for r in feedback.feedback.learningResources)
+    elif isinstance(feedback.feedback, TextResponse | ParametrizedResponse):
+        result = feedback.text or feedback.feedback.text
+
+    is_beginner = True  # TODO figure out an efficient way to do this later
+
+    text_chunks = result.split("[")
+    result = ""
+    for chunk in text_chunks:
+        if "](" in chunk:
+            result += f"[{chunk}"  # preserve markdown links and images
+        elif "]" in chunk:
+            if is_beginner:
+                result += chunk.replace("]", "")  # include chunk without the closing bracket
+            else:
+                result += chunk.split("]", 1)[1]
+        else:
+            result += chunk
+
+    for v in "aeiouAEIOU":
+        result.replace(f"a {v}", f"an {v}").replace(f"A {v}", f"An {v}")
+
+    return result
+
 
 
 if __name__ == '__main__':

@@ -22,16 +22,19 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from classdiagram import Association, Attribute, CDEnum, CDEnumLiteral, Class, ClassDiagram
 from color import Color
 from constants import MANY
-from corpusdefinition import attribute_duplicated, enum_should_be_full_pr_pattern, missing_enum
-from feedback import DEFAULT_HIGHLIGHT_COLOR, FeedbackTO, give_feedback, give_feedback_for_student_cdm
+from corpusdefinition import (attribute_duplicated, enum_should_be_full_pr_pattern, extra_association, missing_class,
+                              missing_enum)
+from feedback import (DEFAULT_HIGHLIGHT_COLOR, FeedbackTO, give_feedback, give_feedback_for_student_cdm,
+                      verbalize_feedback_description)
 from fileserdes import load_cdm
 from learningcorpus import Feedback, ParametrizedResponse, Reference, ResourceResponse, TextResponse, Quiz
 from mistaketypes import (BAD_CLASS_NAME_SPELLING, INCOMPLETE_CONTAINMENT_TREE, MISSING_CLASS,
     SOFTWARE_ENGINEERING_TERM, WRONG_MULTIPLICITY)
 from stringserdes import SRSET, str_to_modelingassistant
-from utils import ae
-from modelingassistant import (FeedbackItem, Mistake, ModelingAssistant, ProblemStatement, Solution, SolutionElement,
-    Student, StudentKnowledge)
+from utils import ae, HighlightProblem, HighlightSolution
+from modelingassistant import (FeedbackItem, Mistake, ModelingAssistant, ProblemStatement, ProblemStatementElement,
+    Solution, SolutionElement, Student, StudentKnowledge)
+import modelingassistantapp
 
 
 HOST = "localhost"
@@ -719,6 +722,22 @@ def test_feedbackto_elements_with_multiple_colors():
         "solutionElements": ses,
         "writtenFeedback": wf
     })
+
+
+def test_verbalize_feedback_description_highlight_problem_statement():
+    """
+    Test the verbalize_feedback_description() function with feedback where a problem statement element is highlighted.
+    """
+    debug = modelingassistantapp.DEBUG_MODE
+    modelingassistantapp.DEBUG_MODE = True
+    ps_fragment = "The airline owns several airplanes and leases others"
+    feedback = FeedbackItem(feedback=HighlightProblem(), mistake=Mistake(
+        numDetections=1, mistakeType=missing_class, studentElements=[], instructorElements=[
+            SolutionElement(element=Class(name="Airplane"), problemStatementElements=[
+                ProblemStatementElement(name=s) for s in ps_fragment.split()])]))
+    assert (verbalize_feedback_description(feedback)
+            == f'Highlight "{ps_fragment}" in the problem statement in {DEFAULT_HIGHLIGHT_COLOR}')
+    modelingassistantapp.DEBUG_MODE = debug
 
 
 if __name__ == '__main__':

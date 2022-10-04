@@ -13,11 +13,9 @@ import os
 from feedback import give_feedback_for_student_cdm
 from flask import abort, Flask, Response, jsonify, request
 from flask_cors import CORS
-from modelingassistantapp import LOGGING_FORMAT, LOGGING_LEVEL, MODELING_ASSISTANT, SRSET
+from modelingassistantapp import LOGGING_FORMAT, LOGGING_LEVEL, MODELING_ASSISTANT, SRSET, DEBUG_MODE
 from stringserdes import str_to_modelingassistant
 
-
-DEBUG_MODE = True
 PORT = 8538
 
 app = Flask(__name__)

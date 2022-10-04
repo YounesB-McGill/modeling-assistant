@@ -87,9 +87,9 @@ Color.ORANGE = Color("#ffa500", "orange", "\u001b[31;1m")
 Color.RED    = Color("#ff0000", "red",    "\033[91m")
 
 # Lighter colors, used for highlighting items on a light background
-Color.LIGHT_BLUE    = Color("#add8e6", "light_blue")
-Color.LEMON_CHIFFON = Color("#fffacd", "lemon_chiffon")
-Color.PEACH_PUFF    = Color("#ffdab9", "peach_puff")
+Color.LIGHT_BLUE    = Color("#add8e6", "lightblue")
+Color.LEMON_CHIFFON = Color("#fffacd", "lemonchiffon")
+Color.PEACH_PUFF    = Color("#ffdab9", "peachpuff")
 Color.PINK          = Color("#ffc0cb", "pink")
 
 # Aliases for better readability
