@@ -6,6 +6,7 @@ Tests for feedback algorithm.
 """
 
 from dataclasses import asdict, is_dataclass
+from textwrap import dedent
 from threading import Thread
 from time import sleep
 from typing import Any
@@ -19,11 +20,11 @@ import pytest  # (to allow tests to be skipped)
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from classdiagram import Association, Attribute, CDEnum, CDEnumLiteral, Class, ClassDiagram
+from classdiagram import Association, AssociationEnd, Attribute, CDEnum, CDEnumLiteral, Class, ClassDiagram
 from color import Color
 from constants import MANY
-from corpusdefinition import (attribute_duplicated, enum_should_be_full_pr_pattern, extra_association, missing_class,
-                              missing_enum)
+from corpusdefinition import (assoc_class_should_be_class, attribute_duplicated, enum_should_be_full_pr_pattern,
+                              extra_association, missing_class, missing_enum)
 from feedback import (DEFAULT_HIGHLIGHT_COLOR, FeedbackTO, give_feedback, give_feedback_for_student_cdm,
                       verbalize_feedback_description, verbalize_highlight_description)
 from fileserdes import load_cdm
@@ -747,6 +748,44 @@ def test_verbalize_highlight_description_problem_statement():
             == f'Highlight "{ps_fragment}" in the problem statement in {DEFAULT_HIGHLIGHT_COLOR}')
 
 
+def test_verbalize_highlight_description_solution():
+    """
+    Test the verbalize_highlight_description() function with feedback where a solution element is highlighted.
+    """
+    airplane, person = Class(name="Airplane"), Class(name="Person")
+    assoc_name = "Airplane_Person"  # assume default TouchCORE naming convention
+    airplane_person = SolutionElement(element=Association(name=assoc_name, ends=[ae(airplane), ae(person)]))
+    feedback = FeedbackItem(feedback=HighlightSolution(), mistake=Mistake(
+        numDetections=1, mistakeType=extra_association, studentElements=[airplane_person], instructorElements=[]))
+    assert (verbalize_highlight_description(feedback)
+            == f'Highlight {assoc_name} in the solution in {DEFAULT_HIGHLIGHT_COLOR}')
+
+
+def test_verbalize_highlight_description_problem_statement_and_solution():
+    """
+    Test the verbalize_highlight_description() function with feedback where a problem statement element and multiple
+    solution elements are highlighted.
+    """
+    # assoc_class_should_be_class (stud=["assoc", "cls"], inst="cls",)
+    ps_fragment = "Passengers can make their payment using debit, credit, or reward points"
+    airplane, person, payment = Class(name="Airplane"), Class(name="Person"), Class(name="Payment")
+    payment_se = SolutionElement(element=payment)
+    assoc_name = "Airplane_Person"
+    airplane_person = SolutionElement(element=Association(name=assoc_name, ends=[ae(airplane), ae(person)],
+                                                          associationClass=payment))
+    # highlight both problem and solution for the purpose of this test
+    feedback = FeedbackItem(feedback=Feedback(highlightProblem=True, highlightSolution=True), mistake=Mistake(
+        numDetections=1, mistakeType=assoc_class_should_be_class,
+        studentElements=[airplane_person, payment_se],
+        instructorElements=[SolutionElement(element=Class(name="Payment"), problemStatementElements=[
+            ProblemStatementElement(name=s) for s in ps_fragment.split()])]))
+    assert (verbalize_highlight_description(feedback) == dedent(f'''\
+        Highlight "{ps_fragment}" in the problem statement in {DEFAULT_HIGHLIGHT_COLOR}
+        
+        Highlight {assoc_name} and Payment in the solution in {DEFAULT_HIGHLIGHT_COLOR}'''))
+
+
+@pytest.mark.skip(reason="Logic not yet implemented")
 def test_verbalize_feedback_description_highlight_problem_statement():
     """
     Test the verbalize_feedback_description() function with feedback where a problem statement element is highlighted.
@@ -762,4 +801,4 @@ def test_verbalize_feedback_description_highlight_problem_statement():
 
 if __name__ == '__main__':
     "Main entry point (used for debugging)."
-    test_verbalize_highlight_description_problem_statement()
+    test_verbalize_highlight_description_problem_statement_and_solution()
