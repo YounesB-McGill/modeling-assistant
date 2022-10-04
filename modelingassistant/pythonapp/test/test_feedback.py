@@ -15,7 +15,7 @@ import sys
 
 from requests.models import Response
 import requests
-import pytest  # (to allow tests to be skipped) pylint: disable=unused-import
+import pytest  # (to allow tests to be skipped)
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -25,7 +25,7 @@ from constants import MANY
 from corpusdefinition import (attribute_duplicated, enum_should_be_full_pr_pattern, extra_association, missing_class,
                               missing_enum)
 from feedback import (DEFAULT_HIGHLIGHT_COLOR, FeedbackTO, give_feedback, give_feedback_for_student_cdm,
-                      verbalize_feedback_description)
+                      verbalize_feedback_description, verbalize_highlight_description)
 from fileserdes import load_cdm
 from learningcorpus import Feedback, ParametrizedResponse, Reference, ResourceResponse, TextResponse, Quiz
 from mistaketypes import (BAD_CLASS_NAME_SPELLING, INCOMPLETE_CONTAINMENT_TREE, MISSING_CLASS,
@@ -43,6 +43,16 @@ PORT = 8539
 DELAY = 20  # seconds
 
 _HIGHLIGHT_COLOR = DEFAULT_HIGHLIGHT_COLOR.to_hex()
+
+
+@pytest.fixture(autouse=True)
+def run_around_each_test():
+    # Code that runs before each test
+    debug = modelingassistantapp.DEBUG_MODE
+    modelingassistantapp.DEBUG_MODE = True
+    yield  # A test function will be run at this point
+    # Code that runs after the test
+    modelingassistantapp.DEBUG_MODE = debug
 
 
 def make_ma_without_mistakes() -> ModelingAssistant:
@@ -724,12 +734,23 @@ def test_feedbackto_elements_with_multiple_colors():
     })
 
 
+def test_verbalize_highlight_description_problem_statement():
+    """
+    Test the verbalize_highlight_description() function with feedback where a problem statement element is highlighted.
+    """
+    ps_fragment = "The airline owns several airplanes and leases others"
+    feedback = FeedbackItem(feedback=HighlightProblem(), mistake=Mistake(
+        numDetections=1, mistakeType=missing_class, studentElements=[], instructorElements=[
+            SolutionElement(element=Class(name="Airplane"), problemStatementElements=[
+                ProblemStatementElement(name=s) for s in ps_fragment.split()])]))
+    assert (verbalize_highlight_description(feedback)
+            == f'Highlight "{ps_fragment}" in the problem statement in {DEFAULT_HIGHLIGHT_COLOR}')
+
+
 def test_verbalize_feedback_description_highlight_problem_statement():
     """
     Test the verbalize_feedback_description() function with feedback where a problem statement element is highlighted.
     """
-    debug = modelingassistantapp.DEBUG_MODE
-    modelingassistantapp.DEBUG_MODE = True
     ps_fragment = "The airline owns several airplanes and leases others"
     feedback = FeedbackItem(feedback=HighlightProblem(), mistake=Mistake(
         numDetections=1, mistakeType=missing_class, studentElements=[], instructorElements=[
@@ -737,8 +758,8 @@ def test_verbalize_feedback_description_highlight_problem_statement():
                 ProblemStatementElement(name=s) for s in ps_fragment.split()])]))
     assert (verbalize_feedback_description(feedback)
             == f'Highlight "{ps_fragment}" in the problem statement in {DEFAULT_HIGHLIGHT_COLOR}')
-    modelingassistantapp.DEBUG_MODE = debug
 
 
 if __name__ == '__main__':
     "Main entry point (used for debugging)."
+    test_verbalize_highlight_description_problem_statement()

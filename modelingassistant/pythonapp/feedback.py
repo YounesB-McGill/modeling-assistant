@@ -17,7 +17,7 @@ from modelingassistantapp import DEBUG_MODE, MODELING_ASSISTANT, get_mistakes
 from parametrizedresponse import comma_seperated_with_and, parametrize_response
 from serdes import set_static_class_for
 from stringserdes import str_to_cdm
-from utils import warn
+from utils import quote, warn
 from learningcorpus import Feedback, LearningResource, ParametrizedResponse, ResourceResponse, TextResponse
 from modelingassistant import (ModelingAssistant, Student, ProblemStatement, FeedbackItem, Mistake, Solution,
                                SolutionElement, StudentKnowledge)
@@ -80,7 +80,7 @@ class FeedbackTO:
 
         def get_ids(elems: dict[str, list[str]]) -> list[str]:
             result = set()
-            for _, ids in elems.items():
+            for ids in elems.values():
                 result.update(ids)
             return list(result)
 
@@ -265,7 +265,7 @@ def verbalize_feedback_description(feedback: FeedbackItem) -> str:
                 case 2:
                     return f'{prefix}"{fragments[0]}" and "{fragments[1]}"{suffix}'
                 case _:
-                    return f'{prefix}{", ".join("\"" + f + "\"" for f in fragments[:-1])}, and {fragments[-1]}{suffix}'
+                    return f'{prefix}{", ".join(quote(f) for f in fragments[:-1])}, and {fragments[-1]}{suffix}'
         if feedback.feedback.highlightSolution:
             stud_elems = [e.element for e in mistake.studentElements]
             return f"{prefix}{comma_seperated_with_and(stud_elems)} in the solution in {color}"
@@ -296,6 +296,36 @@ def verbalize_feedback_description(feedback: FeedbackItem) -> str:
 
     return result
 
+
+def verbalize_highlight_description(feedback: FeedbackItem) -> str:
+    """
+    When debug mode is on, return a description string for highlighted problem statement and solution elements, to
+    make it easier to work on the frontend.
+    """
+    if not DEBUG_MODE:
+        return ""
+    fb_item, fb_template = feedback, feedback.feedback
+    mistake: Mistake = fb_item.mistake
+    color = fb_template.text if (fb_template.text or "").startswith("#") else str(DEFAULT_HIGHLIGHT_COLOR)
+    prefix = "Highlight "
+    result = ""
+    if fb_template.highlightProblem:
+        fragments = [" ".join(map(lambda e: e.name, ie.problemStatementElements)) for ie in mistake.instructorElements]
+        suffix = f" in the problem statement in {color}"
+        if (n := len(fragments)) == 0:
+            warn("verbalize_highlight_description(): no problem statement elements found for Feedback with "
+                 "highlightProblem=True")
+        elif n == 1:
+            result = f'{prefix}"{fragments[0]}"{suffix}'
+        elif n == 2:
+            result = f'{prefix}"{fragments[0]}" and "{fragments[1]}"{suffix}'
+        else:
+            result = f'{prefix}{", ".join(quote(f) for f in fragments[:-1])}, and {fragments[-1]}{suffix}'
+    if fb_template.highlightSolution:
+        stud_elems = [e.element for e in mistake.studentElements]
+        sep = "\n\n" if result else ""
+        result = f"{result}{sep}{prefix}{comma_seperated_with_and(stud_elems)} in the solution in {color}"
+    return result
 
 
 if __name__ == '__main__':

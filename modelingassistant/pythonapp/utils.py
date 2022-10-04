@@ -181,6 +181,14 @@ def fitb(prompt: str, *statements) -> FillInTheBlanksQuiz:
     return quiz
 
 
+def quote(s: str, quote_char='"') -> str:
+    """
+    Return the given string surrounded with the given quote character, or " if not specified.
+    Useful for use within f-strings.
+    """
+    return f"{quote_char}{s}{quote_char}"
+
+
 class HighlightProblem(Feedback):
     "Shorthand for Feedback initializer with highlightProblem=True."
     # Use __new__ here to create a Feedback instance instead of a subclass not found in the metamodel
