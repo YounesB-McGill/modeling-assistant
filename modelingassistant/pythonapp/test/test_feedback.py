@@ -20,13 +20,16 @@ import pytest  # (to allow tests to be skipped)
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from classdiagram import Association, AssociationEnd, Attribute, CDEnum, CDEnumLiteral, Class, ClassDiagram
+from classdiagram import Association, Attribute, CDEnum, CDEnumLiteral, Class, ClassDiagram
 from color import Color
 from constants import MANY
-from corpusdefinition import (assoc_class_should_be_class, attribute_duplicated, enum_should_be_full_pr_pattern,
-                              extra_association, missing_class, missing_enum)
+from corpusdefinition import (assoc_class_should_be_class, attribute_duplicated, class_ref,
+                              correct_class_naming_example, enum_should_be_full_pr_pattern, extra_association,
+                              inherit_hierarchy_quiz, missing_class, missing_enum, missing_generalization,
+                              plural_class_name)
 from feedback import (DEFAULT_HIGHLIGHT_COLOR, FeedbackTO, give_feedback, give_feedback_for_student_cdm,
-                      verbalize_feedback_description, verbalize_highlight_description)
+                      process_indefinite_articles, process_optional_text, verbalize_feedback_description,
+                      verbalize_highlight_description, verbalize_resource_description)
 from fileserdes import load_cdm
 from learningcorpus import Feedback, ParametrizedResponse, Reference, ResourceResponse, TextResponse, Quiz
 from mistaketypes import (BAD_CLASS_NAME_SPELLING, INCOMPLETE_CONTAINMENT_TREE, MISSING_CLASS,
@@ -785,6 +788,69 @@ def test_verbalize_highlight_description_problem_statement_and_solution():
         Highlight {assoc_name} and Payment in the solution in {DEFAULT_HIGHLIGHT_COLOR}'''))
 
 
+def test_verbalize_resource_description_example():
+    """
+    Test the verbalize_resource_description() function with feedback where an example is provided.
+    """
+    assert (verbalize_resource_description(plural_class_name.feedbacks[-2])  # penultimate feedback
+            == f"Example: {correct_class_naming_example.content}")
+
+
+def test_verbalize_resource_description_reference():
+    """
+    Test the verbalize_resource_description() function with feedback where a reference is provided.
+    """
+    assert verbalize_resource_description(missing_class.feedbacks[-1]) == f"Reference: {class_ref.content}"
+
+
+def test_verbalize_resource_description_quiz():
+    """
+    Test the verbalize_resource_description() function with feedback where a quiz is provided.
+    """
+    assert (verbalize_resource_description(missing_generalization.feedbacks[-2])
+            == f"FillInTheBlanksQuiz: {inherit_hierarchy_quiz.content}")
+
+
+def test_process_optional_text():
+    """
+    Test the process_optional_text() function with various inputs for both beginner and intermediate/advanced students.
+    """
+    test_cases: list[tuple[str, str, str]] = [
+        (None, "", ""),
+        ("", "", ""),
+        ("No optional text", "No optional text", "No optional text"),
+        ("[Start ]Middle End", "Start Middle End", "Middle End"),
+        ("Start [Middle ]End", "Start Middle End", "Start End"),
+        ("Start Middle[ End]", "Start Middle End", "Start Middle"),
+        ("[All]", "All", ""),
+        ("[aaa][bbb]cccdddeee", "aaabbbcccdddeee", "cccdddeee"),
+        ("[aaa]bbb[ccc]dddeee", "aaabbbcccdddeee", "bbbdddeee"),
+        ("[aaa]bbbccc[ddd][eee]", "aaabbbcccdddeee", "bbbccc"),
+        ("aaa[bbb][ccc]dddeee", "aaabbbcccdddeee", "aaadddeee"),
+        ("Text [optional ]and [link](link)", "Text optional and [link](link)", "Text and [link](link)"),
+        ("Text [optional ]and ![image](image)", "Text optional and ![image](image)", "Text and ![image](image)"),
+        ("Text [optional ]and ![image](image) text", "Text optional and ![image](image) text",
+         "Text and ![image](image) text"),
+        ("[Optional ][link](link)[ optional]", "Optional [link](link) optional", "[link](link)"),
+        ("Text ![](image) [optional ]text", "Text ![](image) optional text", "Text ![](image) text"),
+        ("Text ![](image) text [optional ]text", "Text ![](image) text optional text", "Text ![](image) text text"),
+    ]
+    for input_str, expected_output_beginner, expected_output_non_beginner in test_cases:
+        assert process_optional_text(input_str) == expected_output_beginner
+        assert process_optional_text(input_str, False) == expected_output_non_beginner
+
+
+def test_process_indefinite_articles():
+    """
+    Test the process_indefinite_articles() function with various inputs.
+    """
+    assert process_indefinite_articles("A Person has a name") == "A Person has a name"
+    assert process_indefinite_articles("A Employee has a id") == "An Employee has an id"
+    # TODO Enable these assertions when more robust processing is available 
+    #assert process_indefinite_articles("A University is a School") == "A University is a School"
+    #assert process_indefinite_articles("A Hourglass is a Tool") == "An Hourglass is a Tool"
+
+
 @pytest.mark.skip(reason="Logic not yet implemented")
 def test_verbalize_feedback_description_highlight_problem_statement():
     """
@@ -801,4 +867,4 @@ def test_verbalize_feedback_description_highlight_problem_statement():
 
 if __name__ == '__main__':
     "Main entry point (used for debugging)."
-    test_verbalize_highlight_description_problem_statement_and_solution()
+    test_verbalize_resource_description_quiz()

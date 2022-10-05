@@ -247,53 +247,15 @@ def verbalize_feedback_description(feedback: FeedbackItem) -> str:
     if not feedback:
         warn("verbalize_feedback_description(): input feedback is None")
         return ""
-    mistake: Mistake = feedback.mistake
-    if DEBUG_MODE:
-        color = feedback.feedback.text if feedback.feedback.text.startswith("#") else str(DEFAULT_HIGHLIGHT_COLOR)
-        prefix = "Highlight "
-        if feedback.feedback.highlightProblem:
-            fragments = [" ".join(map(lambda pse: pse.name, ie.problemStatementElements))
-                         for ie in mistake.instructorElements]
-            suffix = f" in the problem statement in {color}"
-            match len(fragments):
-                case 0:
-                    warn("verbalize_feedback_description(): no problem statement elements found for Feedback with "
-                         "highlightProblem=True")
-                    return ""
-                case 1:
-                    return f'{prefix}"{fragments[0]}"{suffix}'
-                case 2:
-                    return f'{prefix}"{fragments[0]}" and "{fragments[1]}"{suffix}'
-                case _:
-                    return f'{prefix}{", ".join(quote(f) for f in fragments[:-1])}, and {fragments[-1]}{suffix}'
-        if feedback.feedback.highlightSolution:
-            stud_elems = [e.element for e in mistake.studentElements]
-            return f"{prefix}{comma_seperated_with_and(stud_elems)} in the solution in {color}"
-
-    result = ""
-    if isinstance(feedback.feedback, ResourceResponse):
-        result = "\n".join(f"{type(r).__name__}: {r.content}" for r in feedback.feedback.learningResources)
-    elif isinstance(feedback.feedback, TextResponse | ParametrizedResponse):
-        result = feedback.text or feedback.feedback.text
-
-    is_beginner = True  # TODO figure out an efficient way to do this later
-
-    text_chunks = result.split("[")
-    result = ""
-    for chunk in text_chunks:
-        if "](" in chunk:
-            result += f"[{chunk}"  # preserve markdown links and images
-        elif "]" in chunk:
-            if is_beginner:
-                result += chunk.replace("]", "")  # include chunk without the closing bracket
-            else:
-                result += chunk.split("]", 1)[1]
-        else:
-            result += chunk
-
-    for v in "aeiouAEIOU":
-        result.replace(f"a {v}", f"an {v}").replace(f"A {v}", f"An {v}")
-
+    highlight_info = verbalize_highlight_description(feedback)
+    resource_info = verbalize_resource_description(feedback)
+    written_feedback = ""
+    if isinstance(feedback.feedback, TextResponse | ParametrizedResponse):
+        written_feedback = feedback.text or feedback.feedback.text
+    sep = "\n\n" if highlight_info else ""
+    result = f"{written_feedback}{resource_info}{sep}{highlight_info}"
+    result = process_optional_text(result)  # TODO handle intermediate and advanced students later
+    result = process_indefinite_articles(result)
     return result
 
 
@@ -326,6 +288,52 @@ def verbalize_highlight_description(feedback: FeedbackItem) -> str:
         sep = "\n\n" if result else ""
         result = f"{result}{sep}{prefix}{comma_seperated_with_and(stud_elems)} in the solution in {color}"
     return result
+
+
+def verbalize_resource_description(feedback: FeedbackItem | Feedback) -> str:
+    """
+    If the feedback is or has a resource response, return a description of the resource. Otherwise, return an empty
+    string.
+    """
+    feedback: Feedback = feedback.feedback if isinstance(feedback, FeedbackItem) else feedback
+    if isinstance(feedback, ResourceResponse):
+        return "\n".join(f"{type(r).__name__}: {r.content}" for r in feedback.learningResources)
+    return ""
+
+
+def process_optional_text(text: str, is_beginner: bool = True) -> str:
+    """
+    Return the given text, but if is_beginner is True (the default), include text [within square brackets] without the
+    square brackets themselves. Otherwise, omit the text within entirely. In either case, preserve Markdown links and
+    images.
+    """
+    if not text:
+        return ""
+    if text.startswith("["):
+        text = f" {text}"
+    text_chunks = text.split("[")
+    result = ""
+    for chunk in text_chunks:
+        if "](" in chunk:
+            result += f"[{chunk}"  # preserve markdown links and images
+        elif "]" in chunk:
+            if is_beginner:
+                result += chunk.replace("]", "")  # include chunk without the closing bracket
+            else:
+                result += chunk.split("]", 1)[1]
+        else:
+            result += chunk
+    return result.strip()
+
+
+def process_indefinite_articles(text: str) -> str:
+    """
+    If an indefinite article (A|a) is found in the text and the following word starts with a vowel, replace with
+    (An|an). In the future, use a NLP package to correctly handle cases like "a university".
+    """
+    for v in "aeiouAEIOU":
+        text = text.replace(f" a {v}", f" an {v}").replace(f"A {v}", f"An {v}")
+    return text
 
 
 if __name__ == '__main__':
