@@ -34,6 +34,7 @@ from fileserdes import load_cdm
 from learningcorpus import Feedback, ParametrizedResponse, Reference, ResourceResponse, TextResponse, Quiz
 from mistaketypes import (BAD_CLASS_NAME_SPELLING, INCOMPLETE_CONTAINMENT_TREE, MISSING_CLASS,
     SOFTWARE_ENGINEERING_TERM, WRONG_MULTIPLICITY)
+from parametrizedresponse import parametrize_response
 from stringserdes import SRSET, str_to_modelingassistant
 from utils import ae, HighlightProblem, HighlightSolution
 from modelingassistant import (FeedbackItem, Mistake, ModelingAssistant, ProblemStatement, ProblemStatementElement,
@@ -788,6 +789,7 @@ def test_verbalize_highlight_description_problem_statement_and_solution():
         Highlight {assoc_name} and Payment in the solution in {DEFAULT_HIGHLIGHT_COLOR}'''))
 
 
+# These test cases are split into separate functions to encourage future expansion
 def test_verbalize_resource_description_example():
     """
     Test the verbalize_resource_description() function with feedback where an example is provided.
@@ -851,7 +853,6 @@ def test_process_indefinite_articles():
     #assert process_indefinite_articles("A Hourglass is a Tool") == "An Hourglass is a Tool"
 
 
-@pytest.mark.skip(reason="Logic not yet implemented")
 def test_verbalize_feedback_description_highlight_problem_statement():
     """
     Test the verbalize_feedback_description() function with feedback where a problem statement element is highlighted.
@@ -863,6 +864,100 @@ def test_verbalize_feedback_description_highlight_problem_statement():
                 ProblemStatementElement(name=s) for s in ps_fragment.split()])]))
     assert (verbalize_feedback_description(feedback)
             == f'Highlight "{ps_fragment}" in the problem statement in {DEFAULT_HIGHLIGHT_COLOR}')
+
+
+def test_verbalize_feedback_description_highlight_solution():
+    """
+    Test the verbalize_feedback_description() function with feedback where a solution element is highlighted.
+    """
+    airplane, person = Class(name="Airplane"), Class(name="Person")
+    assoc_name = "Airplane_Person"  # assume default TouchCORE naming convention
+    airplane_person = SolutionElement(element=Association(name=assoc_name, ends=[ae(airplane), ae(person)]))
+    feedback = FeedbackItem(feedback=HighlightSolution(), mistake=Mistake(
+        numDetections=1, mistakeType=extra_association, studentElements=[airplane_person], instructorElements=[]))
+    assert (verbalize_feedback_description(feedback)
+            == f'Highlight {assoc_name} in the solution in {DEFAULT_HIGHLIGHT_COLOR}')
+
+
+def test_verbalize_feedback_description_highlight_problem_statement_and_solution():
+    """
+    Test the verbalize_highlight_description() function with feedback where a problem statement element and multiple
+    solution elements are highlighted.
+    """
+    # assoc_class_should_be_class (stud=["assoc", "cls"], inst="cls",)
+    ps_fragment = "Passengers can make their payment using debit, credit, or reward points"
+    airplane, person, payment = Class(name="Airplane"), Class(name="Person"), Class(name="Payment")
+    payment_se = SolutionElement(element=payment)
+    assoc_name = "Airplane_Person"
+    airplane_person = SolutionElement(element=Association(name=assoc_name, ends=[ae(airplane), ae(person)],
+                                                          associationClass=payment))
+    # highlight both problem and solution for the purpose of this test
+    feedback = FeedbackItem(feedback=Feedback(highlightProblem=True, highlightSolution=True), mistake=Mistake(
+        numDetections=1, mistakeType=assoc_class_should_be_class,
+        studentElements=[airplane_person, payment_se],
+        instructorElements=[SolutionElement(element=Class(name="Payment"), problemStatementElements=[
+            ProblemStatementElement(name=s) for s in ps_fragment.split()])]))
+    assert (verbalize_feedback_description(feedback) == dedent(f'''\
+        Highlight "{ps_fragment}" in the problem statement in {DEFAULT_HIGHLIGHT_COLOR}
+        
+        Highlight {assoc_name} and Payment in the solution in {DEFAULT_HIGHLIGHT_COLOR}'''))
+
+
+def test_verbalize_feedback_description_show_text_response_and_highlight_problem_statement_and_solution():
+    """
+    Test the verbalize_highlight_description() function with feedback where a text response is shown and a problem
+    statement element and multiple solution elements are highlighted.
+    """
+    # assoc_class_should_be_class (stud=["assoc", "cls"], inst="cls",)
+    ps_fragment = "Passengers can make their payment using debit, credit, or reward points"
+    fb_text = assoc_class_should_be_class.feedbacks[1].text
+    airplane, person, payment = Class(name="Airplane"), Class(name="Person"), Class(name="Payment")
+    payment_se = SolutionElement(element=payment)
+    assoc_name = "Airplane_Person"
+    airplane_person = SolutionElement(element=Association(name=assoc_name, ends=[ae(airplane), ae(person)],
+                                                          associationClass=payment))
+    # highlight both problem and solution for the purpose of this test
+    feedback = FeedbackItem(feedback=TextResponse(highlightProblem=True, highlightSolution=True, text=fb_text),
+        mistake=Mistake(
+            numDetections=2, mistakeType=assoc_class_should_be_class,
+            studentElements=[airplane_person, payment_se],
+            instructorElements=[SolutionElement(element=Class(name="Payment"), problemStatementElements=[
+                ProblemStatementElement(name=s) for s in ps_fragment.split()])]))
+    assert (verbalize_feedback_description(feedback) == dedent(f'''\
+        {fb_text}
+
+        Highlight "{ps_fragment}" in the problem statement in {DEFAULT_HIGHLIGHT_COLOR}
+        
+        Highlight {assoc_name} and Payment in the solution in {DEFAULT_HIGHLIGHT_COLOR}'''))
+
+
+def test_verbalize_feedback_description_show_parametrized_response_and_highlight_problem_statement_and_solution():
+    """
+    Test the verbalize_highlight_description() function with feedback where a parametrized response is shown and a
+    problem statement element and multiple solution elements are highlighted.
+    """
+    # assoc_class_should_be_class (stud=["assoc", "cls"], inst="cls",)
+    ps_fragment = "Passengers can make their payment using debit, credit, or reward points"
+    airplane, person, payment = Class(name="Airplane"), Class(name="Person"), Class(name="Payment")
+    payment_se = SolutionElement(element=payment)
+    assoc_name = "Airplane_Person"
+    airplane_person = SolutionElement(element=Association(name=assoc_name, ends=[ae(airplane), ae(person)],
+                                                          associationClass=payment))
+    pr = ParametrizedResponse(highlightProblem=True, highlightSolution=True,
+                              text=assoc_class_should_be_class.feedbacks[-2].text)
+    mistake = Mistake(
+        numDetections=2, mistakeType=assoc_class_should_be_class, studentElements=[airplane_person, payment_se],
+        instructorElements=[SolutionElement(element=Class(name="Payment"), problemStatementElements=[
+            ProblemStatementElement(name=s) for s in ps_fragment.split()])])
+    feedback = FeedbackItem(feedback=pr, mistake=mistake)
+    pr_text = parametrize_response(pr, mistake)
+    feedback.text = pr_text
+    assert (verbalize_feedback_description(feedback) == dedent(f'''\
+        {pr_text}
+
+        Highlight "{ps_fragment}" in the problem statement in {DEFAULT_HIGHLIGHT_COLOR}
+        
+        Highlight {assoc_name} and Payment in the solution in {DEFAULT_HIGHLIGHT_COLOR}'''))
 
 
 if __name__ == '__main__':

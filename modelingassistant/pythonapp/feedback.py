@@ -13,6 +13,7 @@ from ordered_set import OrderedSet
 
 from classdiagram import ClassDiagram, NamedElement
 from color import Color
+from corpusdefinition import infinite_recursive_dependency, missing_multiplicity
 from modelingassistantapp import DEBUG_MODE, MODELING_ASSISTANT, get_mistakes
 from parametrizedresponse import comma_seperated_with_and, parametrize_response
 from serdes import set_static_class_for
@@ -249,12 +250,10 @@ def verbalize_feedback_description(feedback: FeedbackItem) -> str:
         return ""
     highlight_info = verbalize_highlight_description(feedback)
     resource_info = verbalize_resource_description(feedback)
-    written_feedback = ""
-    if isinstance(feedback.feedback, TextResponse | ParametrizedResponse):
-        written_feedback = feedback.text or feedback.feedback.text
+    written_feedback = verbalize_written_feedback(feedback)
     sep = "\n\n" if highlight_info else ""
     result = f"{written_feedback}{resource_info}{sep}{highlight_info}"
-    result = process_optional_text(result)  # TODO handle intermediate and advanced students later
+    result = process_optional_text(result, is_beginner=True)  # TODO handle intermediate and advanced students later
     result = process_indefinite_articles(result)
     return result
 
@@ -287,6 +286,24 @@ def verbalize_highlight_description(feedback: FeedbackItem) -> str:
         stud_elems = [e.element for e in mistake.studentElements]
         sep = "\n\n" if result else ""
         result = f"{result}{sep}{prefix}{comma_seperated_with_and(stud_elems)} in the solution in {color}"
+    return result
+
+
+def verbalize_written_feedback(feedback: FeedbackItem) -> str:
+    """
+    If the feedback has a text or parametrized response, process and return it. Otherwise, return an empty string.
+    """
+    fb_item, fb_template = feedback, feedback.feedback
+    mistake: Mistake = fb_item.mistake
+    result = ""
+    if isinstance(fb_template, TextResponse | ParametrizedResponse):
+        result = fb_item.text or fb_template.text
+    # special cases for certain mistake types, make this more general if corpus grows
+    if mistake.mistakeType.name in [infinite_recursive_dependency.name, missing_multiplicity.name]:
+        if len(mistake.studentElements) > 1:  # multiple wrong multiplicities
+            result = result.replace("(y|ies)", "ies").replace("(is|are)", "are")
+        else:
+            result = result.replace("(y|ies)", "y").replace("(is|are)", "is")
     return result
 
 
