@@ -34,7 +34,7 @@ from fileserdes import load_cdm, save_to_file
 from stringserdes import SRSET, str_to_modelingassistant
 from user import MockStudent, User, users
 from modelingassistant import ModelingAssistant
-from modelingassistantapp import get_ma_with_ps, EXAMPLE_CDM_NAME, EXAMPLE_INSTRUCTOR_CDM
+from modelingassistantapp import get_ma_with_ps, DEBUG_MODE, EXAMPLE_CDM_NAME, EXAMPLE_INSTRUCTOR_CDM
 
 
 MA_REST_ENDPOINT = f"http://localhost:{PORT}/modelingassistant"
@@ -151,8 +151,8 @@ def test_ma_multiple_feedback_levels(webcore):
 
     # Extra class level 1: highlight solution
     feedback = student.request_feedback(cdm_name)
-    assert (class1 in feedback.solutionElementIds and not feedback.problemStatementElements and
-            not feedback.writtenFeedback)
+    assert (class1 in feedback.solutionElementIds and not feedback.problemStatementElements)
+    assert not feedback.writtenFeedback or (DEBUG_MODE and feedback.writtenFeedback.startswith("Highlight Class1"))
     assert DEFAULT_HIGHLIGHT_COLOR.to_hex() in feedback.solutionElements
 
     # Extra class level 2: text response

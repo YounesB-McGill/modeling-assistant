@@ -88,8 +88,7 @@ class FeedbackTO:
         if feedback:
             solutionElements: OrderedSet[SolutionElement] = feedback.mistake.studentElements
             problemStatementElements: OrderedSet[SolutionElement] = feedback.mistake.instructorElements
-            writtenFeedback = (feedback.text or feedback.feedback.text
-                               or getattr(feedback.feedback, "learningResources", [_empty_resource])[0].content)
+            writtenFeedback = verbalize_feedback_description(feedback)
         self.solutionElements = make_highlighted_elems(solutionElements)
         self.solutionElementIds = get_ids(self.solutionElements)
         self.problemStatementElements = make_highlighted_elems(problemStatementElements)
@@ -271,11 +270,13 @@ def verbalize_highlight_description(feedback: FeedbackItem) -> str:
     prefix = "Highlight "
     result = ""
     if fb_template.highlightProblem:
-        fragments = [" ".join(map(lambda e: e.name, ie.problemStatementElements)) for ie in mistake.instructorElements]
+        fragments = list(filter(bool, [" ".join(map(lambda e: e.name, ie.problemStatementElements))
+                                       for ie in mistake.instructorElements]))
         suffix = f" in the problem statement in {color}"
         if (n := len(fragments)) == 0:
             warn("verbalize_highlight_description(): no problem statement elements found for Feedback with "
                  "highlightProblem=True")
+            return ""
         elif n == 1:
             result = f'{prefix}"{fragments[0]}"{suffix}'
         elif n == 2:
