@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import ca.mcgill.sel.mistakedetection.tests.utils.HumanValidatedMistakeDetectionFormats;
+import ca.mcgill.sel.mistakedetection.tests.utils.HumanValidatedMistakeElementGroups;
 import modelingassistant.Mistake;
 
 /**
@@ -20,13 +20,13 @@ import modelingassistant.Mistake;
  * @author Younes Boubekeur
  * @author Prabhsimran Singh
  */
-public class MistakeDetectionFormat {
+public class MistakeElementGroup {
 
   public final List<String> stud = new ArrayList<>();
   public final List<String> inst = new ArrayList<>();
 
-  /** The empty mistake detection format, ([], []). Note that an empty MDF is semantically invalid. */
-  public static final MistakeDetectionFormat EMPTY_MDF = emptyMdf();
+  /** The empty mistake detection format, ([], []). Note that an empty MEG is semantically invalid. */
+  public static final MistakeElementGroup EMPTY_MEG = emptyGroup();
 
   static final Map<CdmMetatype, CdmMetatype> typesToReplacements = Map.of(
       AGGR, ASSOC,
@@ -34,7 +34,7 @@ public class MistakeDetectionFormat {
       REL, ASSOC,
       ROLE, CLS);
 
-  public MistakeDetectionFormat(Mistake mistake) {
+  public MistakeElementGroup(Mistake mistake) {
     int[] cnt = {0, 0};
     mistake.getStudentElements().forEach(e -> stud.add(ElementDescription.fromElement(e).toShortString(cnt[0]++)));
     mistake.getInstructorElements().forEach(e -> inst.add(ElementDescription.fromElement(e).toShortString(cnt[1]++)));
@@ -46,39 +46,39 @@ public class MistakeDetectionFormat {
     }
   }
 
-  public MistakeDetectionFormat(MistakeInfo mistakeInfo) {
+  public MistakeElementGroup(MistakeInfo mistakeInfo) {
     this(mistakeInfo.mistake);
   }
 
-  private MistakeDetectionFormat(List<String> studentElemsDescriptions, List<String> instructorElemsDescriptions) {
+  private MistakeElementGroup(List<String> studentElemsDescriptions, List<String> instructorElemsDescriptions) {
     stud.addAll(studentElemsDescriptions);
     inst.addAll(instructorElemsDescriptions);
   }
 
-  public static MistakeDetectionFormat forMistake(Mistake mistake) {
-    return HumanValidatedMistakeDetectionFormats.mappings.getOrDefault(mistake.getMistakeType(),
-        new MistakeDetectionFormat(mistake));
+  public static MistakeElementGroup forMistake(Mistake mistake) {
+    return HumanValidatedMistakeElementGroups.mappings.getOrDefault(mistake.getMistakeType(),
+        new MistakeElementGroup(mistake));
   }
 
-  public static MistakeDetectionFormat forMistakeInfo(MistakeInfo mistakeInfo) {
+  public static MistakeElementGroup forMistakeInfo(MistakeInfo mistakeInfo) {
     return forMistake(mistakeInfo.mistake);
   }
 
-  public static MistakeDetectionFormat mdf(List<String> studentElemsDescriptions,
+  public static MistakeElementGroup meg(List<String> studentElemsDescriptions,
       List<String> instructorElemsDescriptions) {
-    return new MistakeDetectionFormat(studentElemsDescriptions, instructorElemsDescriptions);
+    return new MistakeElementGroup(studentElemsDescriptions, instructorElemsDescriptions);
   }
 
   /**
    * Returns an empty mistake detection format, which is semantically invalid. To avoid creating needless instances of
-   * an empty MDF, use the EMPTY_MDF constant instead.
+   * an empty MEG, use the EMPTY_MEG constant instead.
    */
-  public static MistakeDetectionFormat emptyMdf() {
-    return new MistakeDetectionFormat(Collections.emptyList(), Collections.emptyList());
+  public static MistakeElementGroup emptyGroup() {
+    return new MistakeElementGroup(Collections.emptyList(), Collections.emptyList());
   }
 
-  public MistakeDetectionFormat.Shape shape() {
-    return new MistakeDetectionFormat.Shape(this);
+  public MistakeElementGroup.Shape shape() {
+    return new MistakeElementGroup.Shape(this);
   }
 
   public String studAsString() {
@@ -102,10 +102,10 @@ public class MistakeDetectionFormat {
   }
 
   @Override public boolean equals(Object o) {
-    if (!(o instanceof MistakeDetectionFormat)) {
+    if (!(o instanceof MistakeElementGroup)) {
       return false;
     }
-    var other = (MistakeDetectionFormat) o;
+    var other = (MistakeElementGroup) o;
     return stud.equals(other.stud) && inst.equals(other.inst);
   }
 
@@ -114,10 +114,10 @@ public class MistakeDetectionFormat {
   }
 
   /** The shape of the mistake detection format, which is the lists of its student and instructor metatypes. */
-  public static class Shape extends MistakeDetectionFormat {
+  public static class Shape extends MistakeElementGroup {
 
-    public Shape(MistakeDetectionFormat mdf) {
-      super(mapToShape(mdf.stud), mapToShape(mdf.inst));
+    public Shape(MistakeElementGroup meg) {
+      super(mapToShape(meg.stud), mapToShape(meg.inst));
     }
 
     /** Maps type lists, eg, ["compos", "cls", "cls", "cls"] -> ["compos", "cls*"]. */
@@ -148,11 +148,11 @@ public class MistakeDetectionFormat {
     }
 
     /**
-     * Reduces the MDF shape to its simplest form, where convenience CDM metatypes like role and compos are replaced
+     * Reduces the MEG shape to its simplest form, where convenience CDM metatypes like role and compos are replaced
      * with their concrete equivalents.
      */
-    public MistakeDetectionFormat.Shape reduceToSimplestForm() {
-      return new Shape(mdf(simplify(stud), simplify(inst)));
+    public MistakeElementGroup.Shape reduceToSimplestForm() {
+      return new Shape(meg(simplify(stud), simplify(inst)));
     }
 
     private static List<String> simplify(List<String> elems) {
@@ -172,12 +172,12 @@ public class MistakeDetectionFormat {
     }
 
     /** Returns true if the shape's simplest form is equal to that of the input. */
-    public boolean isCompatibleWith(MistakeDetectionFormat.Shape shape) {
+    public boolean isCompatibleWith(MistakeElementGroup.Shape shape) {
       return equals(shape) || reduceToSimplestForm().equals(shape.reduceToSimplestForm())
           || matchesVarargsOf(shape);
     }
 
-    public boolean matchesVarargsOf(MistakeDetectionFormat.Shape shape) {
+    public boolean matchesVarargsOf(MistakeElementGroup.Shape shape) {
       return varargsMatch(stud, shape.stud) && varargsMatch(inst, shape.inst);
     }
 
@@ -192,10 +192,10 @@ public class MistakeDetectionFormat {
     }
 
     @Override public boolean equals(Object o) {
-      if (!(o instanceof MistakeDetectionFormat.Shape)) {
+      if (!(o instanceof MistakeElementGroup.Shape)) {
         return false;
       }
-      var other = (MistakeDetectionFormat.Shape) o;
+      var other = (MistakeElementGroup.Shape) o;
       return stud.equals(other.stud) && inst.equals(other.inst);
     }
 

@@ -14,8 +14,8 @@ import org.junit.jupiter.api.BeforeAll;
 import ca.mcgill.sel.classdiagram.AssociationEnd;
 import ca.mcgill.sel.mistakedetection.MistakeDetectionConfig;
 import ca.mcgill.sel.mistakedetection.tests.utils.Color;
-import ca.mcgill.sel.mistakedetection.tests.utils.HumanValidatedMistakeDetectionFormats;
-import ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.MistakeDetectionFormat;
+import ca.mcgill.sel.mistakedetection.tests.utils.HumanValidatedMistakeElementGroups;
+import ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.MistakeElementGroup;
 import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MistakeDetectionInformationService;
 import modelingassistant.SolutionElement;
 
@@ -35,32 +35,32 @@ public abstract class MistakeDetectionBaseTest {
 
   @AfterAll
   public static void teardown() {
-    testMdfsFromMdsAreCompatibleWithHumanValidatedMdfs();
+    testMegsFromMdsAreCompatibleWithHumanValidatedMegs();
     testSourcesTargetsWholesAndPartsAreProperlySpecified();
 
     printWarnings();
   }
 
-  /** Ensures that the MDFs inferred from the MDS are compatible with the human-validated ones. */
-  static void testMdfsFromMdsAreCompatibleWithHumanValidatedMdfs() {
-    var mdfsFromMds = MistakeDetectionInformationService.getMistakeDetectionFormatsAsIsFromMistakeDetectionSystem();
-    var humanValidatedMdfs = HumanValidatedMistakeDetectionFormats.mappings;
-    mdfsFromMds.forEach((mti, mdf) -> {
-      var mdfFromMdsShape = mdf.shape();
-      var hvMdfShape = humanValidatedMdfs.getOrDefault(mti.mistakeType, MistakeDetectionFormat.EMPTY_MDF).shape();
-      if (!mdfFromMdsShape.equals(hvMdfShape)) {
+  /** Ensures that the MEGs inferred from the MDS are compatible with the human-validated ones. */
+  static void testMegsFromMdsAreCompatibleWithHumanValidatedMegs() {
+    var megsFromMds = MistakeDetectionInformationService.getMistakeElementGroupsAsIsFromMistakeDetectionSystem();
+    var humanValidatedMegs = HumanValidatedMistakeElementGroups.mappings;
+    megsFromMds.forEach((mti, meg) -> {
+      var megFromMdsShape = meg.shape();
+      var hvMegShape = humanValidatedMegs.getOrDefault(mti.mistakeType, MistakeElementGroup.EMPTY_MEG).shape();
+      if (!megFromMdsShape.equals(hvMegShape)) {
         var source = "unknown source";
         if (!mti.mistakeInfo.caller.isEmpty()) {
           source = mti.mistakeInfo.caller;
         }
-        if (mdfFromMdsShape.isCompatibleWith(hvMdfShape)) {
-          if (!HumanValidatedMistakeDetectionFormats.exemptions.contains(mti.mistakeType)) {
-            warnings.putIfAbsent(colorString(Color.DARK_YELLOW, "! Double-check MDF for " + mti.mistakeType.getName()
-                + ": " + mdf.shape().reduceToSimplestForm() + ".\n MDF created from " + source), false);
+        if (megFromMdsShape.isCompatibleWith(hvMegShape)) {
+          if (!HumanValidatedMistakeElementGroups.exemptions.contains(mti.mistakeType)) {
+            warnings.putIfAbsent(colorString(Color.DARK_YELLOW, "! Double-check MEG for " + mti.mistakeType.getName()
+                + ": " + meg.shape().reduceToSimplestForm() + ".\n MEG created from " + source), false);
           }
         } else {
-          fail("X MDF for " + mti.mistakeType.getName() + " is " + mdf.shape() + " but expected " + hvMdfShape
-              + ".\n MDF created from " + source);
+          fail("X MEG for " + mti.mistakeType.getName() + " is " + meg.shape() + " but expected " + hvMegShape
+              + ".\n MEG created from " + source);
         }
       }
     });
@@ -69,23 +69,23 @@ public abstract class MistakeDetectionBaseTest {
   /** Enforces the automated checks made by the SourceTargetVerifier. */
   static void testSourcesTargetsWholesAndPartsAreProperlySpecified() {
     sourceTargetWholePartMistakeTypesAndInfos().forEach((mt, mistakeInfos) -> {
-      var mdf = HumanValidatedMistakeDetectionFormats.mappings.get(mt);
+      var meg = HumanValidatedMistakeElementGroups.mappings.get(mt);
       mistakeInfos.forEach(mi -> {
-        for (int i = 0; i < mdf.stud.size(); i++) {
-          validateMistakeDetectionFormatMatchesElement(mdf.stud.get(i), mi.mistake.getStudentElements().get(i));
+        for (int i = 0; i < meg.stud.size(); i++) {
+          validateMistakeElementGroupMatchesElement(meg.stud.get(i), mi.mistake.getStudentElements().get(i));
         }
-        for (int i = 0; i < mdf.inst.size(); i++) {
-          validateMistakeDetectionFormatMatchesElement(mdf.inst.get(i), mi.mistake.getInstructorElements().get(i));
+        for (int i = 0; i < meg.inst.size(); i++) {
+          validateMistakeElementGroupMatchesElement(meg.inst.get(i), mi.mistake.getInstructorElements().get(i));
         }
       });
     });
   }
 
   /**
-   * Validates that the given mistake detection format string is consistent with the given solution element.
+   * Validates that the given mistake element format string is consistent with the given solution element.
    * If not, a test failure with the inconsistency will be reported.
    */
-  private static void validateMistakeDetectionFormatMatchesElement(String format, SolutionElement elem) {
+  private static void validateMistakeElementGroupMatchesElement(String format, SolutionElement elem) {
     final var specAs = " is specified as a "; // to save space below
     if (!(elem.getElement() instanceof AssociationEnd)) {
       return; // no need for assertion for other element types

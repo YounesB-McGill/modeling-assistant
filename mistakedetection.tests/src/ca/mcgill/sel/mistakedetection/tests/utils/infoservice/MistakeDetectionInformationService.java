@@ -19,10 +19,10 @@ import ca.mcgill.sel.classdiagram.AssociationEnd;
 import ca.mcgill.sel.classdiagram.CdmFactory;
 import ca.mcgill.sel.classdiagram.ReferenceType;
 import ca.mcgill.sel.mistakedetection.Comparison;
-import ca.mcgill.sel.mistakedetection.tests.utils.HumanValidatedMistakeDetectionFormats;
+import ca.mcgill.sel.mistakedetection.tests.utils.HumanValidatedMistakeElementGroups;
 import ca.mcgill.sel.mistakedetection.tests.utils.HumanValidatedParametrizedResponses;
 import ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.CdmMetatype;
-import ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.MistakeDetectionFormat;
+import ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.MistakeElementGroup;
 import ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.MistakeInfo;
 import ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.MistakeTypeInfo;
 import learningcorpus.ElementType;
@@ -60,21 +60,21 @@ public abstract class MistakeDetectionInformationService {
   public static final Function<Mistake, Stream<SolutionElement>> instructorAndStudentElems =
       m -> Stream.concat(instructorElems.apply(m), studentElems.apply(m));
 
-  static final BinaryOperator<MistakeDetectionFormat> mdfCollisionFunction = (mdf1, mdf2) -> {
-    if (mdf1.inst.size() <= mdf2.inst.size() && mdf1.stud.size() <= mdf2.stud.size()) {
-      return mdf2;
-    } else if (mdf1.inst.size() >= mdf2.inst.size() && mdf1.stud.size() >= mdf2.stud.size()) {
-      return mdf1;
+  static final BinaryOperator<MistakeElementGroup> megCollisionFunction = (meg1, meg2) -> {
+    if (meg1.inst.size() <= meg2.inst.size() && meg1.stud.size() <= meg2.stud.size()) {
+      return meg2;
+    } else if (meg1.inst.size() >= meg2.inst.size() && meg1.stud.size() >= meg2.stud.size()) {
+      return meg1;
     }
-    warn("Encountered 2 MistakeDetectionFormats with incompatible numbers of instructor and student elements, "
-        + "returning most recent: " + mdf2);
-    return mdf2;
+    warn("Encountered 2 MistakeElementGroups with incompatible numbers of instructor and student elements, "
+        + "returning most recent: " + meg2);
+    return meg2;
   };
 
   static final Map<MistakeType, Set<String>> suggestedParametrizedResponses =
       suggestParametrizedResponses(
-          //suggestedMistakeDetectionFormats,
-          HumanValidatedMistakeDetectionFormats.mappings,
+          //suggestedMistakeElementGroups,
+          HumanValidatedMistakeElementGroups.mappings,
           false);
 
   public final String name;
@@ -160,65 +160,63 @@ public abstract class MistakeDetectionInformationService {
                     ElementType.COMPOSITION : ElementType.ASSOCIATION) : null)); // can't easily detect inheritance here
   }
 
-  /** Filtered MDFs which not already validated. */
-  static final Map<MistakeTypeInfo, MistakeDetectionFormat> filteredSuggestedMistakeDetectionFormats() {
-      return suggestMistakeDetectionFormats(e ->
-          !e.getValue().equals(HumanValidatedMistakeDetectionFormats.mappings.get(e.getKey().mistakeType)));
+  /** Filtered MEGs which not already validated. */
+  static final Map<MistakeTypeInfo, MistakeElementGroup> filteredSuggestedMistakeElementGroups() {
+      return suggestMistakeElementGroups(e ->
+          !e.getValue().equals(HumanValidatedMistakeElementGroups.mappings.get(e.getKey().mistakeType)));
   }
 
   /** Suggests mistake detection formats based on the output of the mistake detection tests. */
-  static Map<MistakeTypeInfo, MistakeDetectionFormat> suggestMistakeDetectionFormats() {
-    return suggestAllMistakeDetectionFormats().entrySet().stream().collect(Collectors.toMap(
+  static Map<MistakeTypeInfo, MistakeElementGroup> suggestMistakeElementGroups() {
+    return suggestAllMistakeElementGroups().entrySet().stream().collect(Collectors.toMap(
         e -> new MistakeTypeInfo(e.getKey()),
         Map.Entry::getValue,
-        mdfCollisionFunction,
+        megCollisionFunction,
         TreeMap::new));
   }
 
-  static Map<MistakeTypeInfo, MistakeDetectionFormat> suggestMistakeDetectionFormats(
-      Predicate<Map.Entry<MistakeTypeInfo, MistakeDetectionFormat>> filteringFunction) {
-    return suggestMistakeDetectionFormats().entrySet().stream().filter(filteringFunction)
+  static Map<MistakeTypeInfo, MistakeElementGroup> suggestMistakeElementGroups(
+      Predicate<Map.Entry<MistakeTypeInfo, MistakeElementGroup>> filteringFunction) {
+    return suggestMistakeElementGroups().entrySet().stream().filter(filteringFunction)
         .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
   }
 
-  /** Returns the MDFs as implemented in the Mistake Detection System, regardless of validation status. */
-  public static Map<MistakeTypeInfo, MistakeDetectionFormat> getMistakeDetectionFormatsAsIsFromMistakeDetectionSystem()
-  {
-    return getAllMistakeDetectionFormatsAsIsFromMistakeDetectionSystem().entrySet().stream().collect(Collectors.toMap(
+  /** Returns the MEGs as implemented in the Mistake Detection System, regardless of validation status. */
+  public static Map<MistakeTypeInfo, MistakeElementGroup> getMistakeElementGroupsAsIsFromMistakeDetectionSystem() {
+    return getAllMistakeElementGroupsAsIsFromMistakeDetectionSystem().entrySet().stream().collect(Collectors.toMap(
         e -> new MistakeTypeInfo(e.getKey()),
         Map.Entry::getValue,
-        mdfCollisionFunction,
+        megCollisionFunction,
         TreeMap::new));
   }
 
-  /** Returns the MDFs as implemented in the Mistake Detection System, regardless of validation status. */
-  static Map<MistakeTypeInfo, MistakeDetectionFormat> getMistakeDetectionFormatsAsIsFromMistakeDetectionSystem(
-      Predicate<Map.Entry<MistakeTypeInfo, MistakeDetectionFormat>> filteringFunction) {
-    return getMistakeDetectionFormatsAsIsFromMistakeDetectionSystem().entrySet().stream().filter(filteringFunction)
+  /** Returns the MEGs as implemented in the Mistake Detection System, regardless of validation status. */
+  static Map<MistakeTypeInfo, MistakeElementGroup> getMistakeElementGroupsAsIsFromMistakeDetectionSystem(
+      Predicate<Map.Entry<MistakeTypeInfo, MistakeElementGroup>> filteringFunction) {
+    return getMistakeElementGroupsAsIsFromMistakeDetectionSystem().entrySet().stream().filter(filteringFunction)
         .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
   }
 
-  private static Map<MistakeInfo, MistakeDetectionFormat> suggestAllMistakeDetectionFormats() {
+  private static Map<MistakeInfo, MistakeElementGroup> suggestAllMistakeElementGroups() {
     return allMistakeInfos().collect(Collectors.toMap(
         Function.identity(),
-        MistakeDetectionFormat::forMistakeInfo,
-        (mdf1, mdf2) -> mdf2,
+        MistakeElementGroup::forMistakeInfo,
+        (meg1, meg2) -> meg2,
         TreeMap::new));
   }
 
-  private static Map<MistakeInfo, MistakeDetectionFormat> getAllMistakeDetectionFormatsAsIsFromMistakeDetectionSystem()
-  {
+  private static Map<MistakeInfo, MistakeElementGroup> getAllMistakeElementGroupsAsIsFromMistakeDetectionSystem() {
     return allMistakeInfos().collect(Collectors.toMap(
         Function.identity(),
-        MistakeDetectionFormat::new,
-        (mdf1, mdf2) -> mdf2,
+        MistakeElementGroup::new,
+        (meg1, meg2) -> meg2,
         TreeMap::new));
   }
 
   private static Map<MistakeType, Set<String>> suggestParametrizedResponses(
-      Map<MistakeType, MistakeDetectionFormat> mapping, boolean filterNumberedMdfs) {
+      Map<MistakeType, MistakeElementGroup> mapping, boolean filterNumberedMegs) {
     return mapping.entrySet().stream()
-        .filter(e -> !filterNumberedMdfs || (e.getValue().stud.size() <= 1 && e.getValue().inst.size() <= 1))
+        .filter(e -> !filterNumberedMegs || (e.getValue().stud.size() <= 1 && e.getValue().inst.size() <= 1))
         .collect(Collectors.toMap(Map.Entry::getKey,
             MistakeDetectionInformationService::parametrizeResponses,
             MistakeDetectionInformationService::setUnion,
@@ -226,7 +224,7 @@ public abstract class MistakeDetectionInformationService {
   }
 
   /** Parametrize all responses for the entry's mistake type. */
-  static Set<String> parametrizeResponses(Map.Entry<MistakeType, MistakeDetectionFormat> entry) {
+  static Set<String> parametrizeResponses(Map.Entry<MistakeType, MistakeElementGroup> entry) {
     if (HumanValidatedParametrizedResponses.mappings.containsKey(entry.getKey())) {
       return HumanValidatedParametrizedResponses.mappings.get(entry.getKey());
     }
@@ -235,21 +233,21 @@ public abstract class MistakeDetectionInformationService {
         .collect(Collectors.toUnmodifiableSet());
   }
 
-  private static String parametrizeResponse(ParametrizedResponse pr, MistakeDetectionFormat mdf) {
+  private static String parametrizeResponse(ParametrizedResponse pr, MistakeElementGroup meg) {
     // TODO Work in progress
     var result = pr.getText();
     final var pattern = Pattern.compile("\\$\\{(?<param>.*?)\\}");
     var matcher = pattern.matcher(result);
-    if (mdf.stud.size() == 1 && mdf.inst.isEmpty()) {
-      result = matcher.replaceFirst(Matcher.quoteReplacement("${stud_" + mdf.stud.get(0) + "}"));
-    } else if (mdf.stud.isEmpty() && mdf.inst.size() == 1) {
-      result = matcher.replaceFirst(Matcher.quoteReplacement("${inst_" + mdf.inst.get(0) + "}"));
-    } else if (mdf.stud.size() == 1 && mdf.inst.size() == 1) {
+    if (meg.stud.size() == 1 && meg.inst.isEmpty()) {
+      result = matcher.replaceFirst(Matcher.quoteReplacement("${stud_" + meg.stud.get(0) + "}"));
+    } else if (meg.stud.isEmpty() && meg.inst.size() == 1) {
+      result = matcher.replaceFirst(Matcher.quoteReplacement("${inst_" + meg.inst.get(0) + "}"));
+    } else if (meg.stud.size() == 1 && meg.inst.size() == 1) {
       final var studRepl = "@@STUD_REPL@@";
       result = matcher.replaceFirst(Matcher.quoteReplacement(studRepl));
       matcher = pattern.matcher(result);
-      result = matcher.replaceFirst(Matcher.quoteReplacement("${inst_" + mdf.inst.get(0) + "}"));
-      result = result.replace(studRepl, "${stud_" + mdf.stud.get(0) + "}");
+      result = matcher.replaceFirst(Matcher.quoteReplacement("${inst_" + meg.inst.get(0) + "}"));
+      result = result.replace(studRepl, "${stud_" + meg.stud.get(0) + "}");
     }
     return result;
   }
