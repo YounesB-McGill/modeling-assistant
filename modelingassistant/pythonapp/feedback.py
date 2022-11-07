@@ -276,7 +276,6 @@ def verbalize_highlight_description(feedback: FeedbackItem) -> str:
         if (n := len(fragments)) == 0:
             warn("verbalize_highlight_description(): no problem statement elements found for Feedback with "
                  "highlightProblem=True")
-            return ""
         elif n == 1:
             result = f'{prefix}"{fragments[0]}"{suffix}'
         elif n == 2:
