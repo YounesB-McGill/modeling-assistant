@@ -87,6 +87,11 @@ class Color:
         &#34;Return the color as an RGB tuple, with each value in the range [0.0, 1.0].&#34;
         return self.r / Color._MAX_VAL, self.g / Color._MAX_VAL, self.b / Color._MAX_VAL
 
+    @classmethod
+    def rainbow(cls) -&gt; list[Color]:
+        &#34;Return the seven standard colors in 🌈 rainbow order (red, orange, ..., violet).&#34;
+        return [cls.RED, cls.ORANGE, cls.YELLOW, cls.GREEN, cls.CYAN, cls.BLUE, cls.VIOLET]
+
     def __call__(self, text: str) -&gt; str:
         &#34;&#34;&#34;
         Return the text with the ANSI color code prepended and the reset code appended, useful for printing to console.
@@ -118,9 +123,9 @@ Color.ORANGE = Color(&#34;#ffa500&#34;, &#34;orange&#34;, &#34;\u001b[31;1m&#34;
 Color.RED    = Color(&#34;#ff0000&#34;, &#34;red&#34;,    &#34;\033[91m&#34;)
 
 # Lighter colors, used for highlighting items on a light background
-Color.LIGHT_BLUE    = Color(&#34;#add8e6&#34;, &#34;light_blue&#34;)
-Color.LEMON_CHIFFON = Color(&#34;#fffacd&#34;, &#34;lemon_chiffon&#34;)
-Color.PEACH_PUFF    = Color(&#34;#ffdab9&#34;, &#34;peach_puff&#34;)
+Color.LIGHT_BLUE    = Color(&#34;#add8e6&#34;, &#34;lightblue&#34;)
+Color.LEMON_CHIFFON = Color(&#34;#fffacd&#34;, &#34;lemonchiffon&#34;)
+Color.PEACH_PUFF    = Color(&#34;#ffdab9&#34;, &#34;peachpuff&#34;)
 Color.PINK          = Color(&#34;#ffc0cb&#34;, &#34;pink&#34;)
 
 # Aliases for better readability
@@ -194,6 +199,11 @@ Color.LIGHT_RED    = Color.PINK</code></pre>
     def to_rgb1(self) -&gt; tuple[float, float, float]:
         &#34;Return the color as an RGB tuple, with each value in the range [0.0, 1.0].&#34;
         return self.r / Color._MAX_VAL, self.g / Color._MAX_VAL, self.b / Color._MAX_VAL
+
+    @classmethod
+    def rainbow(cls) -&gt; list[Color]:
+        &#34;Return the seven standard colors in 🌈 rainbow order (red, orange, ..., violet).&#34;
+        return [cls.RED, cls.ORANGE, cls.YELLOW, cls.GREEN, cls.CYAN, cls.BLUE, cls.VIOLET]
 
     def __call__(self, text: str) -&gt; str:
         &#34;&#34;&#34;
@@ -278,6 +288,24 @@ Color.LIGHT_RED    = Color.PINK</code></pre>
 <div class="desc"></div>
 </dd>
 </dl>
+<h3>Static methods</h3>
+<dl>
+<dt id="color.Color.rainbow"><code class="name flex">
+<span>def <span class="ident">rainbow</span></span>(<span>) ‑> list[<a title="color.Color" href="#color.Color">Color</a>]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the seven standard colors in 🌈 rainbow order (red, orange, &hellip;, violet).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def rainbow(cls) -&gt; list[Color]:
+    &#34;Return the seven standard colors in 🌈 rainbow order (red, orange, ..., violet).&#34;
+    return [cls.RED, cls.ORANGE, cls.YELLOW, cls.GREEN, cls.CYAN, cls.BLUE, cls.VIOLET]</code></pre>
+</details>
+</dd>
+</dl>
 <h3>Methods</h3>
 <dl>
 <dt id="color.Color.to_hex"><code class="name flex">
@@ -353,6 +381,7 @@ Color.LIGHT_RED    = Color.PINK</code></pre>
 <li><code><a title="color.Color.VIOLET" href="#color.Color.VIOLET">VIOLET</a></code></li>
 <li><code><a title="color.Color.YELLOW" href="#color.Color.YELLOW">YELLOW</a></code></li>
 <li><code><a title="color.Color.from_name" href="#color.Color.from_name">from_name</a></code></li>
+<li><code><a title="color.Color.rainbow" href="#color.Color.rainbow">rainbow</a></code></li>
 <li><code><a title="color.Color.to_hex" href="#color.Color.to_hex">to_hex</a></code></li>
 <li><code><a title="color.Color.to_rgb" href="#color.Color.to_rgb">to_rgb</a></code></li>
 <li><code><a title="color.Color.to_rgb1" href="#color.Color.to_rgb1">to_rgb1</a></code></li>
