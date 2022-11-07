@@ -266,6 +266,7 @@ def verbalize_feedback_description(feedback: FeedbackItem) -&gt; str:
     make it easier to work on the frontend.
 
     For all text feedback, perform the following changes:
+
     - If the student is a beginner, include the text [within square brackets] in the feedback, without the square
       brackets themselves. Otherwise, omit this text entirely
     - If an indefinite article (A|a) is found in the text and the following word starts with a vowel, replace with
@@ -645,11 +646,13 @@ If not found, create a new one.</p></div>
 <div class="desc"><p>Verbalize the feedback description of the given feedback item.</p>
 <p>When debug mode is on, return a description string for highlighted problem statement and solution elements, to
 make it easier to work on the frontend.</p>
-<p>For all text feedback, perform the following changes:
-- If the student is a beginner, include the text [within square brackets] in the feedback, without the square
-brackets themselves. Otherwise, omit this text entirely
-- If an indefinite article (A|a) is found in the text and the following word starts with a vowel, replace with
-(An|an). In the future, use a NLP package to correctly handle cases like "a university".</p>
+<p>For all text feedback, perform the following changes:</p>
+<ul>
+<li>If the student is a beginner, include the text [within square brackets] in the feedback, without the square
+brackets themselves. Otherwise, omit this text entirely</li>
+<li>If an indefinite article (A|a) is found in the text and the following word starts with a vowel, replace with
+(An|an). In the future, use a NLP package to correctly handle cases like "a university".</li>
+</ul>
 <p>For resource responses, indicate the resource type and the contents if no dedicated transformation is available.</p></div>
 <details class="source">
 <summary>
@@ -663,6 +666,7 @@ brackets themselves. Otherwise, omit this text entirely
     make it easier to work on the frontend.
 
     For all text feedback, perform the following changes:
+
     - If the student is a beginner, include the text [within square brackets] in the feedback, without the square
       brackets themselves. Otherwise, omit this text entirely
     - If an indefinite article (A|a) is found in the text and the following word starts with a vowel, replace with

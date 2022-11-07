@@ -237,6 +237,7 @@ def verbalize_feedback_description(feedback: FeedbackItem) -> str:
     make it easier to work on the frontend.
 
     For all text feedback, perform the following changes:
+
     - If the student is a beginner, include the text [within square brackets] in the feedback, without the square
       brackets themselves. Otherwise, omit this text entirely
     - If an indefinite article (A|a) is found in the text and the following word starts with a vowel, replace with
