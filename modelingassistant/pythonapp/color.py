@@ -56,6 +56,11 @@ class Color:
         "Return the color as an RGB tuple, with each value in the range [0.0, 1.0]."
         return self.r / Color._MAX_VAL, self.g / Color._MAX_VAL, self.b / Color._MAX_VAL
 
+    @classmethod
+    def rainbow(cls) -> list[Color]:
+        "Return the seven standard colors in 🌈 rainbow order (red, orange, ..., violet)."
+        return [cls.RED, cls.ORANGE, cls.YELLOW, cls.GREEN, cls.CYAN, cls.BLUE, cls.VIOLET]
+
     def __call__(self, text: str) -> str:
         """
         Return the text with the ANSI color code prepended and the reset code appended, useful for printing to console.
