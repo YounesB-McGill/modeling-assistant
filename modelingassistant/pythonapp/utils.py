@@ -15,7 +15,7 @@ from types import SimpleNamespace
 from typing import Literal, Tuple
 
 from classdiagram import AssociationEnd, Classifier, ReferenceType
-from color import Color
+from color import Color, colorize_text
 from constants import CORRECT_QUIZ_ITEM_NOTATIONS, MULTIPLE_FEEDBACKS_PER_LEVEL, MA_FEEDBACK_ASCII_ART
 from learningcorpus import MistakeElement, MistakeTypeCategory, MistakeType, Feedback
 from learningcorpusquiz import (Blank, Choice, FillInTheBlanksQuiz, FillInTheBlanksQuizStatement,
@@ -358,10 +358,7 @@ def get_by_id(_id: str, iterable: Iterable) -> str:
 
 def colorized_splash_message() -> str:
     "Return a colorized version of the splash screen."
-    result = MA_FEEDBACK_ASCII_ART
-    for (letter, color) in zip("FEΕDBACK", 2 * Color.rainbow()):  # intentional greek letter Ε (capital ε)
-        result = result.replace(letter, color(letter))
-    return result
+    return colorize_text(MA_FEEDBACK_ASCII_ART, str.isalpha)
 
 
 class NonNoneDict(dict):

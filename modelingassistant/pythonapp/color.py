@@ -6,6 +6,8 @@ debug output. 🌈
 
 from __future__ import annotations
 
+from itertools import cycle
+from typing import Callable
 import re
 
 
@@ -101,3 +103,24 @@ Color.PINK          = Color("#ffc0cb", "pink")
 Color.LIGHT_YELLOW = Color.LEMON_CHIFFON
 Color.LIGHT_ORANGE = Color.PEACH_PUFF
 Color.LIGHT_RED    = Color.PINK
+
+
+def colorize_text(s: str, chars_matching: Callable[[str], bool] = None):
+    """
+    Colorizes the characters matching the condition in rainbow order, repeating if necessary. All occurrences of a
+    letter will have the same color, so use lookalike Greek characters when this is not desired.
+    """
+    if not chars_matching:
+        chars_matching = lambda s: True
+    letters_to_colors: dict[str, Color] = {}
+    colors = cycle(Color.rainbow())  # [red, orange, ..., violet, red, orange, ...]
+    for letter in s:
+        if chars_matching(letter):
+            if letter in letters_to_colors:
+                continue
+            else:
+                color = next(colors)
+                letters_to_colors[letter] = color
+                s = s.replace(letter, color(letter))
+    return s
+
