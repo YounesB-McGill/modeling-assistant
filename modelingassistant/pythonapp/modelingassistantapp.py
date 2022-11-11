@@ -44,8 +44,8 @@ MISTAKE_DETECTION_PORT = 8539
 MISTAKE_DETECTION_STARTUP_DELAY = 20  # seconds
 
 
-if sys.version_info[:2] < (3, 10):
-    logger.error("Python 3.10 or higher required to run this app.")
+if sys.version_info[:2] < (3, 11):
+    logger.error("Python 3.11 or higher required to run this app.")
     sys.exit(1)
 
 
