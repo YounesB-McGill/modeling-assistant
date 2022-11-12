@@ -23,7 +23,9 @@ ignore-patterns=
 
 # Python code to execute, usually for sys.path manipulation such as
 # pygtk.require().
-#init-hook=
+init-hook=
+    import sys
+    sys.path.append("modelingassistant/pythonapp")
 
 # Use multiple processes to speed up Pylint. Specifying 0 will auto-detect the
 # number of processors available to use.
@@ -394,8 +396,8 @@ redefining-builtins-modules=six.moves,past.builtins,future.builtins,builtins,io
 [LOGGING]
 
 # The type of string formatting that logging methods do. `old` means using %
-# formatting, `new` is for `{}` formatting, `fstr` is for f-strings.
-logging-format-style=fstr
+# formatting, `new` is for `{}` formatting. `fstr` for f-strings is no longer supported.
+logging-format-style=old
 
 # Logging modules to check that the string format arguments are in logging
 # function parameter format.

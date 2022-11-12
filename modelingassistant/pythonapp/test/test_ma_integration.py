@@ -29,7 +29,7 @@ from classdiagram import CDBoolean, CDInt, CDString, Class
 from constants import MANY, WEBCORE_ENDPOINT
 from envvars import TOUCHCORE_PATH
 from feedback import FeedbackTO, DEFAULT_HIGHLIGHT_COLOR
-from flaskapp import app, DEBUG_MODE, PORT
+from flaskapp import app, PORT
 from fileserdes import load_cdm, save_to_file
 from stringserdes import SRSET, str_to_modelingassistant
 from user import MockStudent, User, users
