@@ -309,7 +309,8 @@ good-names=a,
            sk,
            sp,
            tr,
-           ub
+           ub,
+           wf
 
 # Good variable names regexes, separated by a comma. If names match any regex,
 # they will always be accepted

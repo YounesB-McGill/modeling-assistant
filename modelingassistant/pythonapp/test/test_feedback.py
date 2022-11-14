@@ -713,7 +713,7 @@ def test_feedbackto_multiple_student_and_instructor_elements():
     inst_visitor = Class(name="Visitor")
     for i, e in enumerate([stud_person, stud_role_attr, stud_role, stud_passenger, stud_employee, stud_visitor,
                            inst_person, inst_passenger, inst_employee, inst_visitor], 1):
-        e._internal_id = str(i)
+        e._internal_id = str(i)  # pylint: disable=protected-access
     feedback = FeedbackTO(feedback=FeedbackItem(
         text=("An instance of Person can play more than one role out of Passenger, Employee, and Visitor at the same "
               "time and different features need to be captured for the roles."),
@@ -857,7 +857,7 @@ def test_process_indefinite_articles():
     """
     assert process_indefinite_articles("A Person has a name") == "A Person has a name"
     assert process_indefinite_articles("A Employee has a id") == "An Employee has an id"
-    # TODO Enable these assertions when more robust processing is available 
+    # TODO Enable these assertions when more robust processing is available
     #assert process_indefinite_articles("A University is a School") == "A University is a School"
     #assert process_indefinite_articles("A Hourglass is a Tool") == "An Hourglass is a Tool"
 

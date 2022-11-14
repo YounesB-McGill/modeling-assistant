@@ -61,32 +61,52 @@ class RobustSimpleNamespace(SimpleNamespace):
 def to_simplenamespace(d: dict) -> SimpleNamespace:
     """
     Convert a dictionary to a SimpleNamespace, to make it easier to access its keys using dot notation, eg,
-    d.p instead of d["p"].
+    `d.p` instead of `d["p"]`.
     """
     return RobustSimpleNamespace(**d)
 
 
 def ae(cls_: Classifier, lb: int = 1, ub: int = 1, ref_type: ReferenceType = ReferenceType.Regular, n: str = ""
        ) -> AssociationEnd:
-    "Shorthand to create a CDM association end."
+    """
+    Shorthand to create a CDM association end.
+
+    - `cls_`: the class that contains the association class, which is normally different from the class that the
+    association end refers to. For example, to create an association end `Student.school`, use `ae(Student, n="school")`
+    - `lb`: the lower bound, default is 1
+    - `ub`: the lower bound, default is 1
+    - `ref_type`: the association end reference type, default is Regular
+    - `n`: role name, default is empty string
+    """
     return AssociationEnd(classifier=cls_, lowerBound=lb, upperBound=ub, referenceType=ref_type, name=n)
 
 
-def mtc(n, s=None, **kwargs) -> MistakeTypeCategory:
-    "Shorthand for MistakeTypeCategory initializer."
+def mtc(n: str, s: MistakeTypeCategory = None, **kwargs) -> MistakeTypeCategory:
+    """
+    Shorthand for MistakeTypeCategory initializer.
+
+    - `n`: the mistake type category name
+    - `s`: the mistake type category supercategory, if any
+    """
     _mtc = MistakeTypeCategory(name=n, supercategory=s, **kwargs)
     if "subcategories" in kwargs:
         _mtc_subcats[_mtc] = kwargs["subcategories"]
     return _mtc
 
 
-def mt(n, d="", stud: str | list[str] = None, inst: str | list[str] = None, stud_inst: str | list[str] = None,
+def mt(n: str, d="", stud: str | list[str] = None, inst: str | list[str] = None, stud_inst: str | list[str] = None,
        types: dict = None, **kwargs) -> MistakeType:
     """
     Shorthand for MistakeType initializer.
 
-    n: name of the mistake type
-    d: description of the mistake type
+    - `n`: name of the mistake type
+    - `d`: description of the mistake type. If `d` is not given, `n` will be used for the description
+    - `stud`: single student mistake element described with the parametrized response parameter grammar, or a list
+    thereof
+    - `inst`: same as `stud` but for instructor mistake element(s)
+    - `stud_inst`: use instead of `stud` and `inst` when they have the same elements, to be more concise.
+    - `types`: the metamodel metatypes that the `stud` and `inst` elements refer to. If not given, defaults to the
+    TouchCORE Class Diagram metatypes
     """
     # change the line below to use other languages
     if not types:
@@ -120,7 +140,7 @@ def fbs(fbs_by_level: dict[int, Feedback | list[Feedback]]) -> list[Feedback]:
     """
     Shorthand for Feedback initializer.
 
-    fbs_by_level: dictionary of feedbacks, keyed by the feedback level
+    - `fbs_by_level`: dictionary of feedbacks, keyed by the feedback level
     """
     feedbacks = []
     for level, fb_s in fbs_by_level.items():
@@ -141,10 +161,13 @@ def fitb(prompt: str, *statements) -> FillInTheBlanksQuiz:
     """
     Shorthand for FillInTheBlanksQuiz initializer.
 
-    prompt: introductory text for the quiz
-    statements: quiz statements with blanks to be filled in, with the following format:
+    - `prompt`: introductory text for the quiz
+    - `statements`: quiz statements with blanks to be filled in, with the following format:
+
+    ```
         "Python formatted string with {blanks} in {curly braces}."
      -> "Python formatted string with ________ in ______________."
+    ```
 
     Example usage:
     ```
@@ -190,43 +213,40 @@ def quote(s: str, quote_char='"') -> str:
 
 
 class HighlightProblem(Feedback):
-    "Shorthand for Feedback initializer with highlightProblem=True."
+    "Shorthand for Feedback initializer with `highlightProblem=True`."
     # Use __new__ here to create a Feedback instance instead of a subclass not found in the metamodel
     def __new__(cls, *args, **kwargs):
         return Feedback(*args, highlightProblem=True, **kwargs)
 
 
 class HighlightSolution(Feedback):
-    "Shorthand for Feedback initializer with highlightSolution=True."
+    "Shorthand for Feedback initializer with `highlightSolution=True`."
     def __new__(cls, *args, **kwargs):
         return Feedback(*args, highlightSolution=True, **kwargs)
 
 
 class McqFactory:
     """
-    Factory to create a list multiple choice quiz.
+    Factory to create a list multiple choice quiz. To use it, get the list multiple choice quiz defined according to the
+    following input format:
+
+    The first item is the prompt for the quiz, which must be a string.
+    The remaining items are the choices for the quiz, and can be either strings or slices. If a slice is given and the
+    start item is a correct choice notation, the choice will be considered correct. There must be at least two choices.
+
+    Example usage:
+    ```
+    mcq = McqFactory()
+    quiz = mcq[
+        "What cities are located in Canada?",
+              "Chicago",
+        True: "Montréal",
+              "Delhi",
+        True: "Toronto",
+    ]
+    ```
     """
     def __getitem__(self, items: tuple[str | slice]) -> ListMultipleChoiceQuiz:
-        """
-        Get the list multiple choice quiz defined according to the following input format:
-
-        The first item is the prompt for the quiz, which must be a string.
-        The remaining items are the choices for the quiz, and can be either strings or slices. If a slice is given and
-        the start item is a correct choice notation, the choice will be considered correct. There must be at least two
-        choices.
-
-        Example usage:
-        ```
-        mcq = McqFactory()
-        quiz = mcq[
-            "What cities are located in Canada?",
-                  "Chicago",
-            True: "Montréal",
-                  "Delhi",
-            True: "Toronto",
-        ]
-        ```
-        """
         if not isinstance(items, tuple) or len(items) < 3:
             raise ValueError("Multiple choice quiz must have a prompt and at least two choices")
         if not isinstance(items[0], str):
@@ -256,7 +276,7 @@ class ClassDiagramDTO(RobustSimpleNamespace):
     """
     Class Diagram Data Transfer (JSON) Object returned by WebCORE.
 
-    Properties: { eClass, _id, name, classes, types, layout }
+    Properties: `{ eClass, _id, name, classes, types, layout }`
     """
     # pylint: disable=protected-access, super-init-not-called
     def __init__(self, json_repr: dict | str | SimpleNamespace):

@@ -53,7 +53,7 @@ class FeedbackTO:
     }
     ```
     """
-    # pylint: disable=invalid-name
+    # pylint: disable=invalid-name, protected-access
     solutionElements: dict[str, list[str]] = field(default_factory=dict)  # includes generalizations
     problemStatementElements: dict[str, list[str]] = field(default_factory=dict)
     grade: float = 0.0
@@ -107,9 +107,8 @@ def give_feedback(student_solution: Solution) -> FeedbackItem | list[FeedbackIte
         return FeedbackItem(feedback=TextResponse(text="All good, no mistakes found! 🎉"), solution=student_solution)
 
     # sort mistakes by priority and filter out mistakes which are already resolved
-    mistake_priority = lambda m: m.mistakeType.priority
-    unresolved_mistakes: list[Mistake] = [m for m in sorted(student_solution.mistakes, key=mistake_priority)
-                                          if not m.resolvedByStudent]
+    unresolved_mistakes: list[Mistake] = [
+        m for m in sorted(student_solution.mistakes, key=lambda m: m.mistakeType.priority) if not m.resolvedByStudent]
 
     # update student knowledge for each unresolved mistake type
     for m in unresolved_mistakes:

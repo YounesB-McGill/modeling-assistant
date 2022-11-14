@@ -39,8 +39,8 @@ from textwrap import dedent
 from threading import Thread
 from time import sleep
 from typing import Any
-import os
 import json
+import os
 import sys
 
 from requests.models import Response
@@ -49,6 +49,7 @@ import pytest  # (to allow tests to be skipped)
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+import modelingassistantapp
 from classdiagram import Association, Attribute, CDEnum, CDEnumLiteral, Class, ClassDiagram
 from color import Color
 from constants import MANY
@@ -66,9 +67,11 @@ from mistaketypes import (BAD_CLASS_NAME_SPELLING, INCOMPLETE_CONTAINMENT_TREE, 
 from parametrizedresponse import parametrize_response
 from stringserdes import SRSET, str_to_modelingassistant
 from utils import ae, HighlightProblem, HighlightSolution
+from modelingassistantapp import TIMEOUT
 from modelingassistant import (FeedbackItem, Mistake, ModelingAssistant, ProblemStatement, ProblemStatementElement,
     Solution, SolutionElement, Student, StudentKnowledge)
-import modelingassistantapp
+
+
 
 
 HOST = &#34;localhost&#34;
@@ -81,10 +84,16 @@ _HIGHLIGHT_COLOR = DEFAULT_HIGHLIGHT_COLOR.to_hex()
 
 @pytest.fixture(autouse=True)
 def run_around_each_test():
+    &#34;&#34;&#34;
+    Code that surrounds each test. The code before the `yield` runs before each test, and the code after it runs
+    after each test.
+    &#34;&#34;&#34;
     # Code that runs before each test
     debug = modelingassistantapp.DEBUG_MODE
     modelingassistantapp.DEBUG_MODE = True
+
     yield  # A test function will be run at this point
+
     # Code that runs after the test
     modelingassistantapp.DEBUG_MODE = debug
 
@@ -570,7 +579,7 @@ def get_mistakes(ma: ModelingAssistant, instructor_cdm: ClassDiagram, student_cd
     This function is similar to the one in the modeling assistant, but it includes additional assertions.
     &#34;&#34;&#34;
     def call_mistake_detection_system(ma_str: str) -&gt; Response:
-        return requests.get(f&#34;http://{HOST}:{PORT}/detectmistakes&#34;, {&#34;modelingassistant&#34;: ma_str})
+        return requests.get(f&#34;http://{HOST}:{PORT}/detectmistakes&#34;, {&#34;modelingassistant&#34;: ma_str}, timeout=TIMEOUT)
 
     ma_str = SRSET.create_ma_str(ma)
     assert ma_str
@@ -733,7 +742,7 @@ def test_feedbackto_multiple_student_and_instructor_elements():
     inst_visitor = Class(name=&#34;Visitor&#34;)
     for i, e in enumerate([stud_person, stud_role_attr, stud_role, stud_passenger, stud_employee, stud_visitor,
                            inst_person, inst_passenger, inst_employee, inst_visitor], 1):
-        e._internal_id = str(i)
+        e._internal_id = str(i)  # pylint: disable=protected-access
     feedback = FeedbackTO(feedback=FeedbackItem(
         text=(&#34;An instance of Person can play more than one role out of Passenger, Employee, and Visitor at the same &#34;
               &#34;time and different features need to be captured for the roles.&#34;),
@@ -877,7 +886,7 @@ def test_process_indefinite_articles():
     &#34;&#34;&#34;
     assert process_indefinite_articles(&#34;A Person has a name&#34;) == &#34;A Person has a name&#34;
     assert process_indefinite_articles(&#34;A Employee has a id&#34;) == &#34;An Employee has an id&#34;
-    # TODO Enable these assertions when more robust processing is available 
+    # TODO Enable these assertions when more robust processing is available
     #assert process_indefinite_articles(&#34;A University is a School&#34;) == &#34;A University is a School&#34;
     #assert process_indefinite_articles(&#34;A Hourglass is a Tool&#34;) == &#34;An Hourglass is a Tool&#34;
 
@@ -990,8 +999,7 @@ def test_verbalize_feedback_description_show_parametrized_response_and_highlight
 
 
 if __name__ == &#39;__main__&#39;:
-    &#34;Main entry point (used for debugging).&#34;
-    test_verbalize_resource_description_quiz()</code></pre>
+    &#34;Main entry point (used for debugging).&#34;</code></pre>
 </details>
 </section>
 <section>
@@ -1020,7 +1028,7 @@ by calling the Mistake Detection System. If the latter is not running, it will b
     This function is similar to the one in the modeling assistant, but it includes additional assertions.
     &#34;&#34;&#34;
     def call_mistake_detection_system(ma_str: str) -&gt; Response:
-        return requests.get(f&#34;http://{HOST}:{PORT}/detectmistakes&#34;, {&#34;modelingassistant&#34;: ma_str})
+        return requests.get(f&#34;http://{HOST}:{PORT}/detectmistakes&#34;, {&#34;modelingassistant&#34;: ma_str}, timeout=TIMEOUT)
 
     ma_str = SRSET.create_ma_str(ma)
     assert ma_str
@@ -1156,17 +1164,24 @@ times.</p></div>
 <span>def <span class="ident">run_around_each_test</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Code that surrounds each test. The code before the <code>yield</code> runs before each test, and the code after it runs
+after each test.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@pytest.fixture(autouse=True)
 def run_around_each_test():
+    &#34;&#34;&#34;
+    Code that surrounds each test. The code before the `yield` runs before each test, and the code after it runs
+    after each test.
+    &#34;&#34;&#34;
     # Code that runs before each test
     debug = modelingassistantapp.DEBUG_MODE
     modelingassistantapp.DEBUG_MODE = True
+
     yield  # A test function will be run at this point
+
     # Code that runs after the test
     modelingassistantapp.DEBUG_MODE = debug</code></pre>
 </details>
@@ -1869,7 +1884,7 @@ def run_around_each_test():
     inst_visitor = Class(name=&#34;Visitor&#34;)
     for i, e in enumerate([stud_person, stud_role_attr, stud_role, stud_passenger, stud_employee, stud_visitor,
                            inst_person, inst_passenger, inst_employee, inst_visitor], 1):
-        e._internal_id = str(i)
+        e._internal_id = str(i)  # pylint: disable=protected-access
     feedback = FeedbackTO(feedback=FeedbackItem(
         text=(&#34;An instance of Person can play more than one role out of Passenger, Employee, and Visitor at the same &#34;
               &#34;time and different features need to be captured for the roles.&#34;),
@@ -1935,7 +1950,7 @@ def run_around_each_test():
     &#34;&#34;&#34;
     assert process_indefinite_articles(&#34;A Person has a name&#34;) == &#34;A Person has a name&#34;
     assert process_indefinite_articles(&#34;A Employee has a id&#34;) == &#34;An Employee has an id&#34;
-    # TODO Enable these assertions when more robust processing is available 
+    # TODO Enable these assertions when more robust processing is available
     #assert process_indefinite_articles(&#34;A University is a School&#34;) == &#34;A University is a School&#34;
     #assert process_indefinite_articles(&#34;A Hourglass is a Tool&#34;) == &#34;An Hourglass is a Tool&#34;</code></pre>
 </details>

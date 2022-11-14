@@ -46,7 +46,7 @@ from types import SimpleNamespace
 from typing import Literal, Tuple
 
 from classdiagram import AssociationEnd, Classifier, ReferenceType
-from color import Color
+from color import Color, colorize_text
 from constants import CORRECT_QUIZ_ITEM_NOTATIONS, MULTIPLE_FEEDBACKS_PER_LEVEL, MA_FEEDBACK_ASCII_ART
 from learningcorpus import MistakeElement, MistakeTypeCategory, MistakeType, Feedback
 from learningcorpusquiz import (Blank, Choice, FillInTheBlanksQuiz, FillInTheBlanksQuizStatement,
@@ -92,32 +92,52 @@ class RobustSimpleNamespace(SimpleNamespace):
 def to_simplenamespace(d: dict) -&gt; SimpleNamespace:
     &#34;&#34;&#34;
     Convert a dictionary to a SimpleNamespace, to make it easier to access its keys using dot notation, eg,
-    d.p instead of d[&#34;p&#34;].
+    `d.p` instead of `d[&#34;p&#34;]`.
     &#34;&#34;&#34;
     return RobustSimpleNamespace(**d)
 
 
 def ae(cls_: Classifier, lb: int = 1, ub: int = 1, ref_type: ReferenceType = ReferenceType.Regular, n: str = &#34;&#34;
        ) -&gt; AssociationEnd:
-    &#34;Shorthand to create a CDM association end.&#34;
+    &#34;&#34;&#34;
+    Shorthand to create a CDM association end.
+
+    - `cls_`: the class that contains the association class, which is normally different from the class that the
+    association end refers to. For example, to create an association end `Student.school`, use `ae(Student, n=&#34;school&#34;)`
+    - `lb`: the lower bound, default is 1
+    - `ub`: the lower bound, default is 1
+    - `ref_type`: the association end reference type, default is Regular
+    - `n`: role name, default is empty string
+    &#34;&#34;&#34;
     return AssociationEnd(classifier=cls_, lowerBound=lb, upperBound=ub, referenceType=ref_type, name=n)
 
 
-def mtc(n, s=None, **kwargs) -&gt; MistakeTypeCategory:
-    &#34;Shorthand for MistakeTypeCategory initializer.&#34;
+def mtc(n: str, s: MistakeTypeCategory = None, **kwargs) -&gt; MistakeTypeCategory:
+    &#34;&#34;&#34;
+    Shorthand for MistakeTypeCategory initializer.
+
+    - `n`: the mistake type category name
+    - `s`: the mistake type category supercategory, if any
+    &#34;&#34;&#34;
     _mtc = MistakeTypeCategory(name=n, supercategory=s, **kwargs)
     if &#34;subcategories&#34; in kwargs:
         _mtc_subcats[_mtc] = kwargs[&#34;subcategories&#34;]
     return _mtc
 
 
-def mt(n, d=&#34;&#34;, stud: str | list[str] = None, inst: str | list[str] = None, stud_inst: str | list[str] = None,
+def mt(n: str, d=&#34;&#34;, stud: str | list[str] = None, inst: str | list[str] = None, stud_inst: str | list[str] = None,
        types: dict = None, **kwargs) -&gt; MistakeType:
     &#34;&#34;&#34;
     Shorthand for MistakeType initializer.
 
-    n: name of the mistake type
-    d: description of the mistake type
+    - `n`: name of the mistake type
+    - `d`: description of the mistake type. If `d` is not given, `n` will be used for the description
+    - `stud`: single student mistake element described with the parametrized response parameter grammar, or a list
+    thereof
+    - `inst`: same as `stud` but for instructor mistake element(s)
+    - `stud_inst`: use instead of `stud` and `inst` when they have the same elements, to be more concise.
+    - `types`: the metamodel metatypes that the `stud` and `inst` elements refer to. If not given, defaults to the
+    TouchCORE Class Diagram metatypes
     &#34;&#34;&#34;
     # change the line below to use other languages
     if not types:
@@ -151,7 +171,7 @@ def fbs(fbs_by_level: dict[int, Feedback | list[Feedback]]) -&gt; list[Feedback]
     &#34;&#34;&#34;
     Shorthand for Feedback initializer.
 
-    fbs_by_level: dictionary of feedbacks, keyed by the feedback level
+    - `fbs_by_level`: dictionary of feedbacks, keyed by the feedback level
     &#34;&#34;&#34;
     feedbacks = []
     for level, fb_s in fbs_by_level.items():
@@ -172,10 +192,13 @@ def fitb(prompt: str, *statements) -&gt; FillInTheBlanksQuiz:
     &#34;&#34;&#34;
     Shorthand for FillInTheBlanksQuiz initializer.
 
-    prompt: introductory text for the quiz
-    statements: quiz statements with blanks to be filled in, with the following format:
+    - `prompt`: introductory text for the quiz
+    - `statements`: quiz statements with blanks to be filled in, with the following format:
+
+    ```
         &#34;Python formatted string with {blanks} in {curly braces}.&#34;
      -&gt; &#34;Python formatted string with ________ in ______________.&#34;
+    ```
 
     Example usage:
     ```
@@ -221,43 +244,40 @@ def quote(s: str, quote_char=&#39;&#34;&#39;) -&gt; str:
 
 
 class HighlightProblem(Feedback):
-    &#34;Shorthand for Feedback initializer with highlightProblem=True.&#34;
+    &#34;Shorthand for Feedback initializer with `highlightProblem=True`.&#34;
     # Use __new__ here to create a Feedback instance instead of a subclass not found in the metamodel
     def __new__(cls, *args, **kwargs):
         return Feedback(*args, highlightProblem=True, **kwargs)
 
 
 class HighlightSolution(Feedback):
-    &#34;Shorthand for Feedback initializer with highlightSolution=True.&#34;
+    &#34;Shorthand for Feedback initializer with `highlightSolution=True`.&#34;
     def __new__(cls, *args, **kwargs):
         return Feedback(*args, highlightSolution=True, **kwargs)
 
 
 class McqFactory:
     &#34;&#34;&#34;
-    Factory to create a list multiple choice quiz.
+    Factory to create a list multiple choice quiz. To use it, get the list multiple choice quiz defined according to the
+    following input format:
+
+    The first item is the prompt for the quiz, which must be a string.
+    The remaining items are the choices for the quiz, and can be either strings or slices. If a slice is given and the
+    start item is a correct choice notation, the choice will be considered correct. There must be at least two choices.
+
+    Example usage:
+    ```
+    mcq = McqFactory()
+    quiz = mcq[
+        &#34;What cities are located in Canada?&#34;,
+              &#34;Chicago&#34;,
+        True: &#34;Montréal&#34;,
+              &#34;Delhi&#34;,
+        True: &#34;Toronto&#34;,
+    ]
+    ```
     &#34;&#34;&#34;
     def __getitem__(self, items: tuple[str | slice]) -&gt; ListMultipleChoiceQuiz:
-        &#34;&#34;&#34;
-        Get the list multiple choice quiz defined according to the following input format:
-
-        The first item is the prompt for the quiz, which must be a string.
-        The remaining items are the choices for the quiz, and can be either strings or slices. If a slice is given and
-        the start item is a correct choice notation, the choice will be considered correct. There must be at least two
-        choices.
-
-        Example usage:
-        ```
-        mcq = McqFactory()
-        quiz = mcq[
-            &#34;What cities are located in Canada?&#34;,
-                  &#34;Chicago&#34;,
-            True: &#34;Montréal&#34;,
-                  &#34;Delhi&#34;,
-            True: &#34;Toronto&#34;,
-        ]
-        ```
-        &#34;&#34;&#34;
         if not isinstance(items, tuple) or len(items) &lt; 3:
             raise ValueError(&#34;Multiple choice quiz must have a prompt and at least two choices&#34;)
         if not isinstance(items[0], str):
@@ -287,7 +307,7 @@ class ClassDiagramDTO(RobustSimpleNamespace):
     &#34;&#34;&#34;
     Class Diagram Data Transfer (JSON) Object returned by WebCORE.
 
-    Properties: { eClass, _id, name, classes, types, layout }
+    Properties: `{ eClass, _id, name, classes, types, layout }`
     &#34;&#34;&#34;
     # pylint: disable=protected-access, super-init-not-called
     def __init__(self, json_repr: dict | str | SimpleNamespace):
@@ -389,10 +409,7 @@ def get_by_id(_id: str, iterable: Iterable) -&gt; str:
 
 def colorized_splash_message() -&gt; str:
     &#34;Return a colorized version of the splash screen.&#34;
-    result = MA_FEEDBACK_ASCII_ART
-    for (letter, color) in zip(&#34;FEΕDBACK&#34;, 2 * Color.rainbow()):  # intentional greek letter Ε (capital ε)
-        result = result.replace(letter, color(letter))
-    return result
+    return colorize_text(MA_FEEDBACK_ASCII_ART, str.isalpha)
 
 
 class NonNoneDict(dict):
@@ -424,14 +441,31 @@ class ModelingAssistantContainer:
 <span>def <span class="ident">ae</span></span>(<span>cls_: <a title="classdiagram.classdiagram.Classifier" href="classdiagram/classdiagram.html#classdiagram.classdiagram.Classifier">Classifier</a>, lb: int = 1, ub: int = 1, ref_type: ReferenceType[EOrderedSet([Composition=0, Aggregation=1, Regular=2, Qualified=3])] = Regular=2, n: str = '') ‑> <a title="classdiagram.classdiagram.AssociationEnd" href="classdiagram/classdiagram.html#classdiagram.classdiagram.AssociationEnd">AssociationEnd</a></span>
 </code></dt>
 <dd>
-<div class="desc"><p>Shorthand to create a CDM association end.</p></div>
+<div class="desc"><p>Shorthand to create a CDM association end.</p>
+<ul>
+<li><code>cls_</code>: the class that contains the association class, which is normally different from the class that the
+association end refers to. For example, to create an association end <code>Student.school</code>, use <code>ae(Student, n="school")</code></li>
+<li><code>lb</code>: the lower bound, default is 1</li>
+<li><code>ub</code>: the lower bound, default is 1</li>
+<li><code>ref_type</code>: the association end reference type, default is Regular</li>
+<li><code>n</code>: role name, default is empty string</li>
+</ul></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def ae(cls_: Classifier, lb: int = 1, ub: int = 1, ref_type: ReferenceType = ReferenceType.Regular, n: str = &#34;&#34;
        ) -&gt; AssociationEnd:
-    &#34;Shorthand to create a CDM association end.&#34;
+    &#34;&#34;&#34;
+    Shorthand to create a CDM association end.
+
+    - `cls_`: the class that contains the association class, which is normally different from the class that the
+    association end refers to. For example, to create an association end `Student.school`, use `ae(Student, n=&#34;school&#34;)`
+    - `lb`: the lower bound, default is 1
+    - `ub`: the lower bound, default is 1
+    - `ref_type`: the association end reference type, default is Regular
+    - `n`: role name, default is empty string
+    &#34;&#34;&#34;
     return AssociationEnd(classifier=cls_, lowerBound=lb, upperBound=ub, referenceType=ref_type, name=n)</code></pre>
 </details>
 </dd>
@@ -485,10 +519,7 @@ class ModelingAssistantContainer:
 </summary>
 <pre><code class="python">def colorized_splash_message() -&gt; str:
     &#34;Return a colorized version of the splash screen.&#34;
-    result = MA_FEEDBACK_ASCII_ART
-    for (letter, color) in zip(&#34;FEΕDBACK&#34;, 2 * Color.rainbow()):  # intentional greek letter Ε (capital ε)
-        result = result.replace(letter, color(letter))
-    return result</code></pre>
+    return colorize_text(MA_FEEDBACK_ASCII_ART, str.isalpha)</code></pre>
 </details>
 </dd>
 <dt id="utils.fbs"><code class="name flex">
@@ -496,7 +527,9 @@ class ModelingAssistantContainer:
 </code></dt>
 <dd>
 <div class="desc"><p>Shorthand for Feedback initializer.</p>
-<p>fbs_by_level: dictionary of feedbacks, keyed by the feedback level</p></div>
+<ul>
+<li><code>fbs_by_level</code>: dictionary of feedbacks, keyed by the feedback level</li>
+</ul></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -505,7 +538,7 @@ class ModelingAssistantContainer:
     &#34;&#34;&#34;
     Shorthand for Feedback initializer.
 
-    fbs_by_level: dictionary of feedbacks, keyed by the feedback level
+    - `fbs_by_level`: dictionary of feedbacks, keyed by the feedback level
     &#34;&#34;&#34;
     feedbacks = []
     for level, fb_s in fbs_by_level.items():
@@ -527,10 +560,13 @@ class ModelingAssistantContainer:
 </code></dt>
 <dd>
 <div class="desc"><p>Shorthand for FillInTheBlanksQuiz initializer.</p>
-<p>prompt: introductory text for the quiz
-statements: quiz statements with blanks to be filled in, with the following format:
-"Python formatted string with {blanks} in {curly braces}."
--&gt; "Python formatted string with <strong><em>_</em></strong>_ in <strong><em>_</em></strong><strong><em>_</em></strong>."</p>
+<ul>
+<li><code>prompt</code>: introductory text for the quiz</li>
+<li><code>statements</code>: quiz statements with blanks to be filled in, with the following format:</li>
+</ul>
+<pre><code>    &quot;Python formatted string with {blanks} in {curly braces}.&quot;
+ -&gt; &quot;Python formatted string with ________ in ______________.&quot;
+</code></pre>
 <p>Example usage:</p>
 <pre><code>fitb(&quot;Fill in the blanks to complete the sentence:&quot;,
      &quot;The capital of Canada is {Ottawa} and its largest city is {Toronto}.&quot;,
@@ -545,10 +581,13 @@ statements: quiz statements with blanks to be filled in, with the following form
     &#34;&#34;&#34;
     Shorthand for FillInTheBlanksQuiz initializer.
 
-    prompt: introductory text for the quiz
-    statements: quiz statements with blanks to be filled in, with the following format:
+    - `prompt`: introductory text for the quiz
+    - `statements`: quiz statements with blanks to be filled in, with the following format:
+
+    ```
         &#34;Python formatted string with {blanks} in {curly braces}.&#34;
      -&gt; &#34;Python formatted string with ________ in ______________.&#34;
+    ```
 
     Example usage:
     ```
@@ -614,23 +653,37 @@ statements: quiz statements with blanks to be filled in, with the following form
 </details>
 </dd>
 <dt id="utils.mt"><code class="name flex">
-<span>def <span class="ident">mt</span></span>(<span>n, d='', stud: str | list[str] = None, inst: str | list[str] = None, stud_inst: str | list[str] = None, types: dict = None, **kwargs) ‑> <a title="learningcorpus.learningcorpus.MistakeType" href="learningcorpus/learningcorpus.html#learningcorpus.learningcorpus.MistakeType">MistakeType</a></span>
+<span>def <span class="ident">mt</span></span>(<span>n: str, d='', stud: str | list[str] = None, inst: str | list[str] = None, stud_inst: str | list[str] = None, types: dict = None, **kwargs) ‑> <a title="learningcorpus.learningcorpus.MistakeType" href="learningcorpus/learningcorpus.html#learningcorpus.learningcorpus.MistakeType">MistakeType</a></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Shorthand for MistakeType initializer.</p>
-<p>n: name of the mistake type
-d: description of the mistake type</p></div>
+<ul>
+<li><code>n</code>: name of the mistake type</li>
+<li><code>d</code>: description of the mistake type. If <code>d</code> is not given, <code>n</code> will be used for the description</li>
+<li><code>stud</code>: single student mistake element described with the parametrized response parameter grammar, or a list
+thereof</li>
+<li><code>inst</code>: same as <code>stud</code> but for instructor mistake element(s)</li>
+<li><code>stud_inst</code>: use instead of <code>stud</code> and <code>inst</code> when they have the same elements, to be more concise.</li>
+<li><code>types</code>: the metamodel metatypes that the <code>stud</code> and <code>inst</code> elements refer to. If not given, defaults to the
+TouchCORE Class Diagram metatypes</li>
+</ul></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def mt(n, d=&#34;&#34;, stud: str | list[str] = None, inst: str | list[str] = None, stud_inst: str | list[str] = None,
+<pre><code class="python">def mt(n: str, d=&#34;&#34;, stud: str | list[str] = None, inst: str | list[str] = None, stud_inst: str | list[str] = None,
        types: dict = None, **kwargs) -&gt; MistakeType:
     &#34;&#34;&#34;
     Shorthand for MistakeType initializer.
 
-    n: name of the mistake type
-    d: description of the mistake type
+    - `n`: name of the mistake type
+    - `d`: description of the mistake type. If `d` is not given, `n` will be used for the description
+    - `stud`: single student mistake element described with the parametrized response parameter grammar, or a list
+    thereof
+    - `inst`: same as `stud` but for instructor mistake element(s)
+    - `stud_inst`: use instead of `stud` and `inst` when they have the same elements, to be more concise.
+    - `types`: the metamodel metatypes that the `stud` and `inst` elements refer to. If not given, defaults to the
+    TouchCORE Class Diagram metatypes
     &#34;&#34;&#34;
     # change the line below to use other languages
     if not types:
@@ -661,16 +714,25 @@ d: description of the mistake type</p></div>
 </details>
 </dd>
 <dt id="utils.mtc"><code class="name flex">
-<span>def <span class="ident">mtc</span></span>(<span>n, s=None, **kwargs) ‑> <a title="learningcorpus.learningcorpus.MistakeTypeCategory" href="learningcorpus/learningcorpus.html#learningcorpus.learningcorpus.MistakeTypeCategory">MistakeTypeCategory</a></span>
+<span>def <span class="ident">mtc</span></span>(<span>n: str, s: <a title="learningcorpus.learningcorpus.MistakeTypeCategory" href="learningcorpus/learningcorpus.html#learningcorpus.learningcorpus.MistakeTypeCategory">MistakeTypeCategory</a> = None, **kwargs) ‑> <a title="learningcorpus.learningcorpus.MistakeTypeCategory" href="learningcorpus/learningcorpus.html#learningcorpus.learningcorpus.MistakeTypeCategory">MistakeTypeCategory</a></span>
 </code></dt>
 <dd>
-<div class="desc"><p>Shorthand for MistakeTypeCategory initializer.</p></div>
+<div class="desc"><p>Shorthand for MistakeTypeCategory initializer.</p>
+<ul>
+<li><code>n</code>: the mistake type category name</li>
+<li><code>s</code>: the mistake type category supercategory, if any</li>
+</ul></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def mtc(n, s=None, **kwargs) -&gt; MistakeTypeCategory:
-    &#34;Shorthand for MistakeTypeCategory initializer.&#34;
+<pre><code class="python">def mtc(n: str, s: MistakeTypeCategory = None, **kwargs) -&gt; MistakeTypeCategory:
+    &#34;&#34;&#34;
+    Shorthand for MistakeTypeCategory initializer.
+
+    - `n`: the mistake type category name
+    - `s`: the mistake type category supercategory, if any
+    &#34;&#34;&#34;
     _mtc = MistakeTypeCategory(name=n, supercategory=s, **kwargs)
     if &#34;subcategories&#34; in kwargs:
         _mtc_subcats[_mtc] = kwargs[&#34;subcategories&#34;]
@@ -700,7 +762,7 @@ Useful for use within f-strings.</p></div>
 </code></dt>
 <dd>
 <div class="desc"><p>Convert a dictionary to a SimpleNamespace, to make it easier to access its keys using dot notation, eg,
-d.p instead of d["p"].</p></div>
+<code>d.p</code> instead of <code>d["p"]</code>.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -708,7 +770,7 @@ d.p instead of d["p"].</p></div>
 <pre><code class="python">def to_simplenamespace(d: dict) -&gt; SimpleNamespace:
     &#34;&#34;&#34;
     Convert a dictionary to a SimpleNamespace, to make it easier to access its keys using dot notation, eg,
-    d.p instead of d[&#34;p&#34;].
+    `d.p` instead of `d[&#34;p&#34;]`.
     &#34;&#34;&#34;
     return RobustSimpleNamespace(**d)</code></pre>
 </details>
@@ -738,7 +800,7 @@ d.p instead of d["p"].</p></div>
 </code></dt>
 <dd>
 <div class="desc"><p>Class Diagram Data Transfer (JSON) Object returned by WebCORE.</p>
-<p>Properties: { eClass, _id, name, classes, types, layout }</p></div>
+<p>Properties: <code>{ eClass, _id, name, classes, types, layout }</code></p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -747,7 +809,7 @@ d.p instead of d["p"].</p></div>
     &#34;&#34;&#34;
     Class Diagram Data Transfer (JSON) Object returned by WebCORE.
 
-    Properties: { eClass, _id, name, classes, types, layout }
+    Properties: `{ eClass, _id, name, classes, types, layout }`
     &#34;&#34;&#34;
     # pylint: disable=protected-access, super-init-not-called
     def __init__(self, json_repr: dict | str | SimpleNamespace):
@@ -877,13 +939,13 @@ d.p instead of d["p"].</p></div>
 <span>(</span><span>*, level=None, congratulatory=None, usefulness=None, highlightProblem=None, highlightSolution=None, mistakeType=None, text=None, learningCorpus=None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Shorthand for Feedback initializer with highlightProblem=True.</p></div>
+<div class="desc"><p>Shorthand for Feedback initializer with <code>highlightProblem=True</code>.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class HighlightProblem(Feedback):
-    &#34;Shorthand for Feedback initializer with highlightProblem=True.&#34;
+    &#34;Shorthand for Feedback initializer with `highlightProblem=True`.&#34;
     # Use __new__ here to create a Feedback instance instead of a subclass not found in the metamodel
     def __new__(cls, *args, **kwargs):
         return Feedback(*args, highlightProblem=True, **kwargs)</code></pre>
@@ -907,13 +969,13 @@ d.p instead of d["p"].</p></div>
 <span>(</span><span>*, level=None, congratulatory=None, usefulness=None, highlightProblem=None, highlightSolution=None, mistakeType=None, text=None, learningCorpus=None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Shorthand for Feedback initializer with highlightSolution=True.</p></div>
+<div class="desc"><p>Shorthand for Feedback initializer with <code>highlightSolution=True</code>.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class HighlightSolution(Feedback):
-    &#34;Shorthand for Feedback initializer with highlightSolution=True.&#34;
+    &#34;Shorthand for Feedback initializer with `highlightSolution=True`.&#34;
     def __new__(cls, *args, **kwargs):
         return Feedback(*args, highlightSolution=True, **kwargs)</code></pre>
 </details>
@@ -935,36 +997,47 @@ d.p instead of d["p"].</p></div>
 <span>class <span class="ident">McqFactory</span></span>
 </code></dt>
 <dd>
-<div class="desc"><p>Factory to create a list multiple choice quiz.</p></div>
+<div class="desc"><p>Factory to create a list multiple choice quiz. To use it, get the list multiple choice quiz defined according to the
+following input format:</p>
+<p>The first item is the prompt for the quiz, which must be a string.
+The remaining items are the choices for the quiz, and can be either strings or slices. If a slice is given and the
+start item is a correct choice notation, the choice will be considered correct. There must be at least two choices.</p>
+<p>Example usage:</p>
+<pre><code>mcq = McqFactory()
+quiz = mcq[
+    &quot;What cities are located in Canada?&quot;,
+          &quot;Chicago&quot;,
+    True: &quot;Montréal&quot;,
+          &quot;Delhi&quot;,
+    True: &quot;Toronto&quot;,
+]
+</code></pre></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class McqFactory:
     &#34;&#34;&#34;
-    Factory to create a list multiple choice quiz.
+    Factory to create a list multiple choice quiz. To use it, get the list multiple choice quiz defined according to the
+    following input format:
+
+    The first item is the prompt for the quiz, which must be a string.
+    The remaining items are the choices for the quiz, and can be either strings or slices. If a slice is given and the
+    start item is a correct choice notation, the choice will be considered correct. There must be at least two choices.
+
+    Example usage:
+    ```
+    mcq = McqFactory()
+    quiz = mcq[
+        &#34;What cities are located in Canada?&#34;,
+              &#34;Chicago&#34;,
+        True: &#34;Montréal&#34;,
+              &#34;Delhi&#34;,
+        True: &#34;Toronto&#34;,
+    ]
+    ```
     &#34;&#34;&#34;
     def __getitem__(self, items: tuple[str | slice]) -&gt; ListMultipleChoiceQuiz:
-        &#34;&#34;&#34;
-        Get the list multiple choice quiz defined according to the following input format:
-
-        The first item is the prompt for the quiz, which must be a string.
-        The remaining items are the choices for the quiz, and can be either strings or slices. If a slice is given and
-        the start item is a correct choice notation, the choice will be considered correct. There must be at least two
-        choices.
-
-        Example usage:
-        ```
-        mcq = McqFactory()
-        quiz = mcq[
-            &#34;What cities are located in Canada?&#34;,
-                  &#34;Chicago&#34;,
-            True: &#34;Montréal&#34;,
-                  &#34;Delhi&#34;,
-            True: &#34;Toronto&#34;,
-        ]
-        ```
-        &#34;&#34;&#34;
         if not isinstance(items, tuple) or len(items) &lt; 3:
             raise ValueError(&#34;Multiple choice quiz must have a prompt and at least two choices&#34;)
         if not isinstance(items[0], str):

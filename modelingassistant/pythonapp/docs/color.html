@@ -38,6 +38,8 @@ debug output. 🌈
 from __future__ import annotations
 
 import re
+from itertools import cycle
+from typing import Callable
 
 
 class Color:
@@ -131,7 +133,24 @@ Color.PINK          = Color(&#34;#ffc0cb&#34;, &#34;pink&#34;)
 # Aliases for better readability
 Color.LIGHT_YELLOW = Color.LEMON_CHIFFON
 Color.LIGHT_ORANGE = Color.PEACH_PUFF
-Color.LIGHT_RED    = Color.PINK</code></pre>
+Color.LIGHT_RED    = Color.PINK
+
+
+def colorize_text(s: str, chars_matching: Callable[[str], bool] = None):
+    &#34;&#34;&#34;
+    Colorizes the characters matching the condition in rainbow order, repeating if necessary. All occurrences of a
+    letter will have the same color, so use lookalike Greek characters when this is not desired.
+    &#34;&#34;&#34;
+    letters_to_colors: dict[str, Color] = {}
+    colors = cycle(Color.rainbow())  # [red, orange, ..., violet, red, orange, ...]
+    for letter in s:
+        if (chars_matching or (lambda _: True))(letter):  # accept all chars if no chars_matching filter is provided
+            if letter in letters_to_colors:
+                continue
+            color = next(colors)
+            letters_to_colors[letter] = color
+            s = s.replace(letter, color(letter))
+    return s</code></pre>
 </details>
 </section>
 <section>
@@ -139,6 +158,36 @@ Color.LIGHT_RED    = Color.PINK</code></pre>
 <section>
 </section>
 <section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="color.colorize_text"><code class="name flex">
+<span>def <span class="ident">colorize_text</span></span>(<span>s: str, chars_matching: Callable[[str], bool] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Colorizes the characters matching the condition in rainbow order, repeating if necessary. All occurrences of a
+letter will have the same color, so use lookalike Greek characters when this is not desired.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def colorize_text(s: str, chars_matching: Callable[[str], bool] = None):
+    &#34;&#34;&#34;
+    Colorizes the characters matching the condition in rainbow order, repeating if necessary. All occurrences of a
+    letter will have the same color, so use lookalike Greek characters when this is not desired.
+    &#34;&#34;&#34;
+    letters_to_colors: dict[str, Color] = {}
+    colors = cycle(Color.rainbow())  # [red, orange, ..., violet, red, orange, ...]
+    for letter in s:
+        if (chars_matching or (lambda _: True))(letter):  # accept all chars if no chars_matching filter is provided
+            if letter in letters_to_colors:
+                continue
+            color = next(colors)
+            letters_to_colors[letter] = color
+            s = s.replace(letter, color(letter))
+    return s</code></pre>
+</details>
+</dd>
+</dl>
 </section>
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
@@ -361,6 +410,11 @@ def rainbow(cls) -&gt; list[Color]:
 <ul></ul>
 </div>
 <ul id="index">
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="color.colorize_text" href="#color.colorize_text">colorize_text</a></code></li>
+</ul>
+</li>
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>
