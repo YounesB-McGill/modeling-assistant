@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+"""
+Main module for the Modeling Assistant Python app.
+"""
+
 from threading import Thread
 from time import sleep
 import logging
@@ -43,6 +47,9 @@ MISTAKE_DETECTION_PORT = 8539
 
 MISTAKE_DETECTION_STARTUP_DELAY = 20  # seconds
 
+# hang forever when in debug mode to allow pausing on breakpoints, else timeout after 5 seconds
+TIMEOUT = None if DEBUG_MODE else 5  # seconds
+
 
 if sys.version_info[:2] < (3, 11):
     logger.error("Python 3.11 or higher required to run this app.")
@@ -59,7 +66,7 @@ def get_mistakes(ma: ModelingAssistant, instructor_cdm: ClassDiagram, student_cd
     """
     def call_mistake_detection_system(ma_str: str) -> Response:
         return requests.get(f"http://{MISTAKE_DETECTION_HOST}:{MISTAKE_DETECTION_PORT}/detectmistakes",
-                            {"modelingassistant": ma_str})
+                            {"modelingassistant": ma_str}, timeout=TIMEOUT)
 
     # resource = SRSET.create_string_resource()
     # resource.extend([ma, instructor_cdm, student_cdm])

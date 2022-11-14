@@ -11,10 +11,11 @@ import logging
 
 from ordered_set import OrderedSet
 
+import modelingassistantapp
 from classdiagram import ClassDiagram, NamedElement
 from color import Color
 from corpusdefinition import infinite_recursive_dependency, missing_multiplicity
-from modelingassistantapp import DEBUG_MODE, MODELING_ASSISTANT, get_mistakes
+from modelingassistantapp import MODELING_ASSISTANT, get_mistakes
 from parametrizedresponse import comma_seperated_with_and, parametrize_response
 from serdes import set_static_class_for
 from stringserdes import str_to_cdm
@@ -263,7 +264,7 @@ def verbalize_highlight_description(feedback: FeedbackItem) -> str:
     When debug mode is on, return a description string for highlighted problem statement and solution elements, to
     make it easier to work on the frontend.
     """
-    if not DEBUG_MODE:
+    if not modelingassistantapp.DEBUG_MODE:  # need to specify name to capture changes to DEBUG_MODE when testing
         return ""
     fb_item, fb_template = feedback, feedback.feedback
     mistake: Mistake = fb_item.mistake

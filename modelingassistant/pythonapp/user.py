@@ -16,7 +16,7 @@ import requests
 
 from constants import WEBCORE_ENDPOINT
 from feedback import FeedbackTO
-from modelingassistantapp import LOGGING_FORMAT, LOGGING_LEVEL
+from modelingassistantapp import LOGGING_FORMAT, LOGGING_LEVEL, TIMEOUT
 from utils import cdm_diff, to_simplenamespace, warn, ClassDiagramDTO, AeReferenceType
 
 USER_REGISTER_ENDPOINT = f"{WEBCORE_ENDPOINT}/user/public/register"
@@ -44,7 +44,7 @@ class User:
 
     def get_token(self):
         "Get the user's token."
-        response = requests.put(USER_REGISTER_ENDPOINT, json=self._auth_creds)
+        response = requests.put(USER_REGISTER_ENDPOINT, json=self._auth_creds, timeout=TIMEOUT)
         if not response.ok:
             raise ValueError(f"Could not get token for user {self.name}.\nError: {response.text}")
         return response.text.strip().removeprefix("User registered. Your authorization token is '").removesuffix(
@@ -52,7 +52,7 @@ class User:
 
     def login(self) -> bool:
         "Login the user and update their token if needed."
-        response = requests.post(USER_LOGIN_ENDPOINT, headers=self._auth_header, json=self._auth_creds)
+        response = requests.post(USER_LOGIN_ENDPOINT, headers=self._auth_header, json=self._auth_creds, timeout=TIMEOUT)
         if not response.ok:
             return False
         self.token = response.text.strip().removeprefix("Logged in. Your authorization token is '").removesuffix(
@@ -62,7 +62,7 @@ class User:
 
     def logout(self) -> bool:
         "Logout the user."
-        response = requests.post(USER_LOGOUT_ENDPOINT, headers=self._auth_header)
+        response = requests.post(USER_LOGOUT_ENDPOINT, headers=self._auth_header, timeout=TIMEOUT)
         if not response.ok:
             return False
         del self.token  # token invalidated in WebCORE, so get rid of here on the client side as well
@@ -109,14 +109,14 @@ class MockStudent(User):
 
     def create_cdm(self, name: str) -> bool:
         "Create a student class diagram."
-        resp = requests.put(self.cdm_endpoint(name), headers=self._auth_header)
+        resp = requests.put(self.cdm_endpoint(name), headers=self._auth_header, timeout=TIMEOUT)
         return resp.ok
 
     def create_class(self, cdm_name: str, cls_name: str) -> str:
         "Create a class with the given name in the given class diagram belonging to the student and return its _id."
         old_cdm = self.get_cdm(cdm_name)
         old_class_mapping = old_cdm.get_class_names_by_ids()
-        resp = requests.post(f"{self.cdm_endpoint(cdm_name)}/class", headers=self._auth_header,
+        resp = requests.post(f"{self.cdm_endpoint(cdm_name)}/class", headers=self._auth_header, timeout=TIMEOUT,
                              json={"className": cls_name, "dataType": False, "isInterface": False,
                                    "x": randint(0, 600), "y": randint(0, 600)})
         resp.raise_for_status()
@@ -131,7 +131,8 @@ class MockStudent(User):
 
     def delete_class(self, cdm_name: str, cls_id: str):
         "Delete the class with the given _id from the given class diagram belonging to the student."
-        resp = requests.delete(f"{self.cdm_endpoint(cdm_name)}/class/{cls_id}", headers=self._auth_header)
+        resp = requests.delete(f"{self.cdm_endpoint(cdm_name)}/class/{cls_id}", headers=self._auth_header,
+                               timeout=TIMEOUT)
         resp.raise_for_status()
 
     def create_attribute(self, cdm_name: str, cls_id: str, attr_name: str, attr_type: type | str) -> str:
@@ -139,7 +140,7 @@ class MockStudent(User):
         old_cdm = self.get_cdm(cdm_name)
         resp = requests.post(f"{self.cdm_endpoint(cdm_name)}/class/{cls_id}/attribute", headers=self._auth_header,
                              json={"rankIndex": 0, "typeId": old_cdm.type_id_for(attr_type),
-                                   "attributeName": attr_name})
+                                   "attributeName": attr_name}, timeout=TIMEOUT)
         resp.raise_for_status()
         new_cdm = self.get_cdm(cdm_name)
         logger.debug(cdm_diff(old_cdm, new_cdm))
@@ -150,7 +151,7 @@ class MockStudent(User):
     def delete_attribute(self, cdm_name: str, attr_id: str):
         "Delete the attribute from the given class."
         resp = requests.delete(f"{self.cdm_endpoint(cdm_name)}/class/attribute/{attr_id}",
-                               headers=self._auth_header)
+                               headers=self._auth_header, timeout=TIMEOUT)
         resp.raise_for_status()
 
     def create_generalization(self, cdm_name: str, subclass_id: str, superclass_id: str) -> tuple[str, str]:
@@ -159,7 +160,7 @@ class MockStudent(User):
         subclass_name = old_class_names[subclass_id]
         superclass_name = old_class_names[superclass_id]
         resp = requests.post(f"{self.cdm_endpoint(cdm_name)}/association/supertype", headers=self._auth_header,
-                                json={"subClassId": subclass_id, "superClassId": superclass_id})
+                                json={"subClassId": subclass_id, "superClassId": superclass_id}, timeout=TIMEOUT)
         resp.raise_for_status()
         # The _ids of the subclass and superclass may change, so we need a 2nd API call to GET the new ones
         new_class_ids = self.get_cdm(cdm_name).get_ids_by_class_names()
@@ -205,7 +206,7 @@ class MockStudent(User):
         rolename2 = rolename2 or f"{class2_name[0].lower()}{class2_name[1:]}{'s' if ae2ub != 1 else ''}"  # eg, airpl.
 
         # Create the association itself
-        resp = requests.post(f"{self.cdm_endpoint(cdm_name)}/association", headers=self._auth_header,
+        resp = requests.post(f"{self.cdm_endpoint(cdm_name)}/association", headers=self._auth_header, timeout=TIMEOUT,
                              json={"fromClassId": class1_id, "toClassId": class2_id, "bidirectional": bidirectional})
         resp.raise_for_status()
         new_cdm = self.get_cdm(cdm_name)
@@ -226,13 +227,13 @@ class MockStudent(User):
         # Set the multiplicities of the association ends if different from 1 (the default)
         for ae, lb, ub in ((ae1, ae1lb, ae1ub), (ae2, ae2lb, ae2ub)):
             if not lb == ub == 1:  # if both are 1, save an API call
-                resp = requests.put(f"{self.cdm_endpoint(cdm_name)}/association/end/{ae}/multiplicity",
+                resp = requests.put(f"{self.cdm_endpoint(cdm_name)}/association/end/{ae}/multiplicity", timeout=TIMEOUT,
                                     headers=self._auth_header, json={"lowerBound": lb, "upperBound": ub})
                 resp.raise_for_status()
 
         # Set the rolenames of the association ends
         for ae, rolename in ((ae1, rolename1), (ae2, rolename2)):
-            resp = requests.put(f"{self.cdm_endpoint(cdm_name)}/association/end/{ae}/rolename",
+            resp = requests.put(f"{self.cdm_endpoint(cdm_name)}/association/end/{ae}/rolename", timeout=TIMEOUT,
                                 headers=self._auth_header, json={"roleName": rolename})
             resp.raise_for_status()
 
@@ -240,7 +241,7 @@ class MockStudent(User):
         for ae, reftype in ((ae1, reftype1), (ae2, reftype2)):
             if reftype != "Regular":
                 resp = requests.put(f"{self.cdm_endpoint(cdm_name)}/association/end/{ae}/referencetype",
-                                    headers=self._auth_header, json={"referenceType": reftype})
+                                    headers=self._auth_header, timeout=TIMEOUT, json={"referenceType": reftype})
                 resp.raise_for_status()
 
         # eg, Pilot, Airplane.pilots, Pilot_Airplane, Pilot.airplanes, Airplane
@@ -289,7 +290,7 @@ class MockStudent(User):
 
     def request_feedback(self, cdm_name: str) -> FeedbackTO:
         "Request feedback from the Modeling Assistant via WebCORE."
-        resp = requests.get(f"{self.cdm_endpoint(cdm_name)}/feedback", headers=self._auth_header)
+        resp = requests.get(f"{self.cdm_endpoint(cdm_name)}/feedback", headers=self._auth_header, timeout=TIMEOUT)
         print(f"{resp.text = }")
         resp.raise_for_status()
         feedback_json = resp.json()
@@ -297,7 +298,7 @@ class MockStudent(User):
 
     def get_cdm(self, cdm_name: str) -> ClassDiagramDTO:
         "Get the student's class diagram with the given name from WebCORE in JSON format."
-        resp = requests.get(self.cdm_endpoint(cdm_name), headers=self._auth_header)
+        resp = requests.get(self.cdm_endpoint(cdm_name), headers=self._auth_header, timeout=TIMEOUT)
         resp.raise_for_status()
         self._cdm = ClassDiagramDTO(resp.json(object_hook=to_simplenamespace))
         logger.debug(self._cdm)

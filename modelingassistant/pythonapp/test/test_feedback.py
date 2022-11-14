@@ -10,8 +10,8 @@ from textwrap import dedent
 from threading import Thread
 from time import sleep
 from typing import Any
-import os
 import json
+import os
 import sys
 
 from requests.models import Response
@@ -20,6 +20,7 @@ import pytest  # (to allow tests to be skipped)
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+import modelingassistantapp
 from classdiagram import Association, Attribute, CDEnum, CDEnumLiteral, Class, ClassDiagram
 from color import Color
 from constants import MANY
@@ -37,9 +38,11 @@ from mistaketypes import (BAD_CLASS_NAME_SPELLING, INCOMPLETE_CONTAINMENT_TREE, 
 from parametrizedresponse import parametrize_response
 from stringserdes import SRSET, str_to_modelingassistant
 from utils import ae, HighlightProblem, HighlightSolution
+from modelingassistantapp import TIMEOUT
 from modelingassistant import (FeedbackItem, Mistake, ModelingAssistant, ProblemStatement, ProblemStatementElement,
     Solution, SolutionElement, Student, StudentKnowledge)
-import modelingassistantapp
+
+
 
 
 HOST = "localhost"
@@ -52,10 +55,16 @@ _HIGHLIGHT_COLOR = DEFAULT_HIGHLIGHT_COLOR.to_hex()
 
 @pytest.fixture(autouse=True)
 def run_around_each_test():
+    """
+    Code that surrounds each test. The code before the `yield` runs before each test, and the code after it runs
+    after each test.
+    """
     # Code that runs before each test
     debug = modelingassistantapp.DEBUG_MODE
     modelingassistantapp.DEBUG_MODE = True
+
     yield  # A test function will be run at this point
+
     # Code that runs after the test
     modelingassistantapp.DEBUG_MODE = debug
 
@@ -541,7 +550,7 @@ def get_mistakes(ma: ModelingAssistant, instructor_cdm: ClassDiagram, student_cd
     This function is similar to the one in the modeling assistant, but it includes additional assertions.
     """
     def call_mistake_detection_system(ma_str: str) -> Response:
-        return requests.get(f"http://{HOST}:{PORT}/detectmistakes", {"modelingassistant": ma_str})
+        return requests.get(f"http://{HOST}:{PORT}/detectmistakes", {"modelingassistant": ma_str}, timeout=TIMEOUT)
 
     ma_str = SRSET.create_ma_str(ma)
     assert ma_str
@@ -962,4 +971,3 @@ def test_verbalize_feedback_description_show_parametrized_response_and_highlight
 
 if __name__ == '__main__':
     "Main entry point (used for debugging)."
-    test_verbalize_resource_description_quiz()
