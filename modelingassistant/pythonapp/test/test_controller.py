@@ -625,6 +625,7 @@ def test_student_knowledge_persisted_correctly():
     """
     Verify that StudentKnowledge association classes can be serialized and loaded again correctly.
     """
+    # pylint: disable=too-many-locals
     # Remove previously created files (if they exist)
     ma_file = f"{MA_PATH}/ma_studentknowledge_from_python.modelingassistant"
     cd1_file = f"{MA_PATH}/ma_studentknowledge_from_python1.cdm"

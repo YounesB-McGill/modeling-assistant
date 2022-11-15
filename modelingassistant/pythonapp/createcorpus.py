@@ -46,7 +46,6 @@ It is generated automatically by the {os.path.basename(__file__)} script.
 """
 
 from constants import LEARNING_CORPUS_PATH
-from corpus import corpus as runtime_corpus
 from fileserdes import load_lc
 from learningcorpus import MistakeTypeCategory, MistakeType
 
@@ -344,6 +343,7 @@ class MarkdownGenerator(TextualGenerator):
 
     @classmethod
     def make_mt_body(cls, mt: MistakeType, indentation: int = 0) -> str:
+        # pylint: disable=too-many-locals, too-many-branches, too-many-statements
         "Return the Markdown body of the output."
         result = f"{cls.make_body_title(mt.description, indentation)}{cls.make_mistake_type_element_description(mt)}"
         levels = sorted(fb.level for fb in mt.feedbacks)
@@ -405,7 +405,7 @@ class MarkdownGenerator(TextualGenerator):
                                     sel = "x" if choice in primary_rsc.correctChoices else " "
                                     content += f"- [{sel}] {choice.text}\n"
                             elif isinstance(primary_rsc, TableMultipleChoiceQuiz):
-                                ...
+                                ...  # TODO
                             content = content.strip()
                             result += (content + "\n\n") if content not in result else ""
                             _quizzes_to_md[primary_rsc] = content
@@ -484,7 +484,6 @@ class LatexGenerator(TextualGenerator):
         def handle_list(s: str, old_bullets: tuple[str], new_bullets: tuple[str]) -> str:
             if not any(bullet in s for bullet in old_bullets) or "\n" not in s:
                 return s  # short-circuit: no list to handle
-            begin_itemize, end_itemize = "\\begin{itemize}", "\\end{itemize}\n"
             lines = s.splitlines()
             new_lines = []
             for line in lines:
@@ -503,8 +502,8 @@ class LatexGenerator(TextualGenerator):
                         if not first_bullet_line:
                             first_bullet_line = i
                         last_bullet_line = i
-            lines.insert(first_bullet_line, begin_itemize)
-            lines.insert(last_bullet_line + 2, end_itemize)
+            lines.insert(first_bullet_line, "\\begin{itemize}")
+            lines.insert(last_bullet_line + 2, "\\end{itemize}\n")
             return "\n".join(lines)
 
         # use math notation for certain items so they render as intended
@@ -571,6 +570,7 @@ class LatexGenerator(TextualGenerator):
     @classmethod
     def make_mt_body(cls, mt: MistakeType, indentation: int = 0) -> str:
         "Return the LaTeX body of the output."
+        # pylint: disable=too-many-locals, too-many-branches
         result = f"{cls.make_body_title(mt.description, indentation)}{cls.make_mistake_type_element_description(mt)}"
         levels = sorted(fb.level for fb in mt.feedbacks)
         for level in levels:
@@ -622,7 +622,7 @@ class LatexGenerator(TextualGenerator):
                                 quiz_md_lines = _quizzes_to_md[primary_rsc].split(NL)
                                 title, body = quiz_md_lines[0], NL.join(quiz_md_lines[1:])
                             elif isinstance(primary_rsc, TableMultipleChoiceQuiz):
-                                ...
+                                ...  # TODO
                             content = f"{title}{cls.NLS}{cls.blockquote(body)}"
                             result += content if content not in result else ""
                         elif is_table(primary_rsc.content):

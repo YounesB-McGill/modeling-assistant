@@ -198,7 +198,7 @@ def test_param_parts_before_dot():
         ["stud_cls", "stud_attr.cls", "stud_compos.end1.cls"]) == ["stud_cls", "stud_attr", "stud_compos"]
 
 
-def get_all_pr_parameters() -> dict[str, MistakeType]:
+def get_pr_parameters_to_mistake_types() -> dict[str, MistakeType]:
     """
     Return a dict of all ParametrizedResponse parameters mapped to their mistake types. Note that a parameter may be
     shared by multiple mistake types. An assertion is performed to ensure each response contains at least one parameter.
@@ -213,11 +213,6 @@ def get_all_pr_parameters() -> dict[str, MistakeType]:
             for match_ in matches:
                 prs[match_.group("param")] = mt_
     return prs
-
-
-def get_pr_parameters_to_mistake_types() -> dict[str, MistakeType]:
-    "Return a dict of ParametrizedResponse parameters mapped to mistake types with mistake detection formats."
-    return {param: mt_ for param, mt_ in get_all_pr_parameters().items()}
 
 
 def get_number_of_mistake_types_with_parametrized_responses() -> int:

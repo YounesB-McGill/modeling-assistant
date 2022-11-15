@@ -8,7 +8,7 @@ Before running make sure you have correct .tsv file path.
 
 Paramenter: input file(.tsv), input model and output file path
 
-# Author : Prabhsimran Singh
+Author: Prabhsimran Singh
 """
 
 from collections import defaultdict
@@ -16,9 +16,7 @@ import csv
 import sys
 from classdiagram import CDEnum
 from fileserdes import load_cdm, save_to_files
-from modelingassistant import (ModelingAssistant, ProblemStatement,
-                               ProblemStatementElement, Solution,
-                               SolutionElement)
+from modelingassistant import ModelingAssistant, ProblemStatement, ProblemStatementElement, Solution, SolutionElement
 
 INPUT_FILE_TSV = "modelingassistant/pythonapp/ProblemStatementElements.tsv"
 INPUT_MODEL_FILE = "mistakedetection/realModels/instructorSolution/instructorSolution2/Class Diagram/InstructorSolution2.domain_model.cdm"
@@ -33,6 +31,7 @@ def populate_dict(value, pse_name, name_to_pse, string_to_pse):
             name_to_pse[val].append(string_to_pse[pse_name])
     else:
         name_to_pse[value].append(string_to_pse[pse_name])
+
 
 def solution_elem_to_problem_statement_elem():
     try:
@@ -133,16 +132,19 @@ def solution_elem_to_problem_statement_elem():
     # Save modeling assistant
     save_to_files({OUTPUT_FILE_MA : modeling_assistant})
 
+
 def create_solution_element(solution, element, values):
     se = SolutionElement(solution=solution, element=element)
     for value in values:
         se.problemStatementElements.add(value)
+
 
 def get_class_element(class_name, cdm):
     for cls in cdm.classes:
         if cls.name == class_name:
             return cls
     raise Exception(f"{class_name} class not found, check spelling of class in .tsv")
+
 
 def get_attribute_element(attrib_name, cdm):
     for cls in cdm.classes:
@@ -151,12 +153,14 @@ def get_attribute_element(attrib_name, cdm):
                 return attrib
     raise Exception(f"{attrib_name} attribute not found, check spelling of class in .tsv")
 
+
 def get_association_element(assoc_name, cdm):
     assoc_cls_names = assoc_name.split("_")
     for assoc in cdm.associations:
         if(assoc_cls_names[0] in assoc.name and assoc_cls_names[1] in assoc.name):
             return assoc
     raise Exception(f"{assoc_name} association not found, check spelling of class in .tsv")
+
 
 def get_association_end_element(assocEnd_name, cdm):
     assocEnd_names = assocEnd_name.split(".")
@@ -165,23 +169,27 @@ def get_association_end_element(assocEnd_name, cdm):
     for cls in cdm.classes:
         if cls.name == cls_name:
             for ae in cls.associationEnds:
-                if(ae.name == assocEnd_name):
+                if ae.name == assocEnd_name:
                     return ae
-    raise Exception(f"{cls_name} class has no {assocEnd_name} association end not found, check spelling of class in .tsv")
+    raise Exception(
+        f"{cls_name} class has no {assocEnd_name} association end not found, check spelling of class in .tsv")
+
 
 def get_enumeration_element(enum_name, cdm):
-    for type in cdm.types:
-        if isinstance(type, CDEnum) and type.name == enum_name:
-            return type
+    for type_ in cdm.types:
+        if isinstance(type_, CDEnum) and type_.name == enum_name:
+            return type_
     raise Exception(f"{enum_name} enum not found, check spelling of class in .tsv")
 
+
 def get_enumeration_literal_element(enum_literal_name, cdm):
-    for type in cdm.types:
-        if isinstance(type, CDEnum):
-            for literal in type.literals:
-                if(literal.name == enum_literal_name):
+    for type_ in cdm.types:
+        if isinstance(type_, CDEnum):
+            for literal in type_.literals:
+                if literal.name == enum_literal_name:
                     return literal
     raise Exception(f"{enum_literal_name} enum not found, check spelling of class in .tsv")
+
 
 if __name__ == "__main__":
     solution_elem_to_problem_statement_elem()

@@ -63,7 +63,7 @@ class FeedbackTO:
     def __init__(self, solutionElements: dict[str, list[str]] = field(default_factory=dict),
                  problemStatementElements: dict[str, list[str]] = field(default_factory=dict),
                  grade: float = 0.0, writtenFeedback: str = "", feedback: FeedbackItem = None):
-
+        # pylint: disable=too-many-arguments
         def make_highlighted_elems(
             elems: Iterable[str] | Iterable[NamedElement] | Iterable[SolutionElement]
                  | dict[str, list[str] | list[NamedElement] | list[SolutionElement]]) -> dict[str, list[str]]:
@@ -123,7 +123,7 @@ def give_feedback(student_solution: Solution) -> FeedbackItem | list[FeedbackIte
 
     for m in highest_priority_mistakes:
         #student_solution.currentMistake = m  # TODO
-        result.append(fb := next_feedback(m))
+        result.append(next_feedback(m))
         # decide whether student is beginner overall
         if student_knowledge_for(m).levelOfKnowledge < BEGINNER_LEVEL_OF_KNOWLEDGE:
             break

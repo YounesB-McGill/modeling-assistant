@@ -456,6 +456,7 @@ def test_feedback_with_1_mistake_levels_1_6():
 
     Wrong multiplicity detected 6 times -> 6 levels of feedback, given one at a time.
     """
+    # pylint: disable=too-many-statements
     ma = make_ma_with_1_wrong_mult_mistake(1)
     solution = ma.problemStatements[0].studentSolutions[0]
     feedback_item = give_feedback(solution)

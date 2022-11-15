@@ -4,7 +4,6 @@ It is generated automatically by the createcorpus.py script.
 """
 
 from constants import LEARNING_CORPUS_PATH
-from corpus import corpus as runtime_corpus
 from fileserdes import load_lc
 from learningcorpus import MistakeTypeCategory, MistakeType
 

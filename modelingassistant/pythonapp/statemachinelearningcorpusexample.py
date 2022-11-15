@@ -47,7 +47,7 @@ tmcq = McqFactory()
 metatypes = {"trans": None, "state": None}
 
 # formatting following what is used in the paper
-(
+_ = (
 transition_with_correct_event_to_wrong_target_state := mt(
     n="Transition with correct event to wrong target state",
     stud_inst=["trans", "from_state", "to_state"],  # same mistake elements for student and instructor solutions

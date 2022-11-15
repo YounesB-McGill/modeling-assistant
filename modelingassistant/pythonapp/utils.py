@@ -108,6 +108,7 @@ def mt(n: str, d="", stud: str | list[str] = None, inst: str | list[str] = None,
     - `types`: the metamodel metatypes that the `stud` and `inst` elements refer to. If not given, defaults to the
     TouchCORE Class Diagram metatypes
     """
+    # pylint: disable=too-many-arguments
     # change the line below to use other languages
     if not types:
         from metatypes import CDM_METATYPES as types  # pylint: disable=import-outside-toplevel
@@ -246,6 +247,7 @@ class McqFactory:
     ]
     ```
     """
+    # pylint: disable=too-few-public-methods
     def __getitem__(self, items: tuple[str | slice]) -> ListMultipleChoiceQuiz:
         if not isinstance(items, tuple) or len(items) < 3:
             raise ValueError("Multiple choice quiz must have a prompt and at least two choices")
@@ -395,5 +397,6 @@ class NonNoneDict(dict):
 
 class ModelingAssistantContainer:
     "Class to contain a Modeling Assistant instance."
+    # pylint: disable=too-few-public-methods
     def __init__(self, modeling_assistant: ModelingAssistant = None):
         self.instance: ModelingAssistant = modeling_assistant
