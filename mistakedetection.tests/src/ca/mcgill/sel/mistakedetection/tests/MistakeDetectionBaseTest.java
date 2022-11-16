@@ -41,7 +41,10 @@ public abstract class MistakeDetectionBaseTest {
     printWarnings();
   }
 
-  /** Ensures that the MEGs inferred from the MDS are compatible with the human-validated ones. */
+  /**
+   * Ensures that the {@code MistakeElementGroup}s (MEGs) inferred from the Mistake Detection System (MDS) are
+   * compatible with the human-validated ones.
+   */
   static void testMegsFromMdsAreCompatibleWithHumanValidatedMegs() {
     var megsFromMds = MistakeDetectionInformationService.getMistakeElementGroupsAsIsFromMistakeDetectionSystem();
     var humanValidatedMegs = HumanValidatedMistakeElementGroups.mappings;
