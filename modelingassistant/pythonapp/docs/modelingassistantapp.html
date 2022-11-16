@@ -46,7 +46,10 @@ from utils import ModelingAssistantContainer, warn
 from classdiagram import ClassDiagram
 from modelingassistant import ModelingAssistant, ProblemStatement, Solution
 
-LOGGING_LEVEL = logging.DEBUG
+
+DEBUG_MODE = True
+
+LOGGING_LEVEL = logging.DEBUG if DEBUG_MODE else logging.INFO
 LOGGING_FORMAT = &#34;{asctime} - {name} - {levelname} - {message}&#34;
 
 logging.basicConfig(level=LOGGING_LEVEL, format=LOGGING_FORMAT, style=&#34;{&#34;)

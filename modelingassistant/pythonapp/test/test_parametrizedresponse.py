@@ -40,6 +40,7 @@ def test_prs_correctly_specified():
     Each parameter must be parsable to a value that can be converted to a string and substituted into the response.
 
     Numbers, `_`, `.`, and `*` have special meanings:
+
     - [0-9] mean "get the nth item of the subscriptable"
     - `_` is a separator, eg, `stud_sub_cls` means "student subclass". Each parameter must start with `stud` or `inst`
       and end with a valid type

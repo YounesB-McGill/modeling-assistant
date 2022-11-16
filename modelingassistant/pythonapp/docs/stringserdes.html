@@ -127,14 +127,12 @@ class StringEnabledResourceSet(ResourceSet):
             uri.plain = uri.plain.removeprefix(&#34;file:&#34;)
         return super().get_resource(uri, options)
 
-    def resolve(self, uri, from_resource: StringEnabledXMIResource = None):
-        if isinstance(uri, str):
-            uri = uri.removeprefix(&#34;file:&#34;)
-            if &#34;default.learningcorpus&#34; in uri and os.name == &#34;nt&#34;:
-                uri = re.sub(r&#34;\S://&#34;, &#34;&#34;, uri).replace(&#39;/&#39;,&#39;\\&#39;)  # remove Windows drive letter
-        else:
-            if &#34;default.learningcorpus&#34; in uri.plain and os.name == &#34;nt&#34;:
-                uri = re.sub(r&#34;\S://&#34;, &#34;&#34;, uri.plain).replace(&#39;/&#39;,&#39;\\&#39;)
+    def resolve(self, uri: URI | str, from_resource: StringEnabledXMIResource = None):
+        if isinstance(uri, URI):
+            uri = uri.plain
+        uri: str = uri.removeprefix(&#34;file:&#34;)
+        if &#34;default.learningcorpus&#34; in uri and os.name == &#34;nt&#34;:
+            uri = re.sub(r&#34;\S:/&#34;, &#34;&#34;, uri).replace(&#39;/&#39;,&#39;\\&#39;)  # remove Windows drive letter
         ma = next((e for e in from_resource.contents if isinstance(e, ModelingAssistant)), None)
         if ma and not ma.eResource.uuid_dict:
             ma.eResource.uuid_dict = from_resource.uuid_dict
@@ -409,14 +407,12 @@ def str_to_modelingassistant(ma_str: str | bytes, use_static_classes: bool = Tru
             uri.plain = uri.plain.removeprefix(&#34;file:&#34;)
         return super().get_resource(uri, options)
 
-    def resolve(self, uri, from_resource: StringEnabledXMIResource = None):
-        if isinstance(uri, str):
-            uri = uri.removeprefix(&#34;file:&#34;)
-            if &#34;default.learningcorpus&#34; in uri and os.name == &#34;nt&#34;:
-                uri = re.sub(r&#34;\S://&#34;, &#34;&#34;, uri).replace(&#39;/&#39;,&#39;\\&#39;)  # remove Windows drive letter
-        else:
-            if &#34;default.learningcorpus&#34; in uri.plain and os.name == &#34;nt&#34;:
-                uri = re.sub(r&#34;\S://&#34;, &#34;&#34;, uri.plain).replace(&#39;/&#39;,&#39;\\&#39;)
+    def resolve(self, uri: URI | str, from_resource: StringEnabledXMIResource = None):
+        if isinstance(uri, URI):
+            uri = uri.plain
+        uri: str = uri.removeprefix(&#34;file:&#34;)
+        if &#34;default.learningcorpus&#34; in uri and os.name == &#34;nt&#34;:
+            uri = re.sub(r&#34;\S:/&#34;, &#34;&#34;, uri).replace(&#39;/&#39;,&#39;\\&#39;)  # remove Windows drive letter
         ma = next((e for e in from_resource.contents if isinstance(e, ModelingAssistant)), None)
         if ma and not ma.eResource.uuid_dict:
             ma.eResource.uuid_dict = from_resource.uuid_dict
@@ -558,7 +554,7 @@ def get_ma_id_from_str(ma_str: str | bytes) -&gt; str:
 </details>
 </dd>
 <dt id="stringserdes.StringEnabledResourceSet.resolve"><code class="name flex">
-<span>def <span class="ident">resolve</span></span>(<span>self, uri, from_resource: <a title="stringserdes.StringEnabledXMIResource" href="#stringserdes.StringEnabledXMIResource">StringEnabledXMIResource</a> = None)</span>
+<span>def <span class="ident">resolve</span></span>(<span>self, uri: URI | str, from_resource: <a title="stringserdes.StringEnabledXMIResource" href="#stringserdes.StringEnabledXMIResource">StringEnabledXMIResource</a> = None)</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -566,14 +562,12 @@ def get_ma_id_from_str(ma_str: str | bytes) -&gt; str:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def resolve(self, uri, from_resource: StringEnabledXMIResource = None):
-    if isinstance(uri, str):
-        uri = uri.removeprefix(&#34;file:&#34;)
-        if &#34;default.learningcorpus&#34; in uri and os.name == &#34;nt&#34;:
-            uri = re.sub(r&#34;\S://&#34;, &#34;&#34;, uri).replace(&#39;/&#39;,&#39;\\&#39;)  # remove Windows drive letter
-    else:
-        if &#34;default.learningcorpus&#34; in uri.plain and os.name == &#34;nt&#34;:
-            uri = re.sub(r&#34;\S://&#34;, &#34;&#34;, uri.plain).replace(&#39;/&#39;,&#39;\\&#39;)
+<pre><code class="python">def resolve(self, uri: URI | str, from_resource: StringEnabledXMIResource = None):
+    if isinstance(uri, URI):
+        uri = uri.plain
+    uri: str = uri.removeprefix(&#34;file:&#34;)
+    if &#34;default.learningcorpus&#34; in uri and os.name == &#34;nt&#34;:
+        uri = re.sub(r&#34;\S:/&#34;, &#34;&#34;, uri).replace(&#39;/&#39;,&#39;\\&#39;)  # remove Windows drive letter
     ma = next((e for e in from_resource.contents if isinstance(e, ModelingAssistant)), None)
     if ma and not ma.eResource.uuid_dict:
         ma.eResource.uuid_dict = from_resource.uuid_dict

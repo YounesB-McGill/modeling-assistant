@@ -47,7 +47,8 @@ tmcq = McqFactory()
 metatypes = {"trans": None, "state": None}
 
 # formatting following what is used in the paper
-transition_with_correct_event_to_wrong_target_state = mt(
+(
+transition_with_correct_event_to_wrong_target_state := mt(
     n="Transition with correct event to wrong target state",
     stud_inst=["trans", "from_state", "to_state"],  # same mistake elements for student and instructor solutions
     feedbacks=fbs({
@@ -69,5 +70,6 @@ transition_with_correct_event_to_wrong_target_state = mt(
         5: ResourceResponse(
             learningResources=[state_machine_reference])}),
     types=metatypes)
+)
 
 # priority of this mistake is not explicitly defined, but this can be omitted given the context

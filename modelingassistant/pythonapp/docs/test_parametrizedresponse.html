@@ -71,6 +71,7 @@ def test_prs_correctly_specified():
     Each parameter must be parsable to a value that can be converted to a string and substituted into the response.
 
     Numbers, `_`, `.`, and `*` have special meanings:
+
     - [0-9] mean &#34;get the nth item of the subscriptable&#34;
     - `_` is a separator, eg, `stud_sub_cls` means &#34;student subclass&#34;. Each parameter must start with `stud` or `inst`
       and end with a valid type
@@ -758,13 +759,15 @@ all mistake types explicitly, and the assertions may be different.</p></div>
 <dd>
 <div class="desc"><p>Ensure that parametrized responses are correctly specified.</p>
 <p>Each parameter must be parsable to a value that can be converted to a string and substituted into the response.</p>
-<p>Numbers, <code>_</code>, <code>.</code>, and <code>*</code> have special meanings:
-- [0-9] mean "get the nth item of the subscriptable"
-- <code>_</code> is a separator, eg, <code>stud_sub_cls</code> means "student subclass". Each parameter must start with <code>stud</code> or <code>inst</code>
-and end with a valid type
-- <code>.</code> is used to get the attribute of an object just like in Python. If no prespecified parameter is found,
-Python's <code>getattr</code> is used to get the attribute.
-- <code>*</code> indicates a sequence of items. Only one sequence is allowed in each element list.</p>
+<p>Numbers, <code>_</code>, <code>.</code>, and <code>*</code> have special meanings:</p>
+<ul>
+<li>[0-9] mean "get the nth item of the subscriptable"</li>
+<li><code>_</code> is a separator, eg, <code>stud_sub_cls</code> means "student subclass". Each parameter must start with <code>stud</code> or <code>inst</code>
+and end with a valid type</li>
+<li><code>.</code> is used to get the attribute of an object just like in Python. If no prespecified parameter is found,
+Python's <code>getattr</code> is used to get the attribute.</li>
+<li><code>*</code> indicates a sequence of items. Only one sequence is allowed in each element list.</li>
+</ul>
 <p>Programmatic attributes are a metamodel property or a shorthand for it defined in parametrizedresponse.py.</p></div>
 <details class="source">
 <summary>
@@ -777,6 +780,7 @@ Python's <code>getattr</code> is used to get the attribute.
     Each parameter must be parsable to a value that can be converted to a string and substituted into the response.
 
     Numbers, `_`, `.`, and `*` have special meanings:
+
     - [0-9] mean &#34;get the nth item of the subscriptable&#34;
     - `_` is a separator, eg, `stud_sub_cls` means &#34;student subclass&#34;. Each parameter must start with `stud` or `inst`
       and end with a valid type

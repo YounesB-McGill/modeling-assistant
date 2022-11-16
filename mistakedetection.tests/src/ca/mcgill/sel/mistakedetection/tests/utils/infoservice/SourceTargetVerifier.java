@@ -10,7 +10,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 import ca.mcgill.sel.classdiagram.AssociationEnd;
-import ca.mcgill.sel.mistakedetection.tests.utils.HumanValidatedMistakeDetectionFormats;
+import ca.mcgill.sel.mistakedetection.tests.utils.HumanValidatedMistakeElementGroups;
 import ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.ElementDescription;
 import ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.MistakeInfo;
 import learningcorpus.MistakeType;
@@ -58,29 +58,29 @@ public class SourceTargetVerifier extends MistakeDetectionInformationService {
   public String getOutput() {
     var sb = new StringBuilder();
     sourceTargetWholePartMistakeTypesAndInfos().forEach((mt, mis) -> {
-      var mdf = HumanValidatedMistakeDetectionFormats.mappings.get(mt);
+      var meg = HumanValidatedMistakeElementGroups.mappings.get(mt);
       sb.append(mt.getName() + ": \n");
       mis.forEach(mi -> {
         var studElems = mi.mistake.getStudentElements();
         var instElems = mi.mistake.getInstructorElements();
-        for (int i = 0; i < mdf.stud.size(); i++) {
-          var format = mdf.stud.get(i);
+        for (int i = 0; i < meg.stud.size(); i++) {
+          var format = meg.stud.get(i);
           var elem = studElems.get(i);
           sb.append(format + ": " + ElementDescription.fromElement(elem))
               .append(validateFormatMatchesElement(format, elem));
-          if (i < mdf.stud.size() - 1) {
+          if (i < meg.stud.size() - 1) {
             sb.append(", ");
           }
         }
-        if (!mdf.stud.isEmpty() && !mdf.inst.isEmpty()) {
+        if (!meg.stud.isEmpty() && !meg.inst.isEmpty()) {
           sb.append(". "); // visual separator between student and instructor elements
         }
-        for (int i = 0; i < mdf.inst.size(); i++) {
-          var format = mdf.inst.get(i);
+        for (int i = 0; i < meg.inst.size(); i++) {
+          var format = meg.inst.get(i);
           var elem = instElems.get(i);
           sb.append(format + ": " + ElementDescription.fromElement(elem))
               .append(validateFormatMatchesElement(format, elem));
-          if (i < mdf.inst.size() - 1) {
+          if (i < meg.inst.size() - 1) {
             sb.append(", ");
           }
         }
@@ -97,10 +97,10 @@ public class SourceTargetVerifier extends MistakeDetectionInformationService {
 
   /** Returns the source, target, whole, or part mistake types and their MistakeInfos. */
   public static Map<MistakeType, Set<MistakeInfo>> sourceTargetWholePartMistakeTypesAndInfos() {
-    final var mdfs = HumanValidatedMistakeDetectionFormats.mappings;
+    final var megs = HumanValidatedMistakeElementGroups.mappings;
     return mapToMistakeInfos().entrySet().stream()
-        .filter(e -> mdfs.get(e.getKey()).toString().toLowerCase().contains("target")
-            || mdfs.get(e.getKey()).toString().toLowerCase().contains("whole"))
+        .filter(e -> megs.get(e.getKey()).toString().toLowerCase().contains("target")
+            || megs.get(e.getKey()).toString().toLowerCase().contains("whole"))
         .collect(Collectors.toMap(Map.Entry::getKey,
             Map.Entry::getValue,
             MistakeDetectionInformationService::setUnion,

@@ -38,15 +38,18 @@ REST API for modeling assistant.
 import json
 import logging
 import os
+import sys
+from textwrap import dedent
+
+from werkzeug.serving import is_running_from_reloader
 
 from feedback import give_feedback_for_student_cdm
 from flask import abort, Flask, Response, jsonify, request
 from flask_cors import CORS
-from modelingassistantapp import LOGGING_FORMAT, LOGGING_LEVEL, MODELING_ASSISTANT, SRSET
+from modelingassistantapp import LOGGING_FORMAT, LOGGING_LEVEL, MODELING_ASSISTANT, SRSET, DEBUG_MODE
 from stringserdes import str_to_modelingassistant
+from utils import colorized_splash_message
 
-
-DEBUG_MODE = True
 PORT = 8538
 
 app = Flask(__name__)
@@ -54,7 +57,7 @@ CORS(app)  # TODO Make this more secure later
 
 
 logging.basicConfig(level=LOGGING_LEVEL, format=LOGGING_FORMAT)
-logger = logging.getLogger(os.path.basename(__file__).removesuffix(&#34;.py&#34;))  # avoid using default name __main__  
+logger = logging.getLogger(os.path.basename(__file__).removesuffix(&#34;.py&#34;))  # avoid using default name __main__
 
 
 @app.route(&#34;/&#34;)
@@ -105,6 +108,9 @@ def modeling_assistant() -&gt; Response:
 
 
 if __name__ == &#34;__main__&#34;:
+    if not is_running_from_reloader():
+        print(f&#34;&#34;&#34;{colorized_splash_message()}\n    Python version: {sys.version}\n    Running Flask app in {
+               os.getcwd()}\n&#34;&#34;&#34;)
     app.run(debug=DEBUG_MODE, port=PORT)</code></pre>
 </details>
 </section>

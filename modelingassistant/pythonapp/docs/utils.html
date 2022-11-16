@@ -47,7 +47,7 @@ from typing import Literal, Tuple
 
 from classdiagram import AssociationEnd, Classifier, ReferenceType
 from color import Color
-from constants import CORRECT_QUIZ_ITEM_NOTATIONS, MULTIPLE_FEEDBACKS_PER_LEVEL
+from constants import CORRECT_QUIZ_ITEM_NOTATIONS, MULTIPLE_FEEDBACKS_PER_LEVEL, MA_FEEDBACK_ASCII_ART
 from learningcorpus import MistakeElement, MistakeTypeCategory, MistakeType, Feedback
 from learningcorpusquiz import (Blank, Choice, FillInTheBlanksQuiz, FillInTheBlanksQuizStatement,
                                 ListMultipleChoiceQuiz, NonBlank)
@@ -210,6 +210,14 @@ def fitb(prompt: str, *statements) -&gt; FillInTheBlanksQuiz:
                 statement.components.append(Blank(correctAnswer=blank))
         quiz.statements.append(statement)
     return quiz
+
+
+def quote(s: str, quote_char=&#39;&#34;&#39;) -&gt; str:
+    &#34;&#34;&#34;
+    Return the given string surrounded with the given quote character, or &#34; if not specified.
+    Useful for use within f-strings.
+    &#34;&#34;&#34;
+    return f&#34;{quote_char}{s}{quote_char}&#34;
 
 
 class HighlightProblem(Feedback):
@@ -379,6 +387,14 @@ def get_by_id(_id: str, iterable: Iterable) -&gt; str:
     return None
 
 
+def colorized_splash_message() -&gt; str:
+    &#34;Return a colorized version of the splash screen.&#34;
+    result = MA_FEEDBACK_ASCII_ART
+    for (letter, color) in zip(&#34;FEΕDBACK&#34;, 2 * Color.rainbow()):  # intentional greek letter Ε (capital ε)
+        result = result.replace(letter, color(letter))
+    return result
+
+
 class NonNoneDict(dict):
     &#34;&#34;&#34;
     A dictionary that disallows None keys and values.
@@ -456,6 +472,23 @@ class ModelingAssistantContainer:
     additions = [_id for _id in new_ids if _id not in old_ids]
     removals = [_id for _id in old_ids if _id not in new_ids]
     return result_template(additions, removals)</code></pre>
+</details>
+</dd>
+<dt id="utils.colorized_splash_message"><code class="name flex">
+<span>def <span class="ident">colorized_splash_message</span></span>(<span>) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return a colorized version of the splash screen.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def colorized_splash_message() -&gt; str:
+    &#34;Return a colorized version of the splash screen.&#34;
+    result = MA_FEEDBACK_ASCII_ART
+    for (letter, color) in zip(&#34;FEΕDBACK&#34;, 2 * Color.rainbow()):  # intentional greek letter Ε (capital ε)
+        result = result.replace(letter, color(letter))
+    return result</code></pre>
 </details>
 </dd>
 <dt id="utils.fbs"><code class="name flex">
@@ -642,6 +675,24 @@ d: description of the mistake type</p></div>
     if &#34;subcategories&#34; in kwargs:
         _mtc_subcats[_mtc] = kwargs[&#34;subcategories&#34;]
     return _mtc</code></pre>
+</details>
+</dd>
+<dt id="utils.quote"><code class="name flex">
+<span>def <span class="ident">quote</span></span>(<span>s: str, quote_char='"') ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the given string surrounded with the given quote character, or " if not specified.
+Useful for use within f-strings.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def quote(s: str, quote_char=&#39;&#34;&#39;) -&gt; str:
+    &#34;&#34;&#34;
+    Return the given string surrounded with the given quote character, or &#34; if not specified.
+    Useful for use within f-strings.
+    &#34;&#34;&#34;
+    return f&#34;{quote_char}{s}{quote_char}&#34;</code></pre>
 </details>
 </dd>
 <dt id="utils.to_simplenamespace"><code class="name flex">
@@ -1045,14 +1096,16 @@ d.p instead of d["p"].</p></div>
 </div>
 <ul id="index">
 <li><h3><a href="#header-functions">Functions</a></h3>
-<ul class="two-column">
+<ul class="">
 <li><code><a title="utils.ae" href="#utils.ae">ae</a></code></li>
 <li><code><a title="utils.cdm_diff" href="#utils.cdm_diff">cdm_diff</a></code></li>
+<li><code><a title="utils.colorized_splash_message" href="#utils.colorized_splash_message">colorized_splash_message</a></code></li>
 <li><code><a title="utils.fbs" href="#utils.fbs">fbs</a></code></li>
 <li><code><a title="utils.fitb" href="#utils.fitb">fitb</a></code></li>
 <li><code><a title="utils.get_by_id" href="#utils.get_by_id">get_by_id</a></code></li>
 <li><code><a title="utils.mt" href="#utils.mt">mt</a></code></li>
 <li><code><a title="utils.mtc" href="#utils.mtc">mtc</a></code></li>
+<li><code><a title="utils.quote" href="#utils.quote">quote</a></code></li>
 <li><code><a title="utils.to_simplenamespace" href="#utils.to_simplenamespace">to_simplenamespace</a></code></li>
 <li><code><a title="utils.warn" href="#utils.warn">warn</a></code></li>
 </ul>

@@ -61,7 +61,27 @@ metamodels mentioned above.
 
 ## Updating the Metamodel(s)
 
-These are the steps that need to be followed every time one of the app's Ecore metamodels is updated.
+Before making any changes, keep the following in mind:
+
+**Changing the metamodel is a big deal!** It is akin to changing the database schema
+in a relational database and is not something to be done lightly.
+
+- All existing models, eg, `*.modelingassistant` files, may be invalidated and
+require migration to the new metamodel
+- A lot of code (in multiple programming languages) will need to be updated to
+reflect the changes in the metamodel, including the unit tests, and updates
+may be required in other repositories as well, eg, the frontend
+- All outstanding pull requests will need to be closed or updated with the new
+changes, so discuss this with the authors ahead of time
+- There are existing publications on the project that use certain metamodel
+conventions, so do not needlessly break them 
+
+If a change is indeed warranted, these are the steps that need to be followed
+every time one of the app's Ecore metamodels is updated.
+
+<!-- Note to README authors: use "1." as the numbering for all steps to avoid multiple
+     edits if the steps need to change in the future. The correct number order (1, 2, 3, ...)
+     will still be shown in Markdown visualizers such as GitHub.com -->
 
 1. Make the changes in the metamodel ecore file(s), eg,
    [`learningcorpus.ecore`](modelingassistant/model/learningcorpus.ecore),
@@ -73,7 +93,7 @@ These are the steps that need to be followed every time one of the app's Ecore m
    - There are no dummy temporary elements. These can help with layout and style,
      but should be removed before committing
    - The metamodel is visually appealing and consistent. This is especially
-     important if you will use it in a demo, presentation, or publication.
+     important if you will use it in a demo, presentation, or publication
 1. Export the metamodel to image (jpg **and** svg) files using the :camera: icon, eg,
    [`learningcorpus.jpg`](modelingassistant/model/learningcorpus.jpg).
 1. Run the [`create_model_pdfs.sh`](create_model_pdfs.sh) script to create the
@@ -95,3 +115,20 @@ These are the steps that need to be followed every time one of the app's Ecore m
    In that case, run them again).
 1. Commit the changes to the repo as a separate commit. In the commit message,
    specify the changes made to the metamodel.
+
+### Linking to another metamodel
+
+:warning: These instructions may vary in future versions of Eclipse. Consult the
+documentation as needed.
+ 
+1. Open the ecore file (eg, `modelingassistant.ecore`) for the importing metamodel 
+   in the Eclipse Ecore Model editor
+1. Right-click the top level element ("platform:...modelingassistant.ecore")
+   and select Load Resource > Browse Workspace, and select the source ecore file
+   (eg, `classdiagram.ecore` from the imported TouchCORE project)
+1. Expand a class in the importing metamodel (eg, `Solution`) and add a reference to
+   the imported metamodel (eg, `classDiagram` of EType `ClassDiagram`).
+   Repeat this as needed for other references.
+1. Select File > New > Other > EMF Generator Model and follow the steps.
+   Select both the importing and imported metamodels (eg, `modelingassistant` and
+   `classdiagram` as the root classes)

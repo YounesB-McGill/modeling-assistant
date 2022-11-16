@@ -15,8 +15,8 @@ from types import SimpleNamespace
 from typing import Literal, Tuple
 
 from classdiagram import AssociationEnd, Classifier, ReferenceType
-from color import Color
-from constants import CORRECT_QUIZ_ITEM_NOTATIONS, MULTIPLE_FEEDBACKS_PER_LEVEL
+from color import Color, colorize_text
+from constants import CORRECT_QUIZ_ITEM_NOTATIONS, MULTIPLE_FEEDBACKS_PER_LEVEL, MA_FEEDBACK_ASCII_ART
 from learningcorpus import MistakeElement, MistakeTypeCategory, MistakeType, Feedback
 from learningcorpusquiz import (Blank, Choice, FillInTheBlanksQuiz, FillInTheBlanksQuizStatement,
                                 ListMultipleChoiceQuiz, NonBlank)
@@ -179,6 +179,14 @@ def fitb(prompt: str, *statements) -> FillInTheBlanksQuiz:
                 statement.components.append(Blank(correctAnswer=blank))
         quiz.statements.append(statement)
     return quiz
+
+
+def quote(s: str, quote_char='"') -> str:
+    """
+    Return the given string surrounded with the given quote character, or " if not specified.
+    Useful for use within f-strings.
+    """
+    return f"{quote_char}{s}{quote_char}"
 
 
 class HighlightProblem(Feedback):
@@ -346,6 +354,11 @@ def get_by_id(_id: str, iterable: Iterable) -> str:
             if result := get_by_id(_id, value):
                 return result
     return None
+
+
+def colorized_splash_message() -> str:
+    "Return a colorized version of the splash screen."
+    return colorize_text(MA_FEEDBACK_ASCII_ART, str.isalpha)
 
 
 class NonNoneDict(dict):

@@ -36,18 +36,19 @@ Module containing feedback algorithm for modeling assistant.
 from collections.abc import Iterable
 from dataclasses import dataclass, field
 from functools import cache
-from typing import Tuple
 import logging
 
 from ordered_set import OrderedSet
 
 from classdiagram import ClassDiagram, NamedElement
 from color import Color
-from modelingassistantapp import MODELING_ASSISTANT, get_mistakes
-from parametrizedresponse import parametrize_response
+from corpusdefinition import infinite_recursive_dependency, missing_multiplicity
+from modelingassistantapp import DEBUG_MODE, MODELING_ASSISTANT, get_mistakes
+from parametrizedresponse import comma_seperated_with_and, parametrize_response
 from serdes import set_static_class_for
 from stringserdes import str_to_cdm
-from learningcorpus import Feedback, LearningResource, ParametrizedResponse, TextResponse
+from utils import quote, warn
+from learningcorpus import Feedback, LearningResource, ParametrizedResponse, ResourceResponse, TextResponse
 from modelingassistant import (ModelingAssistant, Student, ProblemStatement, FeedbackItem, Mistake, Solution,
                                SolutionElement, StudentKnowledge)
 
@@ -109,15 +110,14 @@ class FeedbackTO:
 
         def get_ids(elems: dict[str, list[str]]) -&gt; list[str]:
             result = set()
-            for _, ids in elems.items():
+            for ids in elems.values():
                 result.update(ids)
             return list(result)
 
         if feedback:
             solutionElements: OrderedSet[SolutionElement] = feedback.mistake.studentElements
             problemStatementElements: OrderedSet[SolutionElement] = feedback.mistake.instructorElements
-            writtenFeedback = (feedback.text or feedback.feedback.text
-                               or getattr(feedback.feedback, &#34;learningResources&#34;, [_empty_resource])[0].content)
+            writtenFeedback = verbalize_feedback_description(feedback)
         self.solutionElements = make_highlighted_elems(solutionElements)
         self.solutionElementIds = get_ids(self.solutionElements)
         self.problemStatementElements = make_highlighted_elems(problemStatementElements)
@@ -202,7 +202,7 @@ def student_knowledge_for(mistake: Mistake) -&gt; StudentKnowledge:
 
 
 def give_feedback_for_student_cdm(username: str, student_cdm: ClassDiagram | str, ma: ModelingAssistant = None
-    ) -&gt; FeedbackTO | Tuple[FeedbackTO, ModelingAssistant]:
+    ) -&gt; FeedbackTO | tuple[FeedbackTO, ModelingAssistant]:
     &#34;Give feedback given a student class diagram.&#34;
     # pylint: disable=protected-access
     use_local_ma = bool(ma)
@@ -256,6 +256,131 @@ def student_solution_for(username: str, student_cdm: ClassDiagram, ma: ModelingA
         ps.studentSolutions.remove(old_sol)
     ps.studentSolutions.append(stud_sol)
     return stud_sol
+
+
+def verbalize_feedback_description(feedback: FeedbackItem) -&gt; str:
+    &#34;&#34;&#34;
+    Verbalize the feedback description of the given feedback item.
+
+    When debug mode is on, return a description string for highlighted problem statement and solution elements, to
+    make it easier to work on the frontend.
+
+    For all text feedback, perform the following changes:
+
+    - If the student is a beginner, include the text [within square brackets] in the feedback, without the square
+      brackets themselves. Otherwise, omit this text entirely
+    - If an indefinite article (A|a) is found in the text and the following word starts with a vowel, replace with
+      (An|an). In the future, use a NLP package to correctly handle cases like &#34;a university&#34;.
+
+    For resource responses, indicate the resource type and the contents if no dedicated transformation is available.
+    &#34;&#34;&#34;
+    if not feedback:
+        warn(&#34;verbalize_feedback_description(): input feedback is None&#34;)
+        return &#34;&#34;
+    highlight_info = verbalize_highlight_description(feedback)
+    resource_info = verbalize_resource_description(feedback)
+    written_feedback = verbalize_written_feedback(feedback)
+    sep = &#34;\n\n&#34; if highlight_info else &#34;&#34;
+    result = f&#34;{written_feedback}{resource_info}{sep}{highlight_info}&#34;
+    result = process_optional_text(result, is_beginner=True)  # TODO handle intermediate and advanced students later
+    result = process_indefinite_articles(result)
+    return result
+
+
+def verbalize_highlight_description(feedback: FeedbackItem) -&gt; str:
+    &#34;&#34;&#34;
+    When debug mode is on, return a description string for highlighted problem statement and solution elements, to
+    make it easier to work on the frontend.
+    &#34;&#34;&#34;
+    if not DEBUG_MODE:
+        return &#34;&#34;
+    fb_item, fb_template = feedback, feedback.feedback
+    mistake: Mistake = fb_item.mistake
+    color = fb_template.text if (fb_template.text or &#34;&#34;).startswith(&#34;#&#34;) else str(DEFAULT_HIGHLIGHT_COLOR)
+    prefix = &#34;Highlight &#34;
+    result = &#34;&#34;
+    if fb_template.highlightProblem:
+        fragments = list(filter(bool, [&#34; &#34;.join(map(lambda e: e.name, ie.problemStatementElements))
+                                       for ie in mistake.instructorElements]))
+        suffix = f&#34; in the problem statement in {color}&#34;
+        if (n := len(fragments)) == 0:
+            warn(&#34;verbalize_highlight_description(): no problem statement elements found for Feedback with &#34;
+                 &#34;highlightProblem=True&#34;)
+        elif n == 1:
+            result = f&#39;{prefix}&#34;{fragments[0]}&#34;{suffix}&#39;
+        elif n == 2:
+            result = f&#39;{prefix}&#34;{fragments[0]}&#34; and &#34;{fragments[1]}&#34;{suffix}&#39;
+        else:
+            result = f&#39;{prefix}{&#34;, &#34;.join(quote(f) for f in fragments[:-1])}, and {fragments[-1]}{suffix}&#39;
+    if fb_template.highlightSolution:
+        stud_elems = [e.element for e in mistake.studentElements]
+        sep = &#34;\n\n&#34; if result else &#34;&#34;
+        result = f&#34;{result}{sep}{prefix}{comma_seperated_with_and(stud_elems)} in the solution in {color}&#34;
+    return result
+
+
+def verbalize_written_feedback(feedback: FeedbackItem) -&gt; str:
+    &#34;&#34;&#34;
+    If the feedback has a text or parametrized response, process and return it. Otherwise, return an empty string.
+    &#34;&#34;&#34;
+    fb_item, fb_template = feedback, feedback.feedback
+    mistake: Mistake = fb_item.mistake
+    result = &#34;&#34;
+    if isinstance(fb_template, TextResponse | ParametrizedResponse):
+        result = fb_item.text or fb_template.text
+    # special cases for certain mistake types, make this more general if corpus grows
+    if mistake.mistakeType.name in [infinite_recursive_dependency.name, missing_multiplicity.name]:
+        if len(mistake.studentElements) &gt; 1:  # multiple wrong multiplicities
+            result = result.replace(&#34;(y|ies)&#34;, &#34;ies&#34;).replace(&#34;(is|are)&#34;, &#34;are&#34;)
+        else:
+            result = result.replace(&#34;(y|ies)&#34;, &#34;y&#34;).replace(&#34;(is|are)&#34;, &#34;is&#34;)
+    return result
+
+
+def verbalize_resource_description(feedback: FeedbackItem | Feedback) -&gt; str:
+    &#34;&#34;&#34;
+    If the feedback is or has a resource response, return a description of the resource. Otherwise, return an empty
+    string.
+    &#34;&#34;&#34;
+    feedback: Feedback = feedback.feedback if isinstance(feedback, FeedbackItem) else feedback
+    if isinstance(feedback, ResourceResponse):
+        return &#34;\n&#34;.join(f&#34;{type(r).__name__}: {r.content}&#34; for r in feedback.learningResources)
+    return &#34;&#34;
+
+
+def process_optional_text(text: str, is_beginner: bool = True) -&gt; str:
+    &#34;&#34;&#34;
+    Return the given text, but if is_beginner is True (the default), include text [within square brackets] without the
+    square brackets themselves. Otherwise, omit the text within entirely. In either case, preserve Markdown links and
+    images.
+    &#34;&#34;&#34;
+    if not text:
+        return &#34;&#34;
+    if text.startswith(&#34;[&#34;):
+        text = f&#34; {text}&#34;
+    text_chunks = text.split(&#34;[&#34;)
+    result = &#34;&#34;
+    for chunk in text_chunks:
+        if &#34;](&#34; in chunk:
+            result += f&#34;[{chunk}&#34;  # preserve markdown links and images
+        elif &#34;]&#34; in chunk:
+            if is_beginner:
+                result += chunk.replace(&#34;]&#34;, &#34;&#34;)  # include chunk without the closing bracket
+            else:
+                result += chunk.split(&#34;]&#34;, 1)[1]
+        else:
+            result += chunk
+    return result.strip()
+
+
+def process_indefinite_articles(text: str) -&gt; str:
+    &#34;&#34;&#34;
+    If an indefinite article (A|a) is found in the text and the following word starts with a vowel, replace with
+    (An|an). In the future, use a NLP package to correctly handle cases like &#34;a university&#34;.
+    &#34;&#34;&#34;
+    for v in &#34;aeiouAEIOU&#34;:
+        text = text.replace(f&#34; a {v}&#34;, f&#34; an {v}&#34;).replace(f&#34;A {v}&#34;, f&#34;An {v}&#34;)
+    return text
 
 
 if __name__ == &#39;__main__&#39;:
@@ -319,7 +444,7 @@ if __name__ == &#39;__main__&#39;:
 </details>
 </dd>
 <dt id="feedback.give_feedback_for_student_cdm"><code class="name flex">
-<span>def <span class="ident">give_feedback_for_student_cdm</span></span>(<span>username: str, student_cdm: <a title="classdiagram.classdiagram.ClassDiagram" href="classdiagram/classdiagram.html#classdiagram.classdiagram.ClassDiagram">ClassDiagram</a> | str, ma: <a title="modelingassistant.modelingassistant.ModelingAssistant" href="modelingassistant/modelingassistant.html#modelingassistant.modelingassistant.ModelingAssistant">ModelingAssistant</a> = None) ‑> Union[<a title="feedback.FeedbackTO" href="#feedback.FeedbackTO">FeedbackTO</a>, Tuple[<a title="feedback.FeedbackTO" href="#feedback.FeedbackTO">FeedbackTO</a>, <a title="modelingassistant.modelingassistant.ModelingAssistant" href="modelingassistant/modelingassistant.html#modelingassistant.modelingassistant.ModelingAssistant">ModelingAssistant</a>]]</span>
+<span>def <span class="ident">give_feedback_for_student_cdm</span></span>(<span>username: str, student_cdm: <a title="classdiagram.classdiagram.ClassDiagram" href="classdiagram/classdiagram.html#classdiagram.classdiagram.ClassDiagram">ClassDiagram</a> | str, ma: <a title="modelingassistant.modelingassistant.ModelingAssistant" href="modelingassistant/modelingassistant.html#modelingassistant.modelingassistant.ModelingAssistant">ModelingAssistant</a> = None) ‑> <a title="feedback.FeedbackTO" href="#feedback.FeedbackTO">FeedbackTO</a> | tuple[<a title="feedback.FeedbackTO" href="#feedback.FeedbackTO">FeedbackTO</a>, <a title="modelingassistant.modelingassistant.ModelingAssistant" href="modelingassistant/modelingassistant.html#modelingassistant.modelingassistant.ModelingAssistant">ModelingAssistant</a>]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Give feedback given a student class diagram.</p></div>
@@ -328,7 +453,7 @@ if __name__ == &#39;__main__&#39;:
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def give_feedback_for_student_cdm(username: str, student_cdm: ClassDiagram | str, ma: ModelingAssistant = None
-    ) -&gt; FeedbackTO | Tuple[FeedbackTO, ModelingAssistant]:
+    ) -&gt; FeedbackTO | tuple[FeedbackTO, ModelingAssistant]:
     &#34;Give feedback given a student class diagram.&#34;
     # pylint: disable=protected-access
     use_local_ma = bool(ma)
@@ -399,6 +524,62 @@ def instructor_solution_for(student_cdm: ClassDiagram, ma: ModelingAssistant = N
     return FeedbackItem(text=fb_text, feedback=next_fb, solution=mistake.solution, mistake=mistake)</code></pre>
 </details>
 </dd>
+<dt id="feedback.process_indefinite_articles"><code class="name flex">
+<span>def <span class="ident">process_indefinite_articles</span></span>(<span>text: str) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>If an indefinite article (A|a) is found in the text and the following word starts with a vowel, replace with
+(An|an). In the future, use a NLP package to correctly handle cases like "a university".</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def process_indefinite_articles(text: str) -&gt; str:
+    &#34;&#34;&#34;
+    If an indefinite article (A|a) is found in the text and the following word starts with a vowel, replace with
+    (An|an). In the future, use a NLP package to correctly handle cases like &#34;a university&#34;.
+    &#34;&#34;&#34;
+    for v in &#34;aeiouAEIOU&#34;:
+        text = text.replace(f&#34; a {v}&#34;, f&#34; an {v}&#34;).replace(f&#34;A {v}&#34;, f&#34;An {v}&#34;)
+    return text</code></pre>
+</details>
+</dd>
+<dt id="feedback.process_optional_text"><code class="name flex">
+<span>def <span class="ident">process_optional_text</span></span>(<span>text: str, is_beginner: bool = True) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the given text, but if is_beginner is True (the default), include text [within square brackets] without the
+square brackets themselves. Otherwise, omit the text within entirely. In either case, preserve Markdown links and
+images.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def process_optional_text(text: str, is_beginner: bool = True) -&gt; str:
+    &#34;&#34;&#34;
+    Return the given text, but if is_beginner is True (the default), include text [within square brackets] without the
+    square brackets themselves. Otherwise, omit the text within entirely. In either case, preserve Markdown links and
+    images.
+    &#34;&#34;&#34;
+    if not text:
+        return &#34;&#34;
+    if text.startswith(&#34;[&#34;):
+        text = f&#34; {text}&#34;
+    text_chunks = text.split(&#34;[&#34;)
+    result = &#34;&#34;
+    for chunk in text_chunks:
+        if &#34;](&#34; in chunk:
+            result += f&#34;[{chunk}&#34;  # preserve markdown links and images
+        elif &#34;]&#34; in chunk:
+            if is_beginner:
+                result += chunk.replace(&#34;]&#34;, &#34;&#34;)  # include chunk without the closing bracket
+            else:
+                result += chunk.split(&#34;]&#34;, 1)[1]
+        else:
+            result += chunk
+    return result.strip()</code></pre>
+</details>
+</dd>
 <dt id="feedback.student_knowledge_for"><code class="name flex">
 <span>def <span class="ident">student_knowledge_for</span></span>(<span>mistake: <a title="modelingassistant.modelingassistant.Mistake" href="modelingassistant/modelingassistant.html#modelingassistant.modelingassistant.Mistake">Mistake</a>) ‑> <a title="modelingassistant.modelingassistant.StudentKnowledge" href="modelingassistant/modelingassistant.html#modelingassistant.modelingassistant.StudentKnowledge">StudentKnowledge</a></span>
 </code></dt>
@@ -456,6 +637,144 @@ If not found, create a new one.</p></div>
         ps.studentSolutions.remove(old_sol)
     ps.studentSolutions.append(stud_sol)
     return stud_sol</code></pre>
+</details>
+</dd>
+<dt id="feedback.verbalize_feedback_description"><code class="name flex">
+<span>def <span class="ident">verbalize_feedback_description</span></span>(<span>feedback: <a title="modelingassistant.modelingassistant.FeedbackItem" href="modelingassistant/modelingassistant.html#modelingassistant.modelingassistant.FeedbackItem">FeedbackItem</a>) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Verbalize the feedback description of the given feedback item.</p>
+<p>When debug mode is on, return a description string for highlighted problem statement and solution elements, to
+make it easier to work on the frontend.</p>
+<p>For all text feedback, perform the following changes:</p>
+<ul>
+<li>If the student is a beginner, include the text [within square brackets] in the feedback, without the square
+brackets themselves. Otherwise, omit this text entirely</li>
+<li>If an indefinite article (A|a) is found in the text and the following word starts with a vowel, replace with
+(An|an). In the future, use a NLP package to correctly handle cases like "a university".</li>
+</ul>
+<p>For resource responses, indicate the resource type and the contents if no dedicated transformation is available.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def verbalize_feedback_description(feedback: FeedbackItem) -&gt; str:
+    &#34;&#34;&#34;
+    Verbalize the feedback description of the given feedback item.
+
+    When debug mode is on, return a description string for highlighted problem statement and solution elements, to
+    make it easier to work on the frontend.
+
+    For all text feedback, perform the following changes:
+
+    - If the student is a beginner, include the text [within square brackets] in the feedback, without the square
+      brackets themselves. Otherwise, omit this text entirely
+    - If an indefinite article (A|a) is found in the text and the following word starts with a vowel, replace with
+      (An|an). In the future, use a NLP package to correctly handle cases like &#34;a university&#34;.
+
+    For resource responses, indicate the resource type and the contents if no dedicated transformation is available.
+    &#34;&#34;&#34;
+    if not feedback:
+        warn(&#34;verbalize_feedback_description(): input feedback is None&#34;)
+        return &#34;&#34;
+    highlight_info = verbalize_highlight_description(feedback)
+    resource_info = verbalize_resource_description(feedback)
+    written_feedback = verbalize_written_feedback(feedback)
+    sep = &#34;\n\n&#34; if highlight_info else &#34;&#34;
+    result = f&#34;{written_feedback}{resource_info}{sep}{highlight_info}&#34;
+    result = process_optional_text(result, is_beginner=True)  # TODO handle intermediate and advanced students later
+    result = process_indefinite_articles(result)
+    return result</code></pre>
+</details>
+</dd>
+<dt id="feedback.verbalize_highlight_description"><code class="name flex">
+<span>def <span class="ident">verbalize_highlight_description</span></span>(<span>feedback: <a title="modelingassistant.modelingassistant.FeedbackItem" href="modelingassistant/modelingassistant.html#modelingassistant.modelingassistant.FeedbackItem">FeedbackItem</a>) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>When debug mode is on, return a description string for highlighted problem statement and solution elements, to
+make it easier to work on the frontend.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def verbalize_highlight_description(feedback: FeedbackItem) -&gt; str:
+    &#34;&#34;&#34;
+    When debug mode is on, return a description string for highlighted problem statement and solution elements, to
+    make it easier to work on the frontend.
+    &#34;&#34;&#34;
+    if not DEBUG_MODE:
+        return &#34;&#34;
+    fb_item, fb_template = feedback, feedback.feedback
+    mistake: Mistake = fb_item.mistake
+    color = fb_template.text if (fb_template.text or &#34;&#34;).startswith(&#34;#&#34;) else str(DEFAULT_HIGHLIGHT_COLOR)
+    prefix = &#34;Highlight &#34;
+    result = &#34;&#34;
+    if fb_template.highlightProblem:
+        fragments = list(filter(bool, [&#34; &#34;.join(map(lambda e: e.name, ie.problemStatementElements))
+                                       for ie in mistake.instructorElements]))
+        suffix = f&#34; in the problem statement in {color}&#34;
+        if (n := len(fragments)) == 0:
+            warn(&#34;verbalize_highlight_description(): no problem statement elements found for Feedback with &#34;
+                 &#34;highlightProblem=True&#34;)
+        elif n == 1:
+            result = f&#39;{prefix}&#34;{fragments[0]}&#34;{suffix}&#39;
+        elif n == 2:
+            result = f&#39;{prefix}&#34;{fragments[0]}&#34; and &#34;{fragments[1]}&#34;{suffix}&#39;
+        else:
+            result = f&#39;{prefix}{&#34;, &#34;.join(quote(f) for f in fragments[:-1])}, and {fragments[-1]}{suffix}&#39;
+    if fb_template.highlightSolution:
+        stud_elems = [e.element for e in mistake.studentElements]
+        sep = &#34;\n\n&#34; if result else &#34;&#34;
+        result = f&#34;{result}{sep}{prefix}{comma_seperated_with_and(stud_elems)} in the solution in {color}&#34;
+    return result</code></pre>
+</details>
+</dd>
+<dt id="feedback.verbalize_resource_description"><code class="name flex">
+<span>def <span class="ident">verbalize_resource_description</span></span>(<span>feedback: <a title="modelingassistant.modelingassistant.FeedbackItem" href="modelingassistant/modelingassistant.html#modelingassistant.modelingassistant.FeedbackItem">FeedbackItem</a> | <a title="learningcorpus.learningcorpus.Feedback" href="learningcorpus/learningcorpus.html#learningcorpus.learningcorpus.Feedback">Feedback</a>) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>If the feedback is or has a resource response, return a description of the resource. Otherwise, return an empty
+string.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def verbalize_resource_description(feedback: FeedbackItem | Feedback) -&gt; str:
+    &#34;&#34;&#34;
+    If the feedback is or has a resource response, return a description of the resource. Otherwise, return an empty
+    string.
+    &#34;&#34;&#34;
+    feedback: Feedback = feedback.feedback if isinstance(feedback, FeedbackItem) else feedback
+    if isinstance(feedback, ResourceResponse):
+        return &#34;\n&#34;.join(f&#34;{type(r).__name__}: {r.content}&#34; for r in feedback.learningResources)
+    return &#34;&#34;</code></pre>
+</details>
+</dd>
+<dt id="feedback.verbalize_written_feedback"><code class="name flex">
+<span>def <span class="ident">verbalize_written_feedback</span></span>(<span>feedback: <a title="modelingassistant.modelingassistant.FeedbackItem" href="modelingassistant/modelingassistant.html#modelingassistant.modelingassistant.FeedbackItem">FeedbackItem</a>) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>If the feedback has a text or parametrized response, process and return it. Otherwise, return an empty string.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def verbalize_written_feedback(feedback: FeedbackItem) -&gt; str:
+    &#34;&#34;&#34;
+    If the feedback has a text or parametrized response, process and return it. Otherwise, return an empty string.
+    &#34;&#34;&#34;
+    fb_item, fb_template = feedback, feedback.feedback
+    mistake: Mistake = fb_item.mistake
+    result = &#34;&#34;
+    if isinstance(fb_template, TextResponse | ParametrizedResponse):
+        result = fb_item.text or fb_template.text
+    # special cases for certain mistake types, make this more general if corpus grows
+    if mistake.mistakeType.name in [infinite_recursive_dependency.name, missing_multiplicity.name]:
+        if len(mistake.studentElements) &gt; 1:  # multiple wrong multiplicities
+            result = result.replace(&#34;(y|ies)&#34;, &#34;ies&#34;).replace(&#34;(is|are)&#34;, &#34;are&#34;)
+        else:
+            result = result.replace(&#34;(y|ies)&#34;, &#34;y&#34;).replace(&#34;(is|are)&#34;, &#34;is&#34;)
+    return result</code></pre>
 </details>
 </dd>
 </dl>
@@ -526,15 +845,14 @@ class FeedbackTO:
 
         def get_ids(elems: dict[str, list[str]]) -&gt; list[str]:
             result = set()
-            for _, ids in elems.items():
+            for ids in elems.values():
                 result.update(ids)
             return list(result)
 
         if feedback:
             solutionElements: OrderedSet[SolutionElement] = feedback.mistake.studentElements
             problemStatementElements: OrderedSet[SolutionElement] = feedback.mistake.instructorElements
-            writtenFeedback = (feedback.text or feedback.feedback.text
-                               or getattr(feedback.feedback, &#34;learningResources&#34;, [_empty_resource])[0].content)
+            writtenFeedback = verbalize_feedback_description(feedback)
         self.solutionElements = make_highlighted_elems(solutionElements)
         self.solutionElementIds = get_ids(self.solutionElements)
         self.problemStatementElements = make_highlighted_elems(problemStatementElements)
@@ -577,8 +895,14 @@ class FeedbackTO:
 <li><code><a title="feedback.give_feedback_for_student_cdm" href="#feedback.give_feedback_for_student_cdm">give_feedback_for_student_cdm</a></code></li>
 <li><code><a title="feedback.instructor_solution_for" href="#feedback.instructor_solution_for">instructor_solution_for</a></code></li>
 <li><code><a title="feedback.next_feedback" href="#feedback.next_feedback">next_feedback</a></code></li>
+<li><code><a title="feedback.process_indefinite_articles" href="#feedback.process_indefinite_articles">process_indefinite_articles</a></code></li>
+<li><code><a title="feedback.process_optional_text" href="#feedback.process_optional_text">process_optional_text</a></code></li>
 <li><code><a title="feedback.student_knowledge_for" href="#feedback.student_knowledge_for">student_knowledge_for</a></code></li>
 <li><code><a title="feedback.student_solution_for" href="#feedback.student_solution_for">student_solution_for</a></code></li>
+<li><code><a title="feedback.verbalize_feedback_description" href="#feedback.verbalize_feedback_description">verbalize_feedback_description</a></code></li>
+<li><code><a title="feedback.verbalize_highlight_description" href="#feedback.verbalize_highlight_description">verbalize_highlight_description</a></code></li>
+<li><code><a title="feedback.verbalize_resource_description" href="#feedback.verbalize_resource_description">verbalize_resource_description</a></code></li>
+<li><code><a title="feedback.verbalize_written_feedback" href="#feedback.verbalize_written_feedback">verbalize_written_feedback</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-classes">Classes</a></h3>

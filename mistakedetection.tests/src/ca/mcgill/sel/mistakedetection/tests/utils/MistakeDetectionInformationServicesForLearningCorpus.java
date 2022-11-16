@@ -12,10 +12,10 @@ import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.ColorDemo;
 import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MappingToCdmMetatypes;
 import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MappingToElementDescriptions;
 import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MappingToLearningCorpusElementTypes;
-import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MappingToMistakeDetectionFormats;
+import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MappingToMistakeElementGroups;
 import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MappingToMistakeElementDescriptionsForJson;
 import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MappingToMistakeInfos;
-import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MistakeDetectionFormatComparison;
+import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MistakeElementGroupComparison;
 import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MistakeDetectionInformationService;
 import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.PythonLearningCorpusInitializationCode;
 import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.SourceTargetVerifier;
@@ -64,11 +64,11 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
         MappingToMistakeInfos.get(),
         SourceTargetVerifier.get(),
         MappingToLearningCorpusElementTypes.get(),
-        MappingToMistakeDetectionFormats.get(),
+        MappingToMistakeElementGroups.get(),
         SuggestedParametrizedResponsesForJava.get(),
         SuggestedParametrizedResponses.get(),
         MappingToMistakeElementDescriptionsForJson.get(),
-        MistakeDetectionFormatComparison.get(),
+        MistakeElementGroupComparison.get(),
         PythonLearningCorpusInitializationCode.get()
         ).map(MistakeDetectionInformationService::getOutput);
 
