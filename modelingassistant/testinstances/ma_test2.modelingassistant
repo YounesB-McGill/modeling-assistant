@@ -1,30 +1,30 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <xmi:XMI xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0" xmlns:learningcorpus="http://cs.mcgill.ca/sel/modelingassistant/learningcorpus/1.0" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:version="2.0">
-  <modelingassistant:ModelingAssistant xmi:id="844f7b53-41d7-4b41-a21e-46a10b2822dc">
-    <problemStatements xsi:type="modelingassistant:ProblemStatement" xmi:id="c2f4676b-b098-4ae4-8278-e99819a179e3" name="Airline System" studentSolutions="54f8d15c-12f0-4c6b-89f8-adfe96705573" instructorSolution="c3fdf76a-1cd9-4169-9e8f-482107d44785"/>
-    <solutions xsi:type="modelingassistant:Solution" xmi:id="c3fdf76a-1cd9-4169-9e8f-482107d44785" classDiagram="__zbfj0NpYEeuihpv-j2laQg" problemStatement="c2f4676b-b098-4ae4-8278-e99819a179e3">
-      <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="_db2nkGR4Ee2FhqGzNyRnGQ" element="__z421QNpYEeuihbv-j2laQg" instructorElementMistakes="_db2nlGR4Ee2FhqGzNyRnGQ"/>
-      <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="_db2nkWR4Ee2FhqGzNyRnGQ" element="__Juy__Mt25EeuVoonRXmsiAR" instructorElementMistakes="_db2nlWR4Ee2FhqGzNyRnGQ"/>
-      <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="_db2nkmR4Ee2FhqGzNyRnGQ" element="__Juy__MN25EeuVoonRXmsiAR" instructorElementMistakes="_db2nlWR4Ee2FhqGzNyRnGQ"/>
-      <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="_db2nk2R4Ee2FhqGzNyRnGQ" element="__Juy__Md25EeuVoonRXmsiAR" instructorElementMistakes="_db2nlWR4Ee2FhqGzNyRnGQ"/>
+  <modelingassistant:ModelingAssistant xmi:id="1c053a1d-296b-4f8f-acce-89eaf319c131">
+    <problemStatements xsi:type="modelingassistant:ProblemStatement" xmi:id="e350b1e8-c3d4-4327-8fbf-3cd404eff66a" name="Airline System" studentSolutions="c4701f58-9de7-424f-b566-0d3407115c23" instructorSolution="a3a51e36-276f-4743-b87c-d7b16ae81c80"/>
+    <solutions xsi:type="modelingassistant:Solution" xmi:id="a3a51e36-276f-4743-b87c-d7b16ae81c80" classDiagram="__zbfj0NpYEeuihpv-j2laQg" problemStatement="e350b1e8-c3d4-4327-8fbf-3cd404eff66a">
+      <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="_zLTCsGY9Ee2drf4J-nkWEw" element="__z421QNpYEeuihbv-j2laQg" instructorElementMistakes="_zLTCtGY9Ee2drf4J-nkWEw"/>
+      <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="_zLTCsWY9Ee2drf4J-nkWEw" element="__Juy__Mt25EeuVoonRXmsiAR" instructorElementMistakes="_zLTCtWY9Ee2drf4J-nkWEw"/>
+      <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="_zLTCsmY9Ee2drf4J-nkWEw" element="__Juy__MN25EeuVoonRXmsiAR" instructorElementMistakes="_zLTCtWY9Ee2drf4J-nkWEw"/>
+      <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="_zLTCs2Y9Ee2drf4J-nkWEw" element="__Juy__Md25EeuVoonRXmsiAR" instructorElementMistakes="_zLTCtWY9Ee2drf4J-nkWEw"/>
     </solutions>
-    <solutions xsi:type="modelingassistant:Solution" xmi:id="54f8d15c-12f0-4c6b-89f8-adfe96705573" student="4c1be712-c143-4972-b4ad-f11e3fbe8b2d" classDiagram="_zbfj0NpYEeuihpv-j2laQg" problemStatement="c2f4676b-b098-4ae4-8278-e99819a179e3">
-      <mistakes xsi:type="modelingassistant:Mistake" xmi:id="_db2nlGR4Ee2FhqGzNyRnGQ" numDetections="1" instructorElements="_db2nkGR4Ee2FhqGzNyRnGQ" lastFeedback="912e36a5-d58e-4b70-ad85-889c1f4be640">
-        <mistakeType href="modeling-assistant/modelingassistant/learningcorpusinstances/default.learningcorpus#397e15b7-775f-4365-840b-e8ffcd8c0706" xsi:type="learningcorpus:MistakeType"/>
+    <solutions xsi:type="modelingassistant:Solution" xmi:id="c4701f58-9de7-424f-b566-0d3407115c23" student="1fc3beab-d937-4d6d-b9c3-57a79d766d01" classDiagram="_zbfj0NpYEeuihpv-j2laQg" problemStatement="e350b1e8-c3d4-4327-8fbf-3cd404eff66a">
+      <mistakes xsi:type="modelingassistant:Mistake" xmi:id="_zLTCtGY9Ee2drf4J-nkWEw" numDetections="1" instructorElements="_zLTCsGY9Ee2drf4J-nkWEw" lastFeedback="22c2ac27-9ea2-4698-92cb-2717d74dc905">
+        <mistakeType href="modeling-assistant/modelingassistant/learningcorpusinstances/default.learningcorpus#07e5cd93-fbd5-4042-8afa-a310e7253610" xsi:type="learningcorpus:MistakeType"/>
       </mistakes>
-      <mistakes xsi:type="modelingassistant:Mistake" xmi:id="_db2nlWR4Ee2FhqGzNyRnGQ" numDetections="1" instructorElements="_db2nkWR4Ee2FhqGzNyRnGQ _db2nkmR4Ee2FhqGzNyRnGQ _db2nk2R4Ee2FhqGzNyRnGQ">
-        <mistakeType href="modeling-assistant/modelingassistant/learningcorpusinstances/default.learningcorpus#81df0749-d1bc-4094-887b-67eb24ec00f4" xsi:type="learningcorpus:MistakeType"/>
+      <mistakes xsi:type="modelingassistant:Mistake" xmi:id="_zLTCtWY9Ee2drf4J-nkWEw" numDetections="1" instructorElements="_zLTCsWY9Ee2drf4J-nkWEw _zLTCsmY9Ee2drf4J-nkWEw _zLTCs2Y9Ee2drf4J-nkWEw">
+        <mistakeType href="modeling-assistant/modelingassistant/learningcorpusinstances/default.learningcorpus#53f600c8-979c-4ebb-9d68-57ace6047b35" xsi:type="learningcorpus:MistakeType"/>
       </mistakes>
-      <feedbackItems xsi:type="modelingassistant:FeedbackItem" xmi:id="912e36a5-d58e-4b70-ad85-889c1f4be640" mistake="_db2nlGR4Ee2FhqGzNyRnGQ">
-        <feedback href="modeling-assistant/modelingassistant/learningcorpusinstances/default.learningcorpus#f0a22591-89b8-4ff0-a1a9-9e77b0518c92" xsi:type="learningcorpus:Feedback"/>
+      <feedbackItems xsi:type="modelingassistant:FeedbackItem" xmi:id="22c2ac27-9ea2-4698-92cb-2717d74dc905" mistake="_zLTCtGY9Ee2drf4J-nkWEw">
+        <feedback href="modeling-assistant/modelingassistant/learningcorpusinstances/default.learningcorpus#1643ab03-e39a-4c7a-8c4f-1887a766dc8d" xsi:type="learningcorpus:Feedback"/>
       </feedbackItems>
     </solutions>
-    <students xsi:type="modelingassistant:Student" xmi:id="4c1be712-c143-4972-b4ad-f11e3fbe8b2d" name="Alice" solutions="54f8d15c-12f0-4c6b-89f8-adfe96705573" studentKnowledges="ad58e594-2cdb-4335-a888-6e9d933af0bc 1d9efef5-345b-43f7-ac44-3cb9b9fa2121"/>
-    <studentKnowledges xsi:type="modelingassistant:StudentKnowledge" xmi:id="ad58e594-2cdb-4335-a888-6e9d933af0bc" levelOfKnowledge="9.0" student="4c1be712-c143-4972-b4ad-f11e3fbe8b2d">
-      <mistakeType href="modeling-assistant/modelingassistant/learningcorpusinstances/default.learningcorpus#397e15b7-775f-4365-840b-e8ffcd8c0706" xsi:type="learningcorpus:MistakeType"/>
+    <students xsi:type="modelingassistant:Student" xmi:id="1fc3beab-d937-4d6d-b9c3-57a79d766d01" name="Alice" solutions="c4701f58-9de7-424f-b566-0d3407115c23" studentKnowledges="7fcb6034-1369-48b2-a8a8-1973412a7771 56fc135b-ffbc-4002-a334-392c936dcbaa"/>
+    <studentKnowledges xsi:type="modelingassistant:StudentKnowledge" xmi:id="7fcb6034-1369-48b2-a8a8-1973412a7771" levelOfKnowledge="9.0" student="1fc3beab-d937-4d6d-b9c3-57a79d766d01">
+      <mistakeType href="modeling-assistant/modelingassistant/learningcorpusinstances/default.learningcorpus#07e5cd93-fbd5-4042-8afa-a310e7253610" xsi:type="learningcorpus:MistakeType"/>
     </studentKnowledges>
-    <studentKnowledges xsi:type="modelingassistant:StudentKnowledge" xmi:id="1d9efef5-345b-43f7-ac44-3cb9b9fa2121" levelOfKnowledge="9.0" student="4c1be712-c143-4972-b4ad-f11e3fbe8b2d">
-      <mistakeType href="modeling-assistant/modelingassistant/learningcorpusinstances/default.learningcorpus#81df0749-d1bc-4094-887b-67eb24ec00f4" xsi:type="learningcorpus:MistakeType"/>
+    <studentKnowledges xsi:type="modelingassistant:StudentKnowledge" xmi:id="56fc135b-ffbc-4002-a334-392c936dcbaa" levelOfKnowledge="9.0" student="1fc3beab-d937-4d6d-b9c3-57a79d766d01">
+      <mistakeType href="modeling-assistant/modelingassistant/learningcorpusinstances/default.learningcorpus#53f600c8-979c-4ebb-9d68-57ace6047b35" xsi:type="learningcorpus:MistakeType"/>
     </studentKnowledges>
   </modelingassistant:ModelingAssistant>
   <classdiagram:ClassDiagram xmi:id="__zbfj0NpYEeuihpv-j2laQg" name="AirlineSystem_instructor">
@@ -68,7 +68,7 @@
     <classes xsi:type="classdiagram:Class" xmi:id="_IuR9YN25EeuVoonRXmsiAQ" name="Root">
       <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="_Juy_Md25EeuVoonRXmsiAQ" name="myPilot" lowerBound="1" referenceType="Composition" assoc="_Juy_Mt25EeuVoonRXmsiAQ"/>
     </classes>
-    <classes xsi:type="classdiagram:Class" xmi:id="f7ff0554-f2d5-4cc3-8897-9a4866357489" name="Airplane"/>
+    <classes xsi:type="classdiagram:Class" xmi:id="94d8faa2-80fb-4b94-9021-4d50b685a7f6" name="Airplane"/>
     <types xsi:type="classdiagram:CDVoid" xmi:id="_zbfj0dpYEeuihpv-j2laQg"/>
     <types xsi:type="classdiagram:CDAny" xmi:id="_zbfj0tpYEeuihpv-j2laQg"/>
     <types xsi:type="classdiagram:CDBoolean" xmi:id="_zbfj09pYEeuihpv-j2laQg"/>
