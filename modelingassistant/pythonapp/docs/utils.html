@@ -139,6 +139,7 @@ def mt(n: str, d=&#34;&#34;, stud: str | list[str] = None, inst: str | list[str]
     - `types`: the metamodel metatypes that the `stud` and `inst` elements refer to. If not given, defaults to the
     TouchCORE Class Diagram metatypes
     &#34;&#34;&#34;
+    # pylint: disable=too-many-arguments
     # change the line below to use other languages
     if not types:
         from metatypes import CDM_METATYPES as types  # pylint: disable=import-outside-toplevel
@@ -277,6 +278,7 @@ class McqFactory:
     ]
     ```
     &#34;&#34;&#34;
+    # pylint: disable=too-few-public-methods
     def __getitem__(self, items: tuple[str | slice]) -&gt; ListMultipleChoiceQuiz:
         if not isinstance(items, tuple) or len(items) &lt; 3:
             raise ValueError(&#34;Multiple choice quiz must have a prompt and at least two choices&#34;)
@@ -426,6 +428,7 @@ class NonNoneDict(dict):
 
 class ModelingAssistantContainer:
     &#34;Class to contain a Modeling Assistant instance.&#34;
+    # pylint: disable=too-few-public-methods
     def __init__(self, modeling_assistant: ModelingAssistant = None):
         self.instance: ModelingAssistant = modeling_assistant</code></pre>
 </details>
@@ -685,6 +688,7 @@ TouchCORE Class Diagram metatypes</li>
     - `types`: the metamodel metatypes that the `stud` and `inst` elements refer to. If not given, defaults to the
     TouchCORE Class Diagram metatypes
     &#34;&#34;&#34;
+    # pylint: disable=too-many-arguments
     # change the line below to use other languages
     if not types:
         from metatypes import CDM_METATYPES as types  # pylint: disable=import-outside-toplevel
@@ -1037,6 +1041,7 @@ quiz = mcq[
     ]
     ```
     &#34;&#34;&#34;
+    # pylint: disable=too-few-public-methods
     def __getitem__(self, items: tuple[str | slice]) -&gt; ListMultipleChoiceQuiz:
         if not isinstance(items, tuple) or len(items) &lt; 3:
             raise ValueError(&#34;Multiple choice quiz must have a prompt and at least two choices&#34;)
@@ -1072,6 +1077,7 @@ quiz = mcq[
 </summary>
 <pre><code class="python">class ModelingAssistantContainer:
     &#34;Class to contain a Modeling Assistant instance.&#34;
+    # pylint: disable=too-few-public-methods
     def __init__(self, modeling_assistant: ModelingAssistant = None):
         self.instance: ModelingAssistant = modeling_assistant</code></pre>
 </details>

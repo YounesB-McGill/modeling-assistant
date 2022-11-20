@@ -81,7 +81,6 @@ It is generated automatically by the {os.path.basename(__file__)} script.
 &#34;&#34;&#34;
 
 from constants import LEARNING_CORPUS_PATH
-from corpus import corpus as runtime_corpus
 from fileserdes import load_lc
 from learningcorpus import MistakeTypeCategory, MistakeType
 
@@ -379,6 +378,7 @@ class MarkdownGenerator(TextualGenerator):
 
     @classmethod
     def make_mt_body(cls, mt: MistakeType, indentation: int = 0) -&gt; str:
+        # pylint: disable=too-many-locals, too-many-branches, too-many-statements
         &#34;Return the Markdown body of the output.&#34;
         result = f&#34;{cls.make_body_title(mt.description, indentation)}{cls.make_mistake_type_element_description(mt)}&#34;
         levels = sorted(fb.level for fb in mt.feedbacks)
@@ -440,7 +440,7 @@ class MarkdownGenerator(TextualGenerator):
                                     sel = &#34;x&#34; if choice in primary_rsc.correctChoices else &#34; &#34;
                                     content += f&#34;- [{sel}] {choice.text}\n&#34;
                             elif isinstance(primary_rsc, TableMultipleChoiceQuiz):
-                                ...
+                                ...  # TODO
                             content = content.strip()
                             result += (content + &#34;\n\n&#34;) if content not in result else &#34;&#34;
                             _quizzes_to_md[primary_rsc] = content
@@ -519,7 +519,6 @@ class LatexGenerator(TextualGenerator):
         def handle_list(s: str, old_bullets: tuple[str], new_bullets: tuple[str]) -&gt; str:
             if not any(bullet in s for bullet in old_bullets) or &#34;\n&#34; not in s:
                 return s  # short-circuit: no list to handle
-            begin_itemize, end_itemize = &#34;\\begin{itemize}&#34;, &#34;\\end{itemize}\n&#34;
             lines = s.splitlines()
             new_lines = []
             for line in lines:
@@ -538,8 +537,8 @@ class LatexGenerator(TextualGenerator):
                         if not first_bullet_line:
                             first_bullet_line = i
                         last_bullet_line = i
-            lines.insert(first_bullet_line, begin_itemize)
-            lines.insert(last_bullet_line + 2, end_itemize)
+            lines.insert(first_bullet_line, &#34;\\begin{itemize}&#34;)
+            lines.insert(last_bullet_line + 2, &#34;\\end{itemize}\n&#34;)
             return &#34;\n&#34;.join(lines)
 
         # use math notation for certain items so they render as intended
@@ -606,6 +605,7 @@ class LatexGenerator(TextualGenerator):
     @classmethod
     def make_mt_body(cls, mt: MistakeType, indentation: int = 0) -&gt; str:
         &#34;Return the LaTeX body of the output.&#34;
+        # pylint: disable=too-many-locals, too-many-branches
         result = f&#34;{cls.make_body_title(mt.description, indentation)}{cls.make_mistake_type_element_description(mt)}&#34;
         levels = sorted(fb.level for fb in mt.feedbacks)
         for level in levels:
@@ -657,7 +657,7 @@ class LatexGenerator(TextualGenerator):
                                 quiz_md_lines = _quizzes_to_md[primary_rsc].split(NL)
                                 title, body = quiz_md_lines[0], NL.join(quiz_md_lines[1:])
                             elif isinstance(primary_rsc, TableMultipleChoiceQuiz):
-                                ...
+                                ...  # TODO
                             content = f&#34;{title}{cls.NLS}{cls.blockquote(body)}&#34;
                             result += content if content not in result else &#34;&#34;
                         elif is_table(primary_rsc.content):
@@ -953,7 +953,6 @@ Example: "Extra (redundant) class" -&gt; "EXTRA_CLASS"</p></div>
         def handle_list(s: str, old_bullets: tuple[str], new_bullets: tuple[str]) -&gt; str:
             if not any(bullet in s for bullet in old_bullets) or &#34;\n&#34; not in s:
                 return s  # short-circuit: no list to handle
-            begin_itemize, end_itemize = &#34;\\begin{itemize}&#34;, &#34;\\end{itemize}\n&#34;
             lines = s.splitlines()
             new_lines = []
             for line in lines:
@@ -972,8 +971,8 @@ Example: "Extra (redundant) class" -&gt; "EXTRA_CLASS"</p></div>
                         if not first_bullet_line:
                             first_bullet_line = i
                         last_bullet_line = i
-            lines.insert(first_bullet_line, begin_itemize)
-            lines.insert(last_bullet_line + 2, end_itemize)
+            lines.insert(first_bullet_line, &#34;\\begin{itemize}&#34;)
+            lines.insert(last_bullet_line + 2, &#34;\\end{itemize}\n&#34;)
             return &#34;\n&#34;.join(lines)
 
         # use math notation for certain items so they render as intended
@@ -1040,6 +1039,7 @@ Example: "Extra (redundant) class" -&gt; "EXTRA_CLASS"</p></div>
     @classmethod
     def make_mt_body(cls, mt: MistakeType, indentation: int = 0) -&gt; str:
         &#34;Return the LaTeX body of the output.&#34;
+        # pylint: disable=too-many-locals, too-many-branches
         result = f&#34;{cls.make_body_title(mt.description, indentation)}{cls.make_mistake_type_element_description(mt)}&#34;
         levels = sorted(fb.level for fb in mt.feedbacks)
         for level in levels:
@@ -1091,7 +1091,7 @@ Example: "Extra (redundant) class" -&gt; "EXTRA_CLASS"</p></div>
                                 quiz_md_lines = _quizzes_to_md[primary_rsc].split(NL)
                                 title, body = quiz_md_lines[0], NL.join(quiz_md_lines[1:])
                             elif isinstance(primary_rsc, TableMultipleChoiceQuiz):
-                                ...
+                                ...  # TODO
                             content = f&#34;{title}{cls.NLS}{cls.blockquote(body)}&#34;
                             result += content if content not in result else &#34;&#34;
                         elif is_table(primary_rsc.content):
@@ -1227,6 +1227,7 @@ def make_mistake_type_element_description(cls, mt: MistakeType) -&gt; str:
 <pre><code class="python">@classmethod
 def make_mt_body(cls, mt: MistakeType, indentation: int = 0) -&gt; str:
     &#34;Return the LaTeX body of the output.&#34;
+    # pylint: disable=too-many-locals, too-many-branches
     result = f&#34;{cls.make_body_title(mt.description, indentation)}{cls.make_mistake_type_element_description(mt)}&#34;
     levels = sorted(fb.level for fb in mt.feedbacks)
     for level in levels:
@@ -1278,7 +1279,7 @@ def make_mt_body(cls, mt: MistakeType, indentation: int = 0) -&gt; str:
                             quiz_md_lines = _quizzes_to_md[primary_rsc].split(NL)
                             title, body = quiz_md_lines[0], NL.join(quiz_md_lines[1:])
                         elif isinstance(primary_rsc, TableMultipleChoiceQuiz):
-                            ...
+                            ...  # TODO
                         content = f&#34;{title}{cls.NLS}{cls.blockquote(body)}&#34;
                         result += content if content not in result else &#34;&#34;
                     elif is_table(primary_rsc.content):
@@ -1365,7 +1366,6 @@ def sanitize(cls, s: str) -&gt; str:
     def handle_list(s: str, old_bullets: tuple[str], new_bullets: tuple[str]) -&gt; str:
         if not any(bullet in s for bullet in old_bullets) or &#34;\n&#34; not in s:
             return s  # short-circuit: no list to handle
-        begin_itemize, end_itemize = &#34;\\begin{itemize}&#34;, &#34;\\end{itemize}\n&#34;
         lines = s.splitlines()
         new_lines = []
         for line in lines:
@@ -1384,8 +1384,8 @@ def sanitize(cls, s: str) -&gt; str:
                     if not first_bullet_line:
                         first_bullet_line = i
                     last_bullet_line = i
-        lines.insert(first_bullet_line, begin_itemize)
-        lines.insert(last_bullet_line + 2, end_itemize)
+        lines.insert(first_bullet_line, &#34;\\begin{itemize}&#34;)
+        lines.insert(last_bullet_line + 2, &#34;\\end{itemize}\n&#34;)
         return &#34;\n&#34;.join(lines)
 
     # use math notation for certain items so they render as intended
@@ -1469,6 +1469,7 @@ def save_to_file(cls, filename: str = None):
 
     @classmethod
     def make_mt_body(cls, mt: MistakeType, indentation: int = 0) -&gt; str:
+        # pylint: disable=too-many-locals, too-many-branches, too-many-statements
         &#34;Return the Markdown body of the output.&#34;
         result = f&#34;{cls.make_body_title(mt.description, indentation)}{cls.make_mistake_type_element_description(mt)}&#34;
         levels = sorted(fb.level for fb in mt.feedbacks)
@@ -1530,7 +1531,7 @@ def save_to_file(cls, filename: str = None):
                                     sel = &#34;x&#34; if choice in primary_rsc.correctChoices else &#34; &#34;
                                     content += f&#34;- [{sel}] {choice.text}\n&#34;
                             elif isinstance(primary_rsc, TableMultipleChoiceQuiz):
-                                ...
+                                ...  # TODO
                             content = content.strip()
                             result += (content + &#34;\n\n&#34;) if content not in result else &#34;&#34;
                             _quizzes_to_md[primary_rsc] = content
@@ -1635,6 +1636,7 @@ def make_mistake_type_element_description(cls, mt: MistakeType) -&gt; str:
 </summary>
 <pre><code class="python">@classmethod
 def make_mt_body(cls, mt: MistakeType, indentation: int = 0) -&gt; str:
+    # pylint: disable=too-many-locals, too-many-branches, too-many-statements
     &#34;Return the Markdown body of the output.&#34;
     result = f&#34;{cls.make_body_title(mt.description, indentation)}{cls.make_mistake_type_element_description(mt)}&#34;
     levels = sorted(fb.level for fb in mt.feedbacks)
@@ -1696,7 +1698,7 @@ def make_mt_body(cls, mt: MistakeType, indentation: int = 0) -&gt; str:
                                 sel = &#34;x&#34; if choice in primary_rsc.correctChoices else &#34; &#34;
                                 content += f&#34;- [{sel}] {choice.text}\n&#34;
                         elif isinstance(primary_rsc, TableMultipleChoiceQuiz):
-                            ...
+                            ...  # TODO
                         content = content.strip()
                         result += (content + &#34;\n\n&#34;) if content not in result else &#34;&#34;
                         _quizzes_to_md[primary_rsc] = content

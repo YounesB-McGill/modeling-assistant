@@ -229,7 +229,7 @@ def test_param_parts_before_dot():
         [&#34;stud_cls&#34;, &#34;stud_attr.cls&#34;, &#34;stud_compos.end1.cls&#34;]) == [&#34;stud_cls&#34;, &#34;stud_attr&#34;, &#34;stud_compos&#34;]
 
 
-def get_all_pr_parameters() -&gt; dict[str, MistakeType]:
+def get_pr_parameters_to_mistake_types() -&gt; dict[str, MistakeType]:
     &#34;&#34;&#34;
     Return a dict of all ParametrizedResponse parameters mapped to their mistake types. Note that a parameter may be
     shared by multiple mistake types. An assertion is performed to ensure each response contains at least one parameter.
@@ -244,11 +244,6 @@ def get_all_pr_parameters() -&gt; dict[str, MistakeType]:
             for match_ in matches:
                 prs[match_.group(&#34;param&#34;)] = mt_
     return prs
-
-
-def get_pr_parameters_to_mistake_types() -&gt; dict[str, MistakeType]:
-    &#34;Return a dict of ParametrizedResponse parameters mapped to mistake types with mistake detection formats.&#34;
-    return {param: mt_ for param, mt_ in get_all_pr_parameters().items()}
 
 
 def get_number_of_mistake_types_with_parametrized_responses() -&gt; int:
@@ -357,33 +352,6 @@ if __name__ == &#34;__main__&#34;:
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="test_parametrizedresponse.get_all_pr_parameters"><code class="name flex">
-<span>def <span class="ident">get_all_pr_parameters</span></span>(<span>) ‑> dict[str, <a title="learningcorpus.learningcorpus.MistakeType" href="learningcorpus/learningcorpus.html#learningcorpus.learningcorpus.MistakeType">MistakeType</a>]</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Return a dict of all ParametrizedResponse parameters mapped to their mistake types. Note that a parameter may be
-shared by multiple mistake types. An assertion is performed to ensure each response contains at least one parameter.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def get_all_pr_parameters() -&gt; dict[str, MistakeType]:
-    &#34;&#34;&#34;
-    Return a dict of all ParametrizedResponse parameters mapped to their mistake types. Note that a parameter may be
-    shared by multiple mistake types. An assertion is performed to ensure each response contains at least one parameter.
-    &#34;&#34;&#34;
-    prs = {}
-    pattern = re.compile(r&#34;\$\{(?P&lt;param&gt;.*?)\}&#34;)
-    for mt_ in corpus.mistakeTypes():
-        for pr in mt_.parametrized_responses():
-            matches = re.finditer(pattern, pr.text)
-            assert matches, f&#34;&#34;&#34;The parametrized response for mistake type {pr.mistakeType} with text {pr.text
-                             } does not contain any parameters.&#34;&#34;&#34;
-            for match_ in matches:
-                prs[match_.group(&#34;param&#34;)] = mt_
-    return prs</code></pre>
-</details>
-</dd>
 <dt id="test_parametrizedresponse.get_latex_pr_param_parsed_output"><code class="name flex">
 <span>def <span class="ident">get_latex_pr_param_parsed_output</span></span>(<span>) ‑> str</span>
 </code></dt>
@@ -472,14 +440,27 @@ shared by multiple mistake types. An assertion is performed to ensure each respo
 <span>def <span class="ident">get_pr_parameters_to_mistake_types</span></span>(<span>) ‑> dict[str, <a title="learningcorpus.learningcorpus.MistakeType" href="learningcorpus/learningcorpus.html#learningcorpus.learningcorpus.MistakeType">MistakeType</a>]</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Return a dict of ParametrizedResponse parameters mapped to mistake types with mistake detection formats.</p></div>
+<div class="desc"><p>Return a dict of all ParametrizedResponse parameters mapped to their mistake types. Note that a parameter may be
+shared by multiple mistake types. An assertion is performed to ensure each response contains at least one parameter.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def get_pr_parameters_to_mistake_types() -&gt; dict[str, MistakeType]:
-    &#34;Return a dict of ParametrizedResponse parameters mapped to mistake types with mistake detection formats.&#34;
-    return {param: mt_ for param, mt_ in get_all_pr_parameters().items()}</code></pre>
+    &#34;&#34;&#34;
+    Return a dict of all ParametrizedResponse parameters mapped to their mistake types. Note that a parameter may be
+    shared by multiple mistake types. An assertion is performed to ensure each response contains at least one parameter.
+    &#34;&#34;&#34;
+    prs = {}
+    pattern = re.compile(r&#34;\$\{(?P&lt;param&gt;.*?)\}&#34;)
+    for mt_ in corpus.mistakeTypes():
+        for pr in mt_.parametrized_responses():
+            matches = re.finditer(pattern, pr.text)
+            assert matches, f&#34;&#34;&#34;The parametrized response for mistake type {pr.mistakeType} with text {pr.text
+                             } does not contain any parameters.&#34;&#34;&#34;
+            for match_ in matches:
+                prs[match_.group(&#34;param&#34;)] = mt_
+    return prs</code></pre>
 </details>
 </dd>
 <dt id="test_parametrizedresponse.make_and_save_pr_parameters_and_parsed_outputs_markdown_table"><code class="name flex">
@@ -823,7 +804,6 @@ Python's <code>getattr</code> is used to get the attribute.</li>
 <ul id="index">
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="">
-<li><code><a title="test_parametrizedresponse.get_all_pr_parameters" href="#test_parametrizedresponse.get_all_pr_parameters">get_all_pr_parameters</a></code></li>
 <li><code><a title="test_parametrizedresponse.get_latex_pr_param_parsed_output" href="#test_parametrizedresponse.get_latex_pr_param_parsed_output">get_latex_pr_param_parsed_output</a></code></li>
 <li><code><a title="test_parametrizedresponse.get_mdis4lc_human_validated_parametrized_responses_java_mapping_entries" href="#test_parametrizedresponse.get_mdis4lc_human_validated_parametrized_responses_java_mapping_entries">get_mdis4lc_human_validated_parametrized_responses_java_mapping_entries</a></code></li>
 <li><code><a title="test_parametrizedresponse.get_number_of_mistake_types_with_parametrized_responses" href="#test_parametrizedresponse.get_number_of_mistake_types_with_parametrized_responses">get_number_of_mistake_types_with_parametrized_responses</a></code></li>
