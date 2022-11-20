@@ -26,7 +26,7 @@ these steps:
 0. Make a backup of your virtual environment folder so you can revert
    to it if necessary. You can find this folder by running `pipenv --venv`
    in the repo root. This will save you the trouble of having to set up
-   the old Python version again if needed
+   the old Python version again if you need to go back to it
 
 0. Double check that the app starts correctly and that all tests
    (both :snake: Python and :coffee: Java) pass
@@ -94,7 +94,10 @@ these steps:
    everything continues to work as expected. Commit the files with different
    Learning Corpus XMI IDs to the repo
 
-0. Run the MDS and Java controller tests and make sure they continue to pass 
+0. Run the MDS and Java controller tests and make sure they continue to pass
+
+0. Commit the changes to the repo and push them to GitHub, then create a
+   pull request to merge the branch into `main`
 
 0. If there is a major change to the upgrade process itself, eg, if
    Python 4 is released and requires different steps, update this document as needed
