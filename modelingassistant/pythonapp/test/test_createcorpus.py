@@ -203,6 +203,7 @@ def test_use_contextual_capitalization():
 
 def test_runtime_corpus_mistake_elements_match_json():
     "Test that the runtime corpus mistake elements match those found in the mistakeelems.json file."
+    # pylint: disable=too-many-locals
     with open(MISTAKE_ELEMS_JSON_FILE, "r", encoding="utf-8") as f:
         json_mistake_elements: dict[str, list[list[str]]] = json.load(f)
     mt_names_to_mts: dict[str, MistakeType] = {underscorify(mt.name).lower(): mt for mt in corpus.mistakeTypes()}

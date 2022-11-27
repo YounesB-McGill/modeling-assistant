@@ -11,10 +11,11 @@ import logging
 
 from ordered_set import OrderedSet
 
+import modelingassistantapp
 from classdiagram import ClassDiagram, NamedElement
 from color import Color
 from corpusdefinition import infinite_recursive_dependency, missing_multiplicity
-from modelingassistantapp import DEBUG_MODE, MODELING_ASSISTANT, get_mistakes
+from modelingassistantapp import MODELING_ASSISTANT, get_mistakes
 from parametrizedresponse import comma_seperated_with_and, parametrize_response
 from serdes import set_static_class_for
 from stringserdes import str_to_cdm
@@ -52,7 +53,7 @@ class FeedbackTO:
     }
     ```
     """
-    # pylint: disable=invalid-name
+    # pylint: disable=invalid-name, protected-access
     solutionElements: dict[str, list[str]] = field(default_factory=dict)  # includes generalizations
     problemStatementElements: dict[str, list[str]] = field(default_factory=dict)
     grade: float = 0.0
@@ -62,7 +63,7 @@ class FeedbackTO:
     def __init__(self, solutionElements: dict[str, list[str]] = field(default_factory=dict),
                  problemStatementElements: dict[str, list[str]] = field(default_factory=dict),
                  grade: float = 0.0, writtenFeedback: str = "", feedback: FeedbackItem = None):
-
+        # pylint: disable=too-many-arguments
         def make_highlighted_elems(
             elems: Iterable[str] | Iterable[NamedElement] | Iterable[SolutionElement]
                  | dict[str, list[str] | list[NamedElement] | list[SolutionElement]]) -> dict[str, list[str]]:
@@ -106,9 +107,8 @@ def give_feedback(student_solution: Solution) -> FeedbackItem | list[FeedbackIte
         return FeedbackItem(feedback=TextResponse(text="All good, no mistakes found! 🎉"), solution=student_solution)
 
     # sort mistakes by priority and filter out mistakes which are already resolved
-    mistake_priority = lambda m: m.mistakeType.priority
-    unresolved_mistakes: list[Mistake] = [m for m in sorted(student_solution.mistakes, key=mistake_priority)
-                                          if not m.resolvedByStudent]
+    unresolved_mistakes: list[Mistake] = [
+        m for m in sorted(student_solution.mistakes, key=lambda m: m.mistakeType.priority) if not m.resolvedByStudent]
 
     # update student knowledge for each unresolved mistake type
     for m in unresolved_mistakes:
@@ -123,7 +123,7 @@ def give_feedback(student_solution: Solution) -> FeedbackItem | list[FeedbackIte
 
     for m in highest_priority_mistakes:
         #student_solution.currentMistake = m  # TODO
-        result.append(fb := next_feedback(m))
+        result.append(next_feedback(m))
         # decide whether student is beginner overall
         if student_knowledge_for(m).levelOfKnowledge < BEGINNER_LEVEL_OF_KNOWLEDGE:
             break
@@ -263,7 +263,7 @@ def verbalize_highlight_description(feedback: FeedbackItem) -> str:
     When debug mode is on, return a description string for highlighted problem statement and solution elements, to
     make it easier to work on the frontend.
     """
-    if not DEBUG_MODE:
+    if not modelingassistantapp.DEBUG_MODE:  # need to specify name to capture changes to DEBUG_MODE when testing
         return ""
     fb_item, fb_template = feedback, feedback.feedback
     mistake: Mistake = fb_item.mistake

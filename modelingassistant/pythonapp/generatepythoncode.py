@@ -93,6 +93,7 @@ def customize_generated_code():
 
     class MistakeElement:
         "Container for the methods below."
+        # pylint: disable=too-few-public-methods
         name, many, type = range(3)  # dummy definitions to make the linter happy
 
         def __init__(self, *, many=None, type=None, **kwargs):  # pylint: disable=redefined-builtin

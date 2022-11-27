@@ -77,7 +77,6 @@ public enum CdmMetatype {
    * REL.canBeOfType(COMPOS) -> true
    * ROLE.canBeOfType(CLS) -> true
    * COMPOS.canBeOfType(ASSOC) -> false, since a composition must be an association
-   * canBeOfType()
    * </pre>
    */
   public boolean canBeOfType(CdmMetatype type) {

@@ -5,7 +5,6 @@ Module for custom, string-friendly pyecore items.
 """
 
 from __future__ import annotations
-from email.policy import default
 
 import re
 import os

@@ -43,7 +43,7 @@ import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-import pytest
+import pytest  # pylint: disable=unused-import
 import learningcorpus  # pylint: disable=unused-import
 from stringserdes import SRSET, str_to_modelingassistant
 from classdiagram import ClassDiagram, Class, Attribute, CDInt, CDString, AssociationEnd, Association
@@ -233,10 +233,14 @@ def test_creating_multiclass_solution_from_serialized_class_diagram():
 
     car_class = driver_class = sports_car_class = part_class = None
     for c in class_diagram.classes:
-        if c.name == &#34;Car&#34;: car_class = c
-        elif c.name == &#34;Driver&#34;: driver_class = c
-        elif c.name == &#34;SportsCar&#34;: sports_car_class = c
-        elif c.name == &#34;Part&#34;: part_class = c
+        if c.name == &#34;Car&#34;:
+            car_class = c
+        elif c.name == &#34;Driver&#34;:
+            driver_class = c
+        elif c.name == &#34;SportsCar&#34;:
+            sports_car_class = c
+        elif c.name == &#34;Part&#34;:
+            part_class = c
 
     assert &#34;Car&#34; == car_class.name
     assert &#34;id&#34; == car_class.attributes[0].name
@@ -246,7 +250,8 @@ def test_creating_multiclass_solution_from_serialized_class_diagram():
     assert &#34;Part&#34; == part_class.name
     assert &#34;Car&#34; == sports_car_class.superTypes[0].name
     for ae in car_class.associationEnds:
-        if ae.name == &#34;parts&#34;: assert &#34;Composition&#34; == str(ae.referenceType)
+        if ae.name == &#34;parts&#34;:
+            assert &#34;Composition&#34; == str(ae.referenceType)
 
     modeling_assistant = ModelingAssistant()
     solution = Solution(modelingAssistant=modeling_assistant, classDiagram=class_diagram)
@@ -333,8 +338,10 @@ def test_persisting_modeling_assistant_with_multiclass_solution():
     # Remove previously created file (if it exists)
     ma_file = f&#34;{MA_PATH}/ma_multiclass_from_python.modelingassistant&#34;
     cd_file = f&#34;{MA_PATH}/ma_multiclass_from_python.cdm&#34;
-    if os.path.exists(ma_file): os.remove(ma_file)
-    if os.path.exists(cd_file): os.remove(cd_file)
+    if os.path.exists(ma_file):
+        os.remove(ma_file)
+    if os.path.exists(cd_file):
+        os.remove(cd_file)
 
     # Open premade class diagram from one of the above tests
     premade_cdm_file = f&#34;{CDM_PATH}/car_sportscar_part_driver.domain_model.cdm&#34;
@@ -410,7 +417,8 @@ def test_persisting_modeling_assistant_with_multiple_solutions():
     cd1_path = f&#34;{MA_PATH}/ma_multisolution_from_python1.cdm&#34;
     cd2_path = f&#34;{MA_PATH}/ma_multisolution_from_python2.cdm&#34;
     for p in [ma_path, cd1_path, cd2_path]:
-        if os.path.exists(p): os.remove(p)
+        if os.path.exists(p):
+            os.remove(p)
 
     # Define mapping from destination filenames to class diagram instances
     cdm_by_file: dict[str, ClassDiagram] = {}
@@ -533,7 +541,8 @@ def test_persisting_modeling_assistant_with_multiple_solutions_to_one_file():
     &#34;&#34;&#34;
     # Remove previously created file (if it exists)
     ma_file = f&#34;{MA_PATH}/ma_multisolution_all_in_one.modelingassistant&#34;
-    if os.path.exists(ma_file): os.remove(ma_file)
+    if os.path.exists(ma_file):
+        os.remove(ma_file)
 
     # Open premade class diagram from one of the above tests
     cdm_file = f&#34;{CDM_PATH}/car_sportscar_part_driver.domain_model.cdm&#34;
@@ -647,12 +656,14 @@ def test_student_knowledge_persisted_correctly():
     &#34;&#34;&#34;
     Verify that StudentKnowledge association classes can be serialized and loaded again correctly.
     &#34;&#34;&#34;
+    # pylint: disable=too-many-locals
     # Remove previously created files (if they exist)
     ma_file = f&#34;{MA_PATH}/ma_studentknowledge_from_python.modelingassistant&#34;
     cd1_file = f&#34;{MA_PATH}/ma_studentknowledge_from_python1.cdm&#34;
     cd2_file = f&#34;{MA_PATH}/ma_studentknowledge_from_python2.cdm&#34;
     for p in [ma_file, cd1_file, cd2_file]:
-        if os.path.exists(p): os.remove(p)
+        if os.path.exists(p):
+            os.remove(p)
 
     # Define mapping from destination filenames to class diagram instances
     cdm_by_file: dict[str, ClassDiagram] = {}
@@ -891,10 +902,14 @@ domain model.</p></div>
 
     car_class = driver_class = sports_car_class = part_class = None
     for c in class_diagram.classes:
-        if c.name == &#34;Car&#34;: car_class = c
-        elif c.name == &#34;Driver&#34;: driver_class = c
-        elif c.name == &#34;SportsCar&#34;: sports_car_class = c
-        elif c.name == &#34;Part&#34;: part_class = c
+        if c.name == &#34;Car&#34;:
+            car_class = c
+        elif c.name == &#34;Driver&#34;:
+            driver_class = c
+        elif c.name == &#34;SportsCar&#34;:
+            sports_car_class = c
+        elif c.name == &#34;Part&#34;:
+            part_class = c
 
     assert &#34;Car&#34; == car_class.name
     assert &#34;id&#34; == car_class.attributes[0].name
@@ -904,7 +919,8 @@ domain model.</p></div>
     assert &#34;Part&#34; == part_class.name
     assert &#34;Car&#34; == sports_car_class.superTypes[0].name
     for ae in car_class.associationEnds:
-        if ae.name == &#34;parts&#34;: assert &#34;Composition&#34; == str(ae.referenceType)
+        if ae.name == &#34;parts&#34;:
+            assert &#34;Composition&#34; == str(ae.referenceType)
 
     modeling_assistant = ModelingAssistant()
     solution = Solution(modelingAssistant=modeling_assistant, classDiagram=class_diagram)
@@ -1493,8 +1509,10 @@ code autogenerated by pyecore.</p></div>
     # Remove previously created file (if it exists)
     ma_file = f&#34;{MA_PATH}/ma_multiclass_from_python.modelingassistant&#34;
     cd_file = f&#34;{MA_PATH}/ma_multiclass_from_python.cdm&#34;
-    if os.path.exists(ma_file): os.remove(ma_file)
-    if os.path.exists(cd_file): os.remove(cd_file)
+    if os.path.exists(ma_file):
+        os.remove(ma_file)
+    if os.path.exists(cd_file):
+        os.remove(cd_file)
 
     # Open premade class diagram from one of the above tests
     premade_cdm_file = f&#34;{CDM_PATH}/car_sportscar_part_driver.domain_model.cdm&#34;
@@ -1535,7 +1553,8 @@ code autogenerated by pyecore.</p></div>
     cd1_path = f&#34;{MA_PATH}/ma_multisolution_from_python1.cdm&#34;
     cd2_path = f&#34;{MA_PATH}/ma_multisolution_from_python2.cdm&#34;
     for p in [ma_path, cd1_path, cd2_path]:
-        if os.path.exists(p): os.remove(p)
+        if os.path.exists(p):
+            os.remove(p)
 
     # Define mapping from destination filenames to class diagram instances
     cdm_by_file: dict[str, ClassDiagram] = {}
@@ -1602,7 +1621,8 @@ of this test is required.</p></div>
     &#34;&#34;&#34;
     # Remove previously created file (if it exists)
     ma_file = f&#34;{MA_PATH}/ma_multisolution_all_in_one.modelingassistant&#34;
-    if os.path.exists(ma_file): os.remove(ma_file)
+    if os.path.exists(ma_file):
+        os.remove(ma_file)
 
     # Open premade class diagram from one of the above tests
     cdm_file = f&#34;{CDM_PATH}/car_sportscar_part_driver.domain_model.cdm&#34;
@@ -1705,12 +1725,14 @@ of this test is required.</p></div>
     &#34;&#34;&#34;
     Verify that StudentKnowledge association classes can be serialized and loaded again correctly.
     &#34;&#34;&#34;
+    # pylint: disable=too-many-locals
     # Remove previously created files (if they exist)
     ma_file = f&#34;{MA_PATH}/ma_studentknowledge_from_python.modelingassistant&#34;
     cd1_file = f&#34;{MA_PATH}/ma_studentknowledge_from_python1.cdm&#34;
     cd2_file = f&#34;{MA_PATH}/ma_studentknowledge_from_python2.cdm&#34;
     for p in [ma_file, cd1_file, cd2_file]:
-        if os.path.exists(p): os.remove(p)
+        if os.path.exists(p):
+            os.remove(p)
 
     # Define mapping from destination filenames to class diagram instances
     cdm_by_file: dict[str, ClassDiagram] = {}

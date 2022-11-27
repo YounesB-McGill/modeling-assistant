@@ -122,6 +122,7 @@ def customize_generated_code():
 
     class MistakeElement:
         &#34;Container for the methods below.&#34;
+        # pylint: disable=too-few-public-methods
         name, many, type = range(3)  # dummy definitions to make the linter happy
 
         def __init__(self, *, many=None, type=None, **kwargs):  # pylint: disable=redefined-builtin
@@ -376,6 +377,7 @@ if __name__ == &#34;__main__&#34;:
 
     class MistakeElement:
         &#34;Container for the methods below.&#34;
+        # pylint: disable=too-few-public-methods
         name, many, type = range(3)  # dummy definitions to make the linter happy
 
         def __init__(self, *, many=None, type=None, **kwargs):  # pylint: disable=redefined-builtin

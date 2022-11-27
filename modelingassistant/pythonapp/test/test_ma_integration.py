@@ -29,12 +29,12 @@ from classdiagram import CDBoolean, CDInt, CDString, Class
 from constants import MANY, WEBCORE_ENDPOINT
 from envvars import TOUCHCORE_PATH
 from feedback import FeedbackTO, DEFAULT_HIGHLIGHT_COLOR
-from flaskapp import app, DEBUG_MODE, PORT
+from flaskapp import app, PORT
 from fileserdes import load_cdm, save_to_file
 from stringserdes import SRSET, str_to_modelingassistant
 from user import MockStudent, User, users
 from modelingassistant import ModelingAssistant
-from modelingassistantapp import get_ma_with_ps, DEBUG_MODE, EXAMPLE_CDM_NAME, EXAMPLE_INSTRUCTOR_CDM
+from modelingassistantapp import get_ma_with_ps, DEBUG_MODE, EXAMPLE_CDM_NAME, EXAMPLE_INSTRUCTOR_CDM, TIMEOUT
 
 
 MA_REST_ENDPOINT = f"http://localhost:{PORT}/modelingassistant"
@@ -51,7 +51,7 @@ def ma_rest_app():
     """
     Setup the Modeling Assistant Feedback flask app if it is not already running.
     """
-    if not requests.get(f"http://localhost:{PORT}/helloworld/name").ok:
+    if not requests.get(f"http://localhost:{PORT}/helloworld/name", timeout=TIMEOUT).ok:
         Thread(target=lambda: app.run(debug=DEBUG_MODE, port=PORT, use_reloader=False), daemon=True).start()
 
 
@@ -61,7 +61,7 @@ def webcore():
     Start WebCORE if it is not already running.
     """
     try:
-        requests.get(WEBCORE_ENDPOINT)
+        requests.get(WEBCORE_ENDPOINT, timeout=TIMEOUT)
     except (ConnectionError, requests.exceptions.RequestException):
         Thread(target=lambda: os.system(f"cd {TOUCHCORE_PATH}/.. && ./start-webcore.sh"), daemon=True).start()
 
@@ -343,14 +343,14 @@ def test_webcore_user_logout():
 
 def get_modeling_assistant() -> ModelingAssistant:
     "Get the ModelingAssistant instance from the Flask app."
-    return str_to_modelingassistant(requests.get(MA_REST_ENDPOINT).json()["modelingAssistantXmi"])
+    return str_to_modelingassistant(requests.get(MA_REST_ENDPOINT, timeout=TIMEOUT).json()["modelingAssistantXmi"])
 
 
 def set_modeling_assistant(ma: ModelingAssistant):
     "Set the Flask app ModelingAssistant instance."
     ma_str = SRSET.create_ma_str(ma)
     print(f">>> Setting ma_str to:\n\n{ma_str}\n\n")
-    requests.post(MA_REST_ENDPOINT, json={"modelingAssistantXmi": ma_str})
+    requests.post(MA_REST_ENDPOINT, json={"modelingAssistantXmi": ma_str}, timeout=TIMEOUT)
 
 
 def valid(ma: ModelingAssistant) -> bool:

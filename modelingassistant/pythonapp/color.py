@@ -6,9 +6,9 @@ debug output. 🌈
 
 from __future__ import annotations
 
+import re
 from itertools import cycle
 from typing import Callable
-import re
 
 
 class Color:
@@ -110,17 +110,13 @@ def colorize_text(s: str, chars_matching: Callable[[str], bool] = None):
     Colorizes the characters matching the condition in rainbow order, repeating if necessary. All occurrences of a
     letter will have the same color, so use lookalike Greek characters when this is not desired.
     """
-    if not chars_matching:
-        chars_matching = lambda s: True
     letters_to_colors: dict[str, Color] = {}
     colors = cycle(Color.rainbow())  # [red, orange, ..., violet, red, orange, ...]
     for letter in s:
-        if chars_matching(letter):
+        if (chars_matching or (lambda _: True))(letter):  # accept all chars if no chars_matching filter is provided
             if letter in letters_to_colors:
                 continue
-            else:
-                color = next(colors)
-                letters_to_colors[letter] = color
-                s = s.replace(letter, color(letter))
+            color = next(colors)
+            letters_to_colors[letter] = color
+            s = s.replace(letter, color(letter))
     return s
-
