@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <xmi:XMI xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:version="2.0">
-  <modelingassistant:ModelingAssistant xmi:id="2235f447-0099-4269-b17d-88b2c9372330">
-    <solutions xsi:type="modelingassistant:Solution" xmi:id="27b94cc1-f7ca-47b8-b15b-d6f35450700a" classDiagram="_VQRncElSEeuektpDqzDh1Q"/>
-    <solutions xsi:type="modelingassistant:Solution" xmi:id="cda41757-783d-4bb3-a45b-a22ce81d30f7" classDiagram="a5305dd6-a384-486c-b321-48c5e8ef7bd3"/>
+  <modelingassistant:ModelingAssistant xmi:id="e2ef8b6a-a232-4a64-8566-9573f6fc317c">
+    <solutions xsi:type="modelingassistant:Solution" xmi:id="60dbb720-0eab-4f83-b814-c0884d5fc624" classDiagram="_VQRncElSEeuektpDqzDh1Q"/>
+    <solutions xsi:type="modelingassistant:Solution" xmi:id="8cee9128-3d8b-482d-8d83-605006781b40" classDiagram="fdbf176c-570d-439d-9a39-48e38bf3acbc"/>
   </modelingassistant:ModelingAssistant>
   <classdiagram:ClassDiagram xmi:id="_VQRncElSEeuektpDqzDh1Q" name="Student1_solution">
     <classes xsi:type="classdiagram:Class" xmi:id="_WHVLQElSEeuektpDqzDh1Q" name="Car">
@@ -48,12 +48,12 @@
       </containers>
     </layout>
   </classdiagram:ClassDiagram>
-  <classdiagram:ClassDiagram xmi:id="a5305dd6-a384-486c-b321-48c5e8ef7bd3" name="Student2_solution">
-    <types xsi:type="classdiagram:CDInt" xmi:id="4e94dc76-ccc2-4d2d-9a1b-45302f35fb1a" name="CDInt"/>
-    <types xsi:type="classdiagram:CDString" xmi:id="8ff6568a-e1d9-4e9e-90f2-eec6a0316e99" name="CDString"/>
-    <classes xsi:type="classdiagram:Class" xmi:id="3db2fed9-b397-468d-a6c8-fb0cff0c848e" name="Car">
-      <attributes xsi:type="classdiagram:Attribute" xmi:id="605f8aa4-c187-4562-bd7b-e440d8ee4825" name="id" type="4e94dc76-ccc2-4d2d-9a1b-45302f35fb1a"/>
-      <attributes xsi:type="classdiagram:Attribute" xmi:id="84f28f73-abc3-465a-a660-2bca52c8f092" name="make" type="8ff6568a-e1d9-4e9e-90f2-eec6a0316e99"/>
+  <classdiagram:ClassDiagram xmi:id="fdbf176c-570d-439d-9a39-48e38bf3acbc" name="Student2_solution">
+    <types xsi:type="classdiagram:CDInt" xmi:id="600efacb-9153-4707-ba48-856bcec08105" name="CDInt"/>
+    <types xsi:type="classdiagram:CDString" xmi:id="68242479-63d9-4cec-9cf4-2f826fb94974" name="CDString"/>
+    <classes xsi:type="classdiagram:Class" xmi:id="4afc0997-4a9f-4e4c-9004-422b400a9f94" name="Car">
+      <attributes xsi:type="classdiagram:Attribute" xmi:id="f2939ec5-5126-410e-a5f6-2434d11b555e" name="id" type="600efacb-9153-4707-ba48-856bcec08105"/>
+      <attributes xsi:type="classdiagram:Attribute" xmi:id="203a5d8f-1a5a-4a32-ac57-5425c57419ba" name="make" type="68242479-63d9-4cec-9cf4-2f826fb94974"/>
     </classes>
   </classdiagram:ClassDiagram>
 </xmi:XMI>
