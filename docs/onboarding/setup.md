@@ -2,7 +2,7 @@
 
 ### Prerequisites
 
-* Java 11+. <!-- Exact version TBD after mavenization, 17 in the future -->
+* Java 11+ and Maven. <!-- Exact version TBD after mavenization, 17 in the future -->
 * Python. See exact version required in `Pipfile`.
 * The [`pipenv`](https://pipenv.pypa.io/) package manager (`pip install --user pipenv`).
   Use the [crude installation option](https://pipenv.pypa.io/en/latest/install/#crude-installation-of-pipenv)
@@ -27,7 +27,8 @@ sources on your local machine. <!-- To be reviewed after mavenization -->
    ln -s <TouchCORE-sources-absolute-path>/core/ca.mcgill.sel.core.edit/ ca.mcgill.sel.core.edit
    ```
 
-1. Clone or download this repository, which contains several Eclipse projects.
+1. Clone or download this repository, which contains several Eclipse projects, then edit the `.env` file and
+run the install script for your platform.
 2. Import the following TouchCORE projects into your Eclipse
 workspace:
    * ca.mcgill.sel.classdiagram
@@ -47,7 +48,7 @@ icon. These errors can often be ignored.
 Note that a previous version of this application also allowed visualization of
 mistake types and their categories in a tree view. This functionality has been
 removed from the main repo but can be accessed
-[here](https://github.com/YounesB-McGill/modeling-assistant/releases/tag/ma-with-all-mistake-types-and-umple-mm).
+[here](https://github.com/YounesB-McGill/modeling-assistant/commit/bf7a0a2a5c0761db00c8eb270b9479d93da57339).
 
 #### Python Environment
 

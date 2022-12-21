@@ -136,15 +136,11 @@ Thomas Woodfine-MacPherson ([@r2d2117](https://github.com/r2d2117))
 ### Theses
 
 - Younes Boubekeur. 2022.
-_A Learning Corpus and Feedback Mechanism for a Domain Modeling Assistant._
+[_A Learning Corpus and Feedback Mechanism for a Domain Modeling Assistant_](https://escholarship.mcgill.ca/concern/theses/9593v1553).
 Master’s thesis. McGill University, Canada.
-(approved and expected to be published in
-[eScholarship@McGill](https://escholarship.mcgill.ca/) in November 2022)
 - Prabhsimran Singh. 2022.
-_Domain Modeling Mistake Detection System._
+[_Domain Modeling Mistake Detection System_](https://escholarship.mcgill.ca/concern/theses/5x21tm741).
 Master’s thesis. McGill University, Canada.
-(approved and expected to be published in
-[eScholarship@McGill](https://escholarship.mcgill.ca/) in November 2022)
 
 ### Papers
 
@@ -185,5 +181,14 @@ Essen, Germany, April 2021.
 - **Domain Modeling Assistant Unity Frontend**:
 Available on [GitHub](https://github.com/eknuviad/domain-model-assistant)
 
-**Note:** This document reuses material from the publications listed above
+___
+
+**Notes:**
+
+- This document reuses material from the publications listed above
 with the permission of the authors.
+- In December 2022, the repo history was rewritten to remove
+sensitive data before making it public, which affects commit hashes,
+pull requests diffs, and repo tags. If you require this information,
+please contact the Project Supervisor to determine if it can be made
+available to you.

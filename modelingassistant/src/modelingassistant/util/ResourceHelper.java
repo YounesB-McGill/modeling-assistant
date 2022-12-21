@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -100,6 +101,13 @@ public final class ResourceHelper {
       e.printStackTrace();
       return null;
     }
+  }
+
+  /**
+   * Returns the class diagram at the given *.cdm file path.
+   */
+  public static ClassDiagram cdmFromFile(Path path) {
+    return cdmFromFile(path.toFile());
   }
 
   /**
