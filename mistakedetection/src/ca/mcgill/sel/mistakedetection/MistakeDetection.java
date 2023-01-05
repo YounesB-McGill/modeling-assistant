@@ -2643,8 +2643,8 @@ public class MistakeDetection {
   }
 
   public static Optional<Mistake> checkMistakeClassSpelling(Classifier studentClass, Classifier instructorClass) {
-    if (spellingMistakeCheck(studentClass.getName(), instructorClass.getName()) && !isPlural(studentClass.getName())
-        && !isLowerName(studentClass.getName())) {
+    if (isSpelledIncorrectly(studentClass.getName(), instructorClass.getName()) && !isPlural(studentClass.getName())
+        && !isLowerName(studentClass.getName()) && !isSoftwareEngineeringTerm(studentClass.getName())) {
       return Optional.of(createMistake(BAD_CLASS_NAME_SPELLING, studentClass, instructorClass));
     }
     return Optional.empty();
@@ -2820,7 +2820,7 @@ public class MistakeDetection {
 
   public static Optional<Mistake> checkMistakeBadRoleNameSpelling(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd) {
-    if (spellingMistakeCheck(studentClassAssocEnd.getName(), instructorClassAssocEnd.getName())) {
+    if (isSpelledIncorrectly(studentClassAssocEnd.getName(), instructorClassAssocEnd.getName())) {
       return Optional.of(createMistake(BAD_ROLE_NAME_SPELLING, studentClassAssocEnd, instructorClassAssocEnd));
     }
     return Optional.empty();
@@ -2844,8 +2844,8 @@ public class MistakeDetection {
 
   public static Optional<Mistake> checkMistakeRoleNamePresentButIncorrect(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd, Comparison comparison) {
-    int lDistance = levenshteinDistance(studentClassAssocEnd.getName(), instructorClassAssocEnd.getName());
-    if (lDistance > MAX_LEVENSHTEIN_DISTANCE_ALLOWED && !isSynonym(instructorClassAssocEnd, studentClassAssocEnd)) {
+    if (isStringWrong(studentClassAssocEnd.getName(), instructorClassAssocEnd.getName())
+        && !isSynonym(instructorClassAssocEnd, studentClassAssocEnd)) {
       return Optional.of(createMistake(WRONG_ROLE_NAME, studentClassAssocEnd, instructorClassAssocEnd));
     }
 
@@ -3304,10 +3304,44 @@ public class MistakeDetection {
     return maxentTagger.tagString(taggerInput);
   }
 
-  private static boolean spellingMistakeCheck(String name1, String name2) {
-    int lDistance = levenshteinDistance(name1, name2);
-    return lDistance > 0 && lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED;
+  private static boolean isSpelledIncorrectly(String studString, String instString) {
+    int lDistance = levenshteinDistance(studString, instString);
+    if( lDistance == 0) {
+      return false;
+    }
+    int limit = 2;
+    int instStringLength = instString.length();
+    int studStringLength = studString.length();
+    if (instStringLength > 5 || studStringLength > 5) {
+      return lDistance <= limit;
+    } else if (instStringLength > 2 || studStringLength > 2) {
+      limit = 1;
+      return lDistance <= limit;
+    } else {
+      limit = 0;
+      return lDistance == limit;
+    }
   }
+  
+  private static boolean isStringWrong(String studString, String instString) {
+    int lDistance = levenshteinDistance(studString, instString);
+    if( lDistance == 0) {
+      return false;
+    }
+    int limit = 2;
+    int instStringLength = instString.length();
+    int studStringLength = studString.length();
+    if (instStringLength > 5 || studStringLength > 5) {
+      return lDistance > limit;
+    } else if (instStringLength > 2 || studStringLength > 2) {
+      limit = 1;
+      return lDistance > limit;
+    } else {
+      limit = 0;
+      return lDistance > limit;
+    }
+  }
+
 
   private static MaxentTagger getMaxentTagger() {
     try {
@@ -3317,5 +3351,4 @@ public class MistakeDetection {
     }
     return null;
   }
-
 }
