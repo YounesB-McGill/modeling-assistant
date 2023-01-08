@@ -9,10 +9,10 @@ Author: Younes Boubekeur
 import os
 import sys
 
-from pyecore.ecore import EAttribute, EClass, EDataType, EObject, EPackage
+from pyecore.ecore import EAttribute, EClass, EDataType, EObject, EPackage, EReference
 from pyecore.resources import ResourceSet, URI
 
-from classdiagram import Attribute, CDEnum, Class, ClassDiagram
+from classdiagram import Association, AssociationEnd, Attribute, CDEnum, Class, ClassDiagram
 from fileserdes import save_to_file
 
 
@@ -32,24 +32,64 @@ def convert(ecore_file: str):
     cdm = ClassDiagram(name=ecore_model.name)
     cdm_items: dict[str, EObject] = {ecore_model.name: cdm}  # keep track of cdm items by name
     for class_ in ecore_model.eClassifiers:
-        cls_name = class_.name
         match class_:
-            case EDataType():  # enum class
-                enum = CDEnum(name=cls_name)
-                cdm.types.append(enum)
-                cdm_items[cls_name] = enum
-            case EClass():
+            case EDataType(name=enum_name):  # enum class
+                enum = CDEnum(name=enum_name)
+                cdm.types.append(enum)  # no classDiagram reference in its parts
+                cdm_items[enum_name] = enum
+            case EClass(name=cls_name):
                 cls = Class(name=cls_name)
                 cdm.classes.append(cls)
                 cdm_items[cls_name] = cls
                 for sf in class_.eStructuralFeatures:
-                    sf_name = sf.name
                     match sf:
-                        case EAttribute():
-                            attr = Attribute(name=sf_name)
+                        case EAttribute(name=attr_name):
+                            attr = Attribute(name=attr_name)
                             cls.attributes.append(attr)
-                            cdm_items[sf_name] = attr
+                            cdm_items[attr_name] = attr
+                        # when first added, all relationships are associations
+                        case EReference(name=assocend_name, lowerBound=lb, upperBound=ub) as eref:
+                            print(f"Creating AE for {cls_name}.{assocend_name}")
+                            assocend = AssociationEnd(name=assocend_name, classifier=cls, lowerBound=lb, upperBound=ub,
+                                                      assoc=assoc_for(eref, cdm, cdm_items))
+                            cdm_items[assocend_name] = assocend
+
     save_to_file(f"{ecore_file.removesuffix('.ecore')}.cdm", cdm)
+
+
+def assoc_for(eref: EReference, cdm: ClassDiagram, cdm_items: dict[str, EObject]) -> Association:
+    """
+    Return the correct TouchCORE class diagram association for the given EReference, creating it and adding it to the
+    class diagram if necessary.
+    """
+    def unique_name(eref):
+        """
+        Return a unique name (enforced by case-sensitive alphabetical order) for the given EReference in the form
+        "A,B,a,b". For example, the reference (in Umple syntax)
+
+        1 Car car -- * Wheel wheels;
+
+        becomes "Car,Wheel,car,wheel", since "Car" < "Wheel"
+        """
+        cls1, cls2 = sorted((eref.eContainingClass.name, eref.eType.name))
+        # ensure that the order of the association ends is never flipped
+        if eref.eContainingClass.name < eref.eType.name:
+            ae1, ae2 = eref.eOpposite.name, eref.name
+        elif eref.eContainingClass.name > eref.eType.name:
+            ae1, ae2 = eref.name, eref.eOpposite.name
+        else:  # both class names are equal, so it's a reflexive association
+            ae1, ae2 = sorted((eref.name, eref.eOpposite.name))
+        return ",".join((cls1, cls2, ae1, ae2))
+
+    name = unique_name(eref)
+    print(f"unique name: {name}")
+    if name not in cdm_items:
+        tc_name = "_".join(name.split(",")[:2])  # cls1_cls2, to match TouchCORE conventions
+        assoc = Association(name=tc_name)
+        cdm_items[name] = assoc
+        cdm_items[tc_name] = assoc
+        cdm.associations.append(assoc)
+    return cdm_items[name]
 
 
 def enhance_with_umple_file_info(cdm: ClassDiagram, umple_file: str, cdm_items: dict[str, EObject]):
