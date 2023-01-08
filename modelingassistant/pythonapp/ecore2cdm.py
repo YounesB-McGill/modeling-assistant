@@ -9,10 +9,10 @@ Author: Younes Boubekeur
 import os
 import sys
 
-from pyecore.ecore import EClass, EDataType, EObject, EPackage
+from pyecore.ecore import EAttribute, EClass, EDataType, EObject, EPackage
 from pyecore.resources import ResourceSet, URI
 
-from classdiagram import CDEnum, Class, ClassDiagram
+from classdiagram import Attribute, CDEnum, Class, ClassDiagram
 from fileserdes import save_to_file
 
 
@@ -35,24 +35,34 @@ def convert(ecore_file: str):
         cls_name = class_.name
         match class_:
             case EDataType():  # enum class
-                e = CDEnum(name=cls_name)
-                cdm.types.append(e)
-                cdm_items[cls_name] = e
+                enum = CDEnum(name=cls_name)
+                cdm.types.append(enum)
+                cdm_items[cls_name] = enum
             case EClass():
-                c = Class(name=cls_name)
-                cdm.classes.append(c)
-                cdm_items[cls_name] = c
+                cls = Class(name=cls_name)
+                cdm.classes.append(cls)
+                cdm_items[cls_name] = cls
+                for sf in class_.eStructuralFeatures:
+                    sf_name = sf.name
+                    match sf:
+                        case EAttribute():
+                            attr = Attribute(name=sf_name)
+                            cls.attributes.append(attr)
+                            cdm_items[sf_name] = attr
     save_to_file(f"{ecore_file.removesuffix('.ecore')}.cdm", cdm)
 
 
-def enhance_with_umple_file_info(ecore_file: str, cdm_items: dict[str, EObject]):
+def enhance_with_umple_file_info(cdm: ClassDiagram, umple_file: str, cdm_items: dict[str, EObject]):
     """
     Enhance the given TouchCORE diagram obtained from an Ecore file with additional information based on its source
     Umple file, if it exists.
 
-    The following features are not converted automatically by Umple and so must be scraped manually:
+    The following features are not converted automatically by Umple or not recognized by PyEcore and so must be scraped
+    manually:
 
     - Composition
+    - Class is abstract
+    - Class is an interface
     - Enumeration items (Enumerations themselves are supported)
     """
     # to be completed in the future
