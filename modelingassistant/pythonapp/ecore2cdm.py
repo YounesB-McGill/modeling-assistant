@@ -6,6 +6,7 @@ Convert Ecore file(s) to TouchCORE class diagram (cdm) format.
 Author: Younes Boubekeur
 """
 
+import re
 import os
 import string
 import sys
@@ -13,7 +14,7 @@ import sys
 from pyecore.ecore import EAttribute, EClass, EDataType, EObject, EPackage, EReference
 from pyecore.resources import ResourceSet, URI
 
-from classdiagram import Association, AssociationEnd, Attribute, CDEnum, Class, ClassDiagram
+from classdiagram import Association, AssociationEnd, Attribute, CDEnum, Class, ClassDiagram, Classifier
 from fileserdes import save_to_file
 from utils import warn
 
@@ -51,7 +52,7 @@ def convert(ecore_file: str) -> ClassDiagram:
                             cdm_items[attr_name] = attr
                         # when first added, all relationships are associations
                         case EReference(name=assocend_name, lowerBound=lb, upperBound=ub) as eref:
-                            print(f"Creating AE for {cls_name}.{assocend_name}")
+                            #print(f"Creating AE for {cls_name}.{assocend_name}")
                             assocend = AssociationEnd(name=assocend_name, classifier=cls, lowerBound=lb, upperBound=ub,
                                                       assoc=assoc_for(eref, cdm, cdm_items))
                             cdm_items[assocend_name] = assocend
@@ -110,11 +111,21 @@ def enhance_with_umple_file_info(cdm: ClassDiagram, umple_file: str, cdm_items: 
     - Class is an interface, which also implies that superclasses need to be handled here
     - Enumeration items (Enumerations themselves are supported)
     """
+    def get_class_name(umple_lines: list[str], search_from_line: int) -> str:
+        "Helper function to extract the class name immediately above the given line"
+        curr_line = search_from_line
+        while curr_line:
+            if umple_lines[curr_line].lstrip().startswith("class "):
+                return umple_lines[curr_line].replace("class ", "").split("{")[0].replace("}", "").strip()
+            curr_line -= 1
+        warn(f"Unable to return class name starting from line {search_from_line}")
+        return ""
+
     if not os.path.isfile(umple_file):
         warn(f'The file "{umple_file}" does not exist, so its CDM remains unchanged')
         return cdm
     with open(umple_file, "r", encoding="utf-8") as f:
-        umple_code = f.read().split("//$?[End_of_model]$?")[0]
+        umple_code = remove_umple_comments(f.read().split("//$?[End_of_model]$?")[0])
     umple_lines = ["", *umple_code.splitlines()]  # Add a dummy "line" at the beginning to have 1-indexed lines
     if umple_lines[-1]:
         umple_lines.append("")  # always end with a newline
@@ -134,13 +145,8 @@ def enhance_with_umple_file_info(cdm: ClassDiagram, umple_file: str, cdm_items: 
 
             whole = Car, whole_refcls = Wheel.car, part = Wheel, part_refcls = Car.wheels
             """
-            print(f"{compos_line = }")
-            j = i
-            while j:
-                if umple_lines[j].lstrip().startswith("class "):
-                    break
-                j -= 1
-            whole = umple_lines[j].replace("class ", "").replace("{", "").replace("}", "").strip()
+            #print(f"{compos_line = }")
+            whole = get_class_name(umple_lines, search_from_line=i)
             compos_line_components = compos_line.split()
             part, part_refcls = compos_line_components[-2:]
             whole_refcls = (compos_line_components[0] if len(compos_line_components) == 3
@@ -158,7 +164,39 @@ def enhance_with_umple_file_info(cdm: ClassDiagram, umple_file: str, cdm_items: 
                 composend.referenceType = "Composition"
             else:
                 warn(f'Could not find the "{assoc_name}" association in cdm_items dictionary')
+
+    # set abstract classes and interfaces
+    interfaces: set[Classifier] = set()
+    for i in range(1, num_lines + 1):
+        if "abstract;" in umple_lines[i]:
+            class_name = get_class_name(umple_lines, search_from_line=i)
+            if class_name in cdm_items:
+                cls: Classifier = cdm_items[class_name]
+                cls.abstract = True
+        if "interface;" in umple_lines[i]:
+            class_name = get_class_name(umple_lines, search_from_line=i)
+            if class_name in cdm_items:
+                cls: Classifier = cdm_items[class_name]
+                cls.abstract = True
+                interfaces.add(cls)
+
+
     return cdm
+
+
+def remove_umple_comments(umple_code: str):
+    """
+    Remove Umple // and /**/ comments from the given Umple source code string.
+    Adapted from stackoverflow.com/a/18234680.
+    """
+    def replacer(match) :
+        s = match.group(0)
+        if s.startswith('/'):  # s matches //... or /*...*/ so remove comment but preserving the number of newlines
+            return "" + ("\n" * s.count('\n'))
+        else:  # Keep quoted string unchanged
+            return s
+    pattern = re.compile(r'//.*?$|/\*.*?\*/|\'(?:\\.|[^\\\'])*\'|"(?:\\.|[^\\"])*"', re.DOTALL | re.MULTILINE)
+    return re.sub(pattern, replacer, umple_code)
 
 
 def main():
