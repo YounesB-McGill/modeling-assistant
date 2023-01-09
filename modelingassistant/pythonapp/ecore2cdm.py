@@ -57,7 +57,7 @@ def convert(ecore_file: str) -> ClassDiagram:
                                                       assoc=assoc_for(eref, cdm, cdm_items))
                             cdm_items[assocend_name] = assocend
     ecore_file_base_name = ecore_file.removesuffix('.ecore')
-    cdm = enhance_with_umple_file_info(cdm, f"{ecore_file_base_name}.ump", cdm_items)
+    cdm = enhance_with_umple_file_info(ecore_model, cdm, cdm_items, f"{ecore_file_base_name}.ump")
     save_to_file(f"{ecore_file_base_name}.cdm", cdm)
     return cdm
 
@@ -98,7 +98,8 @@ def assoc_for(eref: EReference, cdm: ClassDiagram, cdm_items: dict[str, EObject]
     return cdm_items[name]
 
 
-def enhance_with_umple_file_info(cdm: ClassDiagram, umple_file: str, cdm_items: dict[str, EObject]) -> ClassDiagram:
+def enhance_with_umple_file_info(
+    ecore_model: EPackage, cdm: ClassDiagram, cdm_items: dict[str, EObject], umple_file: str) -> ClassDiagram:
     """
     Enhance the given TouchCORE diagram obtained from an Ecore file with additional information based on its source
     Umple file, if it exists.
@@ -180,7 +181,13 @@ def enhance_with_umple_file_info(cdm: ClassDiagram, umple_file: str, cdm_items: 
                 cls.abstract = True
                 interfaces.add(cls)
 
-
+    # handle generalizations
+    for cls in ecore_model.eClassifiers:
+        if hasattr(cls, "eSuperTypes"):  # not an enum class
+            for supercls in cls.eSuperTypes:
+                if supercls.name not in interfaces:
+                    cdm_items[cls.name].superTypes.append(cdm_items[supercls.name])
+                    break
     return cdm
 
 
