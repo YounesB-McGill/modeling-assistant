@@ -112,16 +112,6 @@ def enhance_with_umple_file_info(
     - Class is an interface, which also implies that superclasses need to be handled here
     - Enumeration items (Enumerations themselves are supported)
     """
-    def get_class_name(umple_lines: list[str], search_from_line: int) -> str:
-        "Helper function to extract the class name immediately above the given line"
-        curr_line = search_from_line
-        while curr_line:
-            if umple_lines[curr_line].lstrip().startswith("class "):
-                return umple_lines[curr_line].replace("class ", "").split("{")[0].replace("}", "").strip()
-            curr_line -= 1
-        warn(f"Unable to return class name starting from line {search_from_line}")
-        return ""
-
     if not os.path.isfile(umple_file):
         warn(f'The file "{umple_file}" does not exist, so its CDM remains unchanged')
         return cdm
@@ -130,10 +120,17 @@ def enhance_with_umple_file_info(
     umple_lines = ["", *umple_code.splitlines()]  # Add a dummy "line" at the beginning to have 1-indexed lines
     if umple_lines[-1]:
         umple_lines.append("")  # always end with a newline
-    num_lines = len(umple_lines) - 1
+    cdm = add_compositions_to_cdm(cdm, cdm_items, umple_file, umple_lines)
+    cdm, interfaces = set_abstract_classes_and_interfaces_in_cdm(cdm, cdm_items, umple_lines)
+    cdm = add_generalizations_to_cdm(cdm, cdm_items, ecore_model, interfaces)
+    cdm = add_enum_items_to_cdm(cdm, cdm_items, umple_lines)
+    return cdm
 
-    # detect compositions
-    for i in range(1, num_lines + 1):
+
+def add_compositions_to_cdm(
+    cdm: ClassDiagram, cdm_items: dict[str, EObject], umple_file: str, umple_lines: list[str]) -> ClassDiagram:
+    "Detect compositions and add them to the given class diagram."
+    for i in range(1, len(umple_lines)):
         if "<@>" in umple_lines[i]:
             # replace "-" with " " and remove special characters
             compos_line = umple_lines[i].translate(str.maketrans("-", " ", f"{string.digits}*.<@>;{{}}")).strip()
@@ -165,10 +162,17 @@ def enhance_with_umple_file_info(
                 composend.referenceType = "Composition"
             else:
                 warn(f'Could not find the "{assoc_name}" association in cdm_items dictionary')
+    return cdm
 
-    # set abstract classes and interfaces
+
+def set_abstract_classes_and_interfaces_in_cdm(
+    cdm: ClassDiagram, cdm_items: dict[str, EObject], umple_lines: list[str]) -> tuple[ClassDiagram, set[Classifier]]:
+    """
+    Set abstract classes and interfaces in the given TouchCORE class diagram and return a (class diagram, interfaces)
+    tuple.
+    """
     interfaces: set[Classifier] = set()
-    for i in range(1, num_lines + 1):
+    for i in range(1, len(umple_lines)):
         if "abstract;" in umple_lines[i]:
             class_name = get_class_name(umple_lines, search_from_line=i)
             if class_name in cdm_items:
@@ -180,8 +184,12 @@ def enhance_with_umple_file_info(
                 cls: Classifier = cdm_items[class_name]
                 cls.abstract = True
                 interfaces.add(cls)
+    return cdm, interfaces
 
-    # handle generalizations
+
+def add_generalizations_to_cdm(cdm: ClassDiagram, cdm_items: dict[str, EObject], ecore_model: EPackage,
+                               interfaces: set[Classifier]) -> ClassDiagram:
+    "Detect generalizations and add them to the given TouchCORE class diagram."
     for cls in ecore_model.eClassifiers:
         if hasattr(cls, "eSuperTypes"):  # not an enum class
             for supercls in cls.eSuperTypes:
@@ -189,6 +197,23 @@ def enhance_with_umple_file_info(
                     cdm_items[cls.name].superTypes.append(cdm_items[supercls.name])
                     break
     return cdm
+
+
+def add_enum_items_to_cdm(cdm: ClassDiagram, cdm_items: dict[str, EObject], umple_lines: list[str]) -> ClassDiagram:
+    "Add enum items to the given TouchCORE class diagram."
+    # TODO
+    return cdm
+
+
+def get_class_name(umple_lines: list[str], search_from_line: int) -> str:
+    "Helper function to extract the class name immediately above the given line"
+    curr_line = search_from_line
+    while curr_line:
+        if umple_lines[curr_line].lstrip().startswith("class "):
+            return umple_lines[curr_line].replace("class ", "").split("{")[0].replace("}", "").strip()
+        curr_line -= 1
+    warn(f"Unable to return class name starting from line {search_from_line}")
+    return ""
 
 
 def remove_umple_comments(umple_code: str):
