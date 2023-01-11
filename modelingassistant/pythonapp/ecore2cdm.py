@@ -88,7 +88,6 @@ def assoc_for(eref: EReference, cdm: ClassDiagram, cdm_items: dict[str, EObject]
         return ",".join((cls1, cls2, ae1, ae2))
 
     name = unique_name(eref)
-    print(f"unique name: {name}")
     if name not in cdm_items:
         tc_name = "_".join(name.split(",")[:2])  # cls1_cls2, to match TouchCORE conventions
         assoc = Association(name=tc_name)
@@ -213,24 +212,37 @@ def add_enum_items_to_cdm(
                 cd_enum: CDEnum = None
                 ecore_enum = ""  # make linter happy
                 for ecore_enum in enums_from_ecore:
-                    if ecore_enum in umple_lines[j]:
-                        cd_enum = cdm_items[ecore_enum]
-                        # TODO there is a bug here: we should check the enum items on the following lines
+                    k = j
+                    while k < len(umple_lines):  # check the enum on multiple lines, eg, enum E, enum\nE, etc
+                        if ecore_enum in umple_lines[k]:
+                            cd_enum = cdm_items[ecore_enum]
+                        if cd_enum or "}" in umple_lines[k]:
+                            break
+                        k += 1
+                    if cd_enum:
                         break
                 if cd_enum:
-                    parts = (umple_lines[j].replace("enum", "").replace(ecore_enum, "")
+                    k = j
+                    while k < len(umple_lines):
+                        if "}" in umple_lines[k]:
+                            break
+                        k += 1
+                    parts = (" ".join(umple_lines[j:k + 1]).replace("enum", "").replace(ecore_enum, "")
                              .replace("{", "").replace("}", "").replace(";", "").split(","))
                     for s in parts:
                         r = s.strip()
                         if str.isidentifier(r):
-                            cd_enum.literals.append(CDEnumLiteral(name=r))
+                            if (qualified_enum_item_name := f"{ecore_enum}.{r}") not in cdm_items:
+                                enum_item = CDEnumLiteral(name=r)
+                                cdm_items[qualified_enum_item_name] = enum_item
+                                cd_enum.literals.append(enum_item)
                         else:
                             warn(f'"{r}" does not appear to be a valid enum item for the enum {ecore_enum}')
                 else:
                     warn(f"Could not find valid enum in lines {i}-{j} matching the enums from the Ecore file, "
-                         f"{enums_from_ecore}")
+                         f"{enums_from_ecore} ({ecore_enum = })")
                 if "}" in umple_lines[j]:
-                    if ecore_enum:
+                    if ecore_enum and cd_enum:
                         enums_from_ecore.remove(ecore_enum)
                     break
                 j += 1
