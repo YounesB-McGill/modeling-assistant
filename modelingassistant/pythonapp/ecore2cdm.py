@@ -238,12 +238,9 @@ def add_enum_items_to_cdm(
                                 cd_enum.literals.append(enum_item)
                         else:
                             warn(f'"{r}" does not appear to be a valid enum item for the enum {ecore_enum}')
-                else:
-                    warn(f"Could not find valid enum in lines {i}-{j} matching the enums from the Ecore file, "
-                         f"{enums_from_ecore} ({ecore_enum = })")
-                if "}" in umple_lines[j]:
-                    if ecore_enum and cd_enum:
+                    if cd_enum.literals:
                         enums_from_ecore.remove(ecore_enum)
+                if "}" in umple_lines[j]:
                     break
                 j += 1
     if enums_from_ecore:
