@@ -14,7 +14,7 @@ import sys
 from pyecore.ecore import EAttribute, EClass, EDataType, EObject, EPackage, EReference
 from pyecore.resources import ResourceSet, URI
 
-from classdiagram import Association, AssociationEnd, Attribute, CDEnum, Class, ClassDiagram, Classifier
+from classdiagram import Association, AssociationEnd, Attribute, CDEnum, CDEnumLiteral, Class, ClassDiagram, Classifier
 from fileserdes import save_to_file
 from utils import warn
 
@@ -33,10 +33,10 @@ def convert(ecore_file: str) -> ClassDiagram:
     print(f"Converting {ecore_file}")
     ecore_model = load_ecore_model(ecore_file)
     cdm = ClassDiagram(name=ecore_model.name)
-    cdm_items: dict[str, EObject] = {ecore_model.name: cdm}  # track cdm items by name (assocend names not unique)
+    cdm_items: dict[str, EObject] = {ecore_model.name: cdm}  # track TC cdm items by name (assocend names not unique)
     for class_ in ecore_model.eClassifiers:
         match class_:
-            case EDataType(name=enum_name):  # enum class
+            case EDataType(name=enum_name, instanceClassName=icn) if icn != "java.sql.Time":  # enum class
                 enum = CDEnum(name=enum_name)
                 cdm.types.append(enum)  # no classDiagram reference in its parts
                 cdm_items[enum_name] = enum
@@ -123,7 +123,7 @@ def enhance_with_umple_file_info(
     cdm = add_compositions_to_cdm(cdm, cdm_items, umple_file, umple_lines)
     cdm, interfaces = set_abstract_classes_and_interfaces_in_cdm(cdm, cdm_items, umple_lines)
     cdm = add_generalizations_to_cdm(cdm, cdm_items, ecore_model, interfaces)
-    cdm = add_enum_items_to_cdm(cdm, cdm_items, umple_lines)
+    cdm = add_enum_items_to_cdm(cdm, cdm_items, umple_lines, ecore_model)
     return cdm
 
 
@@ -162,7 +162,7 @@ def add_compositions_to_cdm(
                 composend.referenceType = "Composition"
             else:
                 warn(f'Could not find the "{assoc_name}" association in cdm_items dictionary')
-    return cdm
+    return cdm  # return cdm in helper functions to make them easier to test
 
 
 def set_abstract_classes_and_interfaces_in_cdm(
@@ -199,9 +199,43 @@ def add_generalizations_to_cdm(cdm: ClassDiagram, cdm_items: dict[str, EObject],
     return cdm
 
 
-def add_enum_items_to_cdm(cdm: ClassDiagram, cdm_items: dict[str, EObject], umple_lines: list[str]) -> ClassDiagram:
+def add_enum_items_to_cdm(
+    cdm: ClassDiagram, cdm_items: dict[str, EObject], umple_lines: list[str], ecore_model: EPackage) -> ClassDiagram:
     "Add enum items to the given TouchCORE class diagram."
-    # TODO
+    enums_from_ecore: list[str] = [cls.name for cls in ecore_model.eClassifiers
+                                   if (isinstance(cls, EDataType) and cls.instanceClassName != "java.sql.Time")]
+    if not enums_from_ecore:
+        return cdm  # no enums, so no enum items
+    for i in range(1, len(umple_lines)):
+        if "enum" in umple_lines[i]:
+            j = i
+            while j < len(umple_lines):
+                cd_enum: CDEnum = None
+                ecore_enum = ""  # make linter happy
+                for ecore_enum in enums_from_ecore:
+                    if ecore_enum in umple_lines[j]:
+                        cd_enum = cdm_items[ecore_enum]
+                        # TODO there is a bug here: we should check the enum items on the following lines
+                        break
+                if cd_enum:
+                    parts = (umple_lines[j].replace("enum", "").replace(ecore_enum, "")
+                             .replace("{", "").replace("}", "").replace(";", "").split(","))
+                    for s in parts:
+                        r = s.strip()
+                        if str.isidentifier(r):
+                            cd_enum.literals.append(CDEnumLiteral(name=r))
+                        else:
+                            warn(f'"{r}" does not appear to be a valid enum item for the enum {ecore_enum}')
+                else:
+                    warn(f"Could not find valid enum in lines {i}-{j} matching the enums from the Ecore file, "
+                         f"{enums_from_ecore}")
+                if "}" in umple_lines[j]:
+                    if ecore_enum:
+                        enums_from_ecore.remove(ecore_enum)
+                    break
+                j += 1
+    if enums_from_ecore:
+        warn(f"Could not find enum literals for the enums {enums_from_ecore}")
     return cdm
 
 
