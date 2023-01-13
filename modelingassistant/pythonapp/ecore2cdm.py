@@ -50,7 +50,7 @@ def convert(ecore_file: str) -> ClassDiagram:
                         case EAttribute(name=attr_name):
                             attr = Attribute(name=attr_name)
                             cls.attributes.append(attr)
-                            cdm_items[attr_name] = attr
+                            cdm_items[f"{cls_name}.{attr_name}"] = attr  # avoid clashes with other items
                         # when first added, all relationships are associations
                         case EReference(name=assocend_name, lowerBound=lb, upperBound=ub) as eref:
                             #print(f"Creating AE for {cls_name}.{assocend_name}")
