@@ -13,6 +13,7 @@ import sys
 
 from pyecore.ecore import EAttribute, EClass, EDataType, EObject, EPackage, EReference
 from pyecore.resources import ResourceSet, URI
+from pyecore.valuecontainer import PyEcoreValue
 
 from classdiagram import Association, AssociationEnd, Attribute, CDEnum, CDEnumLiteral, Class, ClassDiagram, Classifier
 from fileserdes import save_to_file
@@ -88,6 +89,7 @@ def assoc_for(eref: EReference, cdm: ClassDiagram, cdm_items: dict[str, EObject]
         return ",".join((cls1, cls2, ae1, ae2))
 
     name = unique_name(eref)
+    #print(f"unique_name: '{name}'")
     if name not in cdm_items:
         tc_name = "_".join(name.split(",")[:2])  # cls1_cls2, to match TouchCORE conventions
         assoc = Association(name=tc_name)
@@ -129,25 +131,64 @@ def enhance_with_umple_file_info(
 def add_compositions_to_cdm(
     cdm: ClassDiagram, cdm_items: dict[str, EObject], umple_file: str, umple_lines: list[str]) -> ClassDiagram:
     "Detect compositions and add them to the given class diagram."
+
+    def clean(s: str) -> str:
+        'Clean string by replacing "-" with " " removing numbers and special characters.'
+        return s.translate(str.maketrans("-", " ", f"{string.digits}*.;{{}}")).strip()
+
+    def lower_camel(s: str) -> str:
+        "Return a string converted to lowerCamelCase."
+        return f"{s[0].lower()}{s[1:]}"
+
     for i in range(1, len(umple_lines)):
         if "<@>" in umple_lines[i]:
-            # replace "-" with " " and remove special characters
-            compos_line = umple_lines[i].translate(str.maketrans("-", " ", f"{string.digits}*.<@>;{{}}")).strip()
-            """
-            Example:
-
-            class Car {
-              1 car <@>- * Wheel wheels;
-            }
-
-            whole = Car, whole_refcls = Wheel.car, part = Wheel, part_refcls = Car.wheels
-            """
+            #compos_line = clean(umple_lines[i])
             #print(f"{compos_line = }")
-            whole = get_class_name(umple_lines, search_from_line=i)
-            compos_line_components = compos_line.split()
-            part, part_refcls = compos_line_components[-2:]
-            whole_refcls = (compos_line_components[0] if len(compos_line_components) == 3
-                            else f"{whole[0].lower()}{whole[1:]}")
+            if "<@>-" in umple_lines[i]:
+                """
+                Example:
+
+                class Car {
+                  1 car <@>- * Wheel wheels;
+                }
+
+                whole = Car, whole_refcls = Wheel.car, part = Wheel, part_refcls = Car.wheels
+                """
+                before, after = clean(umple_lines[i]).split("<@>")
+                after_split = after.split()
+                whole = get_class_name(umple_lines, search_from_line=i)
+                whole_refcls = cand if (cand := before.strip()).isidentifier() else lower_camel(whole)
+                part = after_split[0].strip()
+                if len(after_split) > 1:
+                    part_refcls = after_split[1].strip()
+                else:
+                    part_refcls = f"{lower_camel(part)}s"
+                    warn("Could not find a declared role name for composition part (part_refcls) for the composition"
+                         f"{whole} <@>- {part}, so improvising with {part_refcls}")
+            elif "-<@>" in umple_lines[i]:
+                """
+                Example:
+
+                class Wheel {
+                  * wheels -<@> 1 Car car;
+                }
+
+                whole = Car, whole_refcls = Wheel.car, part = Wheel, part_refcls = Car.wheels
+                """
+                before, after = clean(umple_lines[i]).split("<@>")
+                after_split = after.split()
+                whole = after_split[0].strip()
+                whole_refcls = (cand if len(after_split) > 1 and (cand := after_split[1].strip()).isidentifier()
+                                else lower_camel(whole))
+                part = get_class_name(umple_lines, search_from_line=i)
+                if (cand := before.strip()).isidentifier():
+                    part_refcls = cand
+                else:
+                    part_refcls = f"{lower_camel(part)}s"
+                    warn("Could not find a declared role name for composition part (part_refcls) for the composition"
+                         f"{part} -<@> {whole}, so improvising with {part_refcls}")
+            else:
+                warn(f"Invalid composition detected in {umple_file}")
             if whole < part:
                 assoc_name = ",".join((whole, part, whole_refcls, part_refcls))
             elif whole > part:
@@ -235,6 +276,7 @@ def add_enum_items_to_cdm(
                             if (qualified_enum_item_name := f"{ecore_enum}.{r}") not in cdm_items:
                                 enum_item = CDEnumLiteral(name=r)
                                 cdm_items[qualified_enum_item_name] = enum_item
+                                #print(f"{cd_enum.name = }")
                                 cd_enum.literals.append(enum_item)
                         else:
                             warn(f'"{r}" does not appear to be a valid enum item for the enum {ecore_enum}')
@@ -274,8 +316,16 @@ def remove_umple_comments(umple_code: str):
     return re.sub(pattern, replacer, umple_code)
 
 
+def init():
+    "Initial setup before running script."
+    # Make PyEcore type checking more lenient when dealing with static student submissions that might be malformed
+    # Doing this is not recommended in general
+    PyEcoreValue.check = lambda *_: True
+
+
 def main():
     "Main entry point."
+    init()
     if len(sys.argv) != 2:
         print("Usage: python ecore2cdm.py ecore_file_or_folder")
         sys.exit(1)
