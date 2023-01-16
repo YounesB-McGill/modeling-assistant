@@ -6,6 +6,7 @@ Convert Ecore file(s) to TouchCORE class diagram (cdm) format.
 Author: Younes Boubekeur
 """
 
+import difflib
 import re
 import os
 import string
@@ -207,6 +208,10 @@ def add_compositions_to_cdm(
                 assoc_name = ",".join((part, whole, part_refcls, whole_refcls))
             else:
                 warn(f"Found reflexive association in {umple_file}: {whole} <@>- {part}")
+                continue
+            if assoc_name not in cdm_items:  # allow for minor variations
+                assoc_name = next(iter(difflib.get_close_matches(assoc_name, cdm_items.keys(), n=1, cutoff=0.8)),
+                                  assoc_name)
             if assoc_name in cdm_items:
                 assoc: Association = cdm_items[assoc_name]
                 # assume that each composition has exactly 2 ends
