@@ -20,6 +20,10 @@ from fileserdes import save_to_file
 from utils import warn
 
 
+# EDataType classes that must be not considered as enums
+BASIC_CLASSES = {"boolean", "Date", "DateTime", "double", "float", "int", "java.sql.Time", "long", "String", "time"}
+
+
 def load_ecore_model(ecore_file: str) -> EPackage:
     "Load the given ecore file into memory."
     rset = ResourceSet()
@@ -37,7 +41,7 @@ def convert(ecore_file: str) -> ClassDiagram:
     cdm_items: dict[str, EObject] = {ecore_model.name: cdm}  # track TC cdm items by name (assocend names not unique)
     for class_ in ecore_model.eClassifiers:
         match class_:
-            case EDataType(name=enum_name, instanceClassName=icn) if icn != "java.sql.Time":  # enum class
+            case EDataType(name=enum_name, instanceClassName=icn) if icn not in BASIC_CLASSES:  # enum class
                 enum = CDEnum(name=enum_name)
                 cdm.types.append(enum)  # no classDiagram reference in its parts
                 cdm_items[enum_name] = enum
@@ -163,8 +167,12 @@ def add_compositions_to_cdm(
                     part_refcls = after_split[1].strip()
                 else:
                     part_refcls = f"{lower_camel(part)}s"
-                    warn("Could not find a declared role name for composition part (part_refcls) for the composition"
-                         f"{whole} <@>- {part}, so improvising with {part_refcls}")
+                    if part.lower().endswith("status"):
+                        part_refcls = f"{lower_camel(part)}es"
+                    # This warning is not needed for the final exam dataset since all improvisions have been checked,
+                    # but is kept here to be used in the general case
+                    #warn("Could not find a declared role name for composition part (part_refcls) for the composition "
+                    #     f"{whole} <@>- {part}, so improvising with {part_refcls}")
             elif "-<@>" in umple_lines[i]:
                 """
                 Example:
@@ -185,8 +193,12 @@ def add_compositions_to_cdm(
                     part_refcls = cand
                 else:
                     part_refcls = f"{lower_camel(part)}s"
-                    warn("Could not find a declared role name for composition part (part_refcls) for the composition"
-                         f"{part} -<@> {whole}, so improvising with {part_refcls}")
+                    if part.lower().endswith("status"):
+                        part_refcls = f"{lower_camel(part)}es"
+                    # This warning is not needed for the final exam dataset since all improvisions have been checked,
+                    # but is kept here to be used in the general case
+                    #warn("Could not find a declared role name for composition part (part_refcls) for the composition "
+                    #     f"{part} -<@> {whole}, so improvising with {part_refcls}")
             else:
                 warn(f"Invalid composition detected in {umple_file}")
             if whole < part:
@@ -243,7 +255,7 @@ def add_enum_items_to_cdm(
     cdm: ClassDiagram, cdm_items: dict[str, EObject], umple_lines: list[str], ecore_model: EPackage) -> ClassDiagram:
     "Add enum items to the given TouchCORE class diagram."
     enums_from_ecore: list[str] = [cls.name for cls in ecore_model.eClassifiers
-                                   if (isinstance(cls, EDataType) and cls.instanceClassName != "java.sql.Time")]
+                                   if (isinstance(cls, EDataType) and cls.instanceClassName not in BASIC_CLASSES)]
     if not enums_from_ecore:
         return cdm  # no enums, so no enum items
     for i in range(1, len(umple_lines)):
