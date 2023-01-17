@@ -116,7 +116,6 @@ import static modelingassistant.TagType.ROLE;
 import static modelingassistant.util.ClassDiagramUtils.getAssocAggCompFromClassDiagram;
 import static modelingassistant.util.ClassDiagramUtils.getAttributeFromEnumeration;
 import static modelingassistant.util.ClassDiagramUtils.getEnumFromClassDiagram;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -167,6 +166,12 @@ public class MistakeDetection {
 
   /** The maximum limit after which a resolved mistake will be removed from student solution. */
   public static final int MAX_DETECTIONS_AFTER_RESOLUTION = 5;
+  
+  /** The maximum limit after which a Levenstein distance of 2 is considered correct. */
+  public static final int MAX_WORD_LENGTH = 5;
+  
+  /** The maximum limit after which a Levenstein distance of 1 is considered correct. */
+  public static final int MIN_WORD_LENGTH = 2;
 
   /** The maximum number of difference two words can have in terms of letters. */
   public static final int MAX_LEVENSHTEIN_DISTANCE_ALLOWED = 2;
@@ -2315,7 +2320,7 @@ public class MistakeDetection {
       Comparison comparison) {
     var se = SolutionElement.forCdmElement(instructorElem);
     int attribDistance = levenshteinDistance(studentElem.getName(), instructorElem.getName());
-    int instElmLength = instructorElem.getName().length();
+    int instElemLength = instructorElem.getName().length();
     int synDistance = attribDistance;
     if (!comparison.mappedAttributes.containsValue(studentElem) &&
         !comparison.mappedAttributes.containsKey(instructorElem)) {
@@ -2324,13 +2329,13 @@ public class MistakeDetection {
         if (distance < synDistance) {
           synDistance = distance;
           int len = syn.getName().length();
-          if (len < instElmLength){
-            instElmLength = len;
+          if (len < instElemLength){
+            instElemLength = len;
           }
         }
       }
     }
-    return Arrays.asList(Math.min(attribDistance, synDistance), instElmLength);
+    return Arrays.asList(Math.min(attribDistance, synDistance), instElemLength);
   }
 
 
@@ -2655,9 +2660,10 @@ public class MistakeDetection {
   }
 
   public static Optional<Mistake> checkMistakeClassSpelling(Classifier studentClass, Classifier instructorClass) {
-    int lDistance = levenshteinDistance(studentClass.getName(), instructorClass.getName());
-    if (isSpelledIncorrectly(lDistance, studentClass.getName().length(), instructorClass.getName().length()) && !isPlural(studentClass.getName())
-        && !isLowerName(studentClass.getName()) && !isSoftwareEngineeringTerm(studentClass.getName())) {
+    var studClassName = studentClass.getName();
+    int lDistance = levenshteinDistance(studClassName, instructorClass.getName());
+    if (isSpelledIncorrectly(lDistance, studClassName.length(), instructorClass.getName().length()) && !isPlural(studClassName)
+        && !isLowerName(studClassName) && !isSoftwareEngineeringTerm(studClassName)) {
       return Optional.of(createMistake(BAD_CLASS_NAME_SPELLING, studentClass, instructorClass));
     }
     return Optional.empty();
@@ -3320,15 +3326,20 @@ public class MistakeDetection {
     return maxentTagger.tagString(taggerInput);
   }
 
+  /**
+   * Word is spelled correctly: false is returned.
+   * Word has a relatively small Levenshtein distance: true is returned.
+   * Word has a large Levenshtein distance: false is returned.
+   */
   private static boolean isSpelledIncorrectly(int lDistance, int studStringLength, int instStringLength) {
- 
-    if( lDistance == 0) {
+
+    if (lDistance == 0) {
       return false;
     }
     int limit = 2;
-    if (instStringLength > 5 || studStringLength > 5) {
+    if (instStringLength > MAX_WORD_LENGTH || studStringLength > MAX_WORD_LENGTH) {
       return lDistance <= limit;
-    } else if (instStringLength > 2 || studStringLength > 2) {
+    } else if (instStringLength > MIN_WORD_LENGTH || studStringLength > MIN_WORD_LENGTH) {
       limit = 1;
       return lDistance <= limit;
     } else {
@@ -3345,9 +3356,9 @@ public class MistakeDetection {
     int limit = 2;
     int instStringLength = instString.length();
     int studStringLength = studString.length();
-    if (instStringLength > 5 || studStringLength > 5) {
+    if (instStringLength > MAX_WORD_LENGTH || studStringLength > MAX_WORD_LENGTH) {
       return lDistance > limit;
-    } else if (instStringLength > 2 || studStringLength > 2) {
+    } else if (instStringLength > MIN_WORD_LENGTH || studStringLength > MIN_WORD_LENGTH) {
       limit = 1;
       return lDistance > limit;
     } else {
