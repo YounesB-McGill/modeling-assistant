@@ -116,6 +116,7 @@ import static modelingassistant.TagType.ROLE;
 import static modelingassistant.util.ClassDiagramUtils.getAssocAggCompFromClassDiagram;
 import static modelingassistant.util.ClassDiagramUtils.getAttributeFromEnumeration;
 import static modelingassistant.util.ClassDiagramUtils.getEnumFromClassDiagram;
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -353,8 +354,11 @@ public class MistakeDetection {
   /** Returns true if attributes match based on Levenshtein Distance, synonyms or enum-bool relationship. */
   private static boolean isAttributeMatch(Attribute instructorAttribute, Attribute studentAttribute,
       Comparison comparison) {
-    int lDistance = getMinimumLDInSynonyms(instructorAttribute, studentAttribute, comparison);
-    return (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED || isSynonym(instructorAttribute, studentAttribute)
+    var values = getMinimumLDInSynonyms(instructorAttribute, studentAttribute, comparison); 
+    int lDistance = values.get(0);
+    int instSize = values.get(1);
+    int studSize = studentAttribute.getName().length();
+    return (lDistance == 0 || isSpelledIncorrectly(lDistance, studSize, instSize) || isSynonym(instructorAttribute, studentAttribute)
         || isEnumAttributeBoolean(instructorAttribute, studentAttribute, comparison));
   }
 
@@ -827,7 +831,7 @@ public class MistakeDetection {
     for (CDEnumLiteral instEnumLiteral : instEnum.getLiterals()) {
       for (CDEnumLiteral studEnumLiteral : studEnum.getLiterals()) {
         var lDistance = levenshteinDistance(instEnumLiteral.getName(), studEnumLiteral.getName());
-        if (lDistance < MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
+        if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
           comparison.mappedEnumerationItems.put(instEnumLiteral, studEnumLiteral);
           comparison.notMappedInstructorEnumLiterals.remove(instEnumLiteral);
           comparison.extraStudentEnumLiterals.remove(studEnumLiteral);
@@ -2299,15 +2303,19 @@ public class MistakeDetection {
    */
   public static boolean checkClassAndAttribBasedOnSpellingError(Classifier instructorClass, Classifier studentClass,
       Comparison comparison) {
-    int lDistance = getMinimumLDInSynonyms(instructorClass, studentClass, comparison);
-    return 0 <= lDistance && lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED;
+    var values = getMinimumLDInSynonyms(instructorClass, studentClass, comparison);
+    int lDistance = values.get(0);
+    int instSize = values.get(1);
+    int studSize = studentClass.getName().length();
+    return isSpelledIncorrectly(lDistance, studSize, instSize);
   }
 
   /** Returns minimum Levenshtein Distance between instructor attribute and student attribute including its synonyms */
-  public static int getMinimumLDInSynonyms(NamedElement instructorElem, NamedElement studentElem,
+  public static List<Integer> getMinimumLDInSynonyms(NamedElement instructorElem, NamedElement studentElem,
       Comparison comparison) {
     var se = SolutionElement.forCdmElement(instructorElem);
     int attribDistance = levenshteinDistance(studentElem.getName(), instructorElem.getName());
+    int instElmLength = instructorElem.getName().length();
     int synDistance = attribDistance;
     if (!comparison.mappedAttributes.containsValue(studentElem) &&
         !comparison.mappedAttributes.containsKey(instructorElem)) {
@@ -2315,10 +2323,14 @@ public class MistakeDetection {
         int distance = levenshteinDistance(studentElem.getName(), syn.getName());
         if (distance < synDistance) {
           synDistance = distance;
+          int len = syn.getName().length();
+          if (len < instElmLength){
+            instElmLength = len;
+          }
         }
       }
     }
-    return Math.min(attribDistance, synDistance);
+    return Arrays.asList(Math.min(attribDistance, synDistance), instElmLength);
   }
 
 
@@ -2643,7 +2655,8 @@ public class MistakeDetection {
   }
 
   public static Optional<Mistake> checkMistakeClassSpelling(Classifier studentClass, Classifier instructorClass) {
-    if (isSpelledIncorrectly(studentClass.getName(), instructorClass.getName()) && !isPlural(studentClass.getName())
+    int lDistance = levenshteinDistance(studentClass.getName(), instructorClass.getName());
+    if (isSpelledIncorrectly(lDistance, studentClass.getName().length(), instructorClass.getName().length()) && !isPlural(studentClass.getName())
         && !isLowerName(studentClass.getName()) && !isSoftwareEngineeringTerm(studentClass.getName())) {
       return Optional.of(createMistake(BAD_CLASS_NAME_SPELLING, studentClass, instructorClass));
     }
@@ -2820,7 +2833,8 @@ public class MistakeDetection {
 
   public static Optional<Mistake> checkMistakeBadRoleNameSpelling(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd) {
-    if (isSpelledIncorrectly(studentClassAssocEnd.getName(), instructorClassAssocEnd.getName())) {
+    int lDistance = levenshteinDistance(studentClassAssocEnd.getName(), instructorClassAssocEnd.getName());
+    if (isSpelledIncorrectly(lDistance, studentClassAssocEnd.getName().length(), instructorClassAssocEnd.getName().length())) {
       return Optional.of(createMistake(BAD_ROLE_NAME_SPELLING, studentClassAssocEnd, instructorClassAssocEnd));
     }
     return Optional.empty();
@@ -2835,8 +2849,10 @@ public class MistakeDetection {
 
   public static Optional<Mistake> checkMistakeBadEnumLiteralSpelling(CDEnumLiteral studentEnumLiteral,
       CDEnumLiteral instructorEnumLiteral) {
-    if (levenshteinDistance(studentEnumLiteral.getName().toLowerCase(),
-        instructorEnumLiteral.getName().toLowerCase()) >= 1) {
+    int lDistance = levenshteinDistance(studentEnumLiteral.getName().toLowerCase(),
+        instructorEnumLiteral.getName().toLowerCase());
+    if (isSpelledIncorrectly(lDistance, studentEnumLiteral.getName().length(),
+        instructorEnumLiteral.getName().length())) {
       return Optional.of(createMistake(BAD_ENUM_ITEM_SPELLING, studentEnumLiteral, instructorEnumLiteral));
     }
     return Optional.empty();
@@ -3304,14 +3320,12 @@ public class MistakeDetection {
     return maxentTagger.tagString(taggerInput);
   }
 
-  private static boolean isSpelledIncorrectly(String studString, String instString) {
-    int lDistance = levenshteinDistance(studString, instString);
+  private static boolean isSpelledIncorrectly(int lDistance, int studStringLength, int instStringLength) {
+ 
     if( lDistance == 0) {
       return false;
     }
     int limit = 2;
-    int instStringLength = instString.length();
-    int studStringLength = studString.length();
     if (instStringLength > 5 || studStringLength > 5) {
       return lDistance <= limit;
     } else if (instStringLength > 2 || studStringLength > 2) {
