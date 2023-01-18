@@ -41,6 +41,9 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
   /** The standard Class Diagram Model file path for each student solution. */
   private static final String CDM_PATH = "Class Diagram/StudentDomainModel.domain_model.cdm";
 
+  /** The path where student submissions from the final exam dataset are located. */
+  private static final String FINAL_EXAM_SUBMISSIONS_PATH = "<path-to-cdm-files>";
+
 
   // TODO To be completed in near future. The functions below are incomplete
   ClassDiagram instructorClassDiagram;
@@ -264,6 +267,12 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
+  }
+
+  /** Tests that the MDS runs without errors on the submissions from the final exam dataset. */
+  @Test
+  public void testThatMdsRunsOnFinalExamStudentSolutions() {
+
   }
 
   /** Returns the student class diagram with the given identifier. */

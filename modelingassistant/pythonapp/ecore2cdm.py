@@ -354,7 +354,7 @@ def main():
             if file_.lower().endswith(".ecore"):
                 convert(os.path.join(arg, file_))
     else:
-        print("Error: argument is not an ecore or a valid directory")
+        print("Error: argument is not an ecore file or a valid directory")
         sys.exit(1)
 
 
