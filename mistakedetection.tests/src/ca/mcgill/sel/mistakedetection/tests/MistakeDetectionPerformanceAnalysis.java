@@ -8,14 +8,19 @@ import static modelingassistant.util.SynonymUtils.setSynonymToClassInClassDiag;
 import static modelingassistant.util.SynonymUtils.setSynonymToRoleInClassInClassDiag;
 import static modelingassistant.util.TagUtils.setAbstractionTagToClassInClassDiag;
 import static modelingassistant.util.TagUtils.setOccurrenceTagToClassInClassDiag;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.ClassDiagram;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
+import modelingassistant.ModelingassistantFactory;
 import modelingassistant.Solution;
 import modelingassistant.TagGroup;
+import modelingassistant.util.ResourceHelper;
 
 /**
  * This class is used to collect the performance data (e.g time of execution, number and types of mistakes detected) of
@@ -28,8 +33,8 @@ import modelingassistant.TagGroup;
  *
  * @author Prabhsimran Singh
  */
-@Disabled("Tests with real student solutions are disabled in public version of this repo. Please contact a professor "
-    + "from the McGill Software Engineering Lab to see if you can obtain access.")
+//@Disabled("Tests with real student solutions are disabled in public version of this repo. Please contact a professor "
+//    + "from the McGill Software Engineering Lab to see if you can obtain access.")
 public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTest {
 
   /** The folder where student solutions are located. */
@@ -42,7 +47,9 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
   private static final String CDM_PATH = "Class Diagram/StudentDomainModel.domain_model.cdm";
 
   /** The path where student submissions from the final exam dataset are located. */
-  private static final String FINAL_EXAM_SUBMISSIONS_PATH = "<path-to-cdm-files>";
+
+  /** The ModelingassistantFactory instance. */
+  private static final ModelingassistantFactory maf = ModelingassistantFactory.eINSTANCE;
 
 
   // TODO To be completed in near future. The functions below are incomplete
@@ -272,7 +279,40 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
   /** Tests that the MDS runs without errors on the submissions from the final exam dataset. */
   @Test
   public void testThatMdsRunsOnFinalExamStudentSolutions() {
-
+    var ma = maf.createModelingAssistant();
+    var instSolution = maf.createSolution();
+    instSolution.setModelingAssistant(ma);
+    instSolution.setClassDiagram(cdmFromFile(Paths.get(FINAL_EXAM_SUBMISSIONS_PATH, "0.cdm")));
+    try (var files = Files.walk(Paths.get(FINAL_EXAM_SUBMISSIONS_PATH), 2)) {
+      List<String> validCdms = new ArrayList<>();
+      List<String> invalidCdms = new ArrayList<>();
+      var studentCdms = files.filter(file -> !Files.isDirectory(file) && file.toString().endsWith(".cdm")
+          && !file.toString().endsWith(File.separator + "0.cdm")).map(ResourceHelper::cdmFromFile);
+      studentCdms.forEach(cdm -> {
+        var cdmName = cdm.getName();
+        var student = maf.createStudent();
+        student.setModelingAssistant(ma);
+        student.setName("Student" + cdmName); // Student1 and so on
+        var studSolution = maf.createSolution();
+        studSolution.setModelingAssistant(ma);
+        studSolution.setStudent(student);
+        studSolution.setClassDiagram(cdm);
+        try {
+          System.out.println("Detecting mistakes for " + cdmName + ".cdm");
+          var comparison = MistakeDetection.compare(instSolution, studSolution).log();
+          //assertNotNull(comparison);
+          validCdms.add(cdmName);
+        } catch (Exception e) {
+          System.err.println("Could not detect mistakes for " + cdmName + ".cdm due to error:");
+          //e.printStackTrace();
+          invalidCdms.add(cdmName);
+        }
+      });
+      System.out.println("Valid cdms: " + validCdms);
+      System.out.println("Invalid cdms: " + invalidCdms);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   /** Returns the student class diagram with the given identifier. */
