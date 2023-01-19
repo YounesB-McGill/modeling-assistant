@@ -16,13 +16,23 @@ from pyecore.ecore import EAttribute, EClass, EDataType, EObject, EPackage, ERef
 from pyecore.resources import ResourceSet, URI
 from pyecore.valuecontainer import PyEcoreValue
 
-from classdiagram import Association, AssociationEnd, Attribute, CDEnum, CDEnumLiteral, Class, ClassDiagram, Classifier
+from classdiagram import (Association, AssociationEnd, Attribute, CDAny, CDBoolean, CDDouble, CDEnum, CDEnumLiteral,
+                          CDFloat, CDInt, CDLong, CDString, Class, ClassDiagram, Classifier)
 from fileserdes import save_to_file
 from utils import warn
 
 
 # EDataType classes that must be not considered as enums
 BASIC_CLASSES = {"boolean", "Date", "DateTime", "double", "float", "int", "java.sql.Time", "long", "String", "time"}
+
+ECORE_TYPE_NAMES_TO_CDM_TYPES: dict[str, type] = {
+    "EBoolean": CDBoolean,
+    "EDouble": CDDouble,
+    "EFloat": CDFloat,
+    "EInt": CDInt,
+    "ELong": CDLong,
+    "EString": CDString,
+}
 
 
 def load_ecore_model(ecore_file: str) -> EPackage:
@@ -39,7 +49,8 @@ def convert(ecore_file: str) -> ClassDiagram:
     print(f"Converting {ecore_file}")
     ecore_model = load_ecore_model(ecore_file)
     cdm = ClassDiagram(name=ecore_model.name)
-    cdm_items: dict[str, EObject] = {ecore_model.name: cdm}  # track TC cdm items by name (assocend names not unique)
+    cdm_items: dict[str, EObject] = {ecore_model.name: cdm}  # track TC cdm items by name
+    create_primitive_types(cdm, cdm_items)
     for class_ in ecore_model.eClassifiers:
         match class_:
             case EDataType(name=enum_name, instanceClassName=icn) if icn not in BASIC_CLASSES:  # enum class
@@ -56,8 +67,9 @@ def convert(ecore_file: str) -> ClassDiagram:
                     cdm_items[cls_name] = cls
                 for sf in class_.eStructuralFeatures:
                     match sf:
-                        case EAttribute(name=attr_name):
-                            attr = Attribute(name=attr_name)
+                        case EAttribute(name=attr_name, eType=attr_type):
+                            t = cdm_items[attr_type.name] if attr_type and attr_type.name in cdm_items else CDAny()
+                            attr = Attribute(name=attr_name, type=t)
                             cls.attributes.append(attr)
                             cdm_items[f"{cls_name}.{attr_name}"] = attr  # avoid clashes with other items
                         # when first added, all relationships are associations
@@ -69,6 +81,19 @@ def convert(ecore_file: str) -> ClassDiagram:
     ecore_file_base_name = ecore_file.removesuffix('.ecore')
     cdm = enhance_with_umple_file_info(ecore_model, cdm, cdm_items, f"{ecore_file_base_name}.ump")
     save_to_file(f"{ecore_file_base_name}.cdm", cdm)
+    return cdm
+
+
+def create_primitive_types(cdm: ClassDiagram, cdm_items: dict[str, EObject]) -> ClassDiagram:
+    """
+    Create copies of the TouchCORE primitive type implementation classes and add them to the given class diagram and
+    dictionary. The class diagram is returned to allow for easier testing.
+    """
+    for ecore_type_name, cd_type in ECORE_TYPE_NAMES_TO_CDM_TYPES.items():
+        t = cd_type()  # create a new instance of the type for each submission
+        cdm.types.append(t)
+        cdm_items[ecore_type_name] = t
+    cdm.types.append(CDAny())
     return cdm
 
 
