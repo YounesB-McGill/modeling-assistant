@@ -50,7 +50,7 @@ def convert(ecore_file: str) -> ClassDiagram:
     ecore_model = load_ecore_model(ecore_file)
     cdm = ClassDiagram(name=ecore_model.name)
     cdm_items: dict[str, EObject] = {ecore_model.name: cdm}  # track TC cdm items by name
-    create_primitive_types(cdm, cdm_items)
+    create_tc_builtin_types(cdm, cdm_items)
     for class_ in ecore_model.eClassifiers:
         match class_:
             case EDataType(name=enum_name, instanceClassName=icn) if icn not in BASIC_CLASSES:  # enum class
@@ -68,7 +68,8 @@ def convert(ecore_file: str) -> ClassDiagram:
                 for sf in class_.eStructuralFeatures:
                     match sf:
                         case EAttribute(name=attr_name, eType=attr_type):
-                            t = cdm_items[attr_type.name] if attr_type and attr_type.name in cdm_items else CDAny()
+                            t = (cdm_items[attr_type.name] if attr_type and attr_type.name in cdm_items
+                                 else cdm_items["CDAny"])
                             attr = Attribute(name=attr_name, type=t)
                             cls.attributes.append(attr)
                             cdm_items[f"{cls_name}.{attr_name}"] = attr  # avoid clashes with other items
@@ -84,16 +85,19 @@ def convert(ecore_file: str) -> ClassDiagram:
     return cdm
 
 
-def create_primitive_types(cdm: ClassDiagram, cdm_items: dict[str, EObject]) -> ClassDiagram:
+def create_tc_builtin_types(cdm: ClassDiagram, cdm_items: dict[str, EObject]) -> ClassDiagram:
     """
-    Create copies of the TouchCORE primitive type implementation classes and add them to the given class diagram and
-    dictionary. The class diagram is returned to allow for easier testing.
+    Create copies of the TouchCORE built-in types and add them to the given class diagram and dictionary.
+    The class diagram is returned to allow for easier testing.
     """
     for ecore_type_name, cd_type in ECORE_TYPE_NAMES_TO_CDM_TYPES.items():
         t = cd_type()  # create a new instance of the type for each submission
         cdm.types.append(t)
         cdm_items[ecore_type_name] = t
-    cdm.types.append(CDAny())
+    # add non-primitive catch-all CDAny time to class diagram
+    cd_any = CDAny()
+    cdm.types.append(cd_any)
+    cdm_items["CDAny"] = cd_any
     return cdm
 
 
