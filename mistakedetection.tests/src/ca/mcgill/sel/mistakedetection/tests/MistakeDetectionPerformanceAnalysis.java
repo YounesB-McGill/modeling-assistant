@@ -8,11 +8,14 @@ import static modelingassistant.util.SynonymUtils.setSynonymToClassInClassDiag;
 import static modelingassistant.util.SynonymUtils.setSynonymToRoleInClassInClassDiag;
 import static modelingassistant.util.TagUtils.setAbstractionTagToClassInClassDiag;
 import static modelingassistant.util.TagUtils.setOccurrenceTagToClassInClassDiag;
+import static org.junit.Assert.assertNotNull;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.ClassDiagram;
@@ -297,6 +300,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
             cdm.setName(file.getFileName().toString().replace(".cdm", ""));
             return cdm;
           });
+      Map<String, Integer> solutionsToNumMistakes = new HashMap<>();
       studentCdms.forEach(cdm -> {
         var cdmName = cdm.getName();
         var student = maf.createStudent();
@@ -309,16 +313,19 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
         try {
           System.out.println("Detecting mistakes for " + cdmName + ".cdm");
           var comparison = MistakeDetection.compare(instSolution, studSolution).log();
-          //assertNotNull(comparison);
+          assertNotNull(comparison);
+          solutionsToNumMistakes.put(cdmName, comparison.newMistakes.size());
           validCdms.add(cdmName);
         } catch (Exception e) {
           System.err.println("Could not detect mistakes for " + cdmName + ".cdm due to error:");
-          //e.printStackTrace();
+          e.printStackTrace();
           invalidCdms.add(cdmName);
         }
       });
-      System.out.println("Valid cdms: " + validCdms);
-      System.out.println("Invalid cdms: " + invalidCdms);
+      System.out.println("Valid cdms (" + validCdms.size() + "): " + validCdms);
+      System.out.println("Invalid cdms (" + invalidCdms.size() + "): " + invalidCdms);
+      System.out.println("\nStudent solution,Number of mistakes");
+      solutionsToNumMistakes.forEach((id, num) -> System.out.println(id + "," + num));
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -334,7 +341,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
     var instSolution = maf.createSolution();
     instSolution.setModelingAssistant(ma);
     instSolution.setClassDiagram(cdmFromFile(Paths.get(FINAL_EXAM_SUBMISSIONS_PATH, "0.cdm")));
-    var studentCdm = cdmFromFile(Paths.get(FINAL_EXAM_SUBMISSIONS_PATH, "1.cdm"));
+    var studentCdm = cdmFromFile(Paths.get(FINAL_EXAM_SUBMISSIONS_PATH, "20.cdm"));
     var cdmName = studentCdm.getName();
     var student = maf.createStudent();
     student.setModelingAssistant(ma);
