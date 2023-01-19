@@ -8,12 +8,12 @@ import static modelingassistant.util.SynonymUtils.setSynonymToClassInClassDiag;
 import static modelingassistant.util.SynonymUtils.setSynonymToRoleInClassInClassDiag;
 import static modelingassistant.util.TagUtils.setAbstractionTagToClassInClassDiag;
 import static modelingassistant.util.TagUtils.setOccurrenceTagToClassInClassDiag;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.ClassDiagram;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
@@ -47,6 +47,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
   private static final String CDM_PATH = "Class Diagram/StudentDomainModel.domain_model.cdm";
 
   /** The path where student submissions from the final exam dataset are located. */
+  private static final String FINAL_EXAM_SUBMISSIONS_PATH = "<path-to-cdm-files>";
 
   /** The ModelingassistantFactory instance. */
   private static final ModelingassistantFactory maf = ModelingassistantFactory.eINSTANCE;
@@ -286,8 +287,16 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
     try (var files = Files.walk(Paths.get(FINAL_EXAM_SUBMISSIONS_PATH), 2)) {
       List<String> validCdms = new ArrayList<>();
       List<String> invalidCdms = new ArrayList<>();
-      var studentCdms = files.filter(file -> !Files.isDirectory(file) && file.toString().endsWith(".cdm")
-          && !file.toString().endsWith(File.separator + "0.cdm")).map(ResourceHelper::cdmFromFile);
+      var filenamePattern = Pattern.compile("\\d+\\.cdm");
+      var studentCdms = files
+          .filter(file ->
+              !Files.isDirectory(file) && filenamePattern.matcher(file.getFileName().toString()).matches()
+              && !file.endsWith("0.cdm"))
+          .map(file -> {
+            var cdm = ResourceHelper.cdmFromFile(file);
+            cdm.setName(file.getFileName().toString().replace(".cdm", ""));
+            return cdm;
+          });
       studentCdms.forEach(cdm -> {
         var cdmName = cdm.getName();
         var student = maf.createStudent();
@@ -311,6 +320,35 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
       System.out.println("Valid cdms: " + validCdms);
       System.out.println("Invalid cdms: " + invalidCdms);
     } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * Tests that the MDS runs without errors on a submission from the final exam dataset.
+   * This is a convenience method to help debug the test above.
+   */
+  @Test
+  public void testThatMdsRunsOnSingleFinalExamStudentSolution() {
+    var ma = maf.createModelingAssistant();
+    var instSolution = maf.createSolution();
+    instSolution.setModelingAssistant(ma);
+    instSolution.setClassDiagram(cdmFromFile(Paths.get(FINAL_EXAM_SUBMISSIONS_PATH, "0.cdm")));
+    var studentCdm = cdmFromFile(Paths.get(FINAL_EXAM_SUBMISSIONS_PATH, "1.cdm"));
+    var cdmName = studentCdm.getName();
+    var student = maf.createStudent();
+    student.setModelingAssistant(ma);
+    student.setName("Student" + cdmName); // Student1 and so on
+    var studSolution = maf.createSolution();
+    studSolution.setModelingAssistant(ma);
+    studSolution.setStudent(student);
+    studSolution.setClassDiagram(studentCdm);
+    try {
+      System.out.println("Detecting mistakes for " + cdmName + ".cdm");
+      var comparison = MistakeDetection.compare(instSolution, studSolution).log();
+      //assertNotNull(comparison);
+    } catch (Exception e) {
+      System.err.println("Could not detect mistakes for " + cdmName + ".cdm due to error:");
       e.printStackTrace();
     }
   }

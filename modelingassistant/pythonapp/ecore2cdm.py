@@ -47,9 +47,13 @@ def convert(ecore_file: str) -> ClassDiagram:
                 cdm.types.append(enum)  # no classDiagram reference in its parts
                 cdm_items[enum_name] = enum
             case EClass(name=cls_name):
-                cls = Class(name=cls_name)
-                cdm.classes.append(cls)
-                cdm_items[cls_name] = cls
+                if cls_name in cdm_items and isinstance(cdm_items[cls_name], Classifier):
+                    # class was added before as the opposite of a directed association
+                    cls = cdm_items[cls_name]
+                else:
+                    cls = Class(name=cls_name)
+                    cdm.classes.append(cls)
+                    cdm_items[cls_name] = cls
                 for sf in class_.eStructuralFeatures:
                     match sf:
                         case EAttribute(name=attr_name):
@@ -61,7 +65,7 @@ def convert(ecore_file: str) -> ClassDiagram:
                             #print(f"Creating AE for {cls_name}.{assocend_name}")
                             assocend = AssociationEnd(name=assocend_name, classifier=cls, lowerBound=lb, upperBound=ub,
                                                       assoc=assoc_for(eref, cdm, cdm_items))
-                            cdm_items[assocend_name] = assocend
+                            cdm_items[f"{cls_name}.{assocend_name}"] = assocend
     ecore_file_base_name = ecore_file.removesuffix('.ecore')
     cdm = enhance_with_umple_file_info(ecore_model, cdm, cdm_items, f"{ecore_file_base_name}.ump")
     save_to_file(f"{ecore_file_base_name}.cdm", cdm)
@@ -101,6 +105,18 @@ def assoc_for(eref: EReference, cdm: ClassDiagram, cdm_items: dict[str, EObject]
         cdm_items[name] = assoc
         cdm_items[tc_name] = assoc
         cdm.associations.append(assoc)
+        if not eref.eOpposite:
+            # add non-navigable TouchCORE association end here since it will not appear as an Ecore structural feature
+            opposite_name = eref.eType.name
+            cls_ref_name = lower_camel(eref.eContainingClass.name)
+            if opposite_name in cdm_items and isinstance(cdm_items[opposite_name], Classifier):
+                opposite_cls = cdm_items[opposite_name]
+            else:
+                opposite_cls = Class(name=opposite_name)
+                cdm.classes.append(opposite_cls)
+                cdm_items[opposite_name] = opposite_cls
+            opposite_ae = AssociationEnd(name=cls_ref_name, classifier=opposite_cls, navigable=False, assoc=assoc)
+            cdm_items[f"{opposite_name}.{cls_ref_name}"] = opposite_ae
     return cdm_items[name]
 
 
@@ -140,10 +156,6 @@ def add_compositions_to_cdm(
     def clean(s: str) -> str:
         'Clean string by replacing "-" with " " removing numbers and special characters.'
         return s.translate(str.maketrans("-", " ", f"{string.digits}*.;{{}}")).strip()
-
-    def lower_camel(s: str) -> str:
-        "Return a string converted to lowerCamelCase."
-        return f"{s[0].lower()}{s[1:]}"
 
     for i in range(1, len(umple_lines)):
         if "<@>" in umple_lines[i]:
@@ -316,6 +328,11 @@ def get_class_name(umple_lines: list[str], search_from_line: int) -> str:
         curr_line -= 1
     warn(f"Unable to return class name starting from line {search_from_line}")
     return ""
+
+
+def lower_camel(s: str) -> str:
+    "Return a string converted to lowerCamelCase."
+    return f"{s[0].lower()}{s[1:]}"
 
 
 def remove_umple_comments(umple_code: str):
