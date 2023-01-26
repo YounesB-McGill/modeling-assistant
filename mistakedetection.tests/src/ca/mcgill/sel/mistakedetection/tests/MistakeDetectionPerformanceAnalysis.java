@@ -1,19 +1,11 @@
 package ca.mcgill.sel.mistakedetection.tests;
 
-import java.awt.Color;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import org.apache.commons.collections4.map.LinkedMap;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.FillPatternType;
-import org.apache.poi.ss.usermodel.IndexedColors;
-import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbookFactory;
 import static ca.mcgill.sel.mistakedetection.Comparison.getSortedMistakeList;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instructorSolutionFromClassDiagram;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentSolutionFromClassDiagram;
@@ -25,12 +17,9 @@ import static modelingassistant.util.TagUtils.setAbstractionTagToClassInClassDia
 import static modelingassistant.util.TagUtils.setOccurrenceTagToClassInClassDiag;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.Association;
 import ca.mcgill.sel.classdiagram.AssociationEnd;
