@@ -457,17 +457,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
     List<Mistake> extraMistakes = new ArrayList<>();
     List<Mistake> notExtraMistakes = new ArrayList<>();
 
-    for (Mistake m : sortedMistakes) {
-      var instElems = m.getInstructorElementNames();
-      String instElem = "";
-      for (String n : instElems) {
-        instElem += n;
-      }
-      var studElems = m.getStudentElementNames();
-      String studElem = "";
-      for (String n : studElems) {
-        studElem += n;
-      }  
+    for (Mistake m : sortedMistakes) {  
       if (m.getMistakeType().getName().startsWith("Extra")) {
         extraMistakes.add(m);
       } else {
