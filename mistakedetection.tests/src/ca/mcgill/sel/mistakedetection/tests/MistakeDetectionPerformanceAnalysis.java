@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.Association;
 import ca.mcgill.sel.classdiagram.AssociationEnd;
@@ -47,9 +48,8 @@ import modelingassistant.TagGroup;
  *
  * @author Prabhsimran Singh
  */
-// @Disabled("Tests with real student solutions are disabled in public version of this repo. Please
-// contact a professor "
-// + "from the McGill Software Engineering Lab to see if you can obtain access.")
+ @Disabled("Tests with real student solutions are disabled in public version of this repo. Please contact a professor "
+ + "from the McGill Software Engineering Lab to see if you can obtain access.")
 public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTest {
 
   /** The folder where student solutions are located. */
@@ -62,11 +62,11 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
   private static final String CDM_PATH = "Class Diagram/StudentDomainModel.domain_model.cdm";
 
   private static final String OUTPUT_LOC =
-      "C:\\Users\\prabh\\Desktop\\R work\\GroundTruth\\Class Diagrams\\Hotel\\RandomStudentSolutions\\1_NEW\\10\\";
+      "<path-to-output-loc>";
 
-  private static String WROMG_ROLE_NAME = "Wrong role name";
+  private static String WRONG_ROLE_NAME = "Wrong role name";
 
-  private static String WROMG_MULTIPLICTY = "Wrong multiplicity";
+  private static String WRONG_MULTIPLICTY = "Wrong multiplicity";
 
   // TODO To be completed in near future. The functions below are incomplete
   ClassDiagram instructorClassDiagram;
@@ -131,39 +131,6 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
         instructorClassDiagram, instructorSolution);
   }
 
-
-  public void testPrintInstructorElements() {
-    var instClasses = instructorClassDiagram.getClasses();
-    List<String> instElements = new ArrayList<String>();
-    for (Classifier cls : instClasses) {
-      instElements.add(cls.getName());
-      for (Attribute atr : cls.getAttributes()) {
-        instElements.add(atr.getName());
-      }
-      for (AssociationEnd assocEnd : cls.getAssociationEnds()) {
-        instElements.add(assocEnd.getName() + " role name");
-        instElements.add(assocEnd.getName() + " multiplicity");
-      }
-    }
-    for (Association assoc : instructorClassDiagram.getAssociations()) {
-      instElements.add(assoc.getName());
-    }
-    for (Type type : instructorClassDiagram.getTypes()) {
-
-      if (type instanceof CDEnum) {
-        CDEnum enumClass = (CDEnum) type;
-        instElements.add(enumClass.getName());
-        for (CDEnumLiteral enumLiteral : enumClass.getLiterals()) {
-          instElements.add(enumLiteral.getName());
-        }
-      }
-    }
-    System.out.println(instElements.size());
-    for (String t : instElements) {
-      System.out.println(t);
-    }
-  }
-
   @Test
   public void testStudentSolution1() {
     var studentClassDiagram = getStudentClassDiagram("G12_1");
@@ -189,7 +156,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-    produceExcelSheet(comparison, name, OUTPUT_LOC);
+    
   }
 
   @Test
@@ -352,7 +319,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-     
+    
 
   }
 
@@ -407,7 +374,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-     
+    comparison.sortedLog();
 
   }
 
@@ -449,6 +416,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
+    produceExcelSheet(comparison, name, "G:/Research/Eclipse/eclipse");
      
   }
 
@@ -464,14 +432,12 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
         notExtraMistakes.add(m);
       }
     }
-    XSSFWorkbook workbook = new XSSFWorkbook();
-    XSSFSheet spreadsheet = workbook.createSheet(name);
-    XSSFRow row;
-    LinkedHashMap<String, Object[]> studentData = new LinkedHashMap<String, Object[]>();
+   
+    LinkedHashMap<String, Object[]> studentData = new LinkedHashMap<>();
     int id = 1;
     studentData.put(String.valueOf(id), new Object[] {"Instructor Element", "Student Elements", "Mistake Type",
         "Actually a Mistake", "MDS Result", "MDS vs Actual Mistake", "Comments"});
-    ArrayList<String> rendered = new ArrayList<>();
+    ArrayList<String> printedToExcel = new ArrayList<>();
     for (Mistake m : notExtraMistakes) {
       int count = 1;
       var instElem = getConcatNames(m.getInstructorElementNames());    
@@ -482,28 +448,30 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
         if (m != m1) {
           var instElem1 = getConcatNames(m1.getInstructorElementNames());          
           var studElem1 = getConcatNames(m1.getStudentElementNames());
-         
+          var mistakeType1Name = m.getMistakeType().getName();
+          var mistakeType2Name = m1.getMistakeType().getName();
+          
           if (instElem.equals(instElem1) && studElem.equals(studElem1)
-              && !(m.getMistakeType().getName().equals(WROMG_MULTIPLICTY)
-                  && m1.getMistakeType().getName().equals(WROMG_ROLE_NAME))
-              && !(m.getMistakeType().getName().equals(WROMG_ROLE_NAME)
-                  && m1.getMistakeType().getName().equals(WROMG_MULTIPLICTY))) {
+              && !( mistakeType1Name.equals(WRONG_MULTIPLICTY)
+                  &&  mistakeType2Name.equals(WRONG_ROLE_NAME))
+              && !( mistakeType1Name.equals(WRONG_ROLE_NAME)
+                  &&   mistakeType2Name.equals(WRONG_MULTIPLICTY))) {
             mistakeType += ", " + m1.getMistakeType().getName();
             count++;
           }
         }
       }
       var fnlString = instElem + studElem;
-      if (!rendered.contains(fnlString) || mistakeType.equals(WROMG_ROLE_NAME) || mistakeType.equals(WROMG_MULTIPLICTY)) {
+      if (!printedToExcel.contains(fnlString) || mistakeType.equals(WRONG_ROLE_NAME) || mistakeType.equals(WRONG_MULTIPLICTY)) {
         id++;
         studentData.put(String.valueOf(id),
             new Object[] {instElem, studElem, mistakeType, "", count, "=D" + id + "=E" + id, ""});
-        rendered.add(fnlString);
+        printedToExcel.add(fnlString);
       }
     }
     int instructorElems = id - 1;
     int extraElemsStart = id;
-    rendered = new ArrayList<>();
+    printedToExcel = new ArrayList<>();
     for (Mistake m : extraMistakes) {
       int count = 1;
       var instElem = getConcatNames(m.getInstructorElementNames());    
@@ -514,28 +482,30 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
         if (m != m1) {
           var instElem1 = getConcatNames(m1.getInstructorElementNames());    
           var studElem1 = getConcatNames(m1.getStudentElementNames());
+          var mistakeType1Name = m.getMistakeType().getName();
+          var mistakeType2Name = m1.getMistakeType().getName();
           if (instElem.equals(instElem1) && studElem.equals(studElem1)
-              && !(m.getMistakeType().getName().equals(WROMG_MULTIPLICTY)
-                  && m1.getMistakeType().getName().equals(WROMG_ROLE_NAME))
-              && !(m.getMistakeType().getName().equals(WROMG_ROLE_NAME)
-                  && m1.getMistakeType().getName().equals(WROMG_MULTIPLICTY))) {
+              && !(mistakeType1Name.equals(WRONG_MULTIPLICTY)
+                  && mistakeType2Name.equals(WRONG_ROLE_NAME))
+              && !(mistakeType1Name.equals(WRONG_ROLE_NAME)
+                  && mistakeType2Name.equals(WRONG_MULTIPLICTY))) {
             mistakeType += ", " + m1.getMistakeType().getName();
             count++;
           }
         }
       }
       var fnlString = instElem + studElem;
-      if (!rendered.contains(fnlString) || mistakeType.equals(WROMG_ROLE_NAME) || mistakeType.equals(WROMG_MULTIPLICTY)) {
+      if (!printedToExcel.contains(fnlString) || mistakeType.equals(WRONG_ROLE_NAME) || mistakeType.equals(WRONG_MULTIPLICTY)) {
         studentData.put(String.valueOf(id),
             new Object[] {instElem, studElem, mistakeType, "", count, "=D" + id + "=E" + id, ""});
         id++;
-        rendered.add(fnlString);
+        printedToExcel.add(fnlString);
       }
     }
 
     int nId = id;
-    studentData.put(String.valueOf(nId++), new Object[] {"", "", "", "", "", "", ""});
-    studentData.put(String.valueOf(nId++), new Object[] {"", "", "", "", "", "", ""});
+    studentData.put(String.valueOf(nId++), new Object[] {""});
+    studentData.put(String.valueOf(nId++), new Object[] {""});
     studentData.put(String.valueOf(nId++),
         new Object[] {"Total Mistakes", "", "", "=SUM(D2:D" + --id + ")", "=SUM(E2:E" + id + ")", "", ""});
 
@@ -597,7 +567,10 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
     studentData.put(String.valueOf(nId++),
         new Object[] {"F2 (5 * Precision * Recall) / (4 * Precision + Recall)", "", "=(5*C"+precisionIndex+"*C"+recallIndex+")/(4*C"+precisionIndex+"+C"+recallIndex+")"});
     
-
+    XSSFWorkbook workbook = new XSSFWorkbook();
+    XSSFSheet spreadsheet = workbook.createSheet(name);
+    XSSFRow row;
+    
     Set<String> keyid = studentData.keySet();
     int rowid = 0;
 
@@ -620,7 +593,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
         }
       }
     }
-    FileOutputStream out = new FileOutputStream(new File(OUTPUT_LOC + "GroundTruth_" + name + ".xlsx"));
+    FileOutputStream out = new FileOutputStream(new File(location + "GroundTruth_" + name + ".xlsx"));
 
     workbook.write(out);
     out.close();
