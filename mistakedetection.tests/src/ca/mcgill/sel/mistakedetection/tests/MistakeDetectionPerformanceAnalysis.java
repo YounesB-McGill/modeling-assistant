@@ -1,11 +1,5 @@
 package ca.mcgill.sel.mistakedetection.tests;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import static ca.mcgill.sel.mistakedetection.Comparison.getSortedMistakeList;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instructorSolutionFromClassDiagram;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentSolutionFromClassDiagram;
@@ -15,21 +9,20 @@ import static modelingassistant.util.SynonymUtils.setSynonymToClassInClassDiag;
 import static modelingassistant.util.SynonymUtils.setSynonymToRoleInClassInClassDiag;
 import static modelingassistant.util.TagUtils.setAbstractionTagToClassInClassDiag;
 import static modelingassistant.util.TagUtils.setOccurrenceTagToClassInClassDiag;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import ca.mcgill.sel.classdiagram.Association;
-import ca.mcgill.sel.classdiagram.AssociationEnd;
-import ca.mcgill.sel.classdiagram.Attribute;
-import ca.mcgill.sel.classdiagram.CDEnum;
-import ca.mcgill.sel.classdiagram.CDEnumLiteral;
 import ca.mcgill.sel.classdiagram.ClassDiagram;
-import ca.mcgill.sel.classdiagram.Classifier;
-import ca.mcgill.sel.classdiagram.Type;
 import ca.mcgill.sel.mistakedetection.Comparison;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
 import modelingassistant.Mistake;
@@ -48,8 +41,8 @@ import modelingassistant.TagGroup;
  *
  * @author Prabhsimran Singh
  */
- @Disabled("Tests with real student solutions are disabled in public version of this repo. Please contact a professor "
- + "from the McGill Software Engineering Lab to see if you can obtain access.")
+@Disabled("Tests with real student solutions are disabled in public version of this repo. Please contact a professor "
+    + "from the McGill Software Engineering Lab to see if you can obtain access.")
 public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTest {
 
   /** The folder where student solutions are located. */
@@ -61,12 +54,15 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
   /** The standard Class Diagram Model file path for each student solution. */
   private static final String CDM_PATH = "Class Diagram/StudentDomainModel.domain_model.cdm";
 
-  private static final String OUTPUT_LOC =
-      "<path-to-output-loc>";
+  /** The output location of produceExcelSheet(). */
+  private static final String HOTEL_OUTPUT_SPREADSHEET_LOC = "<path-to-output-loc>";
 
-  private static String WRONG_ROLE_NAME = "Wrong role name";
+  /** The path where student submissions from the final exam dataset are located. */
+  private static final String FINAL_EXAM_SUBMISSIONS_PATH = "<path-to-cdm-files>";
 
-  private static String WRONG_MULTIPLICTY = "Wrong multiplicity";
+  private static final String WRONG_ROLE_NAME = "Wrong role name";
+
+  private static final String WRONG_MULTIPLICTY = "Wrong multiplicity";
 
   // TODO To be completed in near future. The functions below are incomplete
   ClassDiagram instructorClassDiagram;
@@ -156,7 +152,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-    
+
   }
 
   @Test
@@ -319,7 +315,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-    
+
 
   }
 
@@ -330,7 +326,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-     
+
 
   }
 
@@ -341,7 +337,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-     
+
 
   }
 
@@ -352,7 +348,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-     
+
 
   }
 
@@ -363,7 +359,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-     
+
 
   }
 
@@ -385,7 +381,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-     
+
 
   }
 
@@ -396,7 +392,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-     
+
   }
 
   @Test
@@ -406,7 +402,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-     
+
   }
 
   @Test
@@ -416,8 +412,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-    produceExcelSheet(comparison, name, "G:/Research/Eclipse/eclipse");
-     
+    produceExcelSheet(comparison, name, HOTEL_OUTPUT_SPREADSHEET_LOC);
   }
 
   public static void produceExcelSheet(Comparison comparison, String name, String location) throws Exception {
@@ -425,14 +420,14 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
     List<Mistake> extraMistakes = new ArrayList<>();
     List<Mistake> notExtraMistakes = new ArrayList<>();
 
-    for (Mistake m : sortedMistakes) {  
+    for (Mistake m : sortedMistakes) {
       if (m.getMistakeType().getName().startsWith("Extra")) {
         extraMistakes.add(m);
       } else {
         notExtraMistakes.add(m);
       }
     }
-   
+
     LinkedHashMap<String, Object[]> studentData = new LinkedHashMap<>();
     int id = 1;
     studentData.put(String.valueOf(id), new Object[] {"Instructor Element", "Student Elements", "Mistake Type",
@@ -440,29 +435,28 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
     ArrayList<String> printedToExcel = new ArrayList<>();
     for (Mistake m : notExtraMistakes) {
       int count = 1;
-      var instElem = getConcatNames(m.getInstructorElementNames());    
+      var instElem = getConcatNames(m.getInstructorElementNames());
       var studElem = getConcatNames(m.getStudentElementNames());
 
       var mistakeType = m.getMistakeType().getName();
       for (Mistake m1 : notExtraMistakes) {
         if (m != m1) {
-          var instElem1 = getConcatNames(m1.getInstructorElementNames());          
+          var instElem1 = getConcatNames(m1.getInstructorElementNames());
           var studElem1 = getConcatNames(m1.getStudentElementNames());
           var mistakeType1Name = m.getMistakeType().getName();
           var mistakeType2Name = m1.getMistakeType().getName();
-          
+
           if (instElem.equals(instElem1) && studElem.equals(studElem1)
-              && !( mistakeType1Name.equals(WRONG_MULTIPLICTY)
-                  &&  mistakeType2Name.equals(WRONG_ROLE_NAME))
-              && !( mistakeType1Name.equals(WRONG_ROLE_NAME)
-                  &&   mistakeType2Name.equals(WRONG_MULTIPLICTY))) {
+              && !(mistakeType1Name.equals(WRONG_MULTIPLICTY) && mistakeType2Name.equals(WRONG_ROLE_NAME))
+              && !(mistakeType1Name.equals(WRONG_ROLE_NAME) && mistakeType2Name.equals(WRONG_MULTIPLICTY))) {
             mistakeType += ", " + m1.getMistakeType().getName();
             count++;
           }
         }
       }
       var fnlString = instElem + studElem;
-      if (!printedToExcel.contains(fnlString) || mistakeType.equals(WRONG_ROLE_NAME) || mistakeType.equals(WRONG_MULTIPLICTY)) {
+      if (!printedToExcel.contains(fnlString) || mistakeType.equals(WRONG_ROLE_NAME)
+          || mistakeType.equals(WRONG_MULTIPLICTY)) {
         id++;
         studentData.put(String.valueOf(id),
             new Object[] {instElem, studElem, mistakeType, "", count, "=D" + id + "=E" + id, ""});
@@ -474,28 +468,27 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
     printedToExcel = new ArrayList<>();
     for (Mistake m : extraMistakes) {
       int count = 1;
-      var instElem = getConcatNames(m.getInstructorElementNames());    
+      var instElem = getConcatNames(m.getInstructorElementNames());
       var studElem = getConcatNames(m.getStudentElementNames());
-      
+
       var mistakeType = m.getMistakeType().getName();
       for (Mistake m1 : extraMistakes) {
         if (m != m1) {
-          var instElem1 = getConcatNames(m1.getInstructorElementNames());    
+          var instElem1 = getConcatNames(m1.getInstructorElementNames());
           var studElem1 = getConcatNames(m1.getStudentElementNames());
           var mistakeType1Name = m.getMistakeType().getName();
           var mistakeType2Name = m1.getMistakeType().getName();
           if (instElem.equals(instElem1) && studElem.equals(studElem1)
-              && !(mistakeType1Name.equals(WRONG_MULTIPLICTY)
-                  && mistakeType2Name.equals(WRONG_ROLE_NAME))
-              && !(mistakeType1Name.equals(WRONG_ROLE_NAME)
-                  && mistakeType2Name.equals(WRONG_MULTIPLICTY))) {
+              && !(mistakeType1Name.equals(WRONG_MULTIPLICTY) && mistakeType2Name.equals(WRONG_ROLE_NAME))
+              && !(mistakeType1Name.equals(WRONG_ROLE_NAME) && mistakeType2Name.equals(WRONG_MULTIPLICTY))) {
             mistakeType += ", " + m1.getMistakeType().getName();
             count++;
           }
         }
       }
       var fnlString = instElem + studElem;
-      if (!printedToExcel.contains(fnlString) || mistakeType.equals(WRONG_ROLE_NAME) || mistakeType.equals(WRONG_MULTIPLICTY)) {
+      if (!printedToExcel.contains(fnlString) || mistakeType.equals(WRONG_ROLE_NAME)
+          || mistakeType.equals(WRONG_MULTIPLICTY)) {
         studentData.put(String.valueOf(id),
             new Object[] {instElem, studElem, mistakeType, "", count, "=D" + id + "=E" + id, ""});
         id++;
@@ -511,7 +504,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
 
     studentData.put(String.valueOf(nId++),
         new Object[] {"MDS vs Actual Decision", "", "", "", "", "=COUNTIF(F2:F" + id + ",\"False\")", ""});
-    
+
     // Important for formula calculations
     var totalMistakeindex = id + 3;
     var MDSvsActualIndex = totalMistakeindex + 1;
@@ -532,14 +525,13 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
     studentData.put(String.valueOf(nId++),
         new Object[] {"Instructor elements present", "=COUNT(E2:E" + instructorElems + ")"});
     studentData.put(String.valueOf(nId++),
-        new Object[] {"Extra Elements", "=SUM(IF(D" + extraElemsStart + ":D" + id + ">E" + extraElemsStart + ":E" + id
-            + ",D" + extraElemsStart + ":D" + id + ",E" + extraElemsStart + ":E" + id + "))"});
+        new Object[] {"Extra Elements", sumOfMaximumsFormula("D", extraElemsStart, "E", id)});
     studentData.put(String.valueOf(nId++), new Object[] {"Additional false negatives", 0});
     studentData.put(String.valueOf(nId++), new Object[] {"Additional false positive", 0});
     studentData.put(String.valueOf(nId++), new Object[] {"Total elements",
         "=B" + totalInstElemsIndex + "+B" + studExtraIndex + "+B" + addFalseNegIndex + "+B" + addFalsePosIndex});
     studentData.put(String.valueOf(nId++), new Object[] {"Total number of verdicts",
-        "=SUM(IF(D2:D" + instructorElems + "=2, 1, IF(E2:E" + instructorElems + "=2, 1,0))) + B" + totalElemsIndex});
+        sumOfPlaceholdersFormula("IF(D%=2,1,IF(E%=2,1,0))", 2, instructorElems) + " + B" + totalElemsIndex});
     studentData.put(String.valueOf(nId++), new Object[] {"TN+TP+FP+FN", "=SUM(C" + tnIndex + ":C" + fnIndex + ")"});
 
     studentData.put(String.valueOf(nId++), new Object[] {""});
@@ -549,64 +541,76 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
         new Object[] {"Correct Identification % (mistakes)", "", "=C" + tpIndex + "/E" + totalMistakeindex + "*100"});
     studentData.put(String.valueOf(nId++), new Object[] {"Correct Identification % (verdicts)", "",
         "=((B" + totalNumbVerdictsIndex + "-F" + MDSvsActualIndex + ")/B" + totalNumbVerdictsIndex + ")*100"});
-    studentData.put(String.valueOf(nId++), new Object[] {"True Negative", "", "=SUM(IF(D2:D" + instructorElems
-        + "=0, IF(E2:E" + instructorElems + "=0, 1,0), 0 )) + (102 - B" + instElemsIndex + ")"});
+    studentData.put(String.valueOf(nId++), new Object[] {"True Negative", "",
+        sumOfPlaceholdersFormula("IF(D%=0,IF(E%=0,1,0),0)", 2, instructorElems)
+        + " + (102 - B" + instElemsIndex + ")"});
     studentData.put(String.valueOf(nId++), new Object[] {"True Positive", "",
-        "=SUM(IF(D2:D" + id + ">0, IF(D2:D" + id + "> E2:E" + id + ", E2:E" + id + ", D2:D" + id + "), 0 ))"});
+        sumOfPlaceholdersFormula("IF(D%>0,IF(D%>E%,E%,D%),0)", 2, id)});
     studentData.put(String.valueOf(nId++), new Object[] {"False Positive", "",
-        "=SUM(IF(E2:E" + id + "> D2:D" + id + ", E2:E" + id + " -D2:D" + id + "), 0 )+B" + addFalsePosIndex});
+        sumOfPlaceholdersFormula("MAX(E%-D%,0)", 2, id) + " + B" + addFalsePosIndex});
     studentData.put(String.valueOf(nId++), new Object[] {"False Negative", "",
-        "=SUM(IF(D2:D" + id + ">E2:E" + id + ", D2:D" + id + " - E2:E" + id + "), 0 )+B" + addFalseNegIndex});
+        sumOfPlaceholdersFormula("MAX(D%-E%,0)", 2, id) + " + B" + addFalseNegIndex});
     studentData.put(String.valueOf(nId++),
         new Object[] {"Recall (TP / (TP + FN))", "", "=(C" + tpIndex + "/(C" + tpIndex + "+C" + fnIndex + "))"});
     studentData.put(String.valueOf(nId++),
         new Object[] {"Precision (TP / (TP + FP))", "", "=(C" + tpIndex + "/(C" + tpIndex + "+C" + fpIndex + "))"});
-    
-    studentData.put(String.valueOf(nId++),
-        new Object[] {"F1 (2 * Precision * Recall / (Precision + Recall))", "", "=(2*C"+precisionIndex+"*C"+recallIndex+")/(C"+precisionIndex+"+C"+recallIndex+")"});
-    studentData.put(String.valueOf(nId++),
-        new Object[] {"F2 (5 * Precision * Recall) / (4 * Precision + Recall)", "", "=(5*C"+precisionIndex+"*C"+recallIndex+")/(4*C"+precisionIndex+"+C"+recallIndex+")"});
-    
-    XSSFWorkbook workbook = new XSSFWorkbook();
-    XSSFSheet spreadsheet = workbook.createSheet(name);
-    XSSFRow row;
-    
-    Set<String> keyid = studentData.keySet();
-    int rowid = 0;
 
-    for (String key : keyid) {
-      row = spreadsheet.createRow(rowid++);
-      Object[] objectArr = studentData.get(key);
-      int cellid = 0;
-      for (Object obj : objectArr) {
-        Cell cell = row.createCell(cellid++);
-        if (obj instanceof String) {
-          String sObj = (String) obj;
-          if (sObj.startsWith("=")) {
-            sObj = sObj.replaceFirst("=", "");
-            cell.setCellFormula(sObj);
+    studentData.put(String.valueOf(nId++), new Object[] {"F1 (2 * Precision * Recall / (Precision + Recall))", "",
+        "=(2*C" + precisionIndex + "*C" + recallIndex + ")/(C" + precisionIndex + "+C" + recallIndex + ")"});
+    studentData.put(String.valueOf(nId++), new Object[] {"F2 (5 * Precision * Recall) / (4 * Precision + Recall)", "",
+        "=(5*C" + precisionIndex + "*C" + recallIndex + ")/(4*C" + precisionIndex + "+C" + recallIndex + ")"});
+
+    try (XSSFWorkbook workbook = new XSSFWorkbook()) {
+      XSSFSheet spreadsheet = workbook.createSheet(name);
+
+      Set<String> keyid = studentData.keySet();
+      int rowid = 0;
+
+      for (String key : keyid) {
+        XSSFRow row = spreadsheet.createRow(rowid++);
+        Object[] objectArr = studentData.get(key);
+        int cellid = 0;
+        for (var obj : objectArr) {
+          XSSFCell cell = row.createCell(cellid++);
+          if (obj instanceof String) {
+            String sObj = (String) obj;
+            if (sObj.startsWith("=")) {
+              sObj = sObj.replaceFirst("=", "");
+              cell.setCellFormula(sObj);
+            } else {
+              cell.setCellValue(sObj);
+            }
           } else {
-            cell.setCellValue(sObj);
+            cell.setCellValue((int) obj);
           }
-        } else {
-          cell.setCellValue((int) obj);
         }
       }
+      try (FileOutputStream out = new FileOutputStream(new File(location + "GroundTruth_" + name + ".xlsx"))) {
+        workbook.write(out);
+      }
     }
-    FileOutputStream out = new FileOutputStream(new File(location + "GroundTruth_" + name + ".xlsx"));
-
-    workbook.write(out);
-    out.close();
     System.out.println(name + " excel created");
-
   }
-  
+
   public static String getConcatNames(List<String> elems) {
-    String elem = "";
-    for (String n : elems) {
-      elem += n + ", ";
+    return String.join(", ", elems);
+  }
+
+  /** Returns a formula in the form "=MAX(A1:C1)+MAX(A2:C2)+...", where the parameters are inclusive. */
+  private static String sumOfMaximumsFormula(String startCol, int startRow, String endCol, int endRow) {
+    return sumOfPlaceholdersFormula("MAX(" + startCol + "%:" + endCol + "%)", startRow, endRow);
+  }
+
+  /** Returns a sum of the placeholder formula, with the "%" sign is replaced by the row number, inclusive. */
+  private static String sumOfPlaceholdersFormula(String placeholder, int startRow, int endRow) {
+    var sb = new StringBuilder("=");
+    for (int row = startRow; row <= endRow; row++) {
+      sb.append(placeholder.replace("%", Integer.toString(row)));
+      if (row < endRow) {
+        sb.append("+");
+      }
     }
-    return elem;
+    return sb.toString();
   }
 
   /** Returns the student class diagram with the given identifier. */
