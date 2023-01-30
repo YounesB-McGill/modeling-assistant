@@ -9,31 +9,32 @@ import static modelingassistant.util.SynonymUtils.setSynonymToClassInClassDiag;
 import static modelingassistant.util.SynonymUtils.setSynonymToRoleInClassInClassDiag;
 import static modelingassistant.util.TagUtils.setAbstractionTagToClassInClassDiag;
 import static modelingassistant.util.TagUtils.setOccurrenceTagToClassInClassDiag;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Pattern;
 import java.util.Set;
+import java.util.function.Predicate;
+import java.util.regex.Pattern;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.ClassDiagram;
 import ca.mcgill.sel.mistakedetection.Comparison;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
-import modelingassistant.ModelingassistantFactory;
 import modelingassistant.Mistake;
+import modelingassistant.ModelingassistantFactory;
 import modelingassistant.Solution;
 import modelingassistant.TagGroup;
 import modelingassistant.util.ResourceHelper;
@@ -45,20 +46,21 @@ import modelingassistant.util.ResourceHelper;
  *
  * Note that due to student privacy reasons, the dataset is not made public here, but you may obtain
  * a copy under certain conditions from the professors responsible for the project. In that case,
- * add the student solutions to the STUDENT_SOLUTION_DIR below, or change it to point to their
- * location on your disk. Never commit these solutions to the public repo!
+ * add the student solutions to some location(s) on your disk and change the constants below to point to them.
+ * Never commit these solutions to the public repo!
  *
  * @author Prabhsimran Singh
+ * @author Younes Boubekeur
  */
-//@Disabled("Tests with real student solutions are disabled in public version of this repo. Please contact a professor "
-//    + "from the McGill Software Engineering Lab to see if you can obtain access.")
+@Disabled("Tests with real student solutions are disabled in public version of this repo. Please contact a professor "
+    + "from the McGill Software Engineering Lab to see if you can obtain access.")
 public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTest {
 
   /** The folder where student solutions are located. */
-  private static final String STUDENT_SOLUTION_DIR = "../mistakedetection/realModels/studentSolution";
+  private static final String HOTEL_STUDENT_SOLUTION_DIR = "../mistakedetection/realModels/studentSolution";
 
   /** The common prefix for each student solution folder name. */
-  private static final String STUDENT_SOLUTION_DIR_NAME_PREFIX = "studentDomainModel_";
+  private static final String HOTEL_STUDENT_SOLUTION_DIR_NAME_PREFIX = "studentDomainModel_";
 
   /** The standard Class Diagram Model file path for each student solution. */
   private static final String CDM_PATH = "Class Diagram/StudentDomainModel.domain_model.cdm";
@@ -76,12 +78,12 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
   /** The ModelingassistantFactory instance. */
   private static final ModelingassistantFactory maf = ModelingassistantFactory.eINSTANCE;
 
-
   // TODO To be completed in near future. The functions below are incomplete
-  ClassDiagram instructorClassDiagram;
-  Solution instructorSolution;
+  private static ClassDiagram instructorClassDiagram;
+  private static Solution instructorSolution;
 
-  MistakeDetectionPerformanceAnalysis() {
+  @BeforeAll
+  public static void setup() {
     instructorClassDiagram = cdmFromFile(
         "../mistakedetection/realModels/instructorSolution/instructorSolution2/Class Diagram/InstructorSolution2.domain_model.cdm");
     instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -140,190 +142,49 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
         instructorClassDiagram, instructorSolution);
   }
 
-  @Test
-  public void testStudentSolution1() {
-    var studentClassDiagram = getStudentClassDiagram("G12_1");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+  /** Combines 30 unit tests for the hotel dataset into one compound test. */
+  @Test public void testHotelStudentSolutions() {
+    // 1-indexed list of student solutions numbered 1-30, ten per line
+    List<String> solutionIds = List.of("",
+         "G12_1", "G12_5", "G12_9", "G12_11", "G13_3", "G13_7", "G13_10", "G14_4", "G14_8", "G14_15",
+         "G15_3", "G15_7", "G15_16", "G16_9", "G16_11", "G16_12", "G17_5", "G17_8", "G17_12", "G17_25",
+         "G12_3", "G12_14", "G13_5", "G13_9", "G13_15", "G14_2", "G14_7", "G14_12", "G15_5", "G15_9");
+    // list of solutions that should be (re)evaluated by (re)generating a spreadsheet for them
+    List<String> idsToEvaluate = List.of("G14_8"); // or List.copyOf(solutionIds)
+    // solutions not found on the local filesystem, which can be ignored
+    List<String> notFoundIds = new ArrayList<>();
+    // existing solutions that caused the MDS to crash
+    List<String> failedIds = new ArrayList<>();
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-  }
-
-  @Test
-  public void testStudentSolution2() {
-    var studentClassDiagram = getStudentClassDiagram("G12_5");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-  }
-
-  @Test
-  public void testStudentSolution3() throws Exception {
-    var name = "G12_9";
-    var studentClassDiagram = getStudentClassDiagram(name);
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-  }
-
-  @Test
-  public void testStudentSolution4() {
-    var studentClassDiagram = getStudentClassDiagram("G12_11");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-  }
-
-  @Test
-  public void testStudentSolution5() {
-    var studentClassDiagram = getStudentClassDiagram("G13_3");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-  }
-
-  @Test
-  public void testStudentSolution6() throws Exception {
-    var name = "G13_7";
-    var studentClassDiagram = getStudentClassDiagram(name);
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-  }
-
-  @Test
-  public void testStudentSolution7() {
-    var studentClassDiagram = getStudentClassDiagram("G13_10");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-  }
-
-  @Test
-  public void testStudentSolution8() {
-    var studentClassDiagram = getStudentClassDiagram("G14_4");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-  }
-
-  @Test
-  public void testStudentSolution9() {
-    var studentClassDiagram = getStudentClassDiagram("G14_8");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-  }
-
-  @Test
-  public void testStudentSolution10() {
-    var studentClassDiagram = getStudentClassDiagram("G14_15");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-  }
-
-  @Test
-  public void testStudentSolution11() {
-    var studentClassDiagram = getStudentClassDiagram("G15_3");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-  }
-
-  @Test
-  public void testStudentSolution12() {
-    var studentClassDiagram = getStudentClassDiagram("G15_7");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-  }
-
-  @Test
-  public void testStudentSolution13() {
-    var studentClassDiagram = getStudentClassDiagram("G15_16");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-  }
-
-  @Test
-  public void testStudentSolution14() {
-    var studentClassDiagram = getStudentClassDiagram("G16_9");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-  }
-
-  @Test
-  public void testStudentSolution15() {
-    var studentClassDiagram = getStudentClassDiagram("G16_11");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-  }
-
-  @Test
-  public void testStudentSolution16() {
-    var studentClassDiagram = getStudentClassDiagram("G16_12");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-  }
-
-  @Test
-  public void testStudentSolution17() {
-    var studentClassDiagram = getStudentClassDiagram("G17_5");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-  }
-
-  @Test
-  public void testStudentSolution18() {
-    var studentClassDiagram = getStudentClassDiagram("G17_8");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-  }
-
-  @Test
-  public void testStudentSolution19() {
-    var studentClassDiagram = getStudentClassDiagram("G17_12");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-  }
-
-  @Test
-  public void testStudentSolution20() {
-    var studentClassDiagram = getStudentClassDiagram("G17_25");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
+    solutionIds.stream().filter(Predicate.not(String::isEmpty)).forEach(solutionId -> {
+      try {
+        var studentClassDiagram = getStudentClassDiagram(solutionId);
+        if (studentClassDiagram == null) {
+          notFoundIds.add(solutionId);
+        } else {
+          var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+          var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
+          assertNotNull(comparison);
+          if (idsToEvaluate.contains(solutionId)) {
+            produceExcelSheet(comparison, solutionId, HOTEL_OUTPUT_SPREADSHEET_LOC);
+          }
+        }
+      } catch (Exception e) {
+        System.err.println("Could not detect mistakes for solution " + solutionId + " due to error:");
+        e.printStackTrace();
+        failedIds.add(solutionId);
+      }
+    });
+    if (!notFoundIds.isEmpty()) {
+      System.err.println("Could not find cdm files for " + notFoundIds.size() + " solutions: " + notFoundIds);
+    }
+    if (!failedIds.isEmpty()) {
+      fail("Could not detect mistakes for " + failedIds.size() + " solutions: " + failedIds);
+    }
   }
 
   /** Tests that the MDS runs without errors on the submissions from the final exam dataset. */
-  @Test
-  public void testThatMdsRunsOnFinalExamStudentSolutions() {
+  @Test public void testThatMdsRunsOnFinalExamStudentSolutions() {
     var ma = maf.createModelingAssistant();
     var instSolution = maf.createSolution();
     instSolution.setModelingAssistant(ma);
@@ -376,8 +237,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
    * Tests that the MDS runs without errors on a submission from the final exam dataset.
    * This is a convenience method to help debug the test above.
    */
-  @Test
-  public void testThatMdsRunsOnSingleFinalExamStudentSolution() {
+  @Test public void testThatMdsRunsOnSingleFinalExamStudentSolution() {
     var ma = maf.createModelingAssistant();
     var instSolution = maf.createSolution();
     instSolution.setModelingAssistant(ma);
@@ -394,121 +254,14 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
     try {
       System.out.println("Detecting mistakes for " + cdmName + ".cdm");
       var comparison = MistakeDetection.compare(instSolution, studSolution).log();
-      //assertNotNull(comparison);
+      assertNotNull(comparison);
     } catch (Exception e) {
       System.err.println("Could not detect mistakes for " + cdmName + ".cdm due to error:");
       e.printStackTrace();
     }
   }
 
-  @Test
-  public void testStudentSolution21() throws Exception {
-    var name = "G12_3";
-    var studentClassDiagram = getStudentClassDiagram(name);
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-
-  }
-
-  @Test
-  public void testStudentSolution22() throws Exception {
-    var name = "G12_14";
-    var studentClassDiagram = getStudentClassDiagram(name);
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-
-  }
-
-  @Test
-  public void testStudentSolution23() throws Exception {
-    var name = "G13_5";
-    var studentClassDiagram = getStudentClassDiagram(name);
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-
-  }
-
-  @Test
-  public void testStudentSolution24() throws Exception {
-    var name = "G13_9";
-    var studentClassDiagram = getStudentClassDiagram(name);
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-
-  }
-
-  @Test
-  public void testStudentSolution25() throws Exception {
-    var name = "G13_15";
-    var studentClassDiagram = getStudentClassDiagram(name);
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-
-  }
-
-  @Test
-  public void testStudentSolution26() throws Exception {
-    var name = "G14_2";
-    var studentClassDiagram = getStudentClassDiagram(name);
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-    comparison.sortedLog();
-
-  }
-
-  @Test
-  public void testStudentSolution27() throws Exception {
-    var name = "G14_7";
-    var studentClassDiagram = getStudentClassDiagram(name);
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-
-  }
-
-  @Test
-  public void testStudentSolution28() throws Exception {
-    var name = "G14_12";
-    var studentClassDiagram = getStudentClassDiagram(name);
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-  }
-
-  @Test
-  public void testStudentSolution29() throws Exception {
-    var name = "G15_5";
-    var studentClassDiagram = getStudentClassDiagram(name);
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-  }
-
-  @Test
-  public void testStudentSolution30() throws Exception {
-    var name = "G15_9";
-    var studentClassDiagram = getStudentClassDiagram(name);
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-    produceExcelSheet(comparison, name, HOTEL_OUTPUT_SPREADSHEET_LOC);
-  }
-
-  public static void produceExcelSheet(Comparison comparison, String name, String location) throws Exception {
+  public static void produceExcelSheet(Comparison comparison, String name, String location) {
     var sortedMistakes = getSortedMistakeList(comparison.newMistakes);
     List<Mistake> extraMistakes = new ArrayList<>();
     List<Mistake> notExtraMistakes = new ArrayList<>();
@@ -525,7 +278,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
     int id = 1;
     studentData.put(String.valueOf(id), new Object[] {"Instructor Element", "Student Elements", "Mistake Type",
         "Actually a Mistake", "MDS Result", "MDS vs Actual Mistake", "Comments"});
-    ArrayList<String> printedToExcel = new ArrayList<>();
+    List<String> printedToExcel = new ArrayList<>();
     for (Mistake m : notExtraMistakes) {
       int count = 1;
       var instElem = getConcatNames(m.getInstructorElementNames());
@@ -678,11 +431,14 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
           }
         }
       }
-      try (FileOutputStream out = new FileOutputStream(new File(location + "GroundTruth_" + name + ".xlsx"))) {
+      var filename = "GroundTruth_" + name + ".xlsx";
+      try (var out = new FileOutputStream(Paths.get(location, filename).toAbsolutePath().toString())) {
         workbook.write(out);
+        System.out.println(filename + " created");
       }
+    } catch (IOException e) {
+      e.printStackTrace();
     }
-    System.out.println(name + " excel created");
   }
 
   public static String getConcatNames(List<String> elems) {
@@ -708,7 +464,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
 
   /** Returns the student class diagram with the given identifier. */
   private static ClassDiagram getStudentClassDiagram(String id) {
-    return cdmFromFile(Paths.get(STUDENT_SOLUTION_DIR, STUDENT_SOLUTION_DIR_NAME_PREFIX + id, CDM_PATH));
+    return cdmFromFile(Paths.get(HOTEL_STUDENT_SOLUTION_DIR, HOTEL_STUDENT_SOLUTION_DIR_NAME_PREFIX + id, CDM_PATH));
   }
 
 }
