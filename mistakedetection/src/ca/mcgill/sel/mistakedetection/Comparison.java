@@ -150,7 +150,7 @@ public class Comparison {
     }
     var mistakes = newMistakes;
     if (sortMistakes) {
-      mistakes = getSortedMistakeList(newMistakes);
+      mistakes = getSortedMistakeList();
     }
     mistakes.forEach(m -> sb.append(" - " + m.getMistakeType().getName() + ": ")
         .append("Student Elements: " + m.getStudentElementNames() + ", ")
@@ -223,9 +223,9 @@ public class Comparison {
     return sb.toString();
   }
 
-  public static List<Mistake> getSortedMistakeList(List<Mistake> mistakes){
-    Collections.sort(mistakes, Comparator.comparing(Mistake::getMistakeType));
-    return mistakes;
+  public List<Mistake> getSortedMistakeList(){
+    Collections.sort(newMistakes, Comparator.comparing(Mistake::getMistakeType));
+    return newMistakes;
   }
 
   private int numTotalMistakes() {

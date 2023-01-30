@@ -1,6 +1,5 @@
 package ca.mcgill.sel.mistakedetection.tests;
 
-import static ca.mcgill.sel.mistakedetection.Comparison.getSortedMistakeList;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instructorSolutionFromClassDiagram;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentSolutionFromClassDiagram;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
@@ -262,7 +261,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
   }
 
   public static void produceExcelSheet(Comparison comparison, String name, String location) {
-    var sortedMistakes = getSortedMistakeList(comparison.newMistakes);
+    var sortedMistakes = comparison.getSortedMistakeList();
     List<Mistake> extraMistakes = new ArrayList<>();
     List<Mistake> notExtraMistakes = new ArrayList<>();
 
@@ -274,7 +273,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
       }
     }
 
-    LinkedHashMap<String, Object[]> studentData = new LinkedHashMap<>();
+    Map<String, Object[]> studentData = new LinkedHashMap<>();
     int id = 1;
     studentData.put(String.valueOf(id), new Object[] {"Instructor Element", "Student Elements", "Mistake Type",
         "Actually a Mistake", "MDS Result", "MDS vs Actual Mistake", "Comments"});
