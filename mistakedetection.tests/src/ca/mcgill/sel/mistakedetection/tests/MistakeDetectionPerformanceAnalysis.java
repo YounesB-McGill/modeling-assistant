@@ -2,6 +2,7 @@ package ca.mcgill.sel.mistakedetection.tests;
 
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instructorSolutionFromClassDiagram;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentSolutionFromClassDiagram;
+import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import static modelingassistant.util.SynonymUtils.setSynonymToAttribInClassInClassDiag;
 import static modelingassistant.util.SynonymUtils.setSynonymToClassInClassDiag;
@@ -10,25 +11,29 @@ import static modelingassistant.util.TagUtils.setAbstractionTagToClassInClassDia
 import static modelingassistant.util.TagUtils.setOccurrenceTagToClassInClassDiag;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import ca.mcgill.sel.classdiagram.Attribute;
 import ca.mcgill.sel.classdiagram.ClassDiagram;
 import ca.mcgill.sel.mistakedetection.Comparison;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
@@ -51,8 +56,8 @@ import modelingassistant.util.ResourceHelper;
  * @author Prabhsimran Singh
  * @author Younes Boubekeur
  */
-@Disabled("Tests with real student solutions are disabled in public version of this repo. Please contact a professor "
-    + "from the McGill Software Engineering Lab to see if you can obtain access.")
+//@Disabled("Tests with real student solutions are disabled in public version of this repo. Please contact a professor "
+//    + "from the McGill Software Engineering Lab to see if you can obtain access.")
 public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTest {
 
   /** The folder where student solutions are located. */
@@ -60,6 +65,9 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
 
   /** The common prefix for each student solution folder name. */
   private static final String HOTEL_STUDENT_SOLUTION_DIR_NAME_PREFIX = "studentDomainModel_";
+
+  /** The file containing the synonyms for the hotel domain model. */
+  private static final String HOTEL_SYNONYMS_FILE = "hotel-synonyms.properties";
 
   /** The standard Class Diagram Model file path for each student solution. */
   private static final String CDM_PATH = "Class Diagram/StudentDomainModel.domain_model.cdm";
@@ -89,56 +97,31 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
     TagGroup tagGroup = setAbstractionTagToClassInClassDiag("RoomType", instructorClassDiagram, instructorSolution);
     setOccurrenceTagToClassInClassDiag("Room", tagGroup, instructorClassDiagram);
 
-    // Assigning synonyms to classes
-    setSynonymToClassInClassDiag("Person", List.of("Guest"), instructorClassDiagram, instructorSolution);
-    setSynonymToClassInClassDiag("Booking", List.of("Reservation", "RoomReservation"), instructorClassDiagram,
-        instructorSolution);
-    setSynonymToClassInClassDiag("Hotel", List.of("HotelSocs", "SOCSHotel", "HotelSystem"), instructorClassDiagram,
-        instructorSolution);
-
-    // Assigning synonyms to attributes
-    setSynonymToAttribInClassInClassDiag("RoomType", "maxDailyRate", List.of("maxRate", "maximumDailyRate"),
-        instructorClassDiagram, instructorSolution);
-    setSynonymToAttribInClassInClassDiag("RoomType", "qualityLevel", List.of("quality", "level"),
-        instructorClassDiagram, instructorSolution);
-    setSynonymToAttribInClassInClassDiag("Room", "roomNumber", List.of("number"), instructorClassDiagram,
-        instructorSolution);
-    setSynonymToAttribInClassInClassDiag("Room", "status", List.of("smokingStatus", "smoking"), instructorClassDiagram,
-        instructorSolution);
-    setSynonymToAttribInClassInClassDiag("Bed", "type", List.of("bedKind", "bedType"), instructorClassDiagram,
-        instructorSolution);
-    setSynonymToAttribInClassInClassDiag("Person", "phoneNumber", List.of("telephone", "phone", "telephoneNumber"),
-        instructorClassDiagram, instructorSolution);
-    setSynonymToAttribInClassInClassDiag("Person", "creditcard", List.of("card", "cardNumber", "creditCardNumber"),
-        instructorClassDiagram, instructorSolution);
-    setSynonymToAttribInClassInClassDiag("Stay", "checkinDate", List.of("checkin", "date"), instructorClassDiagram,
-        instructorSolution);
-    setSynonymToAttribInClassInClassDiag("Stay", "numberOfNights", List.of("nights", "duration", "length"),
-        instructorClassDiagram, instructorSolution);
-    setSynonymToAttribInClassInClassDiag("Stay", "dailyRate", List.of("nightlyRate", "rate", "price", "currentRate"),
-        instructorClassDiagram, instructorSolution);
-    setSynonymToAttribInClassInClassDiag("Booking", "startDate", List.of("start", "date"), instructorClassDiagram,
-        instructorSolution);
-    setSynonymToAttribInClassInClassDiag("Booking", "bookedDailyRate", List.of("dailyRate"), instructorClassDiagram,
-        instructorSolution);
-
-    // Assigning synonyms to assoc ends
-    setSynonymToRoleInClassInClassDiag("Hotel", "bookings", List.of("reservations", "myReservations"),
-        instructorClassDiagram, instructorSolution);
-    setSynonymToRoleInClassInClassDiag("Room", "bookings", List.of("reservations", "myReservations"),
-        instructorClassDiagram, instructorSolution);
-    setSynonymToRoleInClassInClassDiag("Room", "hotel", List.of("myHotelSystem", "inHotel", "mySOCSHotel"),
-        instructorClassDiagram, instructorSolution);
-    setSynonymToRoleInClassInClassDiag("Person", "bookings",
-        List.of("reservations", "myReservations", "myRoomReservations"), instructorClassDiagram, instructorSolution);
-    setSynonymToRoleInClassInClassDiag("Person", "hotel", List.of("myHotelSystem", "inHotel", "mySOCSHotel"),
-        instructorClassDiagram, instructorSolution);
-    setSynonymToRoleInClassInClassDiag("Booking", "bookedRooms", List.of("reservedRooms"), instructorClassDiagram,
-        instructorSolution);
-    setSynonymToRoleInClassInClassDiag("Booking", "By", List.of("reservedBy"), instructorClassDiagram,
-        instructorSolution);
-    setSynonymToRoleInClassInClassDiag("Booking", "hotel", List.of("myHotelSystem", "inHotel", "mySOCSHotel"),
-        instructorClassDiagram, instructorSolution);
+    // set synonyms based on properties file
+    var props = new Properties();
+    try (var fis = new FileInputStream(HOTEL_SYNONYMS_FILE)) {
+      props.load(fis);
+      props.entrySet().forEach(e -> {
+        var name = (String) e.getKey();
+        var syns = Arrays.stream(((String) e.getValue()).split(",")).map(String::trim)
+            .collect(Collectors.toUnmodifiableList());
+        if (!name.contains(".")) {
+          setSynonymToClassInClassDiag(name, syns, instructorClassDiagram, instructorSolution);
+        } else {
+          var splitName = name.split("\\.");
+          var className = splitName[0];
+          var propertyName = splitName[1];
+          var cls = getClassFromClassDiagram(className, instructorClassDiagram);
+          if (cls.getAttributes().stream().map(Attribute::getName).anyMatch(n -> n.equals(propertyName))) {
+            setSynonymToAttribInClassInClassDiag(cls, propertyName, syns, instructorClassDiagram, instructorSolution);
+          } else {
+            setSynonymToRoleInClassInClassDiag(cls, propertyName, syns, instructorClassDiagram, instructorSolution);
+          }
+        }
+      });
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   /** Combines 30 unit tests for the hotel dataset into one compound test. */
@@ -149,7 +132,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
          "G15_3", "G15_7", "G15_16", "G16_9", "G16_11", "G16_12", "G17_5", "G17_8", "G17_12", "G17_25",
          "G12_3", "G12_14", "G13_5", "G13_9", "G13_15", "G14_2", "G14_7", "G14_12", "G15_5", "G15_9");
     // list of solutions that should be (re)evaluated by (re)generating a spreadsheet for them
-    List<String> idsToEvaluate = List.of("G14_8"); // or List.copyOf(solutionIds)
+    List<String> idsToEvaluate = List.of("G15_9"); // or List.copyOf(solutionIds)
     // solutions not found on the local filesystem, which can be ignored
     List<String> notFoundIds = new ArrayList<>();
     // existing solutions that caused the MDS to crash
@@ -223,9 +206,9 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
           invalidCdms.add(cdmName);
         }
       });
-      System.out.println("Valid cdms (" + validCdms.size() + "): " + validCdms);
-      System.out.println("Invalid cdms (" + invalidCdms.size() + "): " + invalidCdms);
-      System.out.println("\nStudent solution,Number of mistakes");
+      System.out.println("Valid cdms (" + validCdms.size() + "): " + validCdms
+          + "\nInvalid cdms (" + invalidCdms.size() + "): " + invalidCdms
+          + "\n\nStudent solution,Number of mistakes");
       solutionsToNumMistakes.forEach((id, num) -> System.out.println(id + "," + num));
     } catch (IOException e) {
       e.printStackTrace();
