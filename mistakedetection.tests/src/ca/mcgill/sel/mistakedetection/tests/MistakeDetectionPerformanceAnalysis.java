@@ -23,7 +23,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.Set;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -256,9 +255,9 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
       }
     }
 
-    Map<String, Object[]> studentData = new LinkedHashMap<>();
+    Map<Integer, Object[]> studentData = new LinkedHashMap<>();
     int id = 1;
-    studentData.put(String.valueOf(id), new Object[] {"Instructor Element", "Student Elements", "Mistake Type",
+    studentData.put(id, new Object[] {"Instructor Element", "Student Elements", "Mistake Type",
         "Actually a Mistake", "MDS Result", "MDS vs Actual Mistake", "Comments"});
     List<String> printedToExcel = new ArrayList<>();
     for (Mistake m : notExtraMistakes) {
@@ -286,7 +285,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
       if (!printedToExcel.contains(fnlString) || mistakeType.equals(WRONG_ROLE_NAME)
           || mistakeType.equals(WRONG_MULTIPLICTY)) {
         id++;
-        studentData.put(String.valueOf(id),
+        studentData.put(id,
             new Object[] {instElem, studElem, mistakeType, "", count, "=D" + id + "=E" + id, ""});
         printedToExcel.add(fnlString);
       }
@@ -317,7 +316,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
       var fnlString = instElem + studElem;
       if (!printedToExcel.contains(fnlString) || mistakeType.equals(WRONG_ROLE_NAME)
           || mistakeType.equals(WRONG_MULTIPLICTY)) {
-        studentData.put(String.valueOf(id),
+        studentData.put(id,
             new Object[] {instElem, studElem, mistakeType, "", count, "=D" + id + "=E" + id, ""});
         id++;
         printedToExcel.add(fnlString);
@@ -325,12 +324,12 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
     }
 
     int nId = id;
-    studentData.put(String.valueOf(nId++), new Object[] {""});
-    studentData.put(String.valueOf(nId++), new Object[] {""});
-    studentData.put(String.valueOf(nId++),
+    studentData.put(nId++, new Object[] {""});
+    studentData.put(nId++, new Object[] {""});
+    studentData.put(nId++,
         new Object[] {"Total Mistakes", "", "", "=SUM(D2:D" + --id + ")", "=SUM(E2:E" + id + ")", "", ""});
 
-    studentData.put(String.valueOf(nId++),
+    studentData.put(nId++,
         new Object[] {"MDS vs Actual Decision", "", "", "", "", "=COUNTIF(F2:F" + id + ",\"False\")", ""});
 
     // Important for formula calculations
@@ -349,52 +348,49 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
     var fnIndex = fpIndex + 1;
     var recallIndex = fnIndex + 1;
     var precisionIndex = recallIndex + 1;
-    studentData.put(String.valueOf(nId++), new Object[] {"Total number of instructor elements", 102});
-    studentData.put(String.valueOf(nId++),
+    studentData.put(nId++, new Object[] {"Total number of instructor elements", 102});
+    studentData.put(nId++,
         new Object[] {"Instructor elements present", "=COUNT(E2:E" + instructorElems + ")"});
-    studentData.put(String.valueOf(nId++),
+    studentData.put(nId++,
         new Object[] {"Extra Elements", sumOfMaximumsFormula("D", extraElemsStart, "E", id)});
-    studentData.put(String.valueOf(nId++), new Object[] {"Additional false negatives", 0});
-    studentData.put(String.valueOf(nId++), new Object[] {"Additional false positive", 0});
-    studentData.put(String.valueOf(nId++), new Object[] {"Total elements",
+    studentData.put(nId++, new Object[] {"Additional false negatives", 0});
+    studentData.put(nId++, new Object[] {"Additional false positive", 0});
+    studentData.put(nId++, new Object[] {"Total elements",
         "=B" + totalInstElemsIndex + "+B" + studExtraIndex + "+B" + addFalseNegIndex + "+B" + addFalsePosIndex});
-    studentData.put(String.valueOf(nId++), new Object[] {"Total number of verdicts",
+    studentData.put(nId++, new Object[] {"Total number of verdicts",
         sumOfPlaceholdersFormula("IF(D%=2,1,IF(E%=2,1,0))", 2, instructorElems) + " + B" + totalElemsIndex});
-    studentData.put(String.valueOf(nId++), new Object[] {"TN+TP+FP+FN", "=SUM(C" + tnIndex + ":C" + fnIndex + ")"});
+    studentData.put(nId++, new Object[] {"TN+TP+FP+FN", "=SUM(C" + tnIndex + ":C" + fnIndex + ")"});
 
-    studentData.put(String.valueOf(nId++), new Object[] {""});
-    studentData.put(String.valueOf(nId++), new Object[] {"", "", "Actual Vs MDS"});
+    studentData.put(nId++, new Object[] {""});
+    studentData.put(nId++, new Object[] {"", "", "Actual Vs MDS"});
 
-    studentData.put(String.valueOf(nId++),
+    studentData.put(nId++,
         new Object[] {"Correct Identification % (mistakes)", "", "=C" + tpIndex + "/E" + totalMistakeindex + "*100"});
-    studentData.put(String.valueOf(nId++), new Object[] {"Correct Identification % (verdicts)", "",
+    studentData.put(nId++, new Object[] {"Correct Identification % (verdicts)", "",
         "=((B" + totalNumbVerdictsIndex + "-F" + MDSvsActualIndex + ")/B" + totalNumbVerdictsIndex + ")*100"});
-    studentData.put(String.valueOf(nId++), new Object[] {"True Negative", "",
+    studentData.put(nId++, new Object[] {"True Negative", "",
         sumOfPlaceholdersFormula("IF(D%=0,IF(E%=0,1,0),0)", 2, instructorElems)
         + " + (102 - B" + instElemsIndex + ")"});
-    studentData.put(String.valueOf(nId++), new Object[] {"True Positive", "",
+    studentData.put(nId++, new Object[] {"True Positive", "",
         sumOfPlaceholdersFormula("IF(D%>0,IF(D%>E%,E%,D%),0)", 2, id)});
-    studentData.put(String.valueOf(nId++), new Object[] {"False Positive", "",
+    studentData.put(nId++, new Object[] {"False Positive", "",
         sumOfPlaceholdersFormula("MAX(E%-D%,0)", 2, id) + " + B" + addFalsePosIndex});
-    studentData.put(String.valueOf(nId++), new Object[] {"False Negative", "",
+    studentData.put(nId++, new Object[] {"False Negative", "",
         sumOfPlaceholdersFormula("MAX(D%-E%,0)", 2, id) + " + B" + addFalseNegIndex});
-    studentData.put(String.valueOf(nId++),
+    studentData.put(nId++,
         new Object[] {"Recall (TP / (TP + FN))", "", "=(C" + tpIndex + "/(C" + tpIndex + "+C" + fnIndex + "))"});
-    studentData.put(String.valueOf(nId++),
+    studentData.put(nId++,
         new Object[] {"Precision (TP / (TP + FP))", "", "=(C" + tpIndex + "/(C" + tpIndex + "+C" + fpIndex + "))"});
 
-    studentData.put(String.valueOf(nId++), new Object[] {"F1 (2 * Precision * Recall / (Precision + Recall))", "",
+    studentData.put(nId++, new Object[] {"F1 (2 * Precision * Recall / (Precision + Recall))", "",
         "=(2*C" + precisionIndex + "*C" + recallIndex + ")/(C" + precisionIndex + "+C" + recallIndex + ")"});
-    studentData.put(String.valueOf(nId++), new Object[] {"F2 (5 * Precision * Recall) / (4 * Precision + Recall)", "",
+    studentData.put(nId++, new Object[] {"F2 (5 * Precision * Recall) / (4 * Precision + Recall)", "",
         "=(5*C" + precisionIndex + "*C" + recallIndex + ")/(4*C" + precisionIndex + "+C" + recallIndex + ")"});
 
     try (XSSFWorkbook workbook = new XSSFWorkbook()) {
       XSSFSheet spreadsheet = workbook.createSheet(name);
-
-      Set<String> keyid = studentData.keySet();
       int rowid = 0;
-
-      for (String key : keyid) {
+      for (var key : studentData.keySet()) {
         XSSFRow row = spreadsheet.createRow(rowid++);
         Object[] objectArr = studentData.get(key);
         int cellid = 0;
