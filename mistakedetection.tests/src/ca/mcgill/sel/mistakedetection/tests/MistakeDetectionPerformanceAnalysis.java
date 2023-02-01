@@ -387,27 +387,10 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
     studentData.put(nId++, new Object[] {"F2 (5 * Precision * Recall) / (4 * Precision + Recall)", "",
         "=(5*C" + precisionIndex + "*C" + recallIndex + ")/(4*C" + precisionIndex + "+C" + recallIndex + ")"});
 
-    try (XSSFWorkbook workbook = new XSSFWorkbook()) {
-      XSSFSheet spreadsheet = workbook.createSheet(name);
-      int rowid = 0;
-      for (var key : studentData.keySet()) {
-        XSSFRow row = spreadsheet.createRow(rowid++);
-        Object[] objectArr = studentData.get(key);
-        int cellid = 0;
-        for (var obj : objectArr) {
-          XSSFCell cell = row.createCell(cellid++);
-          if (obj instanceof String) {
-            String sObj = (String) obj;
-            if (sObj.startsWith("=")) {
-              sObj = sObj.replaceFirst("=", "");
-              cell.setCellFormula(sObj);
-            } else {
-              cell.setCellValue(sObj);
-            }
-          } else {
-            cell.setCellValue((int) obj);
-          }
-        }
+    try (var workbook = new XSSFWorkbook()) {
+      var spreadsheet = new SpreadsheetWrapper(workbook.createSheet(name));
+      for (var entry : studentData.entrySet()) {
+        spreadsheet.addRow(entry.getValue());
       }
       var filename = "GroundTruth_" + name + ".xlsx";
       try (var out = new FileOutputStream(Paths.get(location, filename).toAbsolutePath().toString())) {
@@ -443,6 +426,41 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
   /** Returns the student class diagram with the given identifier. */
   private static ClassDiagram getStudentClassDiagram(String id) {
     return cdmFromFile(Paths.get(HOTEL_STUDENT_SOLUTION_DIR, HOTEL_STUDENT_SOLUTION_DIR_NAME_PREFIX + id, CDM_PATH));
+  }
+
+  /** Wrapper class for an Apache POI XSSFSheet with automatic row management. */
+  static class SpreadsheetWrapper {
+    XSSFSheet sheet;
+    int rowNumber = 0;
+
+    public SpreadsheetWrapper(XSSFSheet sheet) {
+      this.sheet = sheet;
+    }
+
+    /**
+     * Adds a row with the following cells to the spreadsheet wrapper and returns the wrapper class to allow for
+     * chained invocations.
+     */
+    public SpreadsheetWrapper addRow(Object... cellItems) {
+      XSSFRow row = sheet.createRow(rowNumber);
+      for (int i = 0; i < cellItems.length; i++) {
+        XSSFCell cell = row.createCell(i);
+        var item = cellItems[i];
+        if (item instanceof String) {
+          var itemStr = (String) item;
+          if (itemStr.startsWith("=")) {
+            itemStr = itemStr.replaceFirst("=", "");
+            cell.setCellFormula(itemStr);
+          } else {
+            cell.setCellValue(itemStr);
+          }
+        } else if (item instanceof Integer) {
+          cell.setCellValue((int) item);
+        }
+      }
+      rowNumber++;
+      return this;
+    }
   }
 
 }
