@@ -71,6 +71,9 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
   /** The standard Class Diagram Model file path for each student solution. */
   private static final String CDM_PATH = "Class Diagram/StudentDomainModel.domain_model.cdm";
 
+  /** The number of hotel instructor solution elements. */
+  private static final int NUM_HOTEL_INST_SOL_ELEMS = 102;
+
   /** The output location of produceExcelSheet(). */
   private static final String HOTEL_OUTPUT_SPREADSHEET_LOC = "<path-to-output-loc>";
 
@@ -255,14 +258,16 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
       }
     }
 
-    Map<Integer, Object[]> studentData = new LinkedHashMap<>();
-    int id = 1;
-    studentData.put(id, new Object[] {"Instructor Element", "Student Elements", "Mistake Type",
-        "Actually a Mistake", "MDS Result", "MDS vs Actual Mistake", "Comments"});
-    List<String> printedToExcel = new ArrayList<>();
-    for (Mistake m : notExtraMistakes) {
-      int count = 1;
-      var instElem = getConcatNames(m.getInstructorElementNames());
+    try (var workbook = new XSSFWorkbook()) {
+      var sheet = new SpreadsheetWrapper(workbook.createSheet(name));
+      Map<Integer, Object[]> studentData = new LinkedHashMap<>();
+      int id = 1;
+      sheet.addRow("Instructor Element", "Student Elements", "Mistake Type", "Actually a Mistake", "MDS Result",
+          "MDS vs Actual Mistake", "Comments");
+      List<String> printedToExcel = new ArrayList<>();
+      for (Mistake m : notExtraMistakes) {
+        int count = 1;
+        var instElem = getConcatNames(m.getInstructorElementNames());
       var studElem = getConcatNames(m.getStudentElementNames());
 
       var mistakeType = m.getMistakeType().getName();
@@ -284,11 +289,10 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
       var fnlString = instElem + studElem;
       if (!printedToExcel.contains(fnlString) || mistakeType.equals(WRONG_ROLE_NAME)
           || mistakeType.equals(WRONG_MULTIPLICTY)) {
-        id++;
-        studentData.put(id,
-            new Object[] {instElem, studElem, mistakeType, "", count, "=D" + id + "=E" + id, ""});
-        printedToExcel.add(fnlString);
-      }
+          id++;
+          sheet.addRow(instElem, studElem, mistakeType, "", count, "=D" + sheet.rowNumber + "=E" + sheet.rowNumber);
+          printedToExcel.add(fnlString);
+        }
     }
     int instructorElems = id - 1;
     int extraElemsStart = id;
@@ -315,24 +319,21 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
       }
       var fnlString = instElem + studElem;
       if (!printedToExcel.contains(fnlString) || mistakeType.equals(WRONG_ROLE_NAME)
-          || mistakeType.equals(WRONG_MULTIPLICTY)) {
-        studentData.put(id,
-            new Object[] {instElem, studElem, mistakeType, "", count, "=D" + id + "=E" + id, ""});
-        id++;
-        printedToExcel.add(fnlString);
+            || mistakeType.equals(WRONG_MULTIPLICTY)) {
+          sheet.addRow(instElem, studElem, mistakeType, "", count, "=D" + sheet.rowNumber + "=E" + sheet.rowNumber);
+          id++;
+          printedToExcel.add(fnlString);
+        }
       }
-    }
 
-    int nId = id;
-    studentData.put(nId++, new Object[] {""});
-    studentData.put(nId++, new Object[] {""});
-    studentData.put(nId++,
-        new Object[] {"Total Mistakes", "", "", "=SUM(D2:D" + --id + ")", "=SUM(E2:E" + id + ")", "", ""});
+      int nId = id;
+      var mainTableLastRow = sheet.rowNumber;
+      sheet.addRow()
+          .addRow()
+          .addRow("Total Mistakes", "", "", "=SUM(D2:D" + mainTableLastRow + ")", "=SUM(E2:E" + mainTableLastRow + ")")
+          .addRow("MDS vs Actual Decision", "", "", "", "", "=COUNTIF(F2:F" + mainTableLastRow + ",\"False\")");
 
-    studentData.put(nId++,
-        new Object[] {"MDS vs Actual Decision", "", "", "", "", "=COUNTIF(F2:F" + id + ",\"False\")", ""});
-
-    // Important for formula calculations
+      // Important for formula calculations
     var totalMistakeindex = id + 3;
     var MDSvsActualIndex = totalMistakeindex + 1;
     var totalInstElemsIndex = MDSvsActualIndex + 1;
@@ -344,54 +345,38 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
     var totalNumbVerdictsIndex = totalElemsIndex + 1;
     var tnIndex = totalNumbVerdictsIndex + 6;
     var tpIndex = tnIndex + 1;
-    var fpIndex = tpIndex + 1;
-    var fnIndex = fpIndex + 1;
-    var recallIndex = fnIndex + 1;
-    var precisionIndex = recallIndex + 1;
-    studentData.put(nId++, new Object[] {"Total number of instructor elements", 102});
-    studentData.put(nId++,
-        new Object[] {"Instructor elements present", "=COUNT(E2:E" + instructorElems + ")"});
-    studentData.put(nId++,
-        new Object[] {"Extra Elements", sumOfMaximumsFormula("D", extraElemsStart, "E", id)});
-    studentData.put(nId++, new Object[] {"Additional false negatives", 0});
-    studentData.put(nId++, new Object[] {"Additional false positive", 0});
-    studentData.put(nId++, new Object[] {"Total elements",
-        "=B" + totalInstElemsIndex + "+B" + studExtraIndex + "+B" + addFalseNegIndex + "+B" + addFalsePosIndex});
-    studentData.put(nId++, new Object[] {"Total number of verdicts",
-        sumOfPlaceholdersFormula("IF(D%=2,1,IF(E%=2,1,0))", 2, instructorElems) + " + B" + totalElemsIndex});
-    studentData.put(nId++, new Object[] {"TN+TP+FP+FN", "=SUM(C" + tnIndex + ":C" + fnIndex + ")"});
+      var fpIndex = tpIndex + 1;
+      var fnIndex = fpIndex + 1;
+      var recallIndex = fnIndex + 1;
+      var precisionIndex = recallIndex + 1;
 
-    studentData.put(nId++, new Object[] {""});
-    studentData.put(nId++, new Object[] {"", "", "Actual Vs MDS"});
+      sheet.addRow("Total number of instructor elements", NUM_HOTEL_INST_SOL_ELEMS)
+          .addRow("Instructor elements present", "=COUNT(E2:E" + instructorElems + ")")
+          .addRow("Extra Elements", sumOfMaximumsFormula("D", extraElemsStart, "E", id))
+          .addRow("Additional false negatives", 0)
+          .addRow("Additional false positive", 0)
+          .addRow("Total elements",
+              "=B" + totalInstElemsIndex + "+B" + studExtraIndex + "+B" + addFalseNegIndex + "+B" + addFalsePosIndex)
+          .addRow("Total number of verdicts",
+              sumOfPlaceholdersFormula("IF(D%=2,1,IF(E%=2,1,0))", 2, instructorElems) + " + B" + totalElemsIndex)
+          .addRow("TN+TP+FP+FN", "=SUM(C" + tnIndex + ":C" + fnIndex + ")")
+          .addRow()
+          .addRow("", "", "Actual Vs MDS")
+          .addRow("Correct Identification % (mistakes)", "", "=C" + tpIndex + "/E" + totalMistakeindex + "*100")
+          .addRow("Correct Identification % (verdicts)", "",
+              "=((B" + totalNumbVerdictsIndex + "-F" + MDSvsActualIndex + ")/B" + totalNumbVerdictsIndex + ")*100")
+          .addRow("True Negative", "", sumOfPlaceholdersFormula("IF(D%=0,IF(E%=0,1,0),0)", 2, instructorElems) + " + ("
+              + NUM_HOTEL_INST_SOL_ELEMS + " - B" + instElemsIndex + ")")
+          .addRow("True Positive", "", sumOfPlaceholdersFormula("IF(D%>0,IF(D%>E%,E%,D%),0)", 2, id))
+          .addRow("False Positive", "", sumOfPlaceholdersFormula("MAX(E%-D%,0)", 2, id) + " + B" + addFalsePosIndex)
+          .addRow("False Negative", "", sumOfPlaceholdersFormula("MAX(D%-E%,0)", 2, id) + " + B" + addFalseNegIndex)
+          .addRow("Recall (TP / (TP + FN))", "", "=(C" + tpIndex + "/(C" + tpIndex + "+C" + fnIndex + "))")
+          .addRow("Precision (TP / (TP + FP))", "", "=(C" + tpIndex + "/(C" + tpIndex + "+C" + fpIndex + "))")
+          .addRow("F1 (2 * Precision * Recall / (Precision + Recall))", "",
+              "=(2*C" + precisionIndex + "*C" + recallIndex + ")/(C" + precisionIndex + "+C" + recallIndex + ")")
+          .addRow("F2 (5 * Precision * Recall) / (4 * Precision + Recall)", "",
+              "=(5*C" + precisionIndex + "*C" + recallIndex + ")/(4*C" + precisionIndex + "+C" + recallIndex + ")");
 
-    studentData.put(nId++,
-        new Object[] {"Correct Identification % (mistakes)", "", "=C" + tpIndex + "/E" + totalMistakeindex + "*100"});
-    studentData.put(nId++, new Object[] {"Correct Identification % (verdicts)", "",
-        "=((B" + totalNumbVerdictsIndex + "-F" + MDSvsActualIndex + ")/B" + totalNumbVerdictsIndex + ")*100"});
-    studentData.put(nId++, new Object[] {"True Negative", "",
-        sumOfPlaceholdersFormula("IF(D%=0,IF(E%=0,1,0),0)", 2, instructorElems)
-        + " + (102 - B" + instElemsIndex + ")"});
-    studentData.put(nId++, new Object[] {"True Positive", "",
-        sumOfPlaceholdersFormula("IF(D%>0,IF(D%>E%,E%,D%),0)", 2, id)});
-    studentData.put(nId++, new Object[] {"False Positive", "",
-        sumOfPlaceholdersFormula("MAX(E%-D%,0)", 2, id) + " + B" + addFalsePosIndex});
-    studentData.put(nId++, new Object[] {"False Negative", "",
-        sumOfPlaceholdersFormula("MAX(D%-E%,0)", 2, id) + " + B" + addFalseNegIndex});
-    studentData.put(nId++,
-        new Object[] {"Recall (TP / (TP + FN))", "", "=(C" + tpIndex + "/(C" + tpIndex + "+C" + fnIndex + "))"});
-    studentData.put(nId++,
-        new Object[] {"Precision (TP / (TP + FP))", "", "=(C" + tpIndex + "/(C" + tpIndex + "+C" + fpIndex + "))"});
-
-    studentData.put(nId++, new Object[] {"F1 (2 * Precision * Recall / (Precision + Recall))", "",
-        "=(2*C" + precisionIndex + "*C" + recallIndex + ")/(C" + precisionIndex + "+C" + recallIndex + ")"});
-    studentData.put(nId++, new Object[] {"F2 (5 * Precision * Recall) / (4 * Precision + Recall)", "",
-        "=(5*C" + precisionIndex + "*C" + recallIndex + ")/(4*C" + precisionIndex + "+C" + recallIndex + ")"});
-
-    try (var workbook = new XSSFWorkbook()) {
-      var spreadsheet = new SpreadsheetWrapper(workbook.createSheet(name));
-      for (var entry : studentData.entrySet()) {
-        spreadsheet.addRow(entry.getValue());
-      }
       var filename = "GroundTruth_" + name + ".xlsx";
       try (var out = new FileOutputStream(Paths.get(location, filename).toAbsolutePath().toString())) {
         workbook.write(out);
@@ -431,7 +416,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
   /** Wrapper class for an Apache POI XSSFSheet with automatic row management. */
   static class SpreadsheetWrapper {
     XSSFSheet sheet;
-    int rowNumber = 0;
+    int rowNumber = 1;
 
     public SpreadsheetWrapper(XSSFSheet sheet) {
       this.sheet = sheet;
@@ -442,6 +427,9 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
      * chained invocations.
      */
     public SpreadsheetWrapper addRow(Object... cellItems) {
+      if (cellItems == null || cellItems.length == 0) {
+        cellItems = new Object[] {""};
+      }
       XSSFRow row = sheet.createRow(rowNumber);
       for (int i = 0; i < cellItems.length; i++) {
         XSSFCell cell = row.createCell(i);
