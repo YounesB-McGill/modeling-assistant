@@ -29,7 +29,6 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.Attribute;
 import ca.mcgill.sel.classdiagram.ClassDiagram;
@@ -58,6 +57,10 @@ import modelingassistant.util.ResourceHelper;
 //    + "from the McGill Software Engineering Lab to see if you can obtain access.")
 public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTest {
 
+  /** The location of the hotel instructor solution. */
+  private static final String HOTEL_INSTRUCTOR_SOLUTION =
+      "../mistakedetection/realModels/instructorSolution/instructorSolution2/Class Diagram/InstructorSolution2.domain_model.cdm";
+
   /** The folder where student solutions are located. */
   private static final String HOTEL_STUDENT_SOLUTION_DIR = "../mistakedetection/realModels/studentSolution";
 
@@ -68,7 +71,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
   private static final String HOTEL_SYNONYMS_FILE = "hotel-synonyms.properties";
 
   /** The standard Class Diagram Model file path for each student solution. */
-  private static final String CDM_PATH = "Class Diagram/StudentDomainModel.domain_model.cdm";
+  private static final String HOTEL_CDM_PATH = "Class Diagram/StudentDomainModel.domain_model.cdm";
 
   /** The number of hotel instructor solution elements. */
   private static final int NUM_HOTEL_INST_SOL_ELEMS = 102;
@@ -86,47 +89,10 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
   /** The ModelingassistantFactory instance. */
   private static final ModelingassistantFactory maf = ModelingassistantFactory.eINSTANCE;
 
-  // TODO To be completed in near future. The functions below are incomplete
-  private static ClassDiagram instructorClassDiagram;
-  private static Solution instructorSolution;
-
-  @BeforeAll
-  public static void setup() {
-    instructorClassDiagram = cdmFromFile(
-        "../mistakedetection/realModels/instructorSolution/instructorSolution2/Class Diagram/InstructorSolution2.domain_model.cdm");
-    instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
-    TagGroup tagGroup = setAbstractionTagToClassInClassDiag("RoomType", instructorClassDiagram, instructorSolution);
-    setOccurrenceTagToClassInClassDiag("Room", tagGroup, instructorClassDiagram);
-
-    // set synonyms based on properties file
-    var props = new Properties();
-    try (var fis = new FileInputStream(HOTEL_SYNONYMS_FILE)) {
-      props.load(fis);
-      props.entrySet().forEach(e -> {
-        var name = (String) e.getKey();
-        var syns = Arrays.stream(((String) e.getValue()).split(",")).map(String::trim)
-            .collect(Collectors.toUnmodifiableList());
-        if (!name.contains(".")) {
-          setSynonymToClassInClassDiag(name, syns, instructorClassDiagram, instructorSolution);
-        } else {
-          var splitName = name.split("\\.");
-          var className = splitName[0];
-          var propertyName = splitName[1];
-          var cls = getClassFromClassDiagram(className, instructorClassDiagram);
-          if (cls.getAttributes().stream().map(Attribute::getName).anyMatch(n -> n.equals(propertyName))) {
-            setSynonymToAttribInClassInClassDiag(cls, propertyName, syns, instructorClassDiagram, instructorSolution);
-          } else {
-            setSynonymToRoleInClassInClassDiag(cls, propertyName, syns, instructorClassDiagram, instructorSolution);
-          }
-        }
-      });
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
 
   /** Combines 30 unit tests for the hotel dataset into one compound test. */
   @Test public void testHotelStudentSolutions() {
+    var instructorSolution = setupHotelInstructorSolution();
     // 1-indexed list of student solutions numbered 1-30, ten per line
     List<String> solutionIds = List.of("",
          "G12_1", "G12_5", "G12_9", "G12_11", "G13_3", "G13_7", "G13_10", "G14_4", "G14_8", "G14_15",
@@ -141,7 +107,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
 
     solutionIds.stream().filter(Predicate.not(String::isEmpty)).forEach(solutionId -> {
       try {
-        var studentClassDiagram = getStudentClassDiagram(solutionId);
+        var studentClassDiagram = getHotelStudentClassDiagram(solutionId);
         if (studentClassDiagram == null) {
           notFoundIds.add(solutionId);
         } else {
@@ -393,6 +359,45 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
     return String.join(", ", elems);
   }
 
+  /** Sets up and returns the hotel instructor solution. */
+  private static Solution setupHotelInstructorSolution() {
+    var instructorClassDiagram = cdmFromFile(HOTEL_INSTRUCTOR_SOLUTION);
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+    TagGroup tagGroup = setAbstractionTagToClassInClassDiag("RoomType", instructorClassDiagram, instructorSolution);
+    setOccurrenceTagToClassInClassDiag("Room", tagGroup, instructorClassDiagram);
+    setSynonymsFromFile(instructorSolution, HOTEL_SYNONYMS_FILE);
+    return instructorSolution;
+  }
+
+  /* Sets synonyms in the given instructor solution based on the given properties file. */
+  private static void setSynonymsFromFile(Solution instSolution, String synonymsFile) {
+    var props = new Properties();
+    var instCdm = instSolution.getClassDiagram();
+    try (var fis = new FileInputStream(synonymsFile)) {
+      props.load(fis);
+      props.entrySet().forEach(e -> {
+        var name = (String) e.getKey();
+        var syns = Arrays.stream(((String) e.getValue()).split(",")).map(String::trim)
+            .collect(Collectors.toUnmodifiableList());
+        if (!name.contains(".")) {
+          setSynonymToClassInClassDiag(name, syns, instCdm, instSolution);
+        } else {
+          var splitName = name.split("\\.");
+          var className = splitName[0];
+          var propertyName = splitName[1];
+          var cls = getClassFromClassDiagram(className, instCdm);
+          if (cls.getAttributes().stream().map(Attribute::getName).anyMatch(n -> n.equals(propertyName))) {
+            setSynonymToAttribInClassInClassDiag(cls, propertyName, syns, instCdm, instSolution);
+          } else {
+            setSynonymToRoleInClassInClassDiag(cls, propertyName, syns, instCdm, instSolution);
+          }
+        }
+      });
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
   /** Returns a formula in the form "=MAX(A1:C1)+MAX(A2:C2)+...", where the parameters are inclusive. */
   private static String sumOfMaximumsFormula(String startCol, int startRow, String endCol, int endRow) {
     return sumOfPlaceholdersFormula("MAX(" + startCol + "%:" + endCol + "%)", startRow, endRow);
@@ -410,9 +415,10 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
     return sb.toString();
   }
 
-  /** Returns the student class diagram with the given identifier. */
-  private static ClassDiagram getStudentClassDiagram(String id) {
-    return cdmFromFile(Paths.get(HOTEL_STUDENT_SOLUTION_DIR, HOTEL_STUDENT_SOLUTION_DIR_NAME_PREFIX + id, CDM_PATH));
+  /** Returns the hotel student class diagram with the given identifier. */
+  private static ClassDiagram getHotelStudentClassDiagram(String id) {
+    return cdmFromFile(
+        Paths.get(HOTEL_STUDENT_SOLUTION_DIR, HOTEL_STUDENT_SOLUTION_DIR_NAME_PREFIX + id, HOTEL_CDM_PATH));
   }
 
   /** Wrapper class for an Apache POI XSSFSheet with automatic row management. */
