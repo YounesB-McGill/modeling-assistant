@@ -19,7 +19,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -260,8 +259,8 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
 
     try (var workbook = new XSSFWorkbook()) {
       var sheet = new SpreadsheetWrapper(workbook.createSheet(name));
-      Map<Integer, Object[]> studentData = new LinkedHashMap<>();
       int id = 1;
+      var numMtRows = 1;
       sheet.addRow("Instructor Element", "Student Elements", "Mistake Type", "Actually a Mistake", "MDS Result",
           "MDS vs Actual Mistake", "Comments");
       List<String> printedToExcel = new ArrayList<>();
@@ -291,6 +290,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
           || mistakeType.equals(WRONG_MULTIPLICTY)) {
           id++;
           sheet.addRow(instElem, studElem, mistakeType, "", count, "=D" + sheet.rowNumber + "=E" + sheet.rowNumber);
+          numMtRows++;
           printedToExcel.add(fnlString);
         }
     }
@@ -321,12 +321,14 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
       if (!printedToExcel.contains(fnlString) || mistakeType.equals(WRONG_ROLE_NAME)
             || mistakeType.equals(WRONG_MULTIPLICTY)) {
           sheet.addRow(instElem, studElem, mistakeType, "", count, "=D" + sheet.rowNumber + "=E" + sheet.rowNumber);
+          numMtRows++;
           id++;
           printedToExcel.add(fnlString);
         }
       }
 
-      int nId = id;
+      System.out.println("numMtRows: " + numMtRows);
+
       var mainTableLastRow = sheet.rowNumber;
       sheet.addRow()
           .addRow()
@@ -416,7 +418,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
   /** Wrapper class for an Apache POI XSSFSheet with automatic row management. */
   static class SpreadsheetWrapper {
     XSSFSheet sheet;
-    int rowNumber = 1;
+    int rowNumber = 0;
 
     public SpreadsheetWrapper(XSSFSheet sheet) {
       this.sheet = sheet;
