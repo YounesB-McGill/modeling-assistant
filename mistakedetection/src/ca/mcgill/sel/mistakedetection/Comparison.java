@@ -188,8 +188,8 @@ public class Comparison {
     sb.append("\nDuplicate Attribute: ");
     duplicateStudentAttributes.forEach(appendName);
     sb.append("\nMapped Attributes: \n");
-    mappedAttributes.forEach((key, value) -> sb.append(key.getType().getClass() + " " + key.getName() + " = "
-        + value.getType().getClass() + " " + value.getName() + "\n"));
+    mappedAttributes.forEach((key, value) -> sb.append(attrType(key) + " " + key.getName() + " = " + attrType(value)
+        + " " + value.getName() + "\n"));
 
     sb.append("\nNot Mapped Association: ");
     notMappedInstructorAssociations.forEach(appendName);
@@ -233,6 +233,11 @@ public class Comparison {
       return 0;
     }
     return Solution.forClassDiagram(studentCdm).getMistakes().size();
+  }
+
+  /** Returns the type name of an attribute */
+  private static String attrType(Attribute attribute) {
+    return attribute.getType().getClass().getSimpleName().replace("CD", "").replace("Impl", "");
   }
 
 }
