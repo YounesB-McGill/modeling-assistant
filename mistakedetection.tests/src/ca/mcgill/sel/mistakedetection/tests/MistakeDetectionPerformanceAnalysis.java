@@ -166,15 +166,15 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
         studSolution.setStudent(student);
         studSolution.setClassDiagram(cdm);
         try {
-          System.out.println("Detecting mistakes for " + cdmName + ".cdm");
-          var comparison = MistakeDetection.compare(instSolution, studSolution).log();
+          System.out.println("\n\nDetecting mistakes for " + cdmName + ".cdm");
+          var comparison = MistakeDetection.compare(instSolution, studSolution).logUnmappedItemsOnly();
           assertNotNull(comparison);
           solutionsToNumMistakes.put(Integer.parseInt(cdmName), comparison.newMistakes.size());
           validCdms.add(cdmName);
         } catch (Exception e) {
           System.err.println("Could not detect mistakes for " + cdmName + ".cdm due to error:");
           e.printStackTrace();
-          Comparison.instances.remove(Comparison.instances.size() - 1);
+          Comparison.instances.remove(Comparison.instances.size() - 1); // MDS comparison failed -> don't track instance
           invalidCdms.add(cdmName);
         }
       });
