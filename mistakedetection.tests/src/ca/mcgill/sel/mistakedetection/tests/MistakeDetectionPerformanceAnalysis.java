@@ -18,10 +18,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.TreeMap;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -37,7 +37,6 @@ import ca.mcgill.sel.mistakedetection.MistakeDetection;
 import modelingassistant.Mistake;
 import modelingassistant.ModelingassistantFactory;
 import modelingassistant.Solution;
-import modelingassistant.TagGroup;
 import modelingassistant.util.ResourceHelper;
 
 /**
@@ -61,6 +60,10 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
   private static final String HOTEL_INSTRUCTOR_SOLUTION =
       "../mistakedetection/realModels/instructorSolution/instructorSolution2/Class Diagram/InstructorSolution2.domain_model.cdm";
 
+  /** The location of the smart home (final exam) instructor solution. */
+  private static final String SMART_HOME_INSTRUCTOR_SOLUTION =
+      "../mistakedetection/realModels/instructorSolution/smarthome/0.cdm";
+
   /** The folder where student solutions are located. */
   private static final String HOTEL_STUDENT_SOLUTION_DIR = "../mistakedetection/realModels/studentSolution";
 
@@ -69,6 +72,9 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
 
   /** The file containing the synonyms for the hotel domain model. */
   private static final String HOTEL_SYNONYMS_FILE = "hotel-synonyms.properties";
+
+  /** The file containing the synonyms for the hotel domain model. */
+  private static final String SMART_HOME_SYNONYMS_FILE = "smarthome-synonyms.properties";
 
   /** The standard Class Diagram Model file path for each student solution. */
   private static final String HOTEL_CDM_PATH = "Class Diagram/StudentDomainModel.domain_model.cdm";
@@ -135,9 +141,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
   /** Tests that the MDS runs without errors on the submissions from the final exam dataset. */
   @Test public void testThatMdsRunsOnFinalExamStudentSolutions() {
     var ma = maf.createModelingAssistant();
-    var instSolution = maf.createSolution();
-    instSolution.setModelingAssistant(ma);
-    instSolution.setClassDiagram(cdmFromFile(Paths.get(FINAL_EXAM_SUBMISSIONS_PATH, "0.cdm")));
+    var instSolution = setupSmartHomeInstructorSolution();
     try (var files = Files.walk(Paths.get(FINAL_EXAM_SUBMISSIONS_PATH), 2)) {
       List<String> validCdms = new ArrayList<>();
       List<String> invalidCdms = new ArrayList<>();
@@ -151,7 +155,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
             cdm.setName(file.getFileName().toString().replace(".cdm", ""));
             return cdm;
           });
-      Map<String, Integer> solutionsToNumMistakes = new HashMap<>();
+      Map<Integer, Integer> solutionsToNumMistakes = new TreeMap<>();
       studentCdms.forEach(cdm -> {
         var cdmName = cdm.getName();
         var student = maf.createStudent();
@@ -165,11 +169,12 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
           System.out.println("Detecting mistakes for " + cdmName + ".cdm");
           var comparison = MistakeDetection.compare(instSolution, studSolution).log();
           assertNotNull(comparison);
-          solutionsToNumMistakes.put(cdmName, comparison.newMistakes.size());
+          solutionsToNumMistakes.put(Integer.parseInt(cdmName), comparison.newMistakes.size());
           validCdms.add(cdmName);
         } catch (Exception e) {
           System.err.println("Could not detect mistakes for " + cdmName + ".cdm due to error:");
           e.printStackTrace();
+          Comparison.instances.remove(Comparison.instances.size() - 1);
           invalidCdms.add(cdmName);
         }
       });
@@ -188,10 +193,8 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
    */
   @Test public void testThatMdsRunsOnSingleFinalExamStudentSolution() {
     var ma = maf.createModelingAssistant();
-    var instSolution = maf.createSolution();
-    instSolution.setModelingAssistant(ma);
-    instSolution.setClassDiagram(cdmFromFile(Paths.get(FINAL_EXAM_SUBMISSIONS_PATH, "0.cdm")));
-    var studentCdm = cdmFromFile(Paths.get(FINAL_EXAM_SUBMISSIONS_PATH, "20.cdm"));
+    var instSolution = setupSmartHomeInstructorSolution();
+    var studentCdm = cdmFromFile(Paths.get(FINAL_EXAM_SUBMISSIONS_PATH, "97.cdm"));
     var cdmName = studentCdm.getName();
     var student = maf.createStudent();
     student.setModelingAssistant(ma);
@@ -363,9 +366,17 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
   private static Solution setupHotelInstructorSolution() {
     var instructorClassDiagram = cdmFromFile(HOTEL_INSTRUCTOR_SOLUTION);
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
-    TagGroup tagGroup = setAbstractionTagToClassInClassDiag("RoomType", instructorClassDiagram, instructorSolution);
+    var tagGroup = setAbstractionTagToClassInClassDiag("RoomType", instructorClassDiagram, instructorSolution);
     setOccurrenceTagToClassInClassDiag("Room", tagGroup, instructorClassDiagram);
     setSynonymsFromFile(instructorSolution, HOTEL_SYNONYMS_FILE);
+    return instructorSolution;
+  }
+
+  /** Sets up and returns the hotel instructor solution. */
+  private static Solution setupSmartHomeInstructorSolution() {
+    var instructorClassDiagram = cdmFromFile(SMART_HOME_INSTRUCTOR_SOLUTION);
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+    setSynonymsFromFile(instructorSolution, SMART_HOME_SYNONYMS_FILE);
     return instructorSolution;
   }
 
