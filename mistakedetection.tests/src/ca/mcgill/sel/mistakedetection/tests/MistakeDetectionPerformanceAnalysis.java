@@ -2,6 +2,9 @@ package ca.mcgill.sel.mistakedetection.tests;
 
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instructorSolutionFromClassDiagram;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentSolutionFromClassDiagram;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOCIATION;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_CLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
 import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
@@ -421,9 +424,17 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
    * Applies final exam criteria to the input comparison. The rules to be applied are:
    *
    *   Do not consider attribute types
+   *   If any class has an address attribute, do not consider the Address class or its associations to be missing
    */
   private static Comparison applyFinalExamCriteria(Comparison comparison) {
-    comparison.newMistakes.removeIf(m -> m.getMistakeType() == WRONG_ATTRIBUTE_TYPE);
+    var hasAddressAttribute = ((ClassDiagram) comparison.mappedClassifiers.entrySet().stream().findAny().get()
+        .getValue().eContainer()).getClasses().stream()
+        .anyMatch(c -> c.getAttributes().stream().anyMatch(a -> "address".equals(a.getName())));
+    comparison.newMistakes.removeIf(m -> (m.getMistakeType() == WRONG_ATTRIBUTE_TYPE)
+        || (hasAddressAttribute && m.getMistakeType() == MISSING_CLASS
+            && "Address".equals(m.getInstructorElementNames().get(0)))
+        || (hasAddressAttribute && List.of(MISSING_ASSOCIATION, MISSING_COMPOSITION).contains(m.getMistakeType())
+            && m.getInstructorElementNames().get(0).contains("Address")));
     return comparison;
   }
 
