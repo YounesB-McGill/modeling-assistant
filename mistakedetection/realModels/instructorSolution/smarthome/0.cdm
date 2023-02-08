@@ -63,7 +63,7 @@
   <classes xsi:type="classdiagram:Class" xmi:id="665f94ce-14e0-44c7-972d-3a1cdf25bc9b" name="RelationalTerm" superTypes="34fbee14-4330-47d2-beca-7db9400ea946">
     <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="786764e5-1aa8-4749-85a3-1b63a4d57379" name="room" navigable="false" assoc="782fc4fe-03d8-47a5-9694-5f6ed1f02eeb"/>
     <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="a980e4e7-badc-4e14-a50b-83d0ac22eeff" name="sensorDevice" navigable="false" assoc="d5b4a664-67a3-45c5-8e3d-04804f277708"/>
-    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="d9cf397f-d7ba-4ebe-8385-cc1cd3aa00cc" name="actuatorDevice" navigable="false" assoc="bab92078-5533-40c6-a748-2a6d53c33211"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="d9cf397f-d7ba-4ebe-8385-cc1cd3aa00cc" name="actuator" navigable="false" assoc="bab92078-5533-40c6-a748-2a6d53c33211"/>
     <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="4171e999-7abf-4e30-940f-c1fd077022ea" name="sensorReading" navigable="false" assoc="8d5658ad-73ab-4d67-90b9-ce68f3c2b4fb"/>
     <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="dc9f41fe-0381-4905-a033-ee56fc8d15eb" name="controlCommand" navigable="false" assoc="8781011d-8f76-4067-a992-bfc1a3df364e"/>
   </classes>
@@ -113,12 +113,14 @@
     <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="1e881ebe-b956-4ba2-ac54-7af675e42ce2" name="alertRule" lowerBound="1" assoc="9e504f9f-8780-4e85-80fc-b5e52e01445d"/>
     <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="65f769a5-0910-495f-bd6e-972da89e903c" name="notExpression" assoc="f60bf902-131d-442e-9369-95c7d6d5f550"/>
     <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="569b80fd-226e-41fc-8029-2a2500109aa7" name="binaryExpression" assoc="f153c0a4-79c3-461d-b89a-d11443e70b70"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="569b80fd-226e-41fc-8029-2a2500109aa8" name="binaryExpression" assoc="f153c0a4-79c3-461d-b89a-d11443e70b70"/>
   </classes>
   <classes xsi:type="classdiagram:Class" xmi:id="442b8b7d-38dc-45d8-87cc-577de4da9941" name="NotExpression" superTypes="34fbee14-4330-47d2-beca-7db9400ea946">
     <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="92e0479f-7c51-4fcc-a29c-cf85c4583f89" name="booleanExpression" navigable="false" assoc="f60bf902-131d-442e-9369-95c7d6d5f550"/>
   </classes>
   <classes xsi:type="classdiagram:Class" xmi:id="bdce0b40-c042-461f-84ed-bdf1c022df0b" name="BinaryExpression" superTypes="34fbee14-4330-47d2-beca-7db9400ea946">
-    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="2251f7d5-a0ff-4a0c-b53e-b51280807793" name="booleanExpression" navigable="false" assoc="f153c0a4-79c3-461d-b89a-d11443e70b70"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="2251f7d5-a0ff-4a0c-b53e-b51280807793" name="leftExpr" navigable="false" assoc="f153c0a4-79c3-461d-b89a-d11443e70b70"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="2251f7d5-a0ff-4a0c-b53e-b51280807794" name="rightExpr" navigable="false" assoc="f153c0a4-79c3-461d-b89a-d11443e70b71"/>
     <attributes xsi:type="classdiagram:Attribute" xmi:id="5edd41bc-b081-4967-9278-bbec8a5c2896" name="operator" type="8c024379-82a0-4b16-a164-0a1055e2d59c"/>
   </classes>
   <classes xsi:type="classdiagram:Class" xmi:id="e9651092-3e78-46d5-88f4-b5f07f6a0832" name="CommandSequence">
@@ -150,5 +152,6 @@
   <associations xsi:type="classdiagram:Association" xmi:id="add048d3-2f07-4f0c-8c28-4578c3c96e5b" name="AlertRule_CommandSequence" ends="0e74f7b7-faa4-4dd2-8ddf-4467d05464be c4c0d41f-c0e7-4be1-a4f7-613b3251beda"/>
   <associations xsi:type="classdiagram:Association" xmi:id="f60bf902-131d-442e-9369-95c7d6d5f550" name="BooleanExpression_NotExpression" ends="92e0479f-7c51-4fcc-a29c-cf85c4583f89 65f769a5-0910-495f-bd6e-972da89e903c"/>
   <associations xsi:type="classdiagram:Association" xmi:id="f153c0a4-79c3-461d-b89a-d11443e70b70" name="BinaryExpression_BooleanExpression" ends="2251f7d5-a0ff-4a0c-b53e-b51280807793 569b80fd-226e-41fc-8029-2a2500109aa7"/>
+  <associations xsi:type="classdiagram:Association" xmi:id="f153c0a4-79c3-461d-b89a-d11443e70b71" name="BinaryExpression_BooleanExpression" ends="2251f7d5-a0ff-4a0c-b53e-b51280807794 569b80fd-226e-41fc-8029-2a2500109aa8"/>
   <associations xsi:type="classdiagram:Association" xmi:id="ca9372fd-f6a6-4910-9250-4da33263aed8" name="CommandSequence_CommandSequence" ends="9fd776d4-e311-4423-8738-d56263767338 5abebd78-4ecd-428e-82ef-d13dd531cc0d"/>
 </classdiagram:ClassDiagram>

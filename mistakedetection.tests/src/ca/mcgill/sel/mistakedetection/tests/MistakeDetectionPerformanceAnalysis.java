@@ -2,6 +2,7 @@ package ca.mcgill.sel.mistakedetection.tests;
 
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instructorSolutionFromClassDiagram;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentSolutionFromClassDiagram;
+import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
 import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import static modelingassistant.util.SynonymUtils.setSynonymToAttribInClassInClassDiag;
@@ -82,8 +83,11 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
   /** The number of hotel instructor solution elements. */
   private static final int NUM_HOTEL_INST_SOL_ELEMS = 102;
 
-  /** The output location of produceExcelSheet(). */
+  /** The output location of produceExcelSheet() for the hotel dataset. */
   private static final String HOTEL_OUTPUT_SPREADSHEET_LOC = "<path-to-output-loc>";
+
+  /** The output location of produceExcelSheet() for the smart home dataset. */
+  private static final String SMART_HOME_OUTPUT_SPREADSHEET_LOC = "<path-to-output-loc>";
 
   /** The path where student submissions from the final exam dataset are located. */
   private static final String FINAL_EXAM_SUBMISSIONS_PATH = "<path-to-cdm-files>";
@@ -167,7 +171,8 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
         studSolution.setClassDiagram(cdm);
         try {
           System.out.println("\n\nDetecting mistakes for " + cdmName + ".cdm");
-          var comparison = MistakeDetection.compare(instSolution, studSolution).logUnmappedItemsOnly();
+          var comparison = applyFinalExamCriteria(MistakeDetection.compare(instSolution, studSolution))
+              .logUnmappedItemsOnly();
           assertNotNull(comparison);
           solutionsToNumMistakes.put(Integer.parseInt(cdmName), comparison.newMistakes.size());
           validCdms.add(cdmName);
@@ -194,7 +199,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
   @Test public void testThatMdsRunsOnSingleFinalExamStudentSolution() {
     var ma = maf.createModelingAssistant();
     var instSolution = setupSmartHomeInstructorSolution();
-    var studentCdm = cdmFromFile(Paths.get(FINAL_EXAM_SUBMISSIONS_PATH, "97.cdm"));
+    var studentCdm = cdmFromFile(Paths.get(FINAL_EXAM_SUBMISSIONS_PATH, "80.cdm"));
     var cdmName = studentCdm.getName();
     var student = maf.createStudent();
     student.setModelingAssistant(ma);
@@ -205,8 +210,9 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
     studSolution.setClassDiagram(studentCdm);
     try {
       System.out.println("Detecting mistakes for " + cdmName + ".cdm");
-      var comparison = MistakeDetection.compare(instSolution, studSolution).log();
+      var comparison = applyFinalExamCriteria(MistakeDetection.compare(instSolution, studSolution)).log();
       assertNotNull(comparison);
+      produceExcelSheet(comparison, cdmName, SMART_HOME_OUTPUT_SPREADSHEET_LOC);
     } catch (Exception e) {
       System.err.println("Could not detect mistakes for " + cdmName + ".cdm due to error:");
       e.printStackTrace();
@@ -258,7 +264,8 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
       if (!printedToExcel.contains(fnlString) || mistakeType.equals(WRONG_ROLE_NAME)
           || mistakeType.equals(WRONG_MULTIPLICTY)) {
           id++;
-          sheet.addRow(instElem, studElem, mistakeType, "", count, "=D" + sheet.rowNumber + "=E" + sheet.rowNumber);
+          var rowNum = sheet.rowNumber + 1;
+          sheet.addRow(instElem, studElem, mistakeType, "", count, "=D" + rowNum + "=E" + rowNum);
           numMtRows++;
           printedToExcel.add(fnlString);
         }
@@ -289,7 +296,8 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
       var fnlString = instElem + studElem;
       if (!printedToExcel.contains(fnlString) || mistakeType.equals(WRONG_ROLE_NAME)
             || mistakeType.equals(WRONG_MULTIPLICTY)) {
-          sheet.addRow(instElem, studElem, mistakeType, "", count, "=D" + sheet.rowNumber + "=E" + sheet.rowNumber);
+          var rowNum = sheet.rowNumber + 1;
+          sheet.addRow(instElem, studElem, mistakeType, "", count, "=D" + rowNum + "=E" + rowNum);
           numMtRows++;
           id++;
           printedToExcel.add(fnlString);
@@ -407,6 +415,16 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  /**
+   * Applies final exam criteria to the input comparison. The rules to be applied are:
+   *
+   *   Do not consider attribute types
+   */
+  private static Comparison applyFinalExamCriteria(Comparison comparison) {
+    comparison.newMistakes.removeIf(m -> m.getMistakeType() == WRONG_ATTRIBUTE_TYPE);
+    return comparison;
   }
 
   /** Returns a formula in the form "=MAX(A1:C1)+MAX(A2:C2)+...", where the parameters are inclusive. */
