@@ -2,9 +2,11 @@ package ca.mcgill.sel.mistakedetection.tests;
 
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instructorSolutionFromClassDiagram;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentSolutionFromClassDiagram;
+import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOCIATION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_COMPOSITION;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_ATTRIBUTE_INSTEAD_OF_ASSOC;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
 import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
@@ -202,7 +204,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
   @Test public void testThatMdsRunsOnSingleFinalExamStudentSolution() {
     var ma = maf.createModelingAssistant();
     var instSolution = setupSmartHomeInstructorSolution();
-    var studentCdm = cdmFromFile(Paths.get(FINAL_EXAM_SUBMISSIONS_PATH, "80.cdm"));
+    var studentCdm = cdmFromFile(Paths.get(FINAL_EXAM_SUBMISSIONS_PATH, "14.cdm"));
     var cdmName = studentCdm.getName();
     var student = maf.createStudent();
     student.setModelingAssistant(ma);
@@ -423,8 +425,9 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
   /**
    * Applies final exam criteria to the input comparison. The rules to be applied are:
    *
-   *   Do not consider attribute types
-   *   If any class has an address attribute, do not consider the Address class or its associations to be missing
+   *   Do not consider attribute types.
+   *   If any class has an address attribute, do not consider the Address class or its associations to be missing,
+   *   and allow the use of an attribute instead of an association.
    */
   private static Comparison applyFinalExamCriteria(Comparison comparison) {
     var hasAddressAttribute = ((ClassDiagram) comparison.mappedClassifiers.entrySet().stream().findAny().get()
@@ -434,7 +437,9 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
         || (hasAddressAttribute && m.getMistakeType() == MISSING_CLASS
             && "Address".equals(m.getInstructorElementNames().get(0)))
         || (hasAddressAttribute && List.of(MISSING_ASSOCIATION, MISSING_COMPOSITION).contains(m.getMistakeType())
-            && m.getInstructorElementNames().get(0).contains("Address")));
+            && m.getInstructorElementNames().get(0).contains("Address"))
+        || (hasAddressAttribute && List.of(EXTRA_ATTRIBUTE, USING_ATTRIBUTE_INSTEAD_OF_ASSOC)
+            .contains(m.getMistakeType()) && "address".equals(m.getStudentElementNames().get(0))));
     return comparison;
   }
 
