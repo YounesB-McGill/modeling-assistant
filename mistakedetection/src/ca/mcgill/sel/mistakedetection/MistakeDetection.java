@@ -166,10 +166,10 @@ public class MistakeDetection {
 
   /** The maximum limit after which a resolved mistake will be removed from student solution. */
   public static final int MAX_DETECTIONS_AFTER_RESOLUTION = 5;
-  
+
   /** The maximum limit after which a Levenstein distance of 2 is considered correct. */
   public static final int MAX_WORD_LENGTH = 5;
-  
+
   /** The maximum limit after which a Levenstein distance of 1 is considered correct. */
   public static final int MIN_WORD_LENGTH = 2;
 
@@ -359,7 +359,7 @@ public class MistakeDetection {
   /** Returns true if attributes match based on Levenshtein Distance, synonyms or enum-bool relationship. */
   private static boolean isAttributeMatch(Attribute instructorAttribute, Attribute studentAttribute,
       Comparison comparison) {
-    var values = getMinimumLDInSynonyms(instructorAttribute, studentAttribute, comparison); 
+    var values = getMinimumLDInSynonyms(instructorAttribute, studentAttribute, comparison);
     int lDistance = values.get(0);
     int instSize = values.get(1);
     int studSize = studentAttribute.getName().length();
@@ -860,7 +860,7 @@ public class MistakeDetection {
     checkMistakeAttributeExpectedStatic(studentAttribute, instructorAttribute).ifPresent(comparison.newMistakes::add);
     checkMistakeAttributeNotExpectedStatic(studentAttribute, instructorAttribute)
         .ifPresent(comparison.newMistakes::add);
-    if (studentAttribute.getName() != instructorAttribute.getName()) {
+    if (!studentAttribute.getName().equals(instructorAttribute.getName())) {
       checkMistakeAttributeSpelling(studentAttribute, instructorAttribute, comparison)
           .ifPresent(comparison.newMistakes::add);
       checkMistakePluralAttribName(studentAttribute, instructorAttribute).ifPresent(comparison.newMistakes::add);
@@ -2628,7 +2628,7 @@ public class MistakeDetection {
   }
 
   public static Optional<Mistake> checkMistakePluralClassName(Classifier studentClass, Classifier instructorClass) {
-    if (isPlural(studentClass.getName()) && studentClass.getName() != instructorClass.getName() &&
+    if (isPlural(studentClass.getName()) && !studentClass.getName().equals(instructorClass.getName()) &&
         !isSynonym(instructorClass, studentClass)) {
       return Optional.of(createMistake(PLURAL_CLASS_NAME, studentClass, instructorClass));
     }
@@ -3347,7 +3347,7 @@ public class MistakeDetection {
       return lDistance == limit;
     }
   }
-  
+
   private static boolean isStringWrong(String studString, String instString) {
     int lDistance = levenshteinDistance(studString, instString);
     if( lDistance == 0) {
