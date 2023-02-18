@@ -21,9 +21,10 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -38,6 +39,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.Attribute;
 import ca.mcgill.sel.classdiagram.ClassDiagram;
+import ca.mcgill.sel.classdiagram.Classifier;
 import ca.mcgill.sel.mistakedetection.Comparison;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
 import modelingassistant.Mistake;
@@ -66,9 +68,9 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
   private static final String HOTEL_INSTRUCTOR_SOLUTION =
       "../mistakedetection/realModels/instructorSolution/instructorSolution2/Class Diagram/InstructorSolution2.domain_model.cdm";
 
-  /** The location of the smart home (final exam) instructor solution. */
-  private static final String SMART_HOME_INSTRUCTOR_SOLUTION =
-      "../mistakedetection/realModels/instructorSolution/smarthome/0.cdm";
+  /** The location of the smart home (final exam) instructor solutions, numbered from 201. */
+  private static final String SMART_HOME_INSTRUCTOR_SOLUTION_DIR =
+      "../mistakedetection/realModels/instructorSolution/smarthome";
 
   /** The folder where student solutions are located. */
   private static final String HOTEL_STUDENT_SOLUTION_DIR = "../mistakedetection/realModels/studentSolution";
@@ -150,8 +152,9 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
   /** Tests that the MDS runs without errors on the submissions from the final exam dataset. */
   @Test public void testThatMdsRunsOnFinalExamStudentSolutions() {
     var ma = maf.createModelingAssistant();
-    var instSolution = setupSmartHomeInstructorSolution();
-    try (var files = Files.walk(Paths.get(FINAL_EXAM_SUBMISSIONS_PATH), 2)) {
+    var instSolutions = setupSmartHomeInstructorSolutions();
+    for (var instSolution: instSolutions) {
+      try (var files = Files.walk(Path.of(FINAL_EXAM_SUBMISSIONS_PATH), 2)) {
       List<String> validCdms = new ArrayList<>();
       List<String> invalidCdms = new ArrayList<>();
       var filenamePattern = Pattern.compile("\\d+\\.cdm");
@@ -175,7 +178,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
         studSolution.setStudent(student);
         studSolution.setClassDiagram(cdm);
         try {
-          System.out.println("\n\nDetecting mistakes for " + cdmName + ".cdm");
+            System.out.println("\n\nDetecting mistakes for " + cdmName);
           var comparison = applyFinalExamCriteria(MistakeDetection.compare(instSolution, studSolution))
               .logUnmappedItemsOnly();
           assertNotNull(comparison);
@@ -184,7 +187,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
         } catch (Exception e) {
           System.err.println("Could not detect mistakes for " + cdmName + ".cdm due to error:");
           e.printStackTrace();
-          Comparison.instances.remove(Comparison.instances.size() - 1); // MDS comparison failed -> don't track instance
+            Comparison.instances.remove(Comparison.instances.size() - 1); // MDS compare failed -> don't track instance
           invalidCdms.add(cdmName);
         }
       });
@@ -203,24 +206,28 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
    */
   @Test public void testThatMdsRunsOnSingleFinalExamStudentSolution() {
     var ma = maf.createModelingAssistant();
-    var instSolution = setupSmartHomeInstructorSolution();
-    var studentCdm = cdmFromFile(Paths.get(FINAL_EXAM_SUBMISSIONS_PATH, "14.cdm"));
-    var cdmName = studentCdm.getName();
-    var student = maf.createStudent();
-    student.setModelingAssistant(ma);
-    student.setName("Student" + cdmName); // Student1 and so on
-    var studSolution = maf.createSolution();
-    studSolution.setModelingAssistant(ma);
-    studSolution.setStudent(student);
-    studSolution.setClassDiagram(studentCdm);
-    try {
-      System.out.println("Detecting mistakes for " + cdmName + ".cdm");
-      var comparison = applyFinalExamCriteria(MistakeDetection.compare(instSolution, studSolution)).log();
-      assertNotNull(comparison);
-      produceExcelSheet(comparison, cdmName, SMART_HOME_OUTPUT_SPREADSHEET_LOC);
-    } catch (Exception e) {
-      System.err.println("Could not detect mistakes for " + cdmName + ".cdm due to error:");
-      e.printStackTrace();
+    var instSolutions = setupSmartHomeInstructorSolutions();
+    for (var instSolution: instSolutions) {
+      final var submissionId = 14;
+      var studentCdm = cdmFromFile(Path.of(FINAL_EXAM_SUBMISSIONS_PATH, submissionId + ".cdm"));
+      var cdmName = studentCdm.getName() + "_" + instSolution.getClassDiagram().getName();
+      var student = maf.createStudent();
+      student.setModelingAssistant(ma);
+      student.setName("Student" + cdmName); // Student1 and so on
+      var studSolution = maf.createSolution();
+      studSolution.setModelingAssistant(ma);
+      studSolution.setStudent(student);
+      studSolution.setClassDiagram(studentCdm);
+      try {
+        System.out.println("Detecting mistakes for " + cdmName);
+        var comparison = applyFinalExamCriteria(MistakeDetection.compare(instSolution, studSolution)).log();
+        assertNotNull(comparison);
+        produceExcelSheet(comparison, cdmName, SMART_HOME_OUTPUT_SPREADSHEET_LOC + "/" + submissionId);
+      } catch (Exception e) {
+        System.err.println("Could not detect mistakes for " + cdmName + " due to error:");
+        e.printStackTrace();
+        Comparison.instances.remove(Comparison.instances.size() - 1);
+      }
     }
   }
 
@@ -361,8 +368,9 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
           .addRow("F2 (5 * Precision * Recall) / (4 * Precision + Recall)", "",
               "=(5*C" + precisionIndex + "*C" + recallIndex + ")/(4*C" + precisionIndex + "+C" + recallIndex + ")");
 
+      Files.createDirectories(Path.of(location));
       var filename = "GroundTruth_" + name + ".xlsx";
-      try (var out = new FileOutputStream(Paths.get(location, filename).toAbsolutePath().toString())) {
+      try (var out = new FileOutputStream(Path.of(location, filename).toAbsolutePath().toString())) {
         workbook.write(out);
         System.out.println(filename + " created");
       }
@@ -385,16 +393,20 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
     return instructorSolution;
   }
 
-  /** Sets up and returns the hotel instructor solution. */
-  private static Solution setupSmartHomeInstructorSolution() {
-    var instructorClassDiagram = cdmFromFile(SMART_HOME_INSTRUCTOR_SOLUTION);
-    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
-    setSynonymsFromFile(instructorSolution, SMART_HOME_SYNONYMS_FILE);
-    return instructorSolution;
+  /** Sets up and returns the hotel instructor solutions. */
+  private static List<Solution> setupSmartHomeInstructorSolutions() {
+    try (var files = Files.list(Path.of(SMART_HOME_INSTRUCTOR_SOLUTION_DIR))) {
+      return files.filter(f -> f.toString().endsWith(".cdm"))
+          .map(f -> setSynonymsFromFile(instructorSolutionFromClassDiagram(cdmFromFile(f)), SMART_HOME_SYNONYMS_FILE))
+          .collect(Collectors.toUnmodifiableList());
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return Collections.emptyList();
   }
 
   /* Sets synonyms in the given instructor solution based on the given properties file. */
-  private static void setSynonymsFromFile(Solution instSolution, String synonymsFile) {
+  private static Solution setSynonymsFromFile(Solution instSolution, String synonymsFile) {
     var props = new Properties();
     var instCdm = instSolution.getClassDiagram();
     try (var fis = new FileInputStream(synonymsFile)) {
@@ -404,22 +416,35 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
         var syns = Arrays.stream(((String) e.getValue()).split(",")).map(String::trim)
             .collect(Collectors.toUnmodifiableList());
         if (!name.contains(".")) {
-          setSynonymToClassInClassDiag(name, syns, instCdm, instSolution);
+          try {
+            setSynonymToClassInClassDiag(name, syns, instCdm, instSolution);
+          } catch (Exception ex) { // ignored (some elements may not exist in all inst solution variations)
+          }
         } else {
           var splitName = name.split("\\.");
           var className = splitName[0];
           var propertyName = splitName[1];
-          var cls = getClassFromClassDiagram(className, instCdm);
-          if (cls.getAttributes().stream().map(Attribute::getName).anyMatch(n -> n.equals(propertyName))) {
-            setSynonymToAttribInClassInClassDiag(cls, propertyName, syns, instCdm, instSolution);
-          } else {
-            setSynonymToRoleInClassInClassDiag(cls, propertyName, syns, instCdm, instSolution);
+          try {
+            var cls = getClassFromClassDiagram(className, instCdm);
+            if (cls.getAttributes().stream().map(Attribute::getName).anyMatch(n -> n.equals(propertyName))) {
+              try {
+                setSynonymToAttribInClassInClassDiag(cls, propertyName, syns, instCdm, instSolution);
+              } catch (Exception ex) { // ignored
+              }
+            } else {
+              try {
+                setSynonymToRoleInClassInClassDiag(cls, propertyName, syns, instCdm, instSolution);
+              } catch (Exception ex) { // ignored
+              }
+            }
+          } catch (Exception ex) { // ignored
           }
         }
       });
     } catch (IOException e) {
       e.printStackTrace();
     }
+    return instSolution;
   }
 
   /**
@@ -430,16 +455,22 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
    *   and allow the use of an attribute instead of an association.
    */
   private static Comparison applyFinalExamCriteria(Comparison comparison) {
-    var hasAddressAttribute = ((ClassDiagram) comparison.mappedClassifiers.entrySet().stream().findAny().get()
-        .getValue().eContainer()).getClasses().stream()
-        .anyMatch(c -> c.getAttributes().stream().anyMatch(a -> "address".equals(a.getName())));
+    var classes = ((ClassDiagram) comparison.mappedClassifiers.entrySet().stream().findAny().get()
+        .getValue().eContainer()).getClasses();
+    var classNames = classes.stream().map(Classifier::getName).collect(Collectors.toUnmodifiableList());
+    var hasAndExpressionAndOrExpressionClasses = classNames.containsAll(List.of("AndExpression", "OrExpression"))
+        || classNames.containsAll(List.of("AndExpr", "OrExpr"));
+    var hasAddressAttribute = classes.stream().anyMatch(c -> c.getAttributes().stream()
+        .anyMatch(a -> "address".equals(a.getName())));
     comparison.newMistakes.removeIf(m -> (m.getMistakeType() == WRONG_ATTRIBUTE_TYPE)
         || (hasAddressAttribute && m.getMistakeType() == MISSING_CLASS
             && "Address".equals(m.getInstructorElementNames().get(0)))
         || (hasAddressAttribute && List.of(MISSING_ASSOCIATION, MISSING_COMPOSITION).contains(m.getMistakeType())
             && m.getInstructorElementNames().get(0).contains("Address"))
         || (hasAddressAttribute && List.of(EXTRA_ATTRIBUTE, USING_ATTRIBUTE_INSTEAD_OF_ASSOC)
-            .contains(m.getMistakeType()) && "address".equals(m.getStudentElementNames().get(0))));
+            .contains(m.getMistakeType()) && "address".equals(m.getStudentElementNames().get(0)))
+        || (hasAndExpressionAndOrExpressionClasses && m.getInstructorElementNames().stream()
+            .anyMatch(n -> List.of("BinaryOp", "AND", "OR", "operator").contains(n))));
     return comparison;
   }
 
@@ -463,7 +494,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
   /** Returns the hotel student class diagram with the given identifier. */
   private static ClassDiagram getHotelStudentClassDiagram(String id) {
     return cdmFromFile(
-        Paths.get(HOTEL_STUDENT_SOLUTION_DIR, HOTEL_STUDENT_SOLUTION_DIR_NAME_PREFIX + id, HOTEL_CDM_PATH));
+        Path.of(HOTEL_STUDENT_SOLUTION_DIR, HOTEL_STUDENT_SOLUTION_DIR_NAME_PREFIX + id, HOTEL_CDM_PATH));
   }
 
   /** Wrapper class for an Apache POI XSSFSheet with automatic row management. */
