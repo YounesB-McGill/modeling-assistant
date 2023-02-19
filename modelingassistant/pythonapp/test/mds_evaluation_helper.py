@@ -25,7 +25,8 @@ COMMON_SPREADSHEET_PATH = f"{SPREADSHEET_LOCATIONS}/common-spreadsheet.xlsx"
 INSTRUCTOR_SOLUTION_IDS = (201, 202, 203, 204)
 EVALUATED_STUDENT_SOLUTION_IDS = [14, 36, 58, 80, 97]
 
-TN_TP_FP_FN_R_P_F1_F2 = tuple[int, int, int, int, float, float, float, float]  # pylint: disable=invalid-name
+TN_TP_FP_FN_R_P_F1_F2_M = tuple[int, int, int, int, float, float, float, float, int]  # pylint: disable=invalid-name
+MDS_RESULT_COLUMN_OFFSET = 4  # Column E using zero-indexing
 
 
 def produce_common_spreadsheet():
@@ -39,6 +40,7 @@ def produce_common_spreadsheet():
         "Precision (TP / (TP + FP))",
         "F1 (2PR / (P + R))",
         "F2 (5PR / (4P + R)",
+        "Number of MDS Mistakes",
     )] for _ in range(len(INSTRUCTOR_SOLUTION_IDS))]
     for i, instructor_solution_id in enumerate(INSTRUCTOR_SOLUTION_IDS):
         for student_solution_id in EVALUATED_STUDENT_SOLUTION_IDS:
@@ -83,9 +85,9 @@ def print_results(results: list[list[tuple]]):
         print()
 
 
-def get_spreadsheet_results(student_solution_id, instructor_solution_id) -> TN_TP_FP_FN_R_P_F1_F2:
+def get_spreadsheet_results(student_solution_id, instructor_solution_id) -> TN_TP_FP_FN_R_P_F1_F2_M:
     """
-    Return the 8-tuple with the following elements for the given submission_id:
+    Return the 9-tuple with the following elements for the given submission_id:
 
     - True Negatives
     - True Positives
@@ -95,17 +97,23 @@ def get_spreadsheet_results(student_solution_id, instructor_solution_id) -> TN_T
     - Precision (TP / (TP + FP))
     - F1 (2 * Precision * Recall / (Precision + Recall))
     - F2 (5 * Precision * Recall) / (4 * Precision + Recall)
+    - Number of MDS Mistakes
     """
     result = []
     ws = load_workbook(f"{SPREADSHEET_LOCATIONS}/{student_solution_id}/"
                        f"GroundTruth_{student_solution_id}_{instructor_solution_id}.xlsx",
                        read_only=True, data_only=True).active
+    num_mistakes = 0
     reached_tn = False
     for row in ws.values:
-        if not reached_tn and row[0] and row[0].startswith("True Negative"):
-            reached_tn = True
+        if not reached_tn and row[0]:
+            if row[0].startswith("Total Mistakes"):
+                num_mistakes = row[MDS_RESULT_COLUMN_OFFSET]
+            if row[0].startswith("True Negative"):
+                reached_tn = True
         if reached_tn:
             result.append(row[2] if row[2] is not None else 1)  # 1 is a default value if actual value is unavailable
+    result.append(num_mistakes)
     return tuple(result)
 
 
