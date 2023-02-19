@@ -30,24 +30,24 @@ TN_TP_FP_FN_R_P_F1_F2 = tuple[int, int, int, int, float, float, float, float]  #
 
 def produce_common_spreadsheet():
     "Produce the common results spreadsheet from the individual ones used for the evaluation."
-    for instructor_solution_id in INSTRUCTOR_SOLUTION_IDS:
-        results = [(
-            "True Negative",
-            "True Positive",
-            "False Positive",
-            "False Negative",
-            "Recall (TP / (TP + FN))",
-            "Precision (TP / (TP + FP))",
-            "F1 (2PR / (P + R))",
-            "F2 (5PR / (4P + R)",
-        )]
+    results = [[(
+        "True Negative",
+        "True Positive",
+        "False Positive",
+        "False Negative",
+        "Recall (TP / (TP + FN))",
+        "Precision (TP / (TP + FP))",
+        "F1 (2PR / (P + R))",
+        "F2 (5PR / (4P + R)",
+    )] for _ in range(len(INSTRUCTOR_SOLUTION_IDS))]
+    for i, instructor_solution_id in enumerate(INSTRUCTOR_SOLUTION_IDS):
         for student_solution_id in EVALUATED_STUDENT_SOLUTION_IDS:
-            results.append(get_spreadsheet_results(student_solution_id, instructor_solution_id))
+            results[i].append(get_spreadsheet_results(student_solution_id, instructor_solution_id))
     print_results(results)
     save_to_spreadsheet(results, COMMON_SPREADSHEET_PATH)
 
 
-def save_to_spreadsheet(results: list[tuple], path):
+def save_to_spreadsheet(results: list[list[tuple]], path):
     "Saves the given results to the given file path."
     wb = Workbook()
     ws: Worksheet = wb.active
@@ -64,13 +64,13 @@ def save_to_spreadsheet(results: list[tuple], path):
 
 
 
-def print_results(results: list[tuple]):
+def print_results(results: list[list[tuple]]):
     "Print the results to console, useful for debugging."
-    for instructor_solution_id in INSTRUCTOR_SOLUTION_IDS:
+    for i, instructor_solution_id in enumerate(INSTRUCTOR_SOLUTION_IDS):
         print(f"Instructor solution {instructor_solution_id}")
-        for i in range(len(results[0])):
-            for j in range(len(results)):  # pylint: disable=consider-using-enumerate
-                print(results[j][i], end=" ")
+        for j in range(len(results[i][0])):
+            for k in range(len(results[i])):  # pylint: disable=consider-using-enumerate
+                print(f"{results[i][k][j]}", end=" ")
             print()
         print()
 
