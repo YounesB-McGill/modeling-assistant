@@ -23,6 +23,7 @@ pytest-randomly = "*"
 colorama = "*"
 python-dotenv = "*"
 pdoc3 = "*"
+openpyxl = "*"
 
 [requires]
 python_version = "3.11"

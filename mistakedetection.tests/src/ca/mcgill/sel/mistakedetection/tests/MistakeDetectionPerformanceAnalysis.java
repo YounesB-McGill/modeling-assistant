@@ -2,11 +2,6 @@ package ca.mcgill.sel.mistakedetection.tests;
 
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instructorSolutionFromClassDiagram;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentSolutionFromClassDiagram;
-import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ATTRIBUTE;
-import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOCIATION;
-import static learningcorpus.mistaketypes.MistakeTypes.MISSING_CLASS;
-import static learningcorpus.mistaketypes.MistakeTypes.MISSING_COMPOSITION;
-import static learningcorpus.mistaketypes.MistakeTypes.USING_ATTRIBUTE_INSTEAD_OF_ASSOC;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
 import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
@@ -39,7 +34,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.Attribute;
 import ca.mcgill.sel.classdiagram.ClassDiagram;
-import ca.mcgill.sel.classdiagram.Classifier;
 import ca.mcgill.sel.mistakedetection.Comparison;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
 import modelingassistant.Mistake;
@@ -152,6 +146,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
   /** Tests that the MDS runs without errors on the submissions from the final exam dataset. */
   @Test public void testThatMdsRunsOnFinalExamStudentSolutions() {
     var ma = maf.createModelingAssistant();
+    Map<Integer, List<Integer>> solutionsToNumMistakes = new TreeMap<>();
     var instSolutions = setupSmartHomeInstructorSolutions();
     for (var instSolution: instSolutions) {
       try (var files = Files.walk(Path.of(FINAL_EXAM_SUBMISSIONS_PATH), 2)) {
@@ -167,9 +162,10 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
             cdm.setName(file.getFileName().toString().replace(".cdm", ""));
             return cdm;
           });
-      Map<Integer, Integer> solutionsToNumMistakes = new TreeMap<>();
+
       studentCdms.forEach(cdm -> {
         var cdmName = cdm.getName();
+          var spreadsheetName = cdmName + "_" + instSolution.getClassDiagram().getName();
         var student = maf.createStudent();
         student.setModelingAssistant(ma);
         student.setName("Student" + cdmName); // Student1 and so on
@@ -181,22 +177,37 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
             System.out.println("\n\nDetecting mistakes for " + cdmName);
           var comparison = applyFinalExamCriteria(MistakeDetection.compare(instSolution, studSolution))
               .logUnmappedItemsOnly();
-          assertNotNull(comparison);
-          solutionsToNumMistakes.put(Integer.parseInt(cdmName), comparison.newMistakes.size());
-          validCdms.add(cdmName);
-        } catch (Exception e) {
-          System.err.println("Could not detect mistakes for " + cdmName + ".cdm due to error:");
-          e.printStackTrace();
+            assertNotNull(comparison);
+            // The line below is commented out to avoid overwriting files by mistake. Backup before running!
+            //produceExcelSheet(comparison, spreadsheetName, SMART_HOME_OUTPUT_SPREADSHEET_LOC + "/" + cdmName);
+            var solutionNum = Integer.parseInt(cdmName);
+            if (solutionsToNumMistakes.containsKey(solutionNum)) {
+              solutionsToNumMistakes.get(solutionNum).add(comparison.newMistakes.size());
+            } else {
+              solutionsToNumMistakes.put(solutionNum, new ArrayList<>(List.of(comparison.newMistakes.size())));
+            }
+            if (!invalidCdms.contains(cdmName)) {
+              validCdms.add(cdmName);
+            }
+          } catch (Exception e) {
+            System.err.println("Could not detect mistakes for " + cdmName + " due to error:");
+            e.printStackTrace();
             Comparison.instances.remove(Comparison.instances.size() - 1); // MDS compare failed -> don't track instance
-          invalidCdms.add(cdmName);
-        }
-      });
-      System.out.println("Valid cdms (" + validCdms.size() + "): " + validCdms
-          + "\nInvalid cdms (" + invalidCdms.size() + "): " + invalidCdms
-          + "\n\nStudent solution,Number of mistakes");
-      solutionsToNumMistakes.forEach((id, num) -> System.out.println(id + "," + num));
-    } catch (IOException e) {
-      e.printStackTrace();
+            invalidCdms.add(cdmName);
+          }
+        });
+        System.out.println("Valid cdms (" + validCdms.size() + "): " + validCdms
+            + "\nInvalid cdms (" + invalidCdms.size() + "): " + invalidCdms
+            + "\n\nStudent solution,Number of mistakes with instructor solution");
+        System.out.println("v," + instSolutions.stream().map(s -> s.getClassDiagram().getName())
+            .collect(Collectors.joining(",")) + ",Min mistakes,Best inst sol");
+        solutionsToNumMistakes.forEach((id, nums) ->
+            System.out.println(id + "," + nums.stream().map(n -> n.toString()).collect(Collectors.joining(",")) + ","
+                + Collections.min(nums) + ","
+                + instSolutions.get(nums.indexOf(Collections.min(nums))).getClassDiagram().getName()));
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
     }
   }
 
@@ -222,7 +233,8 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
         System.out.println("Detecting mistakes for " + cdmName);
         var comparison = applyFinalExamCriteria(MistakeDetection.compare(instSolution, studSolution)).log();
         assertNotNull(comparison);
-        produceExcelSheet(comparison, cdmName, SMART_HOME_OUTPUT_SPREADSHEET_LOC + "/" + submissionId);
+        // The line below is commented out to avoid overwriting files by mistake. Backup before running!
+        //produceExcelSheet(comparison, cdmName, SMART_HOME_OUTPUT_SPREADSHEET_LOC + "/" + submissionId);
       } catch (Exception e) {
         System.err.println("Could not detect mistakes for " + cdmName + " due to error:");
         e.printStackTrace();
@@ -277,7 +289,8 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
           || mistakeType.equals(WRONG_MULTIPLICTY)) {
           id++;
           var rowNum = sheet.rowNumber + 1;
-          sheet.addRow(instElem, studElem, mistakeType, "", count, "=D" + rowNum + "=E" + rowNum);
+          // include count by default in "Actually a Mistake" column to minimize copy-pasting
+          sheet.addRow(instElem, studElem, mistakeType, count, count, "=D" + rowNum + "=E" + rowNum);
           numMtRows++;
           printedToExcel.add(fnlString);
         }
@@ -309,7 +322,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
       if (!printedToExcel.contains(fnlString) || mistakeType.equals(WRONG_ROLE_NAME)
             || mistakeType.equals(WRONG_MULTIPLICTY)) {
           var rowNum = sheet.rowNumber + 1;
-          sheet.addRow(instElem, studElem, mistakeType, "", count, "=D" + rowNum + "=E" + rowNum);
+          sheet.addRow(instElem, studElem, mistakeType, count, count, "=D" + rowNum + "=E" + rowNum);
           numMtRows++;
           id++;
           printedToExcel.add(fnlString);
@@ -451,26 +464,9 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
    * Applies final exam criteria to the input comparison. The rules to be applied are:
    *
    *   Do not consider attribute types.
-   *   If any class has an address attribute, do not consider the Address class or its associations to be missing,
-   *   and allow the use of an attribute instead of an association.
    */
   private static Comparison applyFinalExamCriteria(Comparison comparison) {
-    var classes = ((ClassDiagram) comparison.mappedClassifiers.entrySet().stream().findAny().get()
-        .getValue().eContainer()).getClasses();
-    var classNames = classes.stream().map(Classifier::getName).collect(Collectors.toUnmodifiableList());
-    var hasAndExpressionAndOrExpressionClasses = classNames.containsAll(List.of("AndExpression", "OrExpression"))
-        || classNames.containsAll(List.of("AndExpr", "OrExpr"));
-    var hasAddressAttribute = classes.stream().anyMatch(c -> c.getAttributes().stream()
-        .anyMatch(a -> "address".equals(a.getName())));
-    comparison.newMistakes.removeIf(m -> (m.getMistakeType() == WRONG_ATTRIBUTE_TYPE)
-        || (hasAddressAttribute && m.getMistakeType() == MISSING_CLASS
-            && "Address".equals(m.getInstructorElementNames().get(0)))
-        || (hasAddressAttribute && List.of(MISSING_ASSOCIATION, MISSING_COMPOSITION).contains(m.getMistakeType())
-            && m.getInstructorElementNames().get(0).contains("Address"))
-        || (hasAddressAttribute && List.of(EXTRA_ATTRIBUTE, USING_ATTRIBUTE_INSTEAD_OF_ASSOC)
-            .contains(m.getMistakeType()) && "address".equals(m.getStudentElementNames().get(0)))
-        || (hasAndExpressionAndOrExpressionClasses && m.getInstructorElementNames().stream()
-            .anyMatch(n -> List.of("BinaryOp", "AND", "OR", "operator").contains(n))));
+    comparison.newMistakes.removeIf(m -> (m.getMistakeType() == WRONG_ATTRIBUTE_TYPE));
     return comparison;
   }
 
