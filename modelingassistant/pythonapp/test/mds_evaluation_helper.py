@@ -30,8 +30,26 @@ TN_TP_FP_FN_R_P_F1_F2 = tuple[int, int, int, int, float, float, float, float]  #
 def produce_common_spreadsheet():
     "Produce the common results spreadsheet from the individual ones used for the evaluation."
     for instructor_solution_id in INSTRUCTOR_SOLUTION_IDS:
+        results = [(
+            "True Negative",
+            "True Positive",
+            "False Positive",
+            "False Negative",
+            "Recall (TP / (TP + FN))",
+            "Precision (TP / (TP + FP))",
+            "F1 (2PR / (P + R))",
+            "F2 (5PR / (4P + R)",
+        )]
         for student_solution_id in EVALUATED_STUDENT_SOLUTION_IDS:
-            print(get_spreadsheet_results(student_solution_id, instructor_solution_id))
+            results.append(get_spreadsheet_results(student_solution_id, instructor_solution_id))
+        if not results:
+            continue
+        print(f"Instructor solution {instructor_solution_id}")
+        for i in range(len(results[0])):
+            for j in range(len(EVALUATED_STUDENT_SOLUTION_IDS)):
+                print(results[j][i], end=" ")
+            print()
+        print()
 
 
 def get_spreadsheet_results(student_solution_id, instructor_solution_id) -> TN_TP_FP_FN_R_P_F1_F2:
