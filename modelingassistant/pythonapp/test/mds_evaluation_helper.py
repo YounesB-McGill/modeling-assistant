@@ -51,11 +51,11 @@ def save_to_spreadsheet(results: list[list[tuple]], path):
     "Saves the given results to the given file path."
     wb = Workbook()
     ws: Worksheet = wb.active
-    for instructor_solution_id in INSTRUCTOR_SOLUTION_IDS:
+    for i, instructor_solution_id in enumerate(INSTRUCTOR_SOLUTION_IDS):
         ws.append((f"Instructor solution {instructor_solution_id}",))
         rows = []
-        for i in range(len(results[0])):
-            rows.append([results[j][i] for j in range(len(results))])
+        for j in range(len(results[i][0])):
+            rows.append([results[i][k][j] for k in range(len(results[i]))])
         for row in rows:
             # print(row)
             ws.append(row)
