@@ -10,7 +10,7 @@ Author: Younes Boubekeur
 import sys
 import os
 
-from openpyxl import load_workbook
+from openpyxl import load_workbook, Workbook
 
 # this line is needed to be able to call this script directly
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -42,8 +42,12 @@ def produce_common_spreadsheet():
         )]
         for student_solution_id in EVALUATED_STUDENT_SOLUTION_IDS:
             results.append(get_spreadsheet_results(student_solution_id, instructor_solution_id))
-        if not results:
-            continue
+    print_results(results)
+
+
+def print_results(results: list[tuple]):
+    "Print the results to console, useful for debugging."
+    for instructor_solution_id in INSTRUCTOR_SOLUTION_IDS:
         print(f"Instructor solution {instructor_solution_id}")
         for i in range(len(results[0])):
             for j in range(len(EVALUATED_STUDENT_SOLUTION_IDS)):
