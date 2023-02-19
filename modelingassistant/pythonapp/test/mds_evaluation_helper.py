@@ -11,6 +11,7 @@ import sys
 import os
 
 from openpyxl import load_workbook, Workbook
+from openpyxl.worksheet.worksheet import Worksheet
 
 # this line is needed to be able to call this script directly
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -43,6 +44,24 @@ def produce_common_spreadsheet():
         for student_solution_id in EVALUATED_STUDENT_SOLUTION_IDS:
             results.append(get_spreadsheet_results(student_solution_id, instructor_solution_id))
     print_results(results)
+    save_to_spreadsheet(results, COMMON_SPREADSHEET_PATH)
+
+
+def save_to_spreadsheet(results: list[tuple], path):
+    "Saves the given results to the given file path."
+    wb = Workbook()
+    ws: Worksheet = wb.active
+    for instructor_solution_id in INSTRUCTOR_SOLUTION_IDS:
+        ws.append((f"Instructor solution {instructor_solution_id}",))
+        rows = []
+        for i in range(len(results[0])):
+            rows.append([results[j][i] for j in range(len(results))])
+        for row in rows:
+            # print(row)
+            ws.append(row)
+        ws.append(("",))
+    wb.save(path)
+
 
 
 def print_results(results: list[tuple]):
@@ -50,7 +69,7 @@ def print_results(results: list[tuple]):
     for instructor_solution_id in INSTRUCTOR_SOLUTION_IDS:
         print(f"Instructor solution {instructor_solution_id}")
         for i in range(len(results[0])):
-            for j in range(len(EVALUATED_STUDENT_SOLUTION_IDS)):
+            for j in range(len(results)):  # pylint: disable=consider-using-enumerate
                 print(results[j][i], end=" ")
             print()
         print()
