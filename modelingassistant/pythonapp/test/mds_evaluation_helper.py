@@ -5,7 +5,7 @@ results in a common spreadsheet.
 
 Author: Younes Boubekeur
 """
-# pylint: disable=wrong-import-position
+# pylint: disable=consider-using-enumerate, wrong-import-position
 
 import sys
 import os
@@ -43,6 +43,13 @@ def produce_common_spreadsheet():
     for i, instructor_solution_id in enumerate(INSTRUCTOR_SOLUTION_IDS):
         for student_solution_id in EVALUATED_STUDENT_SOLUTION_IDS:
             results[i].append(get_spreadsheet_results(student_solution_id, instructor_solution_id))
+        averages = [0 for _ in range(len(results[i][0]))]
+        for t in results[i][1:]:
+            for j in range(len(averages)):
+                averages[j] += t[j]
+        for j in range(len(averages)):
+            averages[j] /= (len(results[i]) - 1)
+        results[i].append(tuple(averages))
     print_results(results)
     save_to_spreadsheet(results, COMMON_SPREADSHEET_PATH)
 
@@ -69,7 +76,7 @@ def print_results(results: list[list[tuple]]):
     for i, instructor_solution_id in enumerate(INSTRUCTOR_SOLUTION_IDS):
         print(f"Instructor solution {instructor_solution_id}")
         for j in range(len(results[i][0])):
-            for k in range(len(results[i])):  # pylint: disable=consider-using-enumerate
+            for k in range(len(results[i])):
                 print(f"{results[i][k][j]}", end=" ")
             print()
         print()
