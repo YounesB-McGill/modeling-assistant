@@ -53,15 +53,15 @@ def save_to_spreadsheet(results: list[list[tuple]], path):
     ws: Worksheet = wb.active
     for i, instructor_solution_id in enumerate(INSTRUCTOR_SOLUTION_IDS):
         ws.append((f"Instructor solution {instructor_solution_id}",))
+        ws.append(["Student solution", *EVALUATED_STUDENT_SOLUTION_IDS])
         rows = []
         for j in range(len(results[i][0])):
             rows.append([results[i][k][j] for k in range(len(results[i]))])
         for row in rows:
-            # print(row)
             ws.append(row)
         ws.append(("",))
+    ws.column_dimensions["A"].width *= 2  # increase width of first column to fit text
     wb.save(path)
-
 
 
 def print_results(results: list[list[tuple]]):
