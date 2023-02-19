@@ -27,6 +27,7 @@ EVALUATED_STUDENT_SOLUTION_IDS = [14, 36, 58, 80, 97]
 
 TN_TP_FP_FN_R_P_F1_F2_M = tuple[int, int, int, int, float, float, float, float, int]  # pylint: disable=invalid-name
 MDS_RESULT_COLUMN_OFFSET = 4  # Column E using zero-indexing
+INSTRUCTOR_SOLUTION_ID_OFFSET = INSTRUCTOR_SOLUTION_IDS[0] - 1
 
 
 def produce_common_spreadsheet():
@@ -41,7 +42,7 @@ def produce_common_spreadsheet():
         "F1 (2PR / (P + R))",
         "F2 (5PR / (4P + R)",
         "Number of MDS Mistakes",
-    )] for _ in range(len(INSTRUCTOR_SOLUTION_IDS))]
+    )] for _ in range(len(INSTRUCTOR_SOLUTION_IDS) + 1)]
     for i, instructor_solution_id in enumerate(INSTRUCTOR_SOLUTION_IDS):
         for student_solution_id in EVALUATED_STUDENT_SOLUTION_IDS:
             results[i].append(get_spreadsheet_results(student_solution_id, instructor_solution_id))
@@ -52,36 +53,58 @@ def produce_common_spreadsheet():
         for j in range(len(averages)):
             averages[j] /= (len(results[i]) - 1)
         results[i].append(tuple(averages))
-    print_results(results)
-    save_to_spreadsheet(results, COMMON_SPREADSHEET_PATH)
+
+    # determine best instructor solution based on lowest number of MDS mistakes
+    best_inst_sols = []
+    for col in range(1, len(results[0])):
+        num_mistakes = []
+        for inst_sol_group in range(len(results) - 1):
+            print(results[inst_sol_group][col])
+            num_mistakes.append(results[inst_sol_group][col][-1])
+        best_inst_sol_idx = num_mistakes.index(min(num_mistakes))
+        best_inst_sols.append(best_inst_sol_idx + INSTRUCTOR_SOLUTION_ID_OFFSET + 1)
+        results[-1].append(results[best_inst_sol_idx][col])
+
+    print_results(results, best_inst_sols)
+    save_to_spreadsheet(results, best_inst_sols, COMMON_SPREADSHEET_PATH)
 
 
-def save_to_spreadsheet(results: list[list[tuple]], path):
+def save_to_spreadsheet(results: list[list[tuple]], best_inst_sols, path):
     "Saves the given results to the given file path."
     wb = Workbook()
     ws: Worksheet = wb.active
-    for i, instructor_solution_id in enumerate(INSTRUCTOR_SOLUTION_IDS):
-        ws.append((f"Instructor solution {instructor_solution_id}",))
+    for i in range(len(INSTRUCTOR_SOLUTION_IDS) + 1):
+        if i < len(INSTRUCTOR_SOLUTION_IDS):
+            ws.append((f"Instructor solution {INSTRUCTOR_SOLUTION_IDS[i]}",))
+        else:
+            ws.append(("Best solution based on lowest number of mistakes",))
         ws.append(["Student solution", *EVALUATED_STUDENT_SOLUTION_IDS, "Averages"])
         rows = []
         for j in range(len(results[i][0])):
             rows.append([results[i][k][j] for k in range(len(results[i]))])
         for row in rows:
             ws.append(row)
+        if i == len(INSTRUCTOR_SOLUTION_IDS):
+            ws.append(["Selected solution", *best_inst_sols])
         ws.append(("",))
     ws.column_dimensions["A"].width *= 2  # increase width of first column to fit text
     wb.save(path)
 
 
-def print_results(results: list[list[tuple]]):
+def print_results(results: list[list[tuple]], best_inst_sols: list[int]):
     "Print the results to console, useful for debugging."
-    for i, instructor_solution_id in enumerate(INSTRUCTOR_SOLUTION_IDS):
-        print(f"Instructor solution {instructor_solution_id}")
+    for i in range(len(INSTRUCTOR_SOLUTION_IDS) + 1):
+        if i < len(INSTRUCTOR_SOLUTION_IDS):
+            print(f"Instructor solution {INSTRUCTOR_SOLUTION_IDS[i]}")
+        else:
+            print("Best solution based on lowest number of mistakes")
         print(" ".join(["Student solution", *map(str, EVALUATED_STUDENT_SOLUTION_IDS), "Averages"]))
         for j in range(len(results[i][0])):
             for k in range(len(results[i])):
                 print(f"{results[i][k][j]}", end=" ")
             print()
+        if i == len(INSTRUCTOR_SOLUTION_IDS):
+            print(" ".join(["Selected solution", *map(str, best_inst_sols)]))
         print()
 
 
