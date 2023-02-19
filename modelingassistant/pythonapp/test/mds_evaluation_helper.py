@@ -23,7 +23,7 @@ SPREADSHEET_LOCATIONS: str = env_vars["mds-evaluation-spreadsheet-location"]
 COMMON_SPREADSHEET_PATH = f"{SPREADSHEET_LOCATIONS}/common-spreadsheet.xlsx"
 
 INSTRUCTOR_SOLUTION_IDS = (201, 202, 203, 204)
-EVALUATED_STUDENT_SOLUTION_IDS = [14, 36, 58, 80, 97]
+EVALUATED_STUDENT_SOLUTION_IDS = [14, 36, 48, 58, 61, 69, 71, 80, 97, 100]
 
 TN_TP_FP_FN_R_P_F1_F2_M = tuple[int, int, int, int, float, float, float, float, int]  # pylint: disable=invalid-name
 MDS_RESULT_COLUMN_OFFSET = 4  # Column E using zero-indexing
@@ -49,7 +49,7 @@ def produce_common_spreadsheet():
         averages = [0 for _ in range(len(results[i][0]))]
         for t in results[i][1:]:
             for j in range(len(averages)):
-                averages[j] += t[j]
+                averages[j] += t[j] or 0
         for j in range(len(averages)):
             averages[j] /= (len(results[i]) - 1)
         results[i].append(tuple(averages))
@@ -59,8 +59,7 @@ def produce_common_spreadsheet():
     for col in range(1, len(results[0])):
         num_mistakes = []
         for inst_sol_group in range(len(results) - 1):
-            print(results[inst_sol_group][col])
-            num_mistakes.append(results[inst_sol_group][col][-1])
+            num_mistakes.append(results[inst_sol_group][col][-1] or 0)
         best_inst_sol_idx = num_mistakes.index(min(num_mistakes))
         best_inst_sols.append(best_inst_sol_idx + INSTRUCTOR_SOLUTION_ID_OFFSET + 1)
         results[-1].append(results[best_inst_sol_idx][col])
