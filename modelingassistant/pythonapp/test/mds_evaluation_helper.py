@@ -16,18 +16,25 @@ from openpyxl.worksheet.worksheet import Worksheet
 # this line is needed to be able to call this script directly
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+from classdiagram import (AssociationEnd, ClassDiagram, Classifier, CDArray, CDBoolean, CDDouble, CDFloat, CDInt,
+                          CDLong, CDString, CDAny, CDByte, CDChar)
+
 from envvars import env_vars
+from fileserdes import load_cdm
 
 
 SPREADSHEET_LOCATIONS: str = env_vars["mds-evaluation-spreadsheet-location"]
 COMMON_SPREADSHEET_PATH = f"{SPREADSHEET_LOCATIONS}/common-spreadsheet.xlsx"
+INST_CDM_PATH = "mistakedetection/realModels/instructorSolution/smarthome"
 
 INSTRUCTOR_SOLUTION_IDS = (201, 202, 203, 204)
-EVALUATED_STUDENT_SOLUTION_IDS = [14, 36, 48, 58, 61, 69, 71, 80, 97, 100]
+EVALUATED_STUDENT_SOLUTION_IDS = [14, 36, 39, 48, 58, 61, 69, 71, 77, 80, 97, 100]
 
 TN_TP_FP_FN_R_P_F1_F2_M = tuple[int, int, int, int, float, float, float, float, int]  # pylint: disable=invalid-name
 MDS_RESULT_COLUMN_OFFSET = 4  # Column E using zero-indexing
 INSTRUCTOR_SOLUTION_ID_OFFSET = INSTRUCTOR_SOLUTION_IDS[0] - 1
+
+OVERWRITE_COMMON_SPREADSHEET = False  # default is False to avoid overwriting the file by mistake
 
 
 def produce_common_spreadsheet():
@@ -65,7 +72,8 @@ def produce_common_spreadsheet():
         results[-1].append(results[best_inst_sol_idx][col])
 
     print_results(results, best_inst_sols)
-    save_to_spreadsheet(results, best_inst_sols, COMMON_SPREADSHEET_PATH)
+    if OVERWRITE_COMMON_SPREADSHEET:
+        save_to_spreadsheet(results, best_inst_sols, COMMON_SPREADSHEET_PATH)
 
 
 def save_to_spreadsheet(results: list[list[tuple]], best_inst_sols, path):
@@ -107,6 +115,26 @@ def print_results(results: list[list[tuple]], best_inst_sols: list[int]):
         print()
 
 
+def print_results_as_latex(results: list[list[tuple]], best_inst_sols: list[int]):
+    "Print the results to console in LaTeX format, useful for publications."
+    for i in range(len(INSTRUCTOR_SOLUTION_IDS) + 1):
+        if i < len(INSTRUCTOR_SOLUTION_IDS):
+            print(f"Instructor solution {INSTRUCTOR_SOLUTION_IDS[i]}")
+        else:
+            print("Best solution based on lowest number of mistakes")
+        print(" & ".join(["Student solution", *map(str, EVALUATED_STUDENT_SOLUTION_IDS), "Averages"]))
+        for j in range(len(results[i][0])):
+            for k in range(len(results[i])):
+                v = results[i][k][j]
+                if isinstance(v, float):
+                    v = round(v, 2)
+                print(v, end=" & ")
+            print()
+        if i == len(INSTRUCTOR_SOLUTION_IDS):
+            print(" & ".join(["Selected solution", *map(str, best_inst_sols)]))
+        print()
+
+
 def get_spreadsheet_results(student_solution_id, instructor_solution_id) -> TN_TP_FP_FN_R_P_F1_F2_M:
     """
     Return the 9-tuple with the following elements for the given submission_id:
@@ -139,5 +167,30 @@ def get_spreadsheet_results(student_solution_id, instructor_solution_id) -> TN_T
     return tuple(result)
 
 
+def print_inst_sol_num_elements():
+    "Print the number of elements for each instructor solution."
+    for inst_sol_id in INSTRUCTOR_SOLUTION_IDS:
+        cdm = load_cdm(f"{INST_CDM_PATH}/{inst_sol_id}.cdm")
+        print(f"{cdm.name}: {num_elements(cdm)}")
+
+
+def num_elements(cdm: ClassDiagram):
+    "Return the number of elements in the given class diagram according to the formula used in the experiment."
+    result = 1  # 1 for Incomplete containment tree
+    for e in cdm.eAllContents():
+        match e:
+            case (CDByte() | CDBoolean() | CDChar() | CDDouble() | CDFloat() | CDInt() | CDLong() | CDString() | CDAny()
+                  | CDArray()):
+                pass
+            case AssociationEnd():
+                result += 2  # role name, multiplicity
+            case Classifier() as c:
+                result += 1 + len(c.superTypes)
+            case _:
+                result += 1
+    return result
+
+
 if __name__ == "__main__":
+    print_inst_sol_num_elements()
     produce_common_spreadsheet()
