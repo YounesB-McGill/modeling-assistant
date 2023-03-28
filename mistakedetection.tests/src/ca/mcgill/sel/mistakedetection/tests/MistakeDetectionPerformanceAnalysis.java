@@ -10,6 +10,7 @@ import static modelingassistant.util.SynonymUtils.setSynonymToClassInClassDiag;
 import static modelingassistant.util.SynonymUtils.setSynonymToRoleInClassInClassDiag;
 import static modelingassistant.util.TagUtils.setAbstractionTagToClassInClassDiag;
 import static modelingassistant.util.TagUtils.setOccurrenceTagToClassInClassDiag;
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 import java.io.FileInputStream;
@@ -32,8 +33,20 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.jupiter.api.Test;
+import ca.mcgill.sel.classdiagram.AssociationEnd;
 import ca.mcgill.sel.classdiagram.Attribute;
+import ca.mcgill.sel.classdiagram.CDAny;
+import ca.mcgill.sel.classdiagram.CDArray;
+import ca.mcgill.sel.classdiagram.CDBoolean;
+import ca.mcgill.sel.classdiagram.CDByte;
+import ca.mcgill.sel.classdiagram.CDChar;
+import ca.mcgill.sel.classdiagram.CDDouble;
+import ca.mcgill.sel.classdiagram.CDFloat;
+import ca.mcgill.sel.classdiagram.CDInt;
+import ca.mcgill.sel.classdiagram.CDLong;
+import ca.mcgill.sel.classdiagram.CDString;
 import ca.mcgill.sel.classdiagram.ClassDiagram;
+import ca.mcgill.sel.classdiagram.Classifier;
 import ca.mcgill.sel.mistakedetection.Comparison;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
 import modelingassistant.Mistake;
@@ -241,6 +254,19 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
         Comparison.instances.remove(Comparison.instances.size() - 1);
       }
     }
+  }
+
+  /** Ensures that the computed number of instructor elements matches the expected value for each solution. */
+  @Test public void testCorrectNumberOfInstructorElements() {
+    Map<ClassDiagram, Integer> cdmsToExpectedNumbers = Map.of(
+        cdmFromFile(HOTEL_INSTRUCTOR_SOLUTION), NUM_HOTEL_INST_SOL_ELEMS,
+        cdmFromFile(SMART_HOME_INSTRUCTOR_SOLUTION_DIR + "/201.cdm"), 182,
+        //cdmFromFile(SMART_HOME_INSTRUCTOR_SOLUTION_DIR + "/202.cdm"), 182,
+        cdmFromFile(SMART_HOME_INSTRUCTOR_SOLUTION_DIR + "/203.cdm"), 173,
+        cdmFromFile(SMART_HOME_INSTRUCTOR_SOLUTION_DIR + "/204.cdm"), 173);
+    cdmsToExpectedNumbers.forEach((sol, num) -> {
+      assertEquals((int) num, numElements(sol));
+    });
   }
 
   public static void produceExcelSheet(Comparison comparison, String name, String location) {
@@ -485,6 +511,25 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
       }
     }
     return sb.toString();
+  }
+
+  /** Return the number of elements in the given class diagram according to the formula used in the experiment. */
+  private static int numElements(ClassDiagram cdm) {
+    final var primitiveTypes = List.of(CDByte.class, CDBoolean.class, CDChar.class, CDDouble.class, CDFloat.class,
+        CDInt.class, CDLong.class, CDString.class, CDAny.class, CDArray.class);
+    int[] resultBox = { 1 };
+    cdm.eAllContents().forEachRemaining(e -> {
+      if (!primitiveTypes.contains(e.getClass())) {
+        if (e instanceof AssociationEnd) {
+          resultBox[0] += 2; // role name, multiplicity
+        } else if (e instanceof Classifier) {
+          resultBox[0] += 1 + ((Classifier) e).getSuperTypes().size();
+        } else {
+          resultBox[0]++;
+        }
+      }
+    });
+    return resultBox[0];
   }
 
   /** Returns the hotel student class diagram with the given identifier. */
