@@ -28,6 +28,7 @@ import java.util.TreeMap;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -47,6 +48,10 @@ import ca.mcgill.sel.classdiagram.CDLong;
 import ca.mcgill.sel.classdiagram.CDString;
 import ca.mcgill.sel.classdiagram.ClassDiagram;
 import ca.mcgill.sel.classdiagram.Classifier;
+import ca.mcgill.sel.classdiagram.Layout;
+import ca.mcgill.sel.classdiagram.LayoutElement;
+import ca.mcgill.sel.classdiagram.impl.ContainerMapImpl;
+import ca.mcgill.sel.classdiagram.impl.ElementMapImpl;
 import ca.mcgill.sel.mistakedetection.Comparison;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
 import modelingassistant.Mistake;
@@ -261,7 +266,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
     Map<ClassDiagram, Integer> cdmsToExpectedNumbers = Map.of(
         cdmFromFile(HOTEL_INSTRUCTOR_SOLUTION), NUM_HOTEL_INST_SOL_ELEMS,
         cdmFromFile(SMART_HOME_INSTRUCTOR_SOLUTION_DIR + "/201.cdm"), 182,
-        //cdmFromFile(SMART_HOME_INSTRUCTOR_SOLUTION_DIR + "/202.cdm"), 182,
+        cdmFromFile(SMART_HOME_INSTRUCTOR_SOLUTION_DIR + "/202.cdm"), 182,
         cdmFromFile(SMART_HOME_INSTRUCTOR_SOLUTION_DIR + "/203.cdm"), 173,
         cdmFromFile(SMART_HOME_INSTRUCTOR_SOLUTION_DIR + "/204.cdm"), 173);
     cdmsToExpectedNumbers.forEach((sol, num) -> {
@@ -513,13 +518,14 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
     return sb.toString();
   }
 
-  /** Return the number of elements in the given class diagram according to the formula used in the experiment. */
+  /** Returns the number of elements in the given class diagram according to the formula used in the experiment. */
   private static int numElements(ClassDiagram cdm) {
     final var primitiveTypes = List.of(CDByte.class, CDBoolean.class, CDChar.class, CDDouble.class, CDFloat.class,
         CDInt.class, CDLong.class, CDString.class, CDAny.class, CDArray.class);
+    final var layoutTypes = List.of(Layout.class, ContainerMapImpl.class, ElementMapImpl.class, LayoutElement.class);
     int[] resultBox = { 1 };
     cdm.eAllContents().forEachRemaining(e -> {
-      if (!primitiveTypes.contains(e.getClass())) {
+      if (Stream.concat(primitiveTypes.stream(), layoutTypes.stream()).noneMatch(t -> t.isInstance(e))) {
         if (e instanceof AssociationEnd) {
           resultBox[0] += 2; // role name, multiplicity
         } else if (e instanceof Classifier) {
