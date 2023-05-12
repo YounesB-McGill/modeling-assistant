@@ -76,6 +76,12 @@ import modelingassistant.util.ResourceHelper;
 //    + "from the McGill Software Engineering Lab to see if you can obtain access.")
 public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTest {
 
+  /**
+   * Flag that should be set true if and only if the spreadsheets in the locations below need to be overwritten.
+   * Backup existing spreadsheets before setting this to true!
+   */
+  private static final boolean OVERWRITE_SPREADSHEETS = false;
+
   /** The location of the hotel instructor solution. */
   private static final String HOTEL_INSTRUCTOR_SOLUTION =
       "../mistakedetection/realModels/instructorSolution/instructorSolution2/Class Diagram/InstructorSolution2.domain_model.cdm";
@@ -117,6 +123,11 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
 
   /** The ModelingassistantFactory instance. */
   private static final ModelingassistantFactory maf = ModelingassistantFactory.eINSTANCE;
+
+  private static final String OVERWRITE_SPREADSHEETS_REMINDER = "Reminder: Spreadsheets NOT created because "
+      + "OVERWRITE_SPREADSHEETS flag is set to false.\n"
+      + "If you want to create them, backup any existing spreadsheets, set OVERWRITE_SPREADSHEETS to true, "
+      + "and rerun this test.";
 
 
   /** Combines 30 unit tests for the hotel dataset into one compound test. */
@@ -168,36 +179,37 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
     var instSolutions = setupSmartHomeInstructorSolutions();
     for (var instSolution: instSolutions) {
       try (var files = Files.walk(Path.of(FINAL_EXAM_SUBMISSIONS_PATH), 2)) {
-      List<String> validCdms = new ArrayList<>();
-      List<String> invalidCdms = new ArrayList<>();
-      var filenamePattern = Pattern.compile("\\d+\\.cdm");
-      var studentCdms = files
-          .filter(file ->
-              !Files.isDirectory(file) && filenamePattern.matcher(file.getFileName().toString()).matches()
-              && !file.endsWith("0.cdm"))
-          .map(file -> {
-            var cdm = ResourceHelper.cdmFromFile(file);
-            cdm.setName(file.getFileName().toString().replace(".cdm", ""));
-            return cdm;
-          });
+        List<String> validCdms = new ArrayList<>();
+        List<String> invalidCdms = new ArrayList<>();
+        var filenamePattern = Pattern.compile("\\d+\\.cdm");
+        var studentCdms = files
+            .filter(file ->
+                !Files.isDirectory(file) && filenamePattern.matcher(file.getFileName().toString()).matches()
+                && !file.endsWith("0.cdm"))
+            .map(file -> {
+              var cdm = ResourceHelper.cdmFromFile(file);
+              cdm.setName(file.getFileName().toString().replace(".cdm", ""));
+              return cdm;
+            });
 
-      studentCdms.forEach(cdm -> {
-        var cdmName = cdm.getName();
+        studentCdms.forEach(cdm -> {
+          var cdmName = cdm.getName();
           var spreadsheetName = cdmName + "_" + instSolution.getClassDiagram().getName();
-        var student = maf.createStudent();
-        student.setModelingAssistant(ma);
-        student.setName("Student" + cdmName); // Student1 and so on
-        var studSolution = maf.createSolution();
-        studSolution.setModelingAssistant(ma);
-        studSolution.setStudent(student);
-        studSolution.setClassDiagram(cdm);
-        try {
+          var student = maf.createStudent();
+          student.setModelingAssistant(ma);
+          student.setName("Student" + cdmName); // Student1 and so on
+          var studSolution = maf.createSolution();
+          studSolution.setModelingAssistant(ma);
+          studSolution.setStudent(student);
+          studSolution.setClassDiagram(cdm);
+          try {
             System.out.println("\n\nDetecting mistakes for " + cdmName);
-          var comparison = applyFinalExamCriteria(MistakeDetection.compare(instSolution, studSolution))
-              .logUnmappedItemsOnly();
+            var comparison = applyFinalExamCriteria(MistakeDetection.compare(instSolution, studSolution))
+                .logUnmappedItemsOnly();
             assertNotNull(comparison);
-            // The line below is commented out to avoid overwriting files by mistake. Backup before running!
-            //produceExcelSheet(comparison, spreadsheetName, SMART_HOME_OUTPUT_SPREADSHEET_LOC + "/" + cdmName);
+            if (OVERWRITE_SPREADSHEETS) {
+              produceExcelSheet(comparison, spreadsheetName, SMART_HOME_OUTPUT_SPREADSHEET_LOC + "/" + cdmName);
+            }
             var solutionNum = Integer.parseInt(cdmName);
             if (solutionsToNumMistakes.containsKey(solutionNum)) {
               solutionsToNumMistakes.get(solutionNum).add(comparison.newMistakes.size());
@@ -227,6 +239,9 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
         e.printStackTrace();
       }
     }
+    if (!OVERWRITE_SPREADSHEETS) {
+      System.out.println(OVERWRITE_SPREADSHEETS_REMINDER);
+    }
   }
 
   /**
@@ -251,13 +266,17 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
         System.out.println("Detecting mistakes for " + cdmName);
         var comparison = applyFinalExamCriteria(MistakeDetection.compare(instSolution, studSolution)).log();
         assertNotNull(comparison);
-        // The line below is commented out to avoid overwriting files by mistake. Backup before running!
-        //produceExcelSheet(comparison, cdmName, SMART_HOME_OUTPUT_SPREADSHEET_LOC + "/" + submissionId);
+        if (OVERWRITE_SPREADSHEETS) {
+          produceExcelSheet(comparison, cdmName, SMART_HOME_OUTPUT_SPREADSHEET_LOC + "/" + submissionId);
+        }
       } catch (Exception e) {
         System.err.println("Could not detect mistakes for " + cdmName + " due to error:");
         e.printStackTrace();
         Comparison.instances.remove(Comparison.instances.size() - 1);
       }
+    }
+    if (!OVERWRITE_SPREADSHEETS) {
+      System.out.println(OVERWRITE_SPREADSHEETS_REMINDER);
     }
   }
 
@@ -297,27 +316,27 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
       for (Mistake m : notExtraMistakes) {
         int count = 1;
         var instElem = getConcatNames(m.getInstructorElementNames());
-      var studElem = getConcatNames(m.getStudentElementNames());
+        var studElem = getConcatNames(m.getStudentElementNames());
 
-      var mistakeType = m.getMistakeType().getName();
-      for (Mistake m1 : notExtraMistakes) {
-        if (m != m1) {
-          var instElem1 = getConcatNames(m1.getInstructorElementNames());
-          var studElem1 = getConcatNames(m1.getStudentElementNames());
-          var mistakeType1Name = m.getMistakeType().getName();
-          var mistakeType2Name = m1.getMistakeType().getName();
+        var mistakeType = m.getMistakeType().getName();
+        for (Mistake m1 : notExtraMistakes) {
+          if (m != m1) {
+            var instElem1 = getConcatNames(m1.getInstructorElementNames());
+            var studElem1 = getConcatNames(m1.getStudentElementNames());
+            var mistakeType1Name = m.getMistakeType().getName();
+            var mistakeType2Name = m1.getMistakeType().getName();
 
-          if (instElem.equals(instElem1) && studElem.equals(studElem1)
-              && !(mistakeType1Name.equals(WRONG_MULTIPLICTY) && mistakeType2Name.equals(WRONG_ROLE_NAME))
-              && !(mistakeType1Name.equals(WRONG_ROLE_NAME) && mistakeType2Name.equals(WRONG_MULTIPLICTY))) {
-            mistakeType += ", " + m1.getMistakeType().getName();
-            count++;
+            if (instElem.equals(instElem1) && studElem.equals(studElem1)
+                && !(mistakeType1Name.equals(WRONG_MULTIPLICTY) && mistakeType2Name.equals(WRONG_ROLE_NAME))
+                && !(mistakeType1Name.equals(WRONG_ROLE_NAME) && mistakeType2Name.equals(WRONG_MULTIPLICTY))) {
+              mistakeType += ", " + m1.getMistakeType().getName();
+              count++;
+            }
           }
         }
-      }
-      var fnlString = instElem + studElem;
-      if (!printedToExcel.contains(fnlString) || mistakeType.equals(WRONG_ROLE_NAME)
-          || mistakeType.equals(WRONG_MULTIPLICTY)) {
+        var fnlString = instElem + studElem;
+        if (!printedToExcel.contains(fnlString) || mistakeType.equals(WRONG_ROLE_NAME)
+            || mistakeType.equals(WRONG_MULTIPLICTY)) {
           id++;
           var rowNum = sheet.rowNumber + 1;
           // include count by default in "Actually a Mistake" column to minimize copy-pasting
@@ -325,32 +344,32 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
           numMtRows++;
           printedToExcel.add(fnlString);
         }
-    }
-    int instructorElems = id - 1;
-    int extraElemsStart = id;
-    printedToExcel = new ArrayList<>();
-    for (Mistake m : extraMistakes) {
-      int count = 1;
-      var instElem = getConcatNames(m.getInstructorElementNames());
-      var studElem = getConcatNames(m.getStudentElementNames());
+      }
+      int instructorElems = id - 1;
+      int extraElemsStart = id;
+      printedToExcel = new ArrayList<>();
+      for (Mistake m : extraMistakes) {
+        int count = 1;
+        var instElem = getConcatNames(m.getInstructorElementNames());
+        var studElem = getConcatNames(m.getStudentElementNames());
 
-      var mistakeType = m.getMistakeType().getName();
-      for (Mistake m1 : extraMistakes) {
-        if (m != m1) {
-          var instElem1 = getConcatNames(m1.getInstructorElementNames());
-          var studElem1 = getConcatNames(m1.getStudentElementNames());
-          var mistakeType1Name = m.getMistakeType().getName();
-          var mistakeType2Name = m1.getMistakeType().getName();
-          if (instElem.equals(instElem1) && studElem.equals(studElem1)
-              && !(mistakeType1Name.equals(WRONG_MULTIPLICTY) && mistakeType2Name.equals(WRONG_ROLE_NAME))
-              && !(mistakeType1Name.equals(WRONG_ROLE_NAME) && mistakeType2Name.equals(WRONG_MULTIPLICTY))) {
-            mistakeType += ", " + m1.getMistakeType().getName();
-            count++;
+        var mistakeType = m.getMistakeType().getName();
+        for (Mistake m1 : extraMistakes) {
+          if (m != m1) {
+            var instElem1 = getConcatNames(m1.getInstructorElementNames());
+            var studElem1 = getConcatNames(m1.getStudentElementNames());
+            var mistakeType1Name = m.getMistakeType().getName();
+            var mistakeType2Name = m1.getMistakeType().getName();
+            if (instElem.equals(instElem1) && studElem.equals(studElem1)
+                && !(mistakeType1Name.equals(WRONG_MULTIPLICTY) && mistakeType2Name.equals(WRONG_ROLE_NAME))
+                && !(mistakeType1Name.equals(WRONG_ROLE_NAME) && mistakeType2Name.equals(WRONG_MULTIPLICTY))) {
+              mistakeType += ", " + m1.getMistakeType().getName();
+              count++;
+            }
           }
         }
-      }
-      var fnlString = instElem + studElem;
-      if (!printedToExcel.contains(fnlString) || mistakeType.equals(WRONG_ROLE_NAME)
+        var fnlString = instElem + studElem;
+        if (!printedToExcel.contains(fnlString) || mistakeType.equals(WRONG_ROLE_NAME)
             || mistakeType.equals(WRONG_MULTIPLICTY)) {
           var rowNum = sheet.rowNumber + 1;
           sheet.addRow(instElem, studElem, mistakeType, count, count, "=D" + rowNum + "=E" + rowNum);
@@ -369,17 +388,17 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
           .addRow("MDS vs Actual Decision", "", "", "", "", "=COUNTIF(F2:F" + mainTableLastRow + ",\"False\")");
 
       // Important for formula calculations
-    var totalMistakeindex = id + 3;
-    var MDSvsActualIndex = totalMistakeindex + 1;
-    var totalInstElemsIndex = MDSvsActualIndex + 1;
-    var instElemsIndex = totalInstElemsIndex + 1;
-    var studExtraIndex = instElemsIndex + 1;
-    var addFalseNegIndex = studExtraIndex + 1;
-    var addFalsePosIndex = addFalseNegIndex + 1;
-    var totalElemsIndex = addFalsePosIndex + 1;
-    var totalNumbVerdictsIndex = totalElemsIndex + 1;
-    var tnIndex = totalNumbVerdictsIndex + 6;
-    var tpIndex = tnIndex + 1;
+      var totalMistakeindex = id + 3;
+      var MDSvsActualIndex = totalMistakeindex + 1;
+      var totalInstElemsIndex = MDSvsActualIndex + 1;
+      var instElemsIndex = totalInstElemsIndex + 1;
+      var studExtraIndex = instElemsIndex + 1;
+      var addFalseNegIndex = studExtraIndex + 1;
+      var addFalsePosIndex = addFalseNegIndex + 1;
+      var totalElemsIndex = addFalsePosIndex + 1;
+      var totalNumbVerdictsIndex = totalElemsIndex + 1;
+      var tnIndex = totalNumbVerdictsIndex + 6;
+      var tpIndex = tnIndex + 1;
       var fpIndex = tpIndex + 1;
       var fnIndex = fpIndex + 1;
       var recallIndex = fnIndex + 1;
