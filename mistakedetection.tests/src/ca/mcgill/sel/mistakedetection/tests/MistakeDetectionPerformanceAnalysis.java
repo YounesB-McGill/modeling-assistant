@@ -33,6 +33,7 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.AssociationEnd;
 import ca.mcgill.sel.classdiagram.Attribute;
@@ -72,8 +73,8 @@ import modelingassistant.util.ResourceHelper;
  * @author Prabhsimran Singh
  * @author Younes Boubekeur
  */
-//@Disabled("Tests with real student solutions are disabled in public version of this repo. Please contact a professor "
-//    + "from the McGill Software Engineering Lab to see if you can obtain access.")
+@Disabled("Tests with real student solutions are disabled in public version of this repo. Please contact a professor "
+    + "from the McGill Software Engineering Lab to see if you can obtain access.")
 public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTest {
 
   /**

@@ -157,7 +157,6 @@ def assoc_for(eref: EReference, cdm: ClassDiagram, cdm_items: dict[str, EObject]
         return &#34;,&#34;.join((cls1, cls2, ae1, ae2))
 
     name = unique_name(eref)
-    #print(f&#34;unique_name: &#39;{name}&#39;&#34;)
     if name not in cdm_items:
         tc_name = &#34;_&#34;.join(name.split(&#34;,&#34;)[:2])  # cls1_cls2, to match TouchCORE conventions
         assoc = Association(name=tc_name)
@@ -213,13 +212,11 @@ def add_compositions_to_cdm(
     &#34;Detect compositions and add them to the given class diagram.&#34;
 
     def clean(s: str) -&gt; str:
-        &#39;Clean string by replacing &#34;-&#34; with &#34; &#34; removing numbers and special characters.&#39;
+        &#39;Clean string by replacing &#34;-&#34; with &#34; &#34; and removing numbers and special characters.&#39;
         return s.translate(str.maketrans(&#34;-&#34;, &#34; &#34;, f&#34;{string.digits}*.;{{}}&#34;)).strip()
 
     for i in range(1, len(umple_lines)):
         if &#34;&lt;@&gt;&#34; in umple_lines[i]:
-            #compos_line = clean(umple_lines[i])
-            #print(f&#34;{compos_line = }&#34;)
             if &#34;&lt;@&gt;-&#34; in umple_lines[i]:
                 &#34;&#34;&#34;
                 Example:
@@ -364,7 +361,6 @@ def add_enum_items_to_cdm(
                             if (qualified_enum_item_name := f&#34;{ecore_enum}.{r}&#34;) not in cdm_items:
                                 enum_item = CDEnumLiteral(name=r)
                                 cdm_items[qualified_enum_item_name] = enum_item
-                                #print(f&#34;{cd_enum.name = }&#34;)
                                 cd_enum.literals.append(enum_item)
                         else:
                             warn(f&#39;&#34;{r}&#34; does not appear to be a valid enum item for the enum {ecore_enum}&#39;)
@@ -459,13 +455,11 @@ if __name__ == &#34;__main__&#34;:
     &#34;Detect compositions and add them to the given class diagram.&#34;
 
     def clean(s: str) -&gt; str:
-        &#39;Clean string by replacing &#34;-&#34; with &#34; &#34; removing numbers and special characters.&#39;
+        &#39;Clean string by replacing &#34;-&#34; with &#34; &#34; and removing numbers and special characters.&#39;
         return s.translate(str.maketrans(&#34;-&#34;, &#34; &#34;, f&#34;{string.digits}*.;{{}}&#34;)).strip()
 
     for i in range(1, len(umple_lines)):
         if &#34;&lt;@&gt;&#34; in umple_lines[i]:
-            #compos_line = clean(umple_lines[i])
-            #print(f&#34;{compos_line = }&#34;)
             if &#34;&lt;@&gt;-&#34; in umple_lines[i]:
                 &#34;&#34;&#34;
                 Example:
@@ -585,7 +579,6 @@ if __name__ == &#34;__main__&#34;:
                             if (qualified_enum_item_name := f&#34;{ecore_enum}.{r}&#34;) not in cdm_items:
                                 enum_item = CDEnumLiteral(name=r)
                                 cdm_items[qualified_enum_item_name] = enum_item
-                                #print(f&#34;{cd_enum.name = }&#34;)
                                 cd_enum.literals.append(enum_item)
                         else:
                             warn(f&#39;&#34;{r}&#34; does not appear to be a valid enum item for the enum {ecore_enum}&#39;)
@@ -656,7 +649,6 @@ class diagram if necessary.</p></div>
         return &#34;,&#34;.join((cls1, cls2, ae1, ae2))
 
     name = unique_name(eref)
-    #print(f&#34;unique_name: &#39;{name}&#39;&#34;)
     if name not in cdm_items:
         tc_name = &#34;_&#34;.join(name.split(&#34;,&#34;)[:2])  # cls1_cls2, to match TouchCORE conventions
         assoc = Association(name=tc_name)

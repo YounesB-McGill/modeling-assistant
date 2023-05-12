@@ -127,7 +127,6 @@ def assoc_for(eref: EReference, cdm: ClassDiagram, cdm_items: dict[str, EObject]
         return ",".join((cls1, cls2, ae1, ae2))
 
     name = unique_name(eref)
-    #print(f"unique_name: '{name}'")
     if name not in cdm_items:
         tc_name = "_".join(name.split(",")[:2])  # cls1_cls2, to match TouchCORE conventions
         assoc = Association(name=tc_name)
@@ -183,13 +182,11 @@ def add_compositions_to_cdm(
     "Detect compositions and add them to the given class diagram."
 
     def clean(s: str) -> str:
-        'Clean string by replacing "-" with " " removing numbers and special characters.'
+        'Clean string by replacing "-" with " " and removing numbers and special characters.'
         return s.translate(str.maketrans("-", " ", f"{string.digits}*.;{{}}")).strip()
 
     for i in range(1, len(umple_lines)):
         if "<@>" in umple_lines[i]:
-            #compos_line = clean(umple_lines[i])
-            #print(f"{compos_line = }")
             if "<@>-" in umple_lines[i]:
                 """
                 Example:
@@ -334,7 +331,6 @@ def add_enum_items_to_cdm(
                             if (qualified_enum_item_name := f"{ecore_enum}.{r}") not in cdm_items:
                                 enum_item = CDEnumLiteral(name=r)
                                 cdm_items[qualified_enum_item_name] = enum_item
-                                #print(f"{cd_enum.name = }")
                                 cd_enum.literals.append(enum_item)
                         else:
                             warn(f'"{r}" does not appear to be a valid enum item for the enum {ecore_enum}')

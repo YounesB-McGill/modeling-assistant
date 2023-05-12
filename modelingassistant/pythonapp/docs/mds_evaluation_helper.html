@@ -204,7 +204,6 @@ def print_inst_sol_num_elements():
     for inst_sol_id in INSTRUCTOR_SOLUTION_IDS:
         cdm = load_cdm(f&#34;{INST_CDM_PATH}/{inst_sol_id}.cdm&#34;)
         print(f&#34;{cdm.name}: {num_elements(cdm)}&#34;)
-        print(100 * &#34;=&#34;)
 
 
 def num_elements(cdm: ClassDiagram):
@@ -214,24 +213,19 @@ def num_elements(cdm: ClassDiagram):
         match e:
             case (CDByte() | CDBoolean() | CDChar() | CDDouble() | CDFloat() | CDInt() | CDLong() | CDString() | CDAny()
                   | CDArray()):
-                print(f&#34;{e.__class__.__name__},primitive type,0&#34;)
                 pass
-            case AssociationEnd() as ae:
-                print(f&#34;{ae.classifier.name}.{ae.name},assocend,2&#34;)
+            case AssociationEnd():
                 result += 2  # role name, multiplicity
             case Classifier() as c:
-                print(f&#34;{c.name},class,{1 + len(c.superTypes)}&#34;)
                 result += 1 + len(c.superTypes)
             case _:
-                q = &#34;&#39;&#34;
-                print(f&#34;{getattr(e, &#39;name&#39;, str(e))},{str(type(e)).split(&#39;.&#39;)[-1].replace(q, &#39;&#39;).removesuffix(&#39;&gt;&#39;)},1&#34;)
                 result += 1
     return result
 
 
 if __name__ == &#34;__main__&#34;:
     print_inst_sol_num_elements()
-    #produce_common_spreadsheet()</code></pre>
+    produce_common_spreadsheet()</code></pre>
 </details>
 </section>
 <section>
@@ -309,17 +303,12 @@ if __name__ == &#34;__main__&#34;:
         match e:
             case (CDByte() | CDBoolean() | CDChar() | CDDouble() | CDFloat() | CDInt() | CDLong() | CDString() | CDAny()
                   | CDArray()):
-                print(f&#34;{e.__class__.__name__},primitive type,0&#34;)
                 pass
-            case AssociationEnd() as ae:
-                print(f&#34;{ae.classifier.name}.{ae.name},assocend,2&#34;)
+            case AssociationEnd():
                 result += 2  # role name, multiplicity
             case Classifier() as c:
-                print(f&#34;{c.name},class,{1 + len(c.superTypes)}&#34;)
                 result += 1 + len(c.superTypes)
             case _:
-                q = &#34;&#39;&#34;
-                print(f&#34;{getattr(e, &#39;name&#39;, str(e))},{str(type(e)).split(&#39;.&#39;)[-1].replace(q, &#39;&#39;).removesuffix(&#39;&gt;&#39;)},1&#34;)
                 result += 1
     return result</code></pre>
 </details>
@@ -337,8 +326,7 @@ if __name__ == &#34;__main__&#34;:
     &#34;Print the number of elements for each instructor solution.&#34;
     for inst_sol_id in INSTRUCTOR_SOLUTION_IDS:
         cdm = load_cdm(f&#34;{INST_CDM_PATH}/{inst_sol_id}.cdm&#34;)
-        print(f&#34;{cdm.name}: {num_elements(cdm)}&#34;)
-        print(100 * &#34;=&#34;)</code></pre>
+        print(f&#34;{cdm.name}: {num_elements(cdm)}&#34;)</code></pre>
 </details>
 </dd>
 <dt id="mds_evaluation_helper.print_results"><code class="name flex">
