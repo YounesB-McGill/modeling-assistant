@@ -404,7 +404,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
       var recallIndex = fnIndex + 1;
       var precisionIndex = recallIndex + 1;
 
-      sheet.addRow("Total number of instructor elements", NUM_HOTEL_INST_SOL_ELEMS)
+      sheet.addRow("Total number of instructor elements", numElements(comparison.instructorCdm))
           .addRow("Instructor elements present", "=COUNT(E2:E" + instructorElems + ")")
           .addRow("Extra Elements", sumOfMaximumsFormula("D", extraElemsStart, "E", id))
           .addRow("Additional false negatives", 0)
@@ -420,7 +420,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
           .addRow("Correct Identification % (verdicts)", "",
               "=((B" + totalNumbVerdictsIndex + "-F" + MDSvsActualIndex + ")/B" + totalNumbVerdictsIndex + ")*100")
           .addRow("True Negative", "", sumOfPlaceholdersFormula("IF(D%=0,IF(E%=0,1,0),0)", 2, instructorElems) + " + ("
-              + NUM_HOTEL_INST_SOL_ELEMS + " - B" + instElemsIndex + ")")
+              + numElements(comparison.instructorCdm) + " - B" + instElemsIndex + ")")
           .addRow("True Positive", "", sumOfPlaceholdersFormula("IF(D%>0,IF(D%>E%,E%,D%),0)", 2, id))
           .addRow("False Positive", "", sumOfPlaceholdersFormula("MAX(E%-D%,0)", 2, id) + " + B" + addFalsePosIndex)
           .addRow("False Negative", "", sumOfPlaceholdersFormula("MAX(D%-E%,0)", 2, id) + " + B" + addFalseNegIndex)
