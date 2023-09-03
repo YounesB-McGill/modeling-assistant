@@ -108,7 +108,7 @@ instructions described [here](docs/onboarding/setup.md).
 
 The **Modeling UI Frontend**
 ([Unity](https://github.com/eknuviad/domain-model-assistant),
-JavaScript),
+[JavaScript](https://github.com/Czarlhd/webcore-frontend)),
 **[WebCORE](https://bitbucket.org/mcgillram/touchcore-web)**, and
 **[TouchCORE](https://bitbucket.org/mcgillram/)**
 are all developed in separate repositories.
