@@ -5,6 +5,7 @@ import static modelingassistant.util.ClassDiagramUtils.getAttributeFromClass;
 import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
 import java.util.List;
 import ca.mcgill.sel.classdiagram.ClassDiagram;
+import ca.mcgill.sel.classdiagram.Classifier;
 import modelingassistant.ModelingassistantFactory;
 import modelingassistant.Solution;
 import modelingassistant.SolutionElement;
@@ -23,10 +24,11 @@ public class SynonymUtils {
 
 
   /**
-   * Assigns the given list of synonyms to the given class, such that a student class with any of the names is considered to have a correct name.
+   * Assigns the given list of synonyms to the given class, such that a student class with any of the names is
+   * considered to have a correct name.
    */
-  public static void setSynonymToClassInClassDiag(String className, List<String> synonymNames, ClassDiagram classDiagram,
-      Solution instructorSolution) {
+  public static void setSynonymToClassInClassDiag(String className, List<String> synonymNames,
+      ClassDiagram classDiagram, Solution instructorSolution) {
     var instClass = getClassFromClassDiagram(className, classDiagram);
     var se = SolutionElement.forCdmElement(instClass);
     se.setSolution(instructorSolution);
@@ -35,12 +37,22 @@ public class SynonymUtils {
   }
 
   /**
-   * Assigns the given list of synonyms to the given attribute, such that a student attribute with any of the names is considered to have a correct name.
+   * Assigns the given list of synonyms to the given attribute, such that a student attribute with any of the names is
+   * considered to have a correct name.
    */
-  public static void setSynonymToAttribInClassInClassDiag(String className, String attributeName, List<String> synonymNames, ClassDiagram classDiagram,
-      Solution instructorSolution) {
+  public static void setSynonymToAttribInClassInClassDiag(String className, String attributeName,
+      List<String> synonymNames, ClassDiagram classDiagram, Solution instructorSolution) {
     var instClass = getClassFromClassDiagram(className, classDiagram);
-    var instClassAttribute = getAttributeFromClass(attributeName, instClass);
+    setSynonymToAttribInClassInClassDiag(instClass, attributeName, synonymNames, classDiagram, instructorSolution);
+  }
+
+  /**
+   * Assigns the given list of synonyms to the given attribute, such that a student attribute with any of the names is
+   * considered to have a correct name.
+   */
+  public static void setSynonymToAttribInClassInClassDiag(Classifier cls, String attributeName,
+      List<String> synonymNames, ClassDiagram classDiagram, Solution instructorSolution) {
+    var instClassAttribute = getAttributeFromClass(attributeName, cls);
     var se = SolutionElement.forCdmElement(instClassAttribute);
     se.setSolution(instructorSolution);
 
@@ -48,12 +60,22 @@ public class SynonymUtils {
   }
 
   /**
-   * Assigns the given list of synonyms to the given assoc end, such that a student assoc end with any of the names is considered to have a correct name.
+   * Assigns the given list of synonyms to the given assoc end, such that a student assoc end with any of the names is
+   * considered to have a correct name.
    */
-  public static void setSynonymToRoleInClassInClassDiag(String className, String assocEndName, List<String> synonymNames, ClassDiagram classDiagram,
-      Solution instructorSolution) {
+  public static void setSynonymToRoleInClassInClassDiag(String className, String assocEndName,
+      List<String> synonymNames, ClassDiagram classDiagram, Solution instructorSolution) {
     var instClass = getClassFromClassDiagram(className, classDiagram);
-    var instClassAssocEnd = getAssociationEndFromClass(assocEndName, instClass);
+    setSynonymToRoleInClassInClassDiag(instClass, assocEndName, synonymNames, classDiagram, instructorSolution);
+  }
+
+  /**
+   * Assigns the given list of synonyms to the given assoc end, such that a student assoc end with any of the names is
+   * considered to have a correct name.
+   */
+  public static void setSynonymToRoleInClassInClassDiag(Classifier cls, String assocEndName,
+      List<String> synonymNames, ClassDiagram classDiagram, Solution instructorSolution) {
+    var instClassAssocEnd = getAssociationEndFromClass(assocEndName, cls);
     var se = SolutionElement.forCdmElement(instClassAssocEnd);
     se.setSolution(instructorSolution);
 
@@ -68,4 +90,5 @@ public class SynonymUtils {
       synonym.setSolutionElement(se);
      });
   }
+
 }

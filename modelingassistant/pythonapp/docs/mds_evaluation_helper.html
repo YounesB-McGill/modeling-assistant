@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>mds_evaluation_helper API documentation</title>
+<meta name="description" content="Module to help evaluate the Mistake Detection System by parsing the spreadsheets its tests generate and combining the
+results in a common spreadsheet …" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>mds_evaluation_helper</code></h1>
+</header>
+<section id="section-intro">
+<p>Module to help evaluate the Mistake Detection System by parsing the spreadsheets its tests generate and combining the
+results in a common spreadsheet.</p>
+<p>Author: Younes Boubekeur</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">#!/usr/bin/env python3
+&#34;&#34;&#34;
+Module to help evaluate the Mistake Detection System by parsing the spreadsheets its tests generate and combining the
+results in a common spreadsheet.
+
+Author: Younes Boubekeur
+&#34;&#34;&#34;
+# pylint: disable=consider-using-enumerate, wrong-import-position
+
+import sys
+import os
+
+from openpyxl import load_workbook, Workbook
+from openpyxl.worksheet.worksheet import Worksheet
+
+# this line is needed to be able to call this script directly
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from classdiagram import (AssociationEnd, ClassDiagram, Classifier, CDArray, CDBoolean, CDDouble, CDFloat, CDInt,
+                          CDLong, CDString, CDAny, CDByte, CDChar)
+
+from envvars import env_vars
+from fileserdes import load_cdm
+
+
+SPREADSHEET_LOCATIONS: str = env_vars[&#34;mds-evaluation-spreadsheet-location&#34;]
+COMMON_SPREADSHEET_PATH = f&#34;{SPREADSHEET_LOCATIONS}/common-spreadsheet.xlsx&#34;
+INST_CDM_PATH = &#34;mistakedetection/realModels/instructorSolution/smarthome&#34;
+
+INSTRUCTOR_SOLUTION_IDS = (201, 202, 203, 204)
+EVALUATED_STUDENT_SOLUTION_IDS = [14, 36, 39, 48, 58, 61, 69, 71, 77, 80, 97, 100]
+
+TN_TP_FP_FN_R_P_F1_F2_M = tuple[int, int, int, int, float, float, float, float, int]  # pylint: disable=invalid-name
+MDS_RESULT_COLUMN_OFFSET = 4  # Column E using zero-indexing
+INSTRUCTOR_SOLUTION_ID_OFFSET = INSTRUCTOR_SOLUTION_IDS[0] - 1
+
+OVERWRITE_COMMON_SPREADSHEET = False  # default is False to avoid overwriting the file by mistake
+
+
+def produce_common_spreadsheet():
+    &#34;Produce the common results spreadsheet from the individual ones used for the evaluation.&#34;
+    results = [[(
+        &#34;True Negative&#34;,
+        &#34;True Positive&#34;,
+        &#34;False Positive&#34;,
+        &#34;False Negative&#34;,
+        &#34;Recall (TP / (TP + FN))&#34;,
+        &#34;Precision (TP / (TP + FP))&#34;,
+        &#34;F1 (2PR / (P + R))&#34;,
+        &#34;F2 (5PR / (4P + R)&#34;,
+        &#34;Number of MDS Mistakes&#34;,
+    )] for _ in range(len(INSTRUCTOR_SOLUTION_IDS) + 1)]
+    for i, instructor_solution_id in enumerate(INSTRUCTOR_SOLUTION_IDS):
+        for student_solution_id in EVALUATED_STUDENT_SOLUTION_IDS:
+            results[i].append(get_spreadsheet_results(student_solution_id, instructor_solution_id))
+        averages = [0 for _ in range(len(results[i][0]))]
+        for t in results[i][1:]:
+            for j in range(len(averages)):
+                averages[j] += t[j] or 0
+        for j in range(len(averages)):
+            averages[j] /= (len(results[i]) - 1)
+        results[i].append(tuple(averages))
+
+    # determine best instructor solution based on lowest number of MDS mistakes
+    best_inst_sols = []
+    for col in range(1, len(results[0])):
+        num_mistakes = []
+        for inst_sol_group in range(len(results) - 1):
+            num_mistakes.append(results[inst_sol_group][col][-1] or 0)
+        best_inst_sol_idx = num_mistakes.index(min(num_mistakes))
+        best_inst_sols.append(best_inst_sol_idx + INSTRUCTOR_SOLUTION_ID_OFFSET + 1)
+        results[-1].append(results[best_inst_sol_idx][col])
+
+    print_results(results, best_inst_sols)
+    if OVERWRITE_COMMON_SPREADSHEET:
+        save_to_spreadsheet(results, best_inst_sols, COMMON_SPREADSHEET_PATH)
+
+
+def save_to_spreadsheet(results: list[list[tuple]], best_inst_sols, path):
+    &#34;Saves the given results to the given file path.&#34;
+    wb = Workbook()
+    ws: Worksheet = wb.active
+    for i in range(len(INSTRUCTOR_SOLUTION_IDS) + 1):
+        if i &lt; len(INSTRUCTOR_SOLUTION_IDS):
+            ws.append((f&#34;Instructor solution {INSTRUCTOR_SOLUTION_IDS[i]}&#34;,))
+        else:
+            ws.append((&#34;Best solution based on lowest number of mistakes&#34;,))
+        ws.append([&#34;Student solution&#34;, *EVALUATED_STUDENT_SOLUTION_IDS, &#34;Averages&#34;])
+        rows = []
+        for j in range(len(results[i][0])):
+            rows.append([results[i][k][j] for k in range(len(results[i]))])
+        for row in rows:
+            ws.append(row)
+        if i == len(INSTRUCTOR_SOLUTION_IDS):
+            ws.append([&#34;Selected solution&#34;, *best_inst_sols])
+        ws.append((&#34;&#34;,))
+    ws.column_dimensions[&#34;A&#34;].width *= 2  # increase width of first column to fit text
+    wb.save(path)
+
+
+def print_results(results: list[list[tuple]], best_inst_sols: list[int]):
+    &#34;Print the results to console, useful for debugging.&#34;
+    for i in range(len(INSTRUCTOR_SOLUTION_IDS) + 1):
+        if i &lt; len(INSTRUCTOR_SOLUTION_IDS):
+            print(f&#34;Instructor solution {INSTRUCTOR_SOLUTION_IDS[i]}&#34;)
+        else:
+            print(&#34;Best solution based on lowest number of mistakes&#34;)
+        print(&#34; &#34;.join([&#34;Student solution&#34;, *map(str, EVALUATED_STUDENT_SOLUTION_IDS), &#34;Averages&#34;]))
+        for j in range(len(results[i][0])):
+            for k in range(len(results[i])):
+                print(f&#34;{results[i][k][j]}&#34;, end=&#34; &#34;)
+            print()
+        if i == len(INSTRUCTOR_SOLUTION_IDS):
+            print(&#34; &#34;.join([&#34;Selected solution&#34;, *map(str, best_inst_sols)]))
+        print()
+
+
+def print_results_as_latex(results: list[list[tuple]], best_inst_sols: list[int]):
+    &#34;Print the results to console in LaTeX format, useful for publications.&#34;
+    for i in range(len(INSTRUCTOR_SOLUTION_IDS) + 1):
+        if i &lt; len(INSTRUCTOR_SOLUTION_IDS):
+            print(f&#34;Instructor solution {INSTRUCTOR_SOLUTION_IDS[i]}&#34;)
+        else:
+            print(&#34;Best solution based on lowest number of mistakes&#34;)
+        print(&#34; &amp; &#34;.join([&#34;Student solution&#34;, *map(str, EVALUATED_STUDENT_SOLUTION_IDS), &#34;Averages&#34;]))
+        for j in range(len(results[i][0])):
+            for k in range(len(results[i])):
+                v = results[i][k][j]
+                if isinstance(v, float):
+                    v = round(v, 2)
+                print(v, end=&#34; &amp; &#34;)
+            print()
+        if i == len(INSTRUCTOR_SOLUTION_IDS):
+            print(&#34; &amp; &#34;.join([&#34;Selected solution&#34;, *map(str, best_inst_sols)]))
+        print()
+
+
+def get_spreadsheet_results(student_solution_id, instructor_solution_id) -&gt; TN_TP_FP_FN_R_P_F1_F2_M:
+    &#34;&#34;&#34;
+    Return the 9-tuple with the following elements for the given submission_id:
+
+    - True Negatives
+    - True Positives
+    - False Positives
+    - False Negatives
+    - Recall (TP / (TP + FN))
+    - Precision (TP / (TP + FP))
+    - F1 (2 * Precision * Recall / (Precision + Recall))
+    - F2 (5 * Precision * Recall) / (4 * Precision + Recall)
+    - Number of MDS Mistakes
+    &#34;&#34;&#34;
+    result = []
+    ws = load_workbook(f&#34;{SPREADSHEET_LOCATIONS}/{student_solution_id}/&#34;
+                       f&#34;GroundTruth_{student_solution_id}_{instructor_solution_id}.xlsx&#34;,
+                       read_only=True, data_only=True).active
+    num_mistakes = 0
+    reached_tn = False
+    for row in ws.values:
+        if not reached_tn and row[0]:
+            if row[0].startswith(&#34;Total Mistakes&#34;):
+                num_mistakes = row[MDS_RESULT_COLUMN_OFFSET]
+            if row[0].startswith(&#34;True Negative&#34;):
+                reached_tn = True
+        if reached_tn:
+            result.append(row[2] if row[2] is not None else 1)  # 1 is a default value if actual value is unavailable
+    result.append(num_mistakes)
+    return tuple(result)
+
+
+def print_inst_sol_num_elements():
+    &#34;Print the number of elements for each instructor solution.&#34;
+    for inst_sol_id in INSTRUCTOR_SOLUTION_IDS:
+        cdm = load_cdm(f&#34;{INST_CDM_PATH}/{inst_sol_id}.cdm&#34;)
+        print(f&#34;{cdm.name}: {num_elements(cdm)}&#34;)
+
+
+def num_elements(cdm: ClassDiagram):
+    &#34;Return the number of elements in the given class diagram according to the formula used in the experiment.&#34;
+    result = 1  # 1 for Incomplete containment tree
+    for e in cdm.eAllContents():
+        match e:
+            case (CDByte() | CDBoolean() | CDChar() | CDDouble() | CDFloat() | CDInt() | CDLong() | CDString() | CDAny()
+                  | CDArray()):
+                pass
+            case AssociationEnd():
+                result += 2  # role name, multiplicity
+            case Classifier() as c:
+                result += 1 + len(c.superTypes)
+            case _:
+                result += 1
+    return result
+
+
+if __name__ == &#34;__main__&#34;:
+    print_inst_sol_num_elements()
+    produce_common_spreadsheet()</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="mds_evaluation_helper.get_spreadsheet_results"><code class="name flex">
+<span>def <span class="ident">get_spreadsheet_results</span></span>(<span>student_solution_id, instructor_solution_id) ‑> tuple[int, int, int, int, float, float, float, float, int]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the 9-tuple with the following elements for the given submission_id:</p>
+<ul>
+<li>True Negatives</li>
+<li>True Positives</li>
+<li>False Positives</li>
+<li>False Negatives</li>
+<li>Recall (TP / (TP + FN))</li>
+<li>Precision (TP / (TP + FP))</li>
+<li>F1 (2 * Precision * Recall / (Precision + Recall))</li>
+<li>F2 (5 * Precision * Recall) / (4 * Precision + Recall)</li>
+<li>Number of MDS Mistakes</li>
+</ul></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_spreadsheet_results(student_solution_id, instructor_solution_id) -&gt; TN_TP_FP_FN_R_P_F1_F2_M:
+    &#34;&#34;&#34;
+    Return the 9-tuple with the following elements for the given submission_id:
+
+    - True Negatives
+    - True Positives
+    - False Positives
+    - False Negatives
+    - Recall (TP / (TP + FN))
+    - Precision (TP / (TP + FP))
+    - F1 (2 * Precision * Recall / (Precision + Recall))
+    - F2 (5 * Precision * Recall) / (4 * Precision + Recall)
+    - Number of MDS Mistakes
+    &#34;&#34;&#34;
+    result = []
+    ws = load_workbook(f&#34;{SPREADSHEET_LOCATIONS}/{student_solution_id}/&#34;
+                       f&#34;GroundTruth_{student_solution_id}_{instructor_solution_id}.xlsx&#34;,
+                       read_only=True, data_only=True).active
+    num_mistakes = 0
+    reached_tn = False
+    for row in ws.values:
+        if not reached_tn and row[0]:
+            if row[0].startswith(&#34;Total Mistakes&#34;):
+                num_mistakes = row[MDS_RESULT_COLUMN_OFFSET]
+            if row[0].startswith(&#34;True Negative&#34;):
+                reached_tn = True
+        if reached_tn:
+            result.append(row[2] if row[2] is not None else 1)  # 1 is a default value if actual value is unavailable
+    result.append(num_mistakes)
+    return tuple(result)</code></pre>
+</details>
+</dd>
+<dt id="mds_evaluation_helper.num_elements"><code class="name flex">
+<span>def <span class="ident">num_elements</span></span>(<span>cdm: <a title="classdiagram.classdiagram.ClassDiagram" href="classdiagram/classdiagram.html#classdiagram.classdiagram.ClassDiagram">ClassDiagram</a>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the number of elements in the given class diagram according to the formula used in the experiment.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def num_elements(cdm: ClassDiagram):
+    &#34;Return the number of elements in the given class diagram according to the formula used in the experiment.&#34;
+    result = 1  # 1 for Incomplete containment tree
+    for e in cdm.eAllContents():
+        match e:
+            case (CDByte() | CDBoolean() | CDChar() | CDDouble() | CDFloat() | CDInt() | CDLong() | CDString() | CDAny()
+                  | CDArray()):
+                pass
+            case AssociationEnd():
+                result += 2  # role name, multiplicity
+            case Classifier() as c:
+                result += 1 + len(c.superTypes)
+            case _:
+                result += 1
+    return result</code></pre>
+</details>
+</dd>
+<dt id="mds_evaluation_helper.print_inst_sol_num_elements"><code class="name flex">
+<span>def <span class="ident">print_inst_sol_num_elements</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Print the number of elements for each instructor solution.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def print_inst_sol_num_elements():
+    &#34;Print the number of elements for each instructor solution.&#34;
+    for inst_sol_id in INSTRUCTOR_SOLUTION_IDS:
+        cdm = load_cdm(f&#34;{INST_CDM_PATH}/{inst_sol_id}.cdm&#34;)
+        print(f&#34;{cdm.name}: {num_elements(cdm)}&#34;)</code></pre>
+</details>
+</dd>
+<dt id="mds_evaluation_helper.print_results"><code class="name flex">
+<span>def <span class="ident">print_results</span></span>(<span>results: list[list[tuple]], best_inst_sols: list[int])</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Print the results to console, useful for debugging.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def print_results(results: list[list[tuple]], best_inst_sols: list[int]):
+    &#34;Print the results to console, useful for debugging.&#34;
+    for i in range(len(INSTRUCTOR_SOLUTION_IDS) + 1):
+        if i &lt; len(INSTRUCTOR_SOLUTION_IDS):
+            print(f&#34;Instructor solution {INSTRUCTOR_SOLUTION_IDS[i]}&#34;)
+        else:
+            print(&#34;Best solution based on lowest number of mistakes&#34;)
+        print(&#34; &#34;.join([&#34;Student solution&#34;, *map(str, EVALUATED_STUDENT_SOLUTION_IDS), &#34;Averages&#34;]))
+        for j in range(len(results[i][0])):
+            for k in range(len(results[i])):
+                print(f&#34;{results[i][k][j]}&#34;, end=&#34; &#34;)
+            print()
+        if i == len(INSTRUCTOR_SOLUTION_IDS):
+            print(&#34; &#34;.join([&#34;Selected solution&#34;, *map(str, best_inst_sols)]))
+        print()</code></pre>
+</details>
+</dd>
+<dt id="mds_evaluation_helper.print_results_as_latex"><code class="name flex">
+<span>def <span class="ident">print_results_as_latex</span></span>(<span>results: list[list[tuple]], best_inst_sols: list[int])</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Print the results to console in LaTeX format, useful for publications.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def print_results_as_latex(results: list[list[tuple]], best_inst_sols: list[int]):
+    &#34;Print the results to console in LaTeX format, useful for publications.&#34;
+    for i in range(len(INSTRUCTOR_SOLUTION_IDS) + 1):
+        if i &lt; len(INSTRUCTOR_SOLUTION_IDS):
+            print(f&#34;Instructor solution {INSTRUCTOR_SOLUTION_IDS[i]}&#34;)
+        else:
+            print(&#34;Best solution based on lowest number of mistakes&#34;)
+        print(&#34; &amp; &#34;.join([&#34;Student solution&#34;, *map(str, EVALUATED_STUDENT_SOLUTION_IDS), &#34;Averages&#34;]))
+        for j in range(len(results[i][0])):
+            for k in range(len(results[i])):
+                v = results[i][k][j]
+                if isinstance(v, float):
+                    v = round(v, 2)
+                print(v, end=&#34; &amp; &#34;)
+            print()
+        if i == len(INSTRUCTOR_SOLUTION_IDS):
+            print(&#34; &amp; &#34;.join([&#34;Selected solution&#34;, *map(str, best_inst_sols)]))
+        print()</code></pre>
+</details>
+</dd>
+<dt id="mds_evaluation_helper.produce_common_spreadsheet"><code class="name flex">
+<span>def <span class="ident">produce_common_spreadsheet</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Produce the common results spreadsheet from the individual ones used for the evaluation.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def produce_common_spreadsheet():
+    &#34;Produce the common results spreadsheet from the individual ones used for the evaluation.&#34;
+    results = [[(
+        &#34;True Negative&#34;,
+        &#34;True Positive&#34;,
+        &#34;False Positive&#34;,
+        &#34;False Negative&#34;,
+        &#34;Recall (TP / (TP + FN))&#34;,
+        &#34;Precision (TP / (TP + FP))&#34;,
+        &#34;F1 (2PR / (P + R))&#34;,
+        &#34;F2 (5PR / (4P + R)&#34;,
+        &#34;Number of MDS Mistakes&#34;,
+    )] for _ in range(len(INSTRUCTOR_SOLUTION_IDS) + 1)]
+    for i, instructor_solution_id in enumerate(INSTRUCTOR_SOLUTION_IDS):
+        for student_solution_id in EVALUATED_STUDENT_SOLUTION_IDS:
+            results[i].append(get_spreadsheet_results(student_solution_id, instructor_solution_id))
+        averages = [0 for _ in range(len(results[i][0]))]
+        for t in results[i][1:]:
+            for j in range(len(averages)):
+                averages[j] += t[j] or 0
+        for j in range(len(averages)):
+            averages[j] /= (len(results[i]) - 1)
+        results[i].append(tuple(averages))
+
+    # determine best instructor solution based on lowest number of MDS mistakes
+    best_inst_sols = []
+    for col in range(1, len(results[0])):
+        num_mistakes = []
+        for inst_sol_group in range(len(results) - 1):
+            num_mistakes.append(results[inst_sol_group][col][-1] or 0)
+        best_inst_sol_idx = num_mistakes.index(min(num_mistakes))
+        best_inst_sols.append(best_inst_sol_idx + INSTRUCTOR_SOLUTION_ID_OFFSET + 1)
+        results[-1].append(results[best_inst_sol_idx][col])
+
+    print_results(results, best_inst_sols)
+    if OVERWRITE_COMMON_SPREADSHEET:
+        save_to_spreadsheet(results, best_inst_sols, COMMON_SPREADSHEET_PATH)</code></pre>
+</details>
+</dd>
+<dt id="mds_evaluation_helper.save_to_spreadsheet"><code class="name flex">
+<span>def <span class="ident">save_to_spreadsheet</span></span>(<span>results: list[list[tuple]], best_inst_sols, path)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Saves the given results to the given file path.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def save_to_spreadsheet(results: list[list[tuple]], best_inst_sols, path):
+    &#34;Saves the given results to the given file path.&#34;
+    wb = Workbook()
+    ws: Worksheet = wb.active
+    for i in range(len(INSTRUCTOR_SOLUTION_IDS) + 1):
+        if i &lt; len(INSTRUCTOR_SOLUTION_IDS):
+            ws.append((f&#34;Instructor solution {INSTRUCTOR_SOLUTION_IDS[i]}&#34;,))
+        else:
+            ws.append((&#34;Best solution based on lowest number of mistakes&#34;,))
+        ws.append([&#34;Student solution&#34;, *EVALUATED_STUDENT_SOLUTION_IDS, &#34;Averages&#34;])
+        rows = []
+        for j in range(len(results[i][0])):
+            rows.append([results[i][k][j] for k in range(len(results[i]))])
+        for row in rows:
+            ws.append(row)
+        if i == len(INSTRUCTOR_SOLUTION_IDS):
+            ws.append([&#34;Selected solution&#34;, *best_inst_sols])
+        ws.append((&#34;&#34;,))
+    ws.column_dimensions[&#34;A&#34;].width *= 2  # increase width of first column to fit text
+    wb.save(path)</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="mds_evaluation_helper.get_spreadsheet_results" href="#mds_evaluation_helper.get_spreadsheet_results">get_spreadsheet_results</a></code></li>
+<li><code><a title="mds_evaluation_helper.num_elements" href="#mds_evaluation_helper.num_elements">num_elements</a></code></li>
+<li><code><a title="mds_evaluation_helper.print_inst_sol_num_elements" href="#mds_evaluation_helper.print_inst_sol_num_elements">print_inst_sol_num_elements</a></code></li>
+<li><code><a title="mds_evaluation_helper.print_results" href="#mds_evaluation_helper.print_results">print_results</a></code></li>
+<li><code><a title="mds_evaluation_helper.print_results_as_latex" href="#mds_evaluation_helper.print_results_as_latex">print_results_as_latex</a></code></li>
+<li><code><a title="mds_evaluation_helper.produce_common_spreadsheet" href="#mds_evaluation_helper.produce_common_spreadsheet">produce_common_spreadsheet</a></code></li>
+<li><code><a title="mds_evaluation_helper.save_to_spreadsheet" href="#mds_evaluation_helper.save_to_spreadsheet">save_to_spreadsheet</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

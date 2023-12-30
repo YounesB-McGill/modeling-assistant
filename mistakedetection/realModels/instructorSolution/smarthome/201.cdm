@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<classdiagram:ClassDiagram xmlns:xmi="http://www.omg.org/XMI" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmi:id="47f4b699-3a2c-48ed-8928-f079e581204f" name="201" xmi:version="2.0">
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="00a08c14-ba06-4309-bcbd-3c45ee5d6516" name="CDBoolean"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="0e2399af-d42c-4a36-a910-5cbe766cce66" name="CDDouble"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="58cc5d80-5695-4d80-88f0-a096e36065ea" name="CDFloat"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="fdeec140-e524-4efc-af8f-dc5744c000d8" name="CDInt"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="73fd0024-46a1-4ade-9d94-f9daaefb6457" name="CDLong"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="7a0b8cfb-ea99-4b22-82a2-657e515aceea" name="CDString"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="8d35aee1-44c2-464d-92da-5b28e6000588" name="CDAny"/>
+  <types xsi:type="classdiagram:CDEnum" xmi:id="e010f811-66e3-4dd2-9f23-4ed99ee27f43" name="DeviceStatus">
+    <literals xsi:type="classdiagram:CDEnumLiteral" xmi:id="9b3806fa-dd7a-478e-8993-9e779e9c3821" name="Activated"/>
+    <literals xsi:type="classdiagram:CDEnumLiteral" xmi:id="a5e4cd80-da47-4717-bccc-e9f2c239d1da" name="Deactivated"/>
+  </types>
+  <types xsi:type="classdiagram:CDEnum" xmi:id="6a3584e9-e11b-4247-b6ac-7390e6888720" name="CommandType">
+    <literals xsi:type="classdiagram:CDEnumLiteral" xmi:id="ac718517-3f99-4d4c-abb2-7f70c9e031e8" name="lockDoor"/>
+    <literals xsi:type="classdiagram:CDEnumLiteral" xmi:id="195b9938-5d3c-49d0-8121-ec5b5d09c407" name="turnOnHeating"/>
+  </types>
+  <types xsi:type="classdiagram:CDEnum" xmi:id="eceeaef9-07c2-4017-bc9a-36e6af76e8d6" name="CommandStatus">
+    <literals xsi:type="classdiagram:CDEnumLiteral" xmi:id="b8aa36b7-5784-49af-bd23-7552dd18f70a" name="Requested"/>
+    <literals xsi:type="classdiagram:CDEnumLiteral" xmi:id="175c4a8c-a928-4e8b-9443-dadcf89e930a" name="Completed"/>
+    <literals xsi:type="classdiagram:CDEnumLiteral" xmi:id="7cc71f10-dcff-49e9-b3ec-f728299e0b9f" name="Failed"/>
+  </types>
+  <types xsi:type="classdiagram:CDEnum" xmi:id="cd9ef1eb-5805-417c-9e3e-5e35fbeb1008" name="RuleStatus">
+    <literals xsi:type="classdiagram:CDEnumLiteral" xmi:id="c877d71e-db2f-4bd8-9d8a-5ddf0d9bdc72" name="created"/>
+    <literals xsi:type="classdiagram:CDEnumLiteral" xmi:id="9083c518-9ed2-484d-a6e9-2555edede6bb" name="edited"/>
+    <literals xsi:type="classdiagram:CDEnumLiteral" xmi:id="4891046b-28f1-4cd6-ae72-e2283e16f41f" name="activated"/>
+    <literals xsi:type="classdiagram:CDEnumLiteral" xmi:id="6e46c235-963a-4cb6-ac41-16179dc02467" name="deactivated"/>
+  </types>
+  <types xsi:type="classdiagram:CDEnum" xmi:id="8c024379-82a0-4b16-a164-0a1055e2d59c" name="BinaryOp">
+    <literals xsi:type="classdiagram:CDEnumLiteral" xmi:id="8be31071-140c-443f-a489-e330abe2ebda" name="AND"/>
+    <literals xsi:type="classdiagram:CDEnumLiteral" xmi:id="a7c0bd0c-bf98-46d4-bc44-d6c4100bd009" name="OR"/>
+  </types>
+  <classes xsi:type="classdiagram:Class" xmi:id="b33168b0-ab99-46ac-a623-547d07982285" name="SHAS">
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="efe4b490-40a5-48f0-b5aa-08c9621bacae" name="smartHome" upperBound="-1" assoc="58c9a7b0-46fa-4c20-8e89-28e6c4aab136" referenceType="Composition"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="4228bae7-57f2-429f-921a-41789b763ed9" name="users" upperBound="-1" assoc="f3321217-568b-4941-84b0-8998ed31342a" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="566dea81-cd55-4139-a23d-f76d67ef197a" name="SmartHome">
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="ea42f2ce-f03c-4c21-aa37-c87059a9c3c6" name="sHAS" lowerBound="1" assoc="58c9a7b0-46fa-4c20-8e89-28e6c4aab136"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="98e9b907-ab7e-4d40-baa4-4b1c6488b4de" name="address" assoc="c8f69a21-e642-4b03-bde5-2acd6ddf9f1b" referenceType="Composition"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="6e59fef2-234a-48e2-bf95-72ce37eaf91d" name="rooms" upperBound="-1" assoc="f2a9660d-528a-4681-b5e5-83a2a5351cd5" referenceType="Composition"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="a0974e3b-0fca-479c-9ebe-aae29aa79013" name="log" assoc="ee7a97bb-7759-4d14-9c9a-46fbc119a4e2" referenceType="Composition"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="0a4749ed-b9b8-4112-a63a-181259592f95" name="rules" upperBound="-1" assoc="d63e4747-5042-492b-837a-2d94ac8e7265" referenceType="Composition"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="567c3001-ea57-4328-bae0-99342e8b2286" name="owners" upperBound="-1" assoc="f88b9033-b338-4536-aabe-8756a738672a"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="f43e2c31-8184-4a73-a45f-35c9a9743f9c" name="Address">
+    <attributes xsi:type="classdiagram:Attribute" xmi:id="1651d0ec-d787-41a4-9b59-b45a649a6be0" name="city" type="7a0b8cfb-ea99-4b22-82a2-657e515aceea"/>
+    <attributes xsi:type="classdiagram:Attribute" xmi:id="fb33efcc-ac41-4031-a538-3cfa065e2a91" name="postalCode" type="7a0b8cfb-ea99-4b22-82a2-657e515aceea"/>
+    <attributes xsi:type="classdiagram:Attribute" xmi:id="e99c0436-5796-4274-9457-69bd86544471" name="street" type="7a0b8cfb-ea99-4b22-82a2-657e515aceea"/>
+    <attributes xsi:type="classdiagram:Attribute" xmi:id="38636dc3-029a-44a7-ab88-0e32107f4704" name="aptNumber" type="7a0b8cfb-ea99-4b22-82a2-657e515aceea"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="65eb1005-7882-4073-89bd-9bbf44b4105f" name="smartHome" lowerBound="1" assoc="c8f69a21-e642-4b03-bde5-2acd6ddf9f1b"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="23584672-38a9-426a-9fa1-81e5d2a70ebe" name="User">
+    <attributes xsi:type="classdiagram:Attribute" xmi:id="f8beeb75-ad78-47d2-bc64-03d9adb6409f" name="name" type="7a0b8cfb-ea99-4b22-82a2-657e515aceea"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="4c3f35a8-0bcf-47aa-80bd-f1f9a6887555" name="sHAS" lowerBound="1" assoc="f3321217-568b-4941-84b0-8998ed31342a"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="17f7e016-fa96-4868-a801-1a8e19e90afe" name="smartHomes" upperBound="-1" assoc="f88b9033-b338-4536-aabe-8756a738672a"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="1f699616-8d67-4883-8751-1674fc4d026d" name="Room">
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="89a02602-4af3-4502-a628-f396479bafff" name="smartHome" lowerBound="1" assoc="f2a9660d-528a-4681-b5e5-83a2a5351cd5"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="23685a08-e2d8-4cf1-bb57-b9342213e958" name="sensors" upperBound="-1" assoc="fccb6493-4e63-4c48-93b2-62c659d1bd61" referenceType="Composition"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="7779277a-b470-4b2d-8ac1-a9e840e59ad4" name="actuators" upperBound="-1" assoc="a39c401b-c8ef-4255-8373-4050f0fa3744" referenceType="Composition"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="b6f02497-5d67-4b93-a02a-3a2ca0411c5d" name="relationalTerms" upperBound="-1" assoc="782fc4fe-03d8-47a5-9694-5f6ed1f02eeb"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="665f94ce-14e0-44c7-972d-3a1cdf25bc9b" name="RelationalTerm" superTypes="34fbee14-4330-47d2-beca-7db9400ea946">
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="786764e5-1aa8-4749-85a3-1b63a4d57379" name="room" navigable="false" assoc="782fc4fe-03d8-47a5-9694-5f6ed1f02eeb"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="a980e4e7-badc-4e14-a50b-83d0ac22eeff" name="sensorDevice" navigable="false" assoc="d5b4a664-67a3-45c5-8e3d-04804f277708"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="d9cf397f-d7ba-4ebe-8385-cc1cd3aa00cc" name="actuator" navigable="false" assoc="bab92078-5533-40c6-a748-2a6d53c33211"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="4171e999-7abf-4e30-940f-c1fd077022ea" name="sensorReading" navigable="false" assoc="8d5658ad-73ab-4d67-90b9-ce68f3c2b4fb"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="dc9f41fe-0381-4905-a033-ee56fc8d15eb" name="controlCommand" navigable="false" assoc="8781011d-8f76-4067-a992-bfc1a3df364e"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="8bf71ee0-e3df-4c77-a99d-45bc7cbff535" name="Device" abstract="true">
+    <attributes xsi:type="classdiagram:Attribute" xmi:id="7e84ca12-fb4a-4dc4-bf21-2caae08b2d19" name="deviceStatus" type="e010f811-66e3-4dd2-9f23-4ed99ee27f43"/>
+    <attributes xsi:type="classdiagram:Attribute" xmi:id="fef1527c-d650-414b-9a69-8a799e48487c" name="deviceID" type="fdeec140-e524-4efc-af8f-dc5744c000d8"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="06807e7d-33a1-4a40-8785-8bc8484095d3" name="SensorDevice" superTypes="8bf71ee0-e3df-4c77-a99d-45bc7cbff535">
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="2f30e575-c99a-4b67-81bf-1dcb4bf3e3fb" name="room" lowerBound="1" assoc="fccb6493-4e63-4c48-93b2-62c659d1bd61"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="40ca5535-152a-41ec-a918-7c09390b2c12" name="sensorReadings" upperBound="-1" assoc="c66bd74f-6e70-4fd9-b9af-0bdbb53b9685"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="889f5154-f5b1-4a84-bee0-6cf60f0dc757" name="relationalTerms" upperBound="-1" assoc="d5b4a664-67a3-45c5-8e3d-04804f277708"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="26119526-e908-4eca-8f54-51e6d86b500d" name="ActuatorDevice" superTypes="8bf71ee0-e3df-4c77-a99d-45bc7cbff535">
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="2ff78991-5bc9-41fd-b3b3-e360f3a40c28" name="room" lowerBound="1" assoc="a39c401b-c8ef-4255-8373-4050f0fa3744"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="e913f0c3-f9a0-4943-a343-7453b106ba6b" name="controlCommands" upperBound="-1" assoc="18bcfbcc-904a-4823-aed1-715adaea5a72"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="28997b65-7f20-41c1-95e3-4b93578aceb1" name="relationalTerms" upperBound="-1" assoc="bab92078-5533-40c6-a748-2a6d53c33211"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="22abb1a0-f774-4941-a516-8c15a17349e6" name="ActivityLog">
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="3022933f-8c34-4dce-9cd3-41a8d07e160d" name="smartHome" lowerBound="1" assoc="ee7a97bb-7759-4d14-9c9a-46fbc119a4e2"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="1239fbdd-963a-4ec9-8d16-a8e4059fe43f" name="recordedReadings" upperBound="-1" assoc="55853ba2-04b2-49e0-9eea-c31348ba6f0d" referenceType="Composition"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="41249f10-0b7c-4a2b-aebc-7467788481e5" name="recordedCommands" upperBound="-1" assoc="0112cf89-f2eb-4939-a12d-112463165e2b" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="1a1e23a6-7e8e-4f1e-8590-6fa746d23bf9" name="RuntimeElement" abstract="true">
+    <attributes xsi:type="classdiagram:Attribute" xmi:id="169c3257-40f7-4b2a-9c8e-076006aac74b" name="timestamp" type="8d35aee1-44c2-464d-92da-5b28e6000588"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="1dfea30f-bbe4-4daa-a4f8-0e782f2bec11" name="SensorReading" superTypes="1a1e23a6-7e8e-4f1e-8590-6fa746d23bf9">
+    <attributes xsi:type="classdiagram:Attribute" xmi:id="8157d637-9099-4e5d-8382-8c255a82dcff" name="value" type="0e2399af-d42c-4a36-a910-5cbe766cce66"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="b9186af5-8311-4a5d-9c48-4d73a8d2496f" name="sensor" lowerBound="1" assoc="c66bd74f-6e70-4fd9-b9af-0bdbb53b9685"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="a2c2f898-8d30-41c4-966b-98b1ed01d7d8" name="activityLog" lowerBound="1" assoc="55853ba2-04b2-49e0-9eea-c31348ba6f0d"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="0bb3c7ee-d001-4bd7-809f-0fda4f2dff6a" name="relationalTerms" upperBound="-1" assoc="8d5658ad-73ab-4d67-90b9-ce68f3c2b4fb"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="fdc15539-086b-4ce1-b83f-7cab7330e7cd" name="ControlCommand" superTypes="1a1e23a6-7e8e-4f1e-8590-6fa746d23bf9">
+    <attributes xsi:type="classdiagram:Attribute" xmi:id="bc46b5e0-7428-4a79-ad14-64b79228b03c" name="commandType" type="6a3584e9-e11b-4247-b6ac-7390e6888720"/>
+    <attributes xsi:type="classdiagram:Attribute" xmi:id="50bb1351-ac24-4cc3-a657-c45f81dd9321" name="commandStatus" type="eceeaef9-07c2-4017-bc9a-36e6af76e8d6"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="0963566a-ef80-4d91-a2a0-b4ca07e5396f" name="actuator" lowerBound="1" assoc="18bcfbcc-904a-4823-aed1-715adaea5a72"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="5d458070-db93-49f4-aa02-39d8043ab8cf" name="activityLog" lowerBound="1" assoc="0112cf89-f2eb-4939-a12d-112463165e2b"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="5ffd2096-bd7b-45a2-912c-11ebaae2f9fc" name="relationalTerms" upperBound="-1" assoc="8781011d-8f76-4067-a992-bfc1a3df364e"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="b3c85a2e-2f13-4846-8d33-0cf0d2efe449" name="commandSequence" lowerBound="1" assoc="372163b6-12ab-41ac-9a61-9ff925cb4ffa"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="1442e324-38a3-46a5-b400-ff967577eb07" name="AlertRule">
+    <attributes xsi:type="classdiagram:Attribute" xmi:id="5f48b443-9385-4b9e-a651-95853dc8dc58" name="ruleStatus" type="cd9ef1eb-5805-417c-9e3e-5e35fbeb1008"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="2bd65692-93e7-46e4-8333-8c82e5ff7c70" name="smartHome" lowerBound="1" assoc="d63e4747-5042-492b-837a-2d94ac8e7265"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="9fe68772-4764-49fe-b560-c9c25bf7b093" name="precondition" assoc="9e504f9f-8780-4e85-80fc-b5e52e01445d" referenceType="Composition"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="0e74f7b7-faa4-4dd2-8ddf-4467d05464be" name="actions" upperBound="-1" assoc="add048d3-2f07-4f0c-8c28-4578c3c96e5b" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="34fbee14-4330-47d2-beca-7db9400ea946" name="BooleanExpression" abstract="true">
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="1e881ebe-b956-4ba2-ac54-7af675e42ce2" name="alertRule" lowerBound="1" assoc="9e504f9f-8780-4e85-80fc-b5e52e01445d"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="65f769a5-0910-495f-bd6e-972da89e903c" name="notExpression" assoc="f60bf902-131d-442e-9369-95c7d6d5f550"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="569b80fd-226e-41fc-8029-2a2500109aa7" name="binaryExpression" assoc="f153c0a4-79c3-461d-b89a-d11443e70b70"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="569b80fd-226e-41fc-8029-2a2500109aa8" name="binaryExpression" assoc="f153c0a4-79c3-461d-b89a-d11443e70b70"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="442b8b7d-38dc-45d8-87cc-577de4da9941" name="NotExpression" superTypes="34fbee14-4330-47d2-beca-7db9400ea946">
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="92e0479f-7c51-4fcc-a29c-cf85c4583f89" name="booleanExpression" navigable="false" assoc="f60bf902-131d-442e-9369-95c7d6d5f550"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="bdce0b40-c042-461f-84ed-bdf1c022df0b" name="BinaryExpression" superTypes="34fbee14-4330-47d2-beca-7db9400ea946">
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="2251f7d5-a0ff-4a0c-b53e-b51280807793" name="leftExpr" navigable="false" assoc="f153c0a4-79c3-461d-b89a-d11443e70b70"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="2251f7d5-a0ff-4a0c-b53e-b51280807794" name="rightExpr" navigable="false" assoc="f153c0a4-79c3-461d-b89a-d11443e70b71"/>
+    <attributes xsi:type="classdiagram:Attribute" xmi:id="5edd41bc-b081-4967-9278-bbec8a5c2896" name="operator" type="8c024379-82a0-4b16-a164-0a1055e2d59c"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="e9651092-3e78-46d5-88f4-b5f07f6a0832" name="CommandSequence">
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="62f05945-f22a-49c2-83a8-0d2c77aaf217" name="command" assoc="372163b6-12ab-41ac-9a61-9ff925cb4ffa" referenceType="Composition"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="c4c0d41f-c0e7-4be1-a4f7-613b3251beda" name="alertRule" lowerBound="1" assoc="add048d3-2f07-4f0c-8c28-4578c3c96e5b"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="9fd776d4-e311-4423-8738-d56263767338" name="commandSequence" navigable="false" assoc="ca9372fd-f6a6-4910-9250-4da33263aed8"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="5abebd78-4ecd-428e-82ef-d13dd531cc0d" name="nextCommand" assoc="ca9372fd-f6a6-4910-9250-4da33263aed8"/>
+  </classes>
+  <associations xsi:type="classdiagram:Association" xmi:id="58c9a7b0-46fa-4c20-8e89-28e6c4aab136" name="SHAS_SmartHome" ends="efe4b490-40a5-48f0-b5aa-08c9621bacae ea42f2ce-f03c-4c21-aa37-c87059a9c3c6"/>
+  <associations xsi:type="classdiagram:Association" xmi:id="f3321217-568b-4941-84b0-8998ed31342a" name="SHAS_User" ends="4228bae7-57f2-429f-921a-41789b763ed9 4c3f35a8-0bcf-47aa-80bd-f1f9a6887555"/>
+  <associations xsi:type="classdiagram:Association" xmi:id="c8f69a21-e642-4b03-bde5-2acd6ddf9f1b" name="Address_SmartHome" ends="98e9b907-ab7e-4d40-baa4-4b1c6488b4de 65eb1005-7882-4073-89bd-9bbf44b4105f"/>
+  <associations xsi:type="classdiagram:Association" xmi:id="f2a9660d-528a-4681-b5e5-83a2a5351cd5" name="Room_SmartHome" ends="6e59fef2-234a-48e2-bf95-72ce37eaf91d 89a02602-4af3-4502-a628-f396479bafff"/>
+  <associations xsi:type="classdiagram:Association" xmi:id="ee7a97bb-7759-4d14-9c9a-46fbc119a4e2" name="ActivityLog_SmartHome" ends="a0974e3b-0fca-479c-9ebe-aae29aa79013 3022933f-8c34-4dce-9cd3-41a8d07e160d"/>
+  <associations xsi:type="classdiagram:Association" xmi:id="d63e4747-5042-492b-837a-2d94ac8e7265" name="AlertRule_SmartHome" ends="0a4749ed-b9b8-4112-a63a-181259592f95 2bd65692-93e7-46e4-8333-8c82e5ff7c70"/>
+  <associations xsi:type="classdiagram:Association" xmi:id="f88b9033-b338-4536-aabe-8756a738672a" name="SmartHome_User" ends="567c3001-ea57-4328-bae0-99342e8b2286 17f7e016-fa96-4868-a801-1a8e19e90afe"/>
+  <associations xsi:type="classdiagram:Association" xmi:id="fccb6493-4e63-4c48-93b2-62c659d1bd61" name="Room_SensorDevice" ends="23685a08-e2d8-4cf1-bb57-b9342213e958 2f30e575-c99a-4b67-81bf-1dcb4bf3e3fb"/>
+  <associations xsi:type="classdiagram:Association" xmi:id="a39c401b-c8ef-4255-8373-4050f0fa3744" name="ActuatorDevice_Room" ends="7779277a-b470-4b2d-8ac1-a9e840e59ad4 2ff78991-5bc9-41fd-b3b3-e360f3a40c28"/>
+  <associations xsi:type="classdiagram:Association" xmi:id="782fc4fe-03d8-47a5-9694-5f6ed1f02eeb" name="RelationalTerm_Room" ends="786764e5-1aa8-4749-85a3-1b63a4d57379 b6f02497-5d67-4b93-a02a-3a2ca0411c5d"/>
+  <associations xsi:type="classdiagram:Association" xmi:id="c66bd74f-6e70-4fd9-b9af-0bdbb53b9685" name="SensorDevice_SensorReading" ends="40ca5535-152a-41ec-a918-7c09390b2c12 b9186af5-8311-4a5d-9c48-4d73a8d2496f"/>
+  <associations xsi:type="classdiagram:Association" xmi:id="d5b4a664-67a3-45c5-8e3d-04804f277708" name="RelationalTerm_SensorDevice" ends="a980e4e7-badc-4e14-a50b-83d0ac22eeff 889f5154-f5b1-4a84-bee0-6cf60f0dc757"/>
+  <associations xsi:type="classdiagram:Association" xmi:id="18bcfbcc-904a-4823-aed1-715adaea5a72" name="ActuatorDevice_ControlCommand" ends="e913f0c3-f9a0-4943-a343-7453b106ba6b 0963566a-ef80-4d91-a2a0-b4ca07e5396f"/>
+  <associations xsi:type="classdiagram:Association" xmi:id="bab92078-5533-40c6-a748-2a6d53c33211" name="ActuatorDevice_RelationalTerm" ends="d9cf397f-d7ba-4ebe-8385-cc1cd3aa00cc 28997b65-7f20-41c1-95e3-4b93578aceb1"/>
+  <associations xsi:type="classdiagram:Association" xmi:id="55853ba2-04b2-49e0-9eea-c31348ba6f0d" name="ActivityLog_SensorReading" ends="1239fbdd-963a-4ec9-8d16-a8e4059fe43f a2c2f898-8d30-41c4-966b-98b1ed01d7d8"/>
+  <associations xsi:type="classdiagram:Association" xmi:id="0112cf89-f2eb-4939-a12d-112463165e2b" name="ActivityLog_ControlCommand" ends="41249f10-0b7c-4a2b-aebc-7467788481e5 5d458070-db93-49f4-aa02-39d8043ab8cf"/>
+  <associations xsi:type="classdiagram:Association" xmi:id="8d5658ad-73ab-4d67-90b9-ce68f3c2b4fb" name="RelationalTerm_SensorReading" ends="4171e999-7abf-4e30-940f-c1fd077022ea 0bb3c7ee-d001-4bd7-809f-0fda4f2dff6a"/>
+  <associations xsi:type="classdiagram:Association" xmi:id="8781011d-8f76-4067-a992-bfc1a3df364e" name="ControlCommand_RelationalTerm" ends="dc9f41fe-0381-4905-a033-ee56fc8d15eb 5ffd2096-bd7b-45a2-912c-11ebaae2f9fc"/>
+  <associations xsi:type="classdiagram:Association" xmi:id="372163b6-12ab-41ac-9a61-9ff925cb4ffa" name="CommandSequence_ControlCommand" ends="b3c85a2e-2f13-4846-8d33-0cf0d2efe449 62f05945-f22a-49c2-83a8-0d2c77aaf217"/>
+  <associations xsi:type="classdiagram:Association" xmi:id="9e504f9f-8780-4e85-80fc-b5e52e01445d" name="AlertRule_BooleanExpression" ends="9fe68772-4764-49fe-b560-c9c25bf7b093 1e881ebe-b956-4ba2-ac54-7af675e42ce2"/>
+  <associations xsi:type="classdiagram:Association" xmi:id="add048d3-2f07-4f0c-8c28-4578c3c96e5b" name="AlertRule_CommandSequence" ends="0e74f7b7-faa4-4dd2-8ddf-4467d05464be c4c0d41f-c0e7-4be1-a4f7-613b3251beda"/>
+  <associations xsi:type="classdiagram:Association" xmi:id="f60bf902-131d-442e-9369-95c7d6d5f550" name="BooleanExpression_NotExpression" ends="92e0479f-7c51-4fcc-a29c-cf85c4583f89 65f769a5-0910-495f-bd6e-972da89e903c"/>
+  <associations xsi:type="classdiagram:Association" xmi:id="f153c0a4-79c3-461d-b89a-d11443e70b70" name="BinaryExpression_BooleanExpression" ends="2251f7d5-a0ff-4a0c-b53e-b51280807793 569b80fd-226e-41fc-8029-2a2500109aa7"/>
+  <associations xsi:type="classdiagram:Association" xmi:id="f153c0a4-79c3-461d-b89a-d11443e70b71" name="BinaryExpression_BooleanExpression" ends="2251f7d5-a0ff-4a0c-b53e-b51280807794 569b80fd-226e-41fc-8029-2a2500109aa8"/>
+  <associations xsi:type="classdiagram:Association" xmi:id="ca9372fd-f6a6-4910-9250-4da33263aed8" name="CommandSequence_CommandSequence" ends="9fd776d4-e311-4423-8738-d56263767338 5abebd78-4ecd-428e-82ef-d13dd531cc0d"/>
+</classdiagram:ClassDiagram>

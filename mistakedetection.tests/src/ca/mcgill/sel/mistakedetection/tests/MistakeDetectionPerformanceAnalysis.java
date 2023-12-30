@@ -1,33 +1,64 @@
 package ca.mcgill.sel.mistakedetection.tests;
 
-import static ca.mcgill.sel.mistakedetection.Comparison.getSortedMistakeList;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instructorSolutionFromClassDiagram;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentSolutionFromClassDiagram;
+import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
+import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import static modelingassistant.util.SynonymUtils.setSynonymToAttribInClassInClassDiag;
 import static modelingassistant.util.SynonymUtils.setSynonymToClassInClassDiag;
 import static modelingassistant.util.SynonymUtils.setSynonymToRoleInClassInClassDiag;
 import static modelingassistant.util.TagUtils.setAbstractionTagToClassInClassDiag;
 import static modelingassistant.util.TagUtils.setOccurrenceTagToClassInClassDiag;
-import java.io.File;
+import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.nio.file.Paths;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
+import java.util.Properties;
+import java.util.TreeMap;
+import java.util.function.Predicate;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import ca.mcgill.sel.classdiagram.AssociationEnd;
+import ca.mcgill.sel.classdiagram.Attribute;
+import ca.mcgill.sel.classdiagram.CDAny;
+import ca.mcgill.sel.classdiagram.CDArray;
+import ca.mcgill.sel.classdiagram.CDBoolean;
+import ca.mcgill.sel.classdiagram.CDByte;
+import ca.mcgill.sel.classdiagram.CDChar;
+import ca.mcgill.sel.classdiagram.CDDouble;
+import ca.mcgill.sel.classdiagram.CDFloat;
+import ca.mcgill.sel.classdiagram.CDInt;
+import ca.mcgill.sel.classdiagram.CDLong;
+import ca.mcgill.sel.classdiagram.CDString;
 import ca.mcgill.sel.classdiagram.ClassDiagram;
+import ca.mcgill.sel.classdiagram.Classifier;
+import ca.mcgill.sel.classdiagram.Layout;
+import ca.mcgill.sel.classdiagram.LayoutElement;
+import ca.mcgill.sel.classdiagram.impl.ContainerMapImpl;
+import ca.mcgill.sel.classdiagram.impl.ElementMapImpl;
 import ca.mcgill.sel.mistakedetection.Comparison;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
 import modelingassistant.Mistake;
+import modelingassistant.ModelingassistantFactory;
 import modelingassistant.Solution;
-import modelingassistant.TagGroup;
+import modelingassistant.util.ResourceHelper;
 
 /**
  * This class is used to collect the performance data (e.g time of execution, number and types of
@@ -36,26 +67,53 @@ import modelingassistant.TagGroup;
  *
  * Note that due to student privacy reasons, the dataset is not made public here, but you may obtain
  * a copy under certain conditions from the professors responsible for the project. In that case,
- * add the student solutions to the STUDENT_SOLUTION_DIR below, or change it to point to their
- * location on your disk. Never commit these solutions to the public repo!
+ * add the student solutions to some location(s) on your disk and change the constants below to point to them.
+ * Never commit these solutions to the public repo!
  *
  * @author Prabhsimran Singh
+ * @author Younes Boubekeur
  */
 @Disabled("Tests with real student solutions are disabled in public version of this repo. Please contact a professor "
     + "from the McGill Software Engineering Lab to see if you can obtain access.")
 public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTest {
 
+  /**
+   * Flag that should be set true if and only if the spreadsheets in the locations below need to be overwritten.
+   * Backup existing spreadsheets before setting this to true!
+   */
+  private static final boolean OVERWRITE_SPREADSHEETS = false;
+
+  /** The location of the hotel instructor solution. */
+  private static final String HOTEL_INSTRUCTOR_SOLUTION =
+      "../mistakedetection/realModels/instructorSolution/instructorSolution2/Class Diagram/InstructorSolution2.domain_model.cdm";
+
+  /** The location of the smart home (final exam) instructor solutions, numbered from 201. */
+  private static final String SMART_HOME_INSTRUCTOR_SOLUTION_DIR =
+      "../mistakedetection/realModels/instructorSolution/smarthome";
+
   /** The folder where student solutions are located. */
-  private static final String STUDENT_SOLUTION_DIR = "../mistakedetection/realModels/studentSolution";
+  private static final String HOTEL_STUDENT_SOLUTION_DIR = "../mistakedetection/realModels/studentSolution";
 
   /** The common prefix for each student solution folder name. */
-  private static final String STUDENT_SOLUTION_DIR_NAME_PREFIX = "studentDomainModel_";
+  private static final String HOTEL_STUDENT_SOLUTION_DIR_NAME_PREFIX = "studentDomainModel_";
+
+  /** The file containing the synonyms for the hotel domain model. */
+  private static final String HOTEL_SYNONYMS_FILE = "hotel-synonyms.properties";
+
+  /** The file containing the synonyms for the hotel domain model. */
+  private static final String SMART_HOME_SYNONYMS_FILE = "smarthome-synonyms.properties";
 
   /** The standard Class Diagram Model file path for each student solution. */
-  private static final String CDM_PATH = "Class Diagram/StudentDomainModel.domain_model.cdm";
+  private static final String HOTEL_CDM_PATH = "Class Diagram/StudentDomainModel.domain_model.cdm";
 
-  /** The output location of produceExcelSheet(). */
+  /** The number of hotel instructor solution elements. */
+  private static final int NUM_HOTEL_INST_SOL_ELEMS = 102;
+
+  /** The output location of produceExcelSheet() for the hotel dataset. */
   private static final String HOTEL_OUTPUT_SPREADSHEET_LOC = "<path-to-output-loc>";
+
+  /** The output location of produceExcelSheet() for the smart home dataset. */
+  private static final String SMART_HOME_OUTPUT_SPREADSHEET_LOC = "<path-to-output-loc>";
 
   /** The path where student submissions from the final exam dataset are located. */
   private static final String FINAL_EXAM_SUBMISSIONS_PATH = "<path-to-cdm-files>";
@@ -64,359 +122,180 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
 
   private static final String WRONG_MULTIPLICTY = "Wrong multiplicity";
 
-  // TODO To be completed in near future. The functions below are incomplete
-  ClassDiagram instructorClassDiagram;
-  Solution instructorSolution;
+  /** The ModelingassistantFactory instance. */
+  private static final ModelingassistantFactory maf = ModelingassistantFactory.eINSTANCE;
 
-  MistakeDetectionPerformanceAnalysis() {
-    instructorClassDiagram = cdmFromFile(
-        "../mistakedetection/realModels/instructorSolution/instructorSolution2/Class Diagram/InstructorSolution2.domain_model.cdm");
-    instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
-    TagGroup tagGroup = setAbstractionTagToClassInClassDiag("RoomType", instructorClassDiagram, instructorSolution);
-    setOccurrenceTagToClassInClassDiag("Room", tagGroup, instructorClassDiagram);
+  private static final String OVERWRITE_SPREADSHEETS_REMINDER = "Reminder: Spreadsheets NOT created because "
+      + "OVERWRITE_SPREADSHEETS flag is set to false.\n"
+      + "If you want to create them, backup any existing spreadsheets, set OVERWRITE_SPREADSHEETS to true, "
+      + "and rerun this test.";
 
-    // Assigning synonyms to classes
-    setSynonymToClassInClassDiag("Person", List.of("Guest"), instructorClassDiagram, instructorSolution);
-    setSynonymToClassInClassDiag("Booking", List.of("Reservation", "RoomReservation"), instructorClassDiagram,
-        instructorSolution);
-    setSynonymToClassInClassDiag("Hotel", List.of("HotelSocs", "SOCSHotel", "HotelSystem"), instructorClassDiagram,
-        instructorSolution);
 
-    // Assigning synonyms to attributes
-    setSynonymToAttribInClassInClassDiag("RoomType", "maxDailyRate", List.of("maxRate", "maximumDailyRate"),
-        instructorClassDiagram, instructorSolution);
-    setSynonymToAttribInClassInClassDiag("RoomType", "qualityLevel", List.of("quality", "level"),
-        instructorClassDiagram, instructorSolution);
-    setSynonymToAttribInClassInClassDiag("Room", "roomNumber", List.of("number"), instructorClassDiagram,
-        instructorSolution);
-    setSynonymToAttribInClassInClassDiag("Room", "status", List.of("smokingStatus", "smoking"), instructorClassDiagram,
-        instructorSolution);
-    setSynonymToAttribInClassInClassDiag("Bed", "type", List.of("bedKind", "bedType"), instructorClassDiagram,
-        instructorSolution);
-    setSynonymToAttribInClassInClassDiag("Person", "phoneNumber", List.of("telephone", "phone", "telephoneNumber"),
-        instructorClassDiagram, instructorSolution);
-    setSynonymToAttribInClassInClassDiag("Person", "creditcard", List.of("card", "cardNumber", "creditCardNumber"),
-        instructorClassDiagram, instructorSolution);
-    setSynonymToAttribInClassInClassDiag("Stay", "checkinDate", List.of("checkin", "date"), instructorClassDiagram,
-        instructorSolution);
-    setSynonymToAttribInClassInClassDiag("Stay", "numberOfNights", List.of("nights", "duration", "length"),
-        instructorClassDiagram, instructorSolution);
-    setSynonymToAttribInClassInClassDiag("Stay", "dailyRate", List.of("nightlyRate", "rate", "price", "currentRate"),
-        instructorClassDiagram, instructorSolution);
-    setSynonymToAttribInClassInClassDiag("Booking", "startDate", List.of("start", "date"), instructorClassDiagram,
-        instructorSolution);
-    setSynonymToAttribInClassInClassDiag("Booking", "bookedDailyRate", List.of("dailyRate"), instructorClassDiagram,
-        instructorSolution);
+  /** Combines 30 unit tests for the hotel dataset into one compound test. */
+  @Test public void testHotelStudentSolutions() {
+    var instructorSolution = setupHotelInstructorSolution();
+    // 1-indexed list of student solutions numbered 1-30, ten per line
+    List<String> solutionIds = List.of("",
+         "G12_1", "G12_5", "G12_9", "G12_11", "G13_3", "G13_7", "G13_10", "G14_4", "G14_8", "G14_15",
+         "G15_3", "G15_7", "G15_16", "G16_9", "G16_11", "G16_12", "G17_5", "G17_8", "G17_12", "G17_25",
+         "G12_3", "G12_14", "G13_5", "G13_9", "G13_15", "G14_2", "G14_7", "G14_12", "G15_5", "G15_9");
+    // list of solutions that should be (re)evaluated by (re)generating a spreadsheet for them
+    List<String> idsToEvaluate = List.of("G15_9"); // or List.copyOf(solutionIds)
+    // solutions not found on the local filesystem, which can be ignored
+    List<String> notFoundIds = new ArrayList<>();
+    // existing solutions that caused the MDS to crash
+    List<String> failedIds = new ArrayList<>();
 
-    // Assigning synonyms to assoc ends
-    setSynonymToRoleInClassInClassDiag("Hotel", "bookings", List.of("reservations", "myReservations"),
-        instructorClassDiagram, instructorSolution);
-    setSynonymToRoleInClassInClassDiag("Room", "bookings", List.of("reservations", "myReservations"),
-        instructorClassDiagram, instructorSolution);
-    setSynonymToRoleInClassInClassDiag("Room", "hotel", List.of("myHotelSystem", "inHotel", "mySOCSHotel"),
-        instructorClassDiagram, instructorSolution);
-    setSynonymToRoleInClassInClassDiag("Person", "bookings",
-        List.of("reservations", "myReservations", "myRoomReservations"), instructorClassDiagram, instructorSolution);
-    setSynonymToRoleInClassInClassDiag("Person", "hotel", List.of("myHotelSystem", "inHotel", "mySOCSHotel"),
-        instructorClassDiagram, instructorSolution);
-    setSynonymToRoleInClassInClassDiag("Booking", "bookedRooms", List.of("reservedRooms"), instructorClassDiagram,
-        instructorSolution);
-    setSynonymToRoleInClassInClassDiag("Booking", "By", List.of("reservedBy"), instructorClassDiagram,
-        instructorSolution);
-    setSynonymToRoleInClassInClassDiag("Booking", "hotel", List.of("myHotelSystem", "inHotel", "mySOCSHotel"),
-        instructorClassDiagram, instructorSolution);
+    solutionIds.stream().filter(Predicate.not(String::isEmpty)).forEach(solutionId -> {
+      try {
+        var studentClassDiagram = getHotelStudentClassDiagram(solutionId);
+        if (studentClassDiagram == null) {
+          notFoundIds.add(solutionId);
+        } else {
+          var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+          var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
+          assertNotNull(comparison);
+          if (idsToEvaluate.contains(solutionId)) {
+            produceExcelSheet(comparison, solutionId, HOTEL_OUTPUT_SPREADSHEET_LOC);
+          }
+        }
+      } catch (Exception e) {
+        System.err.println("Could not detect mistakes for solution " + solutionId + " due to error:");
+        e.printStackTrace();
+        failedIds.add(solutionId);
+      }
+    });
+    if (!notFoundIds.isEmpty()) {
+      System.err.println("Could not find cdm files for " + notFoundIds.size() + " solutions: " + notFoundIds);
+    }
+    if (!failedIds.isEmpty()) {
+      fail("Could not detect mistakes for " + failedIds.size() + " solutions: " + failedIds);
+    }
   }
 
-  @Test
-  public void testStudentSolution1() {
-    var studentClassDiagram = getStudentClassDiagram("G12_1");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+  /** Tests that the MDS runs without errors on the submissions from the final exam dataset. */
+  @Test public void testThatMdsRunsOnFinalExamStudentSolutions() {
+    var ma = maf.createModelingAssistant();
+    Map<Integer, List<Integer>> solutionsToNumMistakes = new TreeMap<>();
+    var instSolutions = setupSmartHomeInstructorSolutions();
+    for (var instSolution: instSolutions) {
+      try (var files = Files.walk(Path.of(FINAL_EXAM_SUBMISSIONS_PATH), 2)) {
+        List<String> validCdms = new ArrayList<>();
+        List<String> invalidCdms = new ArrayList<>();
+        var filenamePattern = Pattern.compile("\\d+\\.cdm");
+        var studentCdms = files
+            .filter(file ->
+                !Files.isDirectory(file) && filenamePattern.matcher(file.getFileName().toString()).matches()
+                && !file.endsWith("0.cdm"))
+            .map(file -> {
+              var cdm = ResourceHelper.cdmFromFile(file);
+              cdm.setName(file.getFileName().toString().replace(".cdm", ""));
+              return cdm;
+            });
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
+        studentCdms.forEach(cdm -> {
+          var cdmName = cdm.getName();
+          var spreadsheetName = cdmName + "_" + instSolution.getClassDiagram().getName();
+          var student = maf.createStudent();
+          student.setModelingAssistant(ma);
+          student.setName("Student" + cdmName); // Student1 and so on
+          var studSolution = maf.createSolution();
+          studSolution.setModelingAssistant(ma);
+          studSolution.setStudent(student);
+          studSolution.setClassDiagram(cdm);
+          try {
+            System.out.println("\n\nDetecting mistakes for " + cdmName);
+            var comparison = applyFinalExamCriteria(MistakeDetection.compare(instSolution, studSolution))
+                .logUnmappedItemsOnly();
+            assertNotNull(comparison);
+            if (OVERWRITE_SPREADSHEETS) {
+              produceExcelSheet(comparison, spreadsheetName, SMART_HOME_OUTPUT_SPREADSHEET_LOC + "/" + cdmName);
+            }
+            var solutionNum = Integer.parseInt(cdmName);
+            if (solutionsToNumMistakes.containsKey(solutionNum)) {
+              solutionsToNumMistakes.get(solutionNum).add(comparison.newMistakes.size());
+            } else {
+              solutionsToNumMistakes.put(solutionNum, new ArrayList<>(List.of(comparison.newMistakes.size())));
+            }
+            if (!invalidCdms.contains(cdmName)) {
+              validCdms.add(cdmName);
+            }
+          } catch (Exception e) {
+            System.err.println("Could not detect mistakes for " + cdmName + " due to error:");
+            e.printStackTrace();
+            Comparison.instances.remove(Comparison.instances.size() - 1); // MDS compare failed -> don't track instance
+            invalidCdms.add(cdmName);
+          }
+        });
+        System.out.println("Valid cdms (" + validCdms.size() + "): " + validCdms
+            + "\nInvalid cdms (" + invalidCdms.size() + "): " + invalidCdms
+            + "\n\nStudent solution,Number of mistakes with instructor solution");
+        System.out.println("v," + instSolutions.stream().map(s -> s.getClassDiagram().getName())
+            .collect(Collectors.joining(",")) + ",Min mistakes,Best inst sol");
+        solutionsToNumMistakes.forEach((id, nums) ->
+            System.out.println(id + "," + nums.stream().map(n -> n.toString()).collect(Collectors.joining(",")) + ","
+                + Collections.min(nums) + ","
+                + instSolutions.get(nums.indexOf(Collections.min(nums))).getClassDiagram().getName()));
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+    if (!OVERWRITE_SPREADSHEETS) {
+      System.out.println(OVERWRITE_SPREADSHEETS_REMINDER);
+    }
   }
 
-  @Test
-  public void testStudentSolution2() {
-    var studentClassDiagram = getStudentClassDiagram("G12_5");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
+  /**
+   * Tests that the MDS runs without errors on a submission from the final exam dataset.
+   * This is a convenience method to help debug the test above.
+   */
+  @Test public void testThatMdsRunsOnSingleFinalExamStudentSolution() {
+    var ma = maf.createModelingAssistant();
+    var instSolutions = setupSmartHomeInstructorSolutions();
+    for (var instSolution: instSolutions) {
+      final var submissionId = 14;
+      var studentCdm = cdmFromFile(Path.of(FINAL_EXAM_SUBMISSIONS_PATH, submissionId + ".cdm"));
+      var cdmName = studentCdm.getName() + "_" + instSolution.getClassDiagram().getName();
+      var student = maf.createStudent();
+      student.setModelingAssistant(ma);
+      student.setName("Student" + cdmName); // Student1 and so on
+      var studSolution = maf.createSolution();
+      studSolution.setModelingAssistant(ma);
+      studSolution.setStudent(student);
+      studSolution.setClassDiagram(studentCdm);
+      try {
+        System.out.println("Detecting mistakes for " + cdmName);
+        var comparison = applyFinalExamCriteria(MistakeDetection.compare(instSolution, studSolution)).log();
+        assertNotNull(comparison);
+        if (OVERWRITE_SPREADSHEETS) {
+          produceExcelSheet(comparison, cdmName, SMART_HOME_OUTPUT_SPREADSHEET_LOC + "/" + submissionId);
+        }
+      } catch (Exception e) {
+        System.err.println("Could not detect mistakes for " + cdmName + " due to error:");
+        e.printStackTrace();
+        Comparison.instances.remove(Comparison.instances.size() - 1);
+      }
+    }
+    if (!OVERWRITE_SPREADSHEETS) {
+      System.out.println(OVERWRITE_SPREADSHEETS_REMINDER);
+    }
   }
 
-  @Test
-  public void testStudentSolution3() throws Exception {
-    var name = "G12_9";
-    var studentClassDiagram = getStudentClassDiagram(name);
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
+  /** Ensures that the computed number of instructor elements matches the expected value for each solution. */
+  @Test public void testCorrectNumberOfInstructorElements() {
+    Map<ClassDiagram, Integer> cdmsToExpectedNumbers = Map.of(
+        cdmFromFile(HOTEL_INSTRUCTOR_SOLUTION), NUM_HOTEL_INST_SOL_ELEMS,
+        cdmFromFile(SMART_HOME_INSTRUCTOR_SOLUTION_DIR + "/201.cdm"), 182,
+        cdmFromFile(SMART_HOME_INSTRUCTOR_SOLUTION_DIR + "/202.cdm"), 182,
+        cdmFromFile(SMART_HOME_INSTRUCTOR_SOLUTION_DIR + "/203.cdm"), 173,
+        cdmFromFile(SMART_HOME_INSTRUCTOR_SOLUTION_DIR + "/204.cdm"), 173);
+    cdmsToExpectedNumbers.forEach((sol, num) -> {
+      assertEquals((int) num, numElements(sol));
+    });
   }
 
-  @Test
-  public void testStudentSolution4() {
-    var studentClassDiagram = getStudentClassDiagram("G12_11");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-  }
-
-  @Test
-  public void testStudentSolution5() {
-    var studentClassDiagram = getStudentClassDiagram("G13_3");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-  }
-
-  @Test
-  public void testStudentSolution6() throws Exception {
-    var name = "G13_7";
-    var studentClassDiagram = getStudentClassDiagram(name);
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-  }
-
-  @Test
-  public void testStudentSolution7() {
-    var studentClassDiagram = getStudentClassDiagram("G13_10");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-  }
-
-  @Test
-  public void testStudentSolution8() {
-    var studentClassDiagram = getStudentClassDiagram("G14_4");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-  }
-
-  @Test
-  public void testStudentSolution9() {
-    var studentClassDiagram = getStudentClassDiagram("G14_8");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-  }
-
-  @Test
-  public void testStudentSolution10() {
-    var studentClassDiagram = getStudentClassDiagram("G14_15");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-  }
-
-  @Test
-  public void testStudentSolution11() {
-    var studentClassDiagram = getStudentClassDiagram("G15_3");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-  }
-
-  @Test
-  public void testStudentSolution12() {
-    var studentClassDiagram = getStudentClassDiagram("G15_7");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-  }
-
-  @Test
-  public void testStudentSolution13() {
-    var studentClassDiagram = getStudentClassDiagram("G15_16");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-  }
-
-  @Test
-  public void testStudentSolution14() {
-    var studentClassDiagram = getStudentClassDiagram("G16_9");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-  }
-
-  @Test
-  public void testStudentSolution15() {
-    var studentClassDiagram = getStudentClassDiagram("G16_11");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-  }
-
-  @Test
-  public void testStudentSolution16() {
-    var studentClassDiagram = getStudentClassDiagram("G16_12");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-  }
-
-  @Test
-  public void testStudentSolution17() {
-    var studentClassDiagram = getStudentClassDiagram("G17_5");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-  }
-
-  @Test
-  public void testStudentSolution18() {
-    var studentClassDiagram = getStudentClassDiagram("G17_8");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-  }
-
-  @Test
-  public void testStudentSolution19() {
-    var studentClassDiagram = getStudentClassDiagram("G17_12");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-  }
-
-  @Test
-  public void testStudentSolution20() {
-    var studentClassDiagram = getStudentClassDiagram("G17_25");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-  }
-
-  @Test
-  public void testStudentSolution21() throws Exception {
-    var name = "G12_3";
-    var studentClassDiagram = getStudentClassDiagram(name);
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-
-  }
-
-  @Test
-  public void testStudentSolution22() throws Exception {
-    var name = "G12_14";
-    var studentClassDiagram = getStudentClassDiagram(name);
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-
-  }
-
-  @Test
-  public void testStudentSolution23() throws Exception {
-    var name = "G13_5";
-    var studentClassDiagram = getStudentClassDiagram(name);
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-
-  }
-
-  @Test
-  public void testStudentSolution24() throws Exception {
-    var name = "G13_9";
-    var studentClassDiagram = getStudentClassDiagram(name);
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-
-  }
-
-  @Test
-  public void testStudentSolution25() throws Exception {
-    var name = "G13_15";
-    var studentClassDiagram = getStudentClassDiagram(name);
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-
-  }
-
-  @Test
-  public void testStudentSolution26() throws Exception {
-    var name = "G14_2";
-    var studentClassDiagram = getStudentClassDiagram(name);
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-    comparison.sortedLog();
-
-  }
-
-  @Test
-  public void testStudentSolution27() throws Exception {
-    var name = "G14_7";
-    var studentClassDiagram = getStudentClassDiagram(name);
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-
-  }
-
-  @Test
-  public void testStudentSolution28() throws Exception {
-    var name = "G14_12";
-    var studentClassDiagram = getStudentClassDiagram(name);
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-  }
-
-  @Test
-  public void testStudentSolution29() throws Exception {
-    var name = "G15_5";
-    var studentClassDiagram = getStudentClassDiagram(name);
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-  }
-
-  @Test
-  public void testStudentSolution30() throws Exception {
-    var name = "G15_9";
-    var studentClassDiagram = getStudentClassDiagram(name);
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-    produceExcelSheet(comparison, name, HOTEL_OUTPUT_SPREADSHEET_LOC);
-  }
-
-  public static void produceExcelSheet(Comparison comparison, String name, String location) throws Exception {
-    var sortedMistakes = getSortedMistakeList(comparison.newMistakes);
+  public static void produceExcelSheet(Comparison comparison, String name, String location) {
+    var sortedMistakes = comparison.getSortedMistakeList();
     List<Mistake> extraMistakes = new ArrayList<>();
     List<Mistake> notExtraMistakes = new ArrayList<>();
 
@@ -428,172 +307,218 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
       }
     }
 
-    LinkedHashMap<String, Object[]> studentData = new LinkedHashMap<>();
-    int id = 1;
-    studentData.put(String.valueOf(id), new Object[] {"Instructor Element", "Student Elements", "Mistake Type",
-        "Actually a Mistake", "MDS Result", "MDS vs Actual Mistake", "Comments"});
-    ArrayList<String> printedToExcel = new ArrayList<>();
-    for (Mistake m : notExtraMistakes) {
-      int count = 1;
-      var instElem = getConcatNames(m.getInstructorElementNames());
-      var studElem = getConcatNames(m.getStudentElementNames());
+    try (var workbook = new XSSFWorkbook()) {
+      var sheet = new SpreadsheetWrapper(workbook.createSheet(name));
+      int id = 1;
+      var numMtRows = 1;
+      sheet.addRow("Instructor Element", "Student Elements", "Mistake Type", "Actually a Mistake", "MDS Result",
+          "MDS vs Actual Mistake", "Comments");
+      List<String> printedToExcel = new ArrayList<>();
+      for (Mistake m : notExtraMistakes) {
+        int count = 1;
+        var instElem = getConcatNames(m.getInstructorElementNames());
+        var studElem = getConcatNames(m.getStudentElementNames());
 
-      var mistakeType = m.getMistakeType().getName();
-      for (Mistake m1 : notExtraMistakes) {
-        if (m != m1) {
-          var instElem1 = getConcatNames(m1.getInstructorElementNames());
-          var studElem1 = getConcatNames(m1.getStudentElementNames());
-          var mistakeType1Name = m.getMistakeType().getName();
-          var mistakeType2Name = m1.getMistakeType().getName();
+        var mistakeType = m.getMistakeType().getName();
+        for (Mistake m1 : notExtraMistakes) {
+          if (m != m1) {
+            var instElem1 = getConcatNames(m1.getInstructorElementNames());
+            var studElem1 = getConcatNames(m1.getStudentElementNames());
+            var mistakeType1Name = m.getMistakeType().getName();
+            var mistakeType2Name = m1.getMistakeType().getName();
 
-          if (instElem.equals(instElem1) && studElem.equals(studElem1)
-              && !(mistakeType1Name.equals(WRONG_MULTIPLICTY) && mistakeType2Name.equals(WRONG_ROLE_NAME))
-              && !(mistakeType1Name.equals(WRONG_ROLE_NAME) && mistakeType2Name.equals(WRONG_MULTIPLICTY))) {
-            mistakeType += ", " + m1.getMistakeType().getName();
-            count++;
-          }
-        }
-      }
-      var fnlString = instElem + studElem;
-      if (!printedToExcel.contains(fnlString) || mistakeType.equals(WRONG_ROLE_NAME)
-          || mistakeType.equals(WRONG_MULTIPLICTY)) {
-        id++;
-        studentData.put(String.valueOf(id),
-            new Object[] {instElem, studElem, mistakeType, "", count, "=D" + id + "=E" + id, ""});
-        printedToExcel.add(fnlString);
-      }
-    }
-    int instructorElems = id - 1;
-    int extraElemsStart = id;
-    printedToExcel = new ArrayList<>();
-    for (Mistake m : extraMistakes) {
-      int count = 1;
-      var instElem = getConcatNames(m.getInstructorElementNames());
-      var studElem = getConcatNames(m.getStudentElementNames());
-
-      var mistakeType = m.getMistakeType().getName();
-      for (Mistake m1 : extraMistakes) {
-        if (m != m1) {
-          var instElem1 = getConcatNames(m1.getInstructorElementNames());
-          var studElem1 = getConcatNames(m1.getStudentElementNames());
-          var mistakeType1Name = m.getMistakeType().getName();
-          var mistakeType2Name = m1.getMistakeType().getName();
-          if (instElem.equals(instElem1) && studElem.equals(studElem1)
-              && !(mistakeType1Name.equals(WRONG_MULTIPLICTY) && mistakeType2Name.equals(WRONG_ROLE_NAME))
-              && !(mistakeType1Name.equals(WRONG_ROLE_NAME) && mistakeType2Name.equals(WRONG_MULTIPLICTY))) {
-            mistakeType += ", " + m1.getMistakeType().getName();
-            count++;
-          }
-        }
-      }
-      var fnlString = instElem + studElem;
-      if (!printedToExcel.contains(fnlString) || mistakeType.equals(WRONG_ROLE_NAME)
-          || mistakeType.equals(WRONG_MULTIPLICTY)) {
-        studentData.put(String.valueOf(id),
-            new Object[] {instElem, studElem, mistakeType, "", count, "=D" + id + "=E" + id, ""});
-        id++;
-        printedToExcel.add(fnlString);
-      }
-    }
-
-    int nId = id;
-    studentData.put(String.valueOf(nId++), new Object[] {""});
-    studentData.put(String.valueOf(nId++), new Object[] {""});
-    studentData.put(String.valueOf(nId++),
-        new Object[] {"Total Mistakes", "", "", "=SUM(D2:D" + --id + ")", "=SUM(E2:E" + id + ")", "", ""});
-
-    studentData.put(String.valueOf(nId++),
-        new Object[] {"MDS vs Actual Decision", "", "", "", "", "=COUNTIF(F2:F" + id + ",\"False\")", ""});
-
-    // Important for formula calculations
-    var totalMistakeindex = id + 3;
-    var MDSvsActualIndex = totalMistakeindex + 1;
-    var totalInstElemsIndex = MDSvsActualIndex + 1;
-    var instElemsIndex = totalInstElemsIndex + 1;
-    var studExtraIndex = instElemsIndex + 1;
-    var addFalseNegIndex = studExtraIndex + 1;
-    var addFalsePosIndex = addFalseNegIndex + 1;
-    var totalElemsIndex = addFalsePosIndex + 1;
-    var totalNumbVerdictsIndex = totalElemsIndex + 1;
-    var tnIndex = totalNumbVerdictsIndex + 6;
-    var tpIndex = tnIndex + 1;
-    var fpIndex = tpIndex + 1;
-    var fnIndex = fpIndex + 1;
-    var recallIndex = fnIndex + 1;
-    var precisionIndex = recallIndex + 1;
-    studentData.put(String.valueOf(nId++), new Object[] {"Total number of instructor elements", 102});
-    studentData.put(String.valueOf(nId++),
-        new Object[] {"Instructor elements present", "=COUNT(E2:E" + instructorElems + ")"});
-    studentData.put(String.valueOf(nId++),
-        new Object[] {"Extra Elements", sumOfMaximumsFormula("D", extraElemsStart, "E", id)});
-    studentData.put(String.valueOf(nId++), new Object[] {"Additional false negatives", 0});
-    studentData.put(String.valueOf(nId++), new Object[] {"Additional false positive", 0});
-    studentData.put(String.valueOf(nId++), new Object[] {"Total elements",
-        "=B" + totalInstElemsIndex + "+B" + studExtraIndex + "+B" + addFalseNegIndex + "+B" + addFalsePosIndex});
-    studentData.put(String.valueOf(nId++), new Object[] {"Total number of verdicts",
-        sumOfPlaceholdersFormula("IF(D%=2,1,IF(E%=2,1,0))", 2, instructorElems) + " + B" + totalElemsIndex});
-    studentData.put(String.valueOf(nId++), new Object[] {"TN+TP+FP+FN", "=SUM(C" + tnIndex + ":C" + fnIndex + ")"});
-
-    studentData.put(String.valueOf(nId++), new Object[] {""});
-    studentData.put(String.valueOf(nId++), new Object[] {"", "", "Actual Vs MDS"});
-
-    studentData.put(String.valueOf(nId++),
-        new Object[] {"Correct Identification % (mistakes)", "", "=C" + tpIndex + "/E" + totalMistakeindex + "*100"});
-    studentData.put(String.valueOf(nId++), new Object[] {"Correct Identification % (verdicts)", "",
-        "=((B" + totalNumbVerdictsIndex + "-F" + MDSvsActualIndex + ")/B" + totalNumbVerdictsIndex + ")*100"});
-    studentData.put(String.valueOf(nId++), new Object[] {"True Negative", "",
-        sumOfPlaceholdersFormula("IF(D%=0,IF(E%=0,1,0),0)", 2, instructorElems)
-        + " + (102 - B" + instElemsIndex + ")"});
-    studentData.put(String.valueOf(nId++), new Object[] {"True Positive", "",
-        sumOfPlaceholdersFormula("IF(D%>0,IF(D%>E%,E%,D%),0)", 2, id)});
-    studentData.put(String.valueOf(nId++), new Object[] {"False Positive", "",
-        sumOfPlaceholdersFormula("MAX(E%-D%,0)", 2, id) + " + B" + addFalsePosIndex});
-    studentData.put(String.valueOf(nId++), new Object[] {"False Negative", "",
-        sumOfPlaceholdersFormula("MAX(D%-E%,0)", 2, id) + " + B" + addFalseNegIndex});
-    studentData.put(String.valueOf(nId++),
-        new Object[] {"Recall (TP / (TP + FN))", "", "=(C" + tpIndex + "/(C" + tpIndex + "+C" + fnIndex + "))"});
-    studentData.put(String.valueOf(nId++),
-        new Object[] {"Precision (TP / (TP + FP))", "", "=(C" + tpIndex + "/(C" + tpIndex + "+C" + fpIndex + "))"});
-
-    studentData.put(String.valueOf(nId++), new Object[] {"F1 (2 * Precision * Recall / (Precision + Recall))", "",
-        "=(2*C" + precisionIndex + "*C" + recallIndex + ")/(C" + precisionIndex + "+C" + recallIndex + ")"});
-    studentData.put(String.valueOf(nId++), new Object[] {"F2 (5 * Precision * Recall) / (4 * Precision + Recall)", "",
-        "=(5*C" + precisionIndex + "*C" + recallIndex + ")/(4*C" + precisionIndex + "+C" + recallIndex + ")"});
-
-    try (XSSFWorkbook workbook = new XSSFWorkbook()) {
-      XSSFSheet spreadsheet = workbook.createSheet(name);
-
-      Set<String> keyid = studentData.keySet();
-      int rowid = 0;
-
-      for (String key : keyid) {
-        XSSFRow row = spreadsheet.createRow(rowid++);
-        Object[] objectArr = studentData.get(key);
-        int cellid = 0;
-        for (var obj : objectArr) {
-          XSSFCell cell = row.createCell(cellid++);
-          if (obj instanceof String) {
-            String sObj = (String) obj;
-            if (sObj.startsWith("=")) {
-              sObj = sObj.replaceFirst("=", "");
-              cell.setCellFormula(sObj);
-            } else {
-              cell.setCellValue(sObj);
+            if (instElem.equals(instElem1) && studElem.equals(studElem1)
+                && !(mistakeType1Name.equals(WRONG_MULTIPLICTY) && mistakeType2Name.equals(WRONG_ROLE_NAME))
+                && !(mistakeType1Name.equals(WRONG_ROLE_NAME) && mistakeType2Name.equals(WRONG_MULTIPLICTY))) {
+              mistakeType += ", " + m1.getMistakeType().getName();
+              count++;
             }
-          } else {
-            cell.setCellValue((int) obj);
           }
         }
+        var fnlString = instElem + studElem;
+        if (!printedToExcel.contains(fnlString) || mistakeType.equals(WRONG_ROLE_NAME)
+            || mistakeType.equals(WRONG_MULTIPLICTY)) {
+          id++;
+          var rowNum = sheet.rowNumber + 1;
+          // include count by default in "Actually a Mistake" column to minimize copy-pasting
+          sheet.addRow(instElem, studElem, mistakeType, count, count, "=D" + rowNum + "=E" + rowNum);
+          numMtRows++;
+          printedToExcel.add(fnlString);
+        }
       }
-      try (FileOutputStream out = new FileOutputStream(new File(location + "GroundTruth_" + name + ".xlsx"))) {
+      int instructorElems = id - 1;
+      int extraElemsStart = id;
+      printedToExcel = new ArrayList<>();
+      for (Mistake m : extraMistakes) {
+        int count = 1;
+        var instElem = getConcatNames(m.getInstructorElementNames());
+        var studElem = getConcatNames(m.getStudentElementNames());
+
+        var mistakeType = m.getMistakeType().getName();
+        for (Mistake m1 : extraMistakes) {
+          if (m != m1) {
+            var instElem1 = getConcatNames(m1.getInstructorElementNames());
+            var studElem1 = getConcatNames(m1.getStudentElementNames());
+            var mistakeType1Name = m.getMistakeType().getName();
+            var mistakeType2Name = m1.getMistakeType().getName();
+            if (instElem.equals(instElem1) && studElem.equals(studElem1)
+                && !(mistakeType1Name.equals(WRONG_MULTIPLICTY) && mistakeType2Name.equals(WRONG_ROLE_NAME))
+                && !(mistakeType1Name.equals(WRONG_ROLE_NAME) && mistakeType2Name.equals(WRONG_MULTIPLICTY))) {
+              mistakeType += ", " + m1.getMistakeType().getName();
+              count++;
+            }
+          }
+        }
+        var fnlString = instElem + studElem;
+        if (!printedToExcel.contains(fnlString) || mistakeType.equals(WRONG_ROLE_NAME)
+            || mistakeType.equals(WRONG_MULTIPLICTY)) {
+          var rowNum = sheet.rowNumber + 1;
+          sheet.addRow(instElem, studElem, mistakeType, count, count, "=D" + rowNum + "=E" + rowNum);
+          numMtRows++;
+          id++;
+          printedToExcel.add(fnlString);
+        }
+      }
+
+      System.out.println("numMtRows: " + numMtRows);
+
+      var mainTableLastRow = sheet.rowNumber;
+      sheet.addRow()
+          .addRow()
+          .addRow("Total Mistakes", "", "", "=SUM(D2:D" + mainTableLastRow + ")", "=SUM(E2:E" + mainTableLastRow + ")")
+          .addRow("MDS vs Actual Decision", "", "", "", "", "=COUNTIF(F2:F" + mainTableLastRow + ",\"False\")");
+
+      // Important for formula calculations
+      var totalMistakeindex = id + 3;
+      var MDSvsActualIndex = totalMistakeindex + 1;
+      var totalInstElemsIndex = MDSvsActualIndex + 1;
+      var instElemsIndex = totalInstElemsIndex + 1;
+      var studExtraIndex = instElemsIndex + 1;
+      var addFalseNegIndex = studExtraIndex + 1;
+      var addFalsePosIndex = addFalseNegIndex + 1;
+      var totalElemsIndex = addFalsePosIndex + 1;
+      var totalNumbVerdictsIndex = totalElemsIndex + 1;
+      var tnIndex = totalNumbVerdictsIndex + 6;
+      var tpIndex = tnIndex + 1;
+      var fpIndex = tpIndex + 1;
+      var fnIndex = fpIndex + 1;
+      var recallIndex = fnIndex + 1;
+      var precisionIndex = recallIndex + 1;
+
+      sheet.addRow("Total number of instructor elements", numElements(comparison.instructorCdm))
+          .addRow("Instructor elements present", "=COUNT(E2:E" + instructorElems + ")")
+          .addRow("Extra Elements", sumOfMaximumsFormula("D", extraElemsStart, "E", id))
+          .addRow("Additional false negatives", 0)
+          .addRow("Additional false positive", 0)
+          .addRow("Total elements",
+              "=B" + totalInstElemsIndex + "+B" + studExtraIndex + "+B" + addFalseNegIndex + "+B" + addFalsePosIndex)
+          .addRow("Total number of verdicts",
+              sumOfPlaceholdersFormula("IF(D%=2,1,IF(E%=2,1,0))", 2, instructorElems) + " + B" + totalElemsIndex)
+          .addRow("TN+TP+FP+FN", "=SUM(C" + tnIndex + ":C" + fnIndex + ")")
+          .addRow()
+          .addRow("", "", "Actual Vs MDS")
+          .addRow("Correct Identification % (mistakes)", "", "=C" + tpIndex + "/E" + totalMistakeindex + "*100")
+          .addRow("Correct Identification % (verdicts)", "",
+              "=((B" + totalNumbVerdictsIndex + "-F" + MDSvsActualIndex + ")/B" + totalNumbVerdictsIndex + ")*100")
+          .addRow("True Negative", "", sumOfPlaceholdersFormula("IF(D%=0,IF(E%=0,1,0),0)", 2, instructorElems) + " + ("
+              + numElements(comparison.instructorCdm) + " - B" + instElemsIndex + ")")
+          .addRow("True Positive", "", sumOfPlaceholdersFormula("IF(D%>0,IF(D%>E%,E%,D%),0)", 2, id))
+          .addRow("False Positive", "", sumOfPlaceholdersFormula("MAX(E%-D%,0)", 2, id) + " + B" + addFalsePosIndex)
+          .addRow("False Negative", "", sumOfPlaceholdersFormula("MAX(D%-E%,0)", 2, id) + " + B" + addFalseNegIndex)
+          .addRow("Recall (TP / (TP + FN))", "", "=(C" + tpIndex + "/(C" + tpIndex + "+C" + fnIndex + "))")
+          .addRow("Precision (TP / (TP + FP))", "", "=(C" + tpIndex + "/(C" + tpIndex + "+C" + fpIndex + "))")
+          .addRow("F1 (2 * Precision * Recall / (Precision + Recall))", "",
+              "=(2*C" + precisionIndex + "*C" + recallIndex + ")/(C" + precisionIndex + "+C" + recallIndex + ")")
+          .addRow("F2 (5 * Precision * Recall) / (4 * Precision + Recall)", "",
+              "=(5*C" + precisionIndex + "*C" + recallIndex + ")/(4*C" + precisionIndex + "+C" + recallIndex + ")");
+
+      Files.createDirectories(Path.of(location));
+      var filename = "GroundTruth_" + name + ".xlsx";
+      try (var out = new FileOutputStream(Path.of(location, filename).toAbsolutePath().toString())) {
         workbook.write(out);
+        System.out.println(filename + " created");
       }
+    } catch (IOException e) {
+      e.printStackTrace();
     }
-    System.out.println(name + " excel created");
   }
 
   public static String getConcatNames(List<String> elems) {
     return String.join(", ", elems);
+  }
+
+  /** Sets up and returns the hotel instructor solution. */
+  private static Solution setupHotelInstructorSolution() {
+    var instructorClassDiagram = cdmFromFile(HOTEL_INSTRUCTOR_SOLUTION);
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+    var tagGroup = setAbstractionTagToClassInClassDiag("RoomType", instructorClassDiagram, instructorSolution);
+    setOccurrenceTagToClassInClassDiag("Room", tagGroup, instructorClassDiagram);
+    setSynonymsFromFile(instructorSolution, HOTEL_SYNONYMS_FILE);
+    return instructorSolution;
+  }
+
+  /** Sets up and returns the hotel instructor solutions. */
+  private static List<Solution> setupSmartHomeInstructorSolutions() {
+    try (var files = Files.list(Path.of(SMART_HOME_INSTRUCTOR_SOLUTION_DIR))) {
+      return files.filter(f -> f.toString().endsWith(".cdm"))
+          .map(f -> setSynonymsFromFile(instructorSolutionFromClassDiagram(cdmFromFile(f)), SMART_HOME_SYNONYMS_FILE))
+          .collect(Collectors.toUnmodifiableList());
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return Collections.emptyList();
+  }
+
+  /* Sets synonyms in the given instructor solution based on the given properties file. */
+  private static Solution setSynonymsFromFile(Solution instSolution, String synonymsFile) {
+    var props = new Properties();
+    var instCdm = instSolution.getClassDiagram();
+    try (var fis = new FileInputStream(synonymsFile)) {
+      props.load(fis);
+      props.entrySet().forEach(e -> {
+        var name = (String) e.getKey();
+        var syns = Arrays.stream(((String) e.getValue()).split(",")).map(String::trim)
+            .collect(Collectors.toUnmodifiableList());
+        if (!name.contains(".")) {
+          try {
+            setSynonymToClassInClassDiag(name, syns, instCdm, instSolution);
+          } catch (Exception ex) { // ignored (some elements may not exist in all inst solution variations)
+          }
+        } else {
+          var splitName = name.split("\\.");
+          var className = splitName[0];
+          var propertyName = splitName[1];
+          try {
+            var cls = getClassFromClassDiagram(className, instCdm);
+            if (cls.getAttributes().stream().map(Attribute::getName).anyMatch(n -> n.equals(propertyName))) {
+              try {
+                setSynonymToAttribInClassInClassDiag(cls, propertyName, syns, instCdm, instSolution);
+              } catch (Exception ex) { // ignored
+              }
+            } else {
+              try {
+                setSynonymToRoleInClassInClassDiag(cls, propertyName, syns, instCdm, instSolution);
+              } catch (Exception ex) { // ignored
+              }
+            }
+          } catch (Exception ex) { // ignored
+          }
+        }
+      });
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return instSolution;
+  }
+
+  /**
+   * Applies final exam criteria to the input comparison. The rules to be applied are:
+   *
+   *   Do not consider attribute types.
+   */
+  private static Comparison applyFinalExamCriteria(Comparison comparison) {
+    comparison.newMistakes.removeIf(m -> (m.getMistakeType() == WRONG_ATTRIBUTE_TYPE));
+    return comparison;
   }
 
   /** Returns a formula in the form "=MAX(A1:C1)+MAX(A2:C2)+...", where the parameters are inclusive. */
@@ -613,9 +538,68 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
     return sb.toString();
   }
 
-  /** Returns the student class diagram with the given identifier. */
-  private static ClassDiagram getStudentClassDiagram(String id) {
-    return cdmFromFile(Paths.get(STUDENT_SOLUTION_DIR, STUDENT_SOLUTION_DIR_NAME_PREFIX + id, CDM_PATH));
+  /** Returns the number of elements in the given class diagram according to the formula used in the experiment. */
+  private static int numElements(ClassDiagram cdm) {
+    final var primitiveTypes = List.of(CDByte.class, CDBoolean.class, CDChar.class, CDDouble.class, CDFloat.class,
+        CDInt.class, CDLong.class, CDString.class, CDAny.class, CDArray.class);
+    final var layoutTypes = List.of(Layout.class, ContainerMapImpl.class, ElementMapImpl.class, LayoutElement.class);
+    int[] resultBox = { 1 };
+    cdm.eAllContents().forEachRemaining(e -> {
+      if (Stream.concat(primitiveTypes.stream(), layoutTypes.stream()).noneMatch(t -> t.isInstance(e))) {
+        if (e instanceof AssociationEnd) {
+          resultBox[0] += 2; // role name, multiplicity
+        } else if (e instanceof Classifier) {
+          resultBox[0] += 1 + ((Classifier) e).getSuperTypes().size();
+        } else {
+          resultBox[0]++;
+        }
+      }
+    });
+    return resultBox[0];
+  }
+
+  /** Returns the hotel student class diagram with the given identifier. */
+  private static ClassDiagram getHotelStudentClassDiagram(String id) {
+    return cdmFromFile(
+        Path.of(HOTEL_STUDENT_SOLUTION_DIR, HOTEL_STUDENT_SOLUTION_DIR_NAME_PREFIX + id, HOTEL_CDM_PATH));
+  }
+
+  /** Wrapper class for an Apache POI XSSFSheet with automatic row management. */
+  static class SpreadsheetWrapper {
+    XSSFSheet sheet;
+    int rowNumber = 0;
+
+    public SpreadsheetWrapper(XSSFSheet sheet) {
+      this.sheet = sheet;
+    }
+
+    /**
+     * Adds a row with the following cells to the spreadsheet wrapper and returns the wrapper class to allow for
+     * chained invocations.
+     */
+    public SpreadsheetWrapper addRow(Object... cellItems) {
+      if (cellItems == null || cellItems.length == 0) {
+        cellItems = new Object[] {""};
+      }
+      XSSFRow row = sheet.createRow(rowNumber);
+      for (int i = 0; i < cellItems.length; i++) {
+        XSSFCell cell = row.createCell(i);
+        var item = cellItems[i];
+        if (item instanceof String) {
+          var itemStr = (String) item;
+          if (itemStr.startsWith("=")) {
+            itemStr = itemStr.replaceFirst("=", "");
+            cell.setCellFormula(itemStr);
+          } else {
+            cell.setCellValue(itemStr);
+          }
+        } else if (item instanceof Integer) {
+          cell.setCellValue((int) item);
+        }
+      }
+      rowNumber++;
+      return this;
+    }
   }
 
 }

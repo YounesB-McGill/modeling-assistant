@@ -254,6 +254,10 @@ public abstract class MistakeDetectionInformationService {
 
   /** Returns true if the solution element is part of a student solution. */
   public static boolean hasStudent(SolutionElement e) {
+    if (e.getSolution() == null) {
+      throw new IllegalArgumentException("Solution element '" + e + "' (with element " + e.getElement() + ", cdm "
+          + e.getElement().eContainer() + ") is not contained in a solution!");
+    }
     return e.getSolution().getStudent() != null;
   }
 
